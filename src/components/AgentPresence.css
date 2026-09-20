@@ -1,0 +1,135 @@
+.agent-presence {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.agent-presence-xs { width: 16px; height: 16px; }
+.agent-presence-sm { width: 24px; height: 24px; }
+.agent-presence-md { width: 32px; height: 32px; }
+.agent-presence-hero { width: 64px; height: 64px; }
+
+.agent-presence-core {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--app-text);
+  transition: background-color var(--d3) var(--ease-fx), border-color var(--d3) var(--ease-fx), color var(--d3) var(--ease-fx), box-shadow var(--d3) var(--ease-fx);
+  z-index: 2;
+}
+
+.agent-presence-idle .agent-presence-core {
+  background-color: var(--app-faint);
+}
+
+.agent-presence-available .agent-presence-core {
+  background-color: var(--color-success);
+}
+
+.agent-presence-offline .agent-presence-core {
+  background-color: var(--app-faint);
+  opacity: 0.5;
+}
+
+.agent-presence-listening .agent-presence-core {
+  background-color: var(--app-blue);
+  transform: scale(0.9);
+}
+
+.agent-presence-thinking .agent-presence-core {
+  background-color: var(--app-blue-strong);
+}
+
+.agent-presence-streaming .agent-presence-core,
+.agent-presence-speaking .agent-presence-core {
+  background-color: var(--app-blue);
+}
+
+.agent-presence-tool-use .agent-presence-core {
+  background-color: var(--color-warning);
+  border-radius: 4px; /* Shape change, not just color */
+}
+
+.agent-presence-error .agent-presence-core {
+  background-color: var(--color-error);
+  border-radius: 0;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.agent-presence-success .agent-presence-core {
+  background-color: var(--color-success);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* Waves for listening/speaking */
+.agent-presence-waves {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.agent-presence-wave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: inherit;
+  opacity: 0;
+}
+
+@keyframes pulse-wave {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+}
+
+.agent-presence-listening .agent-presence-wave,
+.agent-presence-speaking .agent-presence-wave {
+  animation: pulse-wave 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: var(--app-blue);
+}
+
+.agent-presence-listening .agent-presence-wave-2 { animation-delay: 0.6s; }
+.agent-presence-listening .agent-presence-wave-3 { animation-delay: 1.2s; }
+
+/* Spinner for thinking/tool-use */
+.agent-presence-spinner {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  z-index: 3;
+  animation: spin var(--ease-cycle) infinite linear;
+}
+
+.agent-presence-thinking .agent-presence-spinner { color: var(--app-blue-strong); }
+.agent-presence-tool-use .agent-presence-spinner { color: var(--color-warning); }
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agent-presence-wave,
+  .agent-presence-spinner {
+    animation: none;
+    display: none;
+  }
+  
+  .agent-presence-thinking .agent-presence-core {
+    border: 2px dashed var(--app-text);
+  }
+}

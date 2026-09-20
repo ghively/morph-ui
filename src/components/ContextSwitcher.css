@@ -1,0 +1,79 @@
+.context-switcher {
+  position: relative;
+  display: inline-block;
+  font-family: inherit;
+}
+
+.context-switcher-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--app-elev);
+  border: 1px solid var(--app-line);
+  border-radius: 8px;
+  padding: 6px 12px;
+  color: var(--app-text);
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color var(--d2) var(--ease-fx), border-color var(--d2) var(--ease-fx), color var(--d2) var(--ease-fx);
+}
+
+.context-switcher-trigger:hover,
+.context-switcher-trigger[aria-expanded="true"] {
+  background: var(--app-hover);
+  border-color: var(--app-faint);
+}
+
+.context-switcher-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 160px;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: var(--app-elev);
+  border: 1px solid var(--app-line);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 100;
+  animation: slide-up var(--d2) var(--ease-spring);
+}
+
+.context-switcher-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--app-dim);
+  font-size: 13px;
+  transition: background-color var(--d2) var(--ease-fx);
+}
+
+.context-switcher-item:hover,
+.context-switcher-item:focus {
+  background: var(--app-hover);
+  color: var(--app-text);
+  outline: none;
+}
+
+.context-switcher-item.selected {
+  color: var(--app-text);
+}
+
+.check-icon {
+  color: var(--app-blue);
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .context-switcher-menu {
+    animation: none;
+  }
+}

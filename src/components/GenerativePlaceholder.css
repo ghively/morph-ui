@@ -1,0 +1,76 @@
+.gen-placeholder {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.gen-shimmer-wrapper {
+  position: relative;
+  /* One coordinated animation across the placeholder per spec */
+}
+
+.gen-shimmer-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.05) 20%,
+    rgba(255, 255, 255, 0.1) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  animation: shimmer 2s infinite;
+  pointer-events: none;
+}
+
+.gen-line {
+  height: 12px;
+  background: var(--app-line);
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.gen-card {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  background: var(--app-elev);
+  border-radius: 12px;
+  border: 1px solid var(--app-line);
+}
+
+.gen-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--app-line);
+  flex-shrink: 0;
+}
+
+.gen-card .gen-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gen-shimmer-wrapper::after {
+    animation: none;
+    background-image: none;
+  }
+  .gen-line, .gen-avatar {
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,36 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Morph UI — design tokens (dark default, ported from ChatUIMorph app.css)
+
+   Values are the exact production values the components were built against
+   (dark frame defaults). Hosts that want the light frame should override these
+   on their own :root / wrapper — the components only read the custom
+   properties, never hard-code colors.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* surfaces & ink */
+  --app-text: #eef1fc;
+  --app-dim: #a9b0d8;
+  --app-faint: #979ecd;
+  --app-elev: rgba(34, 46, 112, 0.72);
+  --app-hover: rgba(150, 175, 255, 0.1);
+  --app-line: rgba(150, 175, 255, 0.16);
+
+  /* accents */
+  --app-blue: #6c9cf0;
+  --app-blue-strong: #1f6fe6;
+
+  /* semantic */
+  --color-success: #1a9b5e;
+  --color-warning: #e08c20;
+  --color-error: #d63c3c;
+
+  /* motion */
+  --d-scale: 1;
+  --d2: calc(220ms * var(--d-scale));
+  --d3: calc(360ms * var(--d-scale));
+  --ease-spring: cubic-bezier(0.42, 1.67, 0.21, 0.9);
+  --ease-morph: cubic-bezier(0.38, 1.21, 0.22, 1);
+  --ease-fx: cubic-bezier(0.31, 0.94, 0.34, 1);
+  --ease-cycle: linear;
+}

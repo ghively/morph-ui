@@ -1,0 +1,186 @@
+.mm-composer {
+  background: var(--app-elev);
+  border: 1px solid var(--app-line);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  transition: background-color var(--d3) var(--ease-fx), border-color var(--d3) var(--ease-fx), color var(--d3) var(--ease-fx), box-shadow var(--d3) var(--ease-fx);
+  position: relative;
+  overflow: hidden;
+}
+
+.mm-composer.focused {
+  border-color: var(--app-faint);
+  box-shadow: 0 0 0 1px var(--app-faint);
+}
+
+.mm-composer.dragging {
+  border-color: var(--app-blue);
+  background: var(--app-hover);
+}
+
+.mm-attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 12px 0;
+  animation: slide-down var(--d2) var(--ease-spring);
+}
+
+.mm-attachment-item {
+  background: var(--app-line);
+  padding: 4px 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--app-text);
+}
+
+.mm-attachment-remove {
+  background: none;
+  border: none;
+  color: var(--app-dim);
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.mm-attachment-remove:hover {
+  color: var(--app-text);
+}
+
+.mm-input-row {
+  display: flex;
+  align-items: flex-end;
+  padding: 12px;
+  gap: 12px;
+  min-height: 48px;
+}
+
+.mm-textarea {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--app-text);
+  font-family: inherit;
+  font-size: 14px;
+  resize: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  line-height: 1.5;
+  max-height: 200px;
+  min-height: 21px;
+}
+
+.mm-textarea::placeholder {
+  color: var(--app-dim);
+}
+
+.mm-icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--app-dim);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: color var(--d2) var(--ease-fx), background-color var(--d2) var(--ease-fx);
+}
+
+.mm-icon-btn:hover {
+  color: var(--app-text);
+  background: var(--app-line);
+}
+
+.mm-voice-btn.active {
+  color: var(--color-error);
+  animation: pulse-red 2s infinite;
+}
+
+.mm-send-btn {
+  background: var(--app-blue);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform var(--d2) var(--ease-spring);
+}
+
+.mm-send-btn:hover {
+  transform: scale(1.05);
+}
+
+.mm-send-btn:active {
+  transform: scale(0.95);
+}
+
+.mm-voice-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  animation: fade-in var(--d2) var(--ease-fx);
+}
+
+.mm-voice-text {
+  color: var(--app-blue);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.mm-drop-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(33, 150, 243, 0.1);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--app-blue);
+  font-weight: 500;
+  z-index: 10;
+  pointer-events: none;
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse-red {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.4); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(244, 67, 54, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 67, 54, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mm-composer, .mm-send-btn {
+    transition: none;
+  }
+  .mm-attachments, .mm-voice-container {
+    animation: none;
+  }
+  .mm-voice-btn.active {
+    animation: none;
+  }
+}
