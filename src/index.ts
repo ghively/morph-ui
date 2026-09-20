@@ -11,3 +11,7 @@ export * from "./components/AgentActivityCapsule";
 export * from "./components/GenerativePlaceholder";
 export * from "./components/ContextSwitcher";
 export * from "./components/MultimodalComposer";
+export * from "./components/MetricSparkline";
+export * from "./components/TokenPills";
+export * from "./components/CodeDiffViewer";
+export * from "./components/AgentActivityHeatmap";

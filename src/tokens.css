@@ -5,7 +5,7 @@
    (dark frame defaults). Hosts that want the light frame should override these
    on their own :root / wrapper — the components only read the custom
    properties, never hard-code colors.
-   ═══════════════════════════════════════════════════════════════════════════ */
+   ═════════════════════文════════════════════════════════════════════════════ */
 
 :root {
   /* surfaces & ink */
@@ -15,6 +15,9 @@
   --app-elev: rgba(34, 46, 112, 0.72);
   --app-hover: rgba(150, 175, 255, 0.1);
   --app-line: rgba(150, 175, 255, 0.16);
+  --app-bg: #080c2c;
+  --app-panel: rgba(27, 37, 92, 0.55);
+  --app-blue-soft: rgba(108, 156, 240, 0.18);
 
   /* accents */
   --app-blue: #6c9cf0;
@@ -24,13 +27,52 @@
   --color-success: #1a9b5e;
   --color-warning: #e08c20;
   --color-error: #d63c3c;
+  --color-success-bg: #e3faf0;
+  --color-success-border: #8fe3c0;
+  --color-success-text: #0a7a45;
+  --color-error-bg: #fde8e8;
+  --color-error-border: #f2b3b3;
+  --color-error-text: #c43a3a;
+  --color-info-bg: rgba(31, 111, 230, 0.16);
+  --color-info-border: rgba(31, 111, 230, 0.4);
+  --color-info-text: #7fb0f5;
+  --color-surface-raised: rgba(4, 18, 58, 0.16);
+
+  /* CPI gray ramp (dark-frame remaps: 400/500/600 alias app ink levels) */
+  --cpi-gray-50: #f8f8f8;
+  --cpi-gray-100: #f0f0f0;
+  --cpi-gray-200: #d4d4d4;
+  --cpi-gray-300: #b4b4b4;
+  --cpi-gray-400: var(--app-faint);
+  --cpi-gray-500: var(--app-dim);
+  --cpi-gray-600: var(--app-text);
+  --cpi-gray-700: #2e2e2e;
+  --cpi-navy-800: #0b0544;
+  --cpi-blue-500: #1f6fe6;
+
+  /* typography */
+  --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
+  --app-mono: ui-monospace, SFMono-Regular, "SF Mono", "JetBrains Mono", Menlo, var(--font-mono, "Courier New"), monospace;
+  --t-ctl: 12.5px;
+  --t-meta: 11.5px;
+
+  /* geometry */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 10px;
+  --r-md: 12px;
 
   /* motion */
   --d-scale: 1;
+  --d1: calc(130ms * var(--d-scale));
   --d2: calc(220ms * var(--d-scale));
   --d3: calc(360ms * var(--d-scale));
+  --d5: calc(780ms * var(--d-scale));
   --ease-spring: cubic-bezier(0.42, 1.67, 0.21, 0.9);
   --ease-morph: cubic-bezier(0.38, 1.21, 0.22, 1);
+  --ease-soft: cubic-bezier(0.39, 1.29, 0.35, 0.98);
   --ease-fx: cubic-bezier(0.31, 0.94, 0.34, 1);
+  --ease-emph: cubic-bezier(0.34, 0.8, 0.34, 1);
   --ease-cycle: linear;
 }

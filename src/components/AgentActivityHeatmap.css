@@ -1,0 +1,95 @@
+.agent-activity-heatmap {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-family: inherit;
+}
+
+.agent-activity-heatmap-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.agent-activity-heatmap-metric-btn {
+  background: transparent;
+  border: 1px solid var(--app-faint);
+  color: var(--app-text);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color var(--d3) var(--ease-fx), color var(--d3) var(--ease-fx);
+}
+
+.agent-activity-heatmap-metric-btn[aria-pressed="true"] {
+  background: var(--app-blue);
+  color: var(--app-bg);
+  border-color: var(--app-blue);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agent-activity-heatmap-metric-btn {
+    transition: none;
+  }
+}
+
+.agent-activity-heatmap-grid-container {
+  display: flex;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.agent-activity-heatmap-grid {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  grid-auto-flow: column;
+  gap: 4px;
+}
+
+.agent-activity-heatmap-cell {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  background-color: var(--app-faint);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx);
+  outline: none;
+}
+
+.agent-activity-heatmap-cell:focus-visible {
+  outline: 2px solid var(--app-blue-strong);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agent-activity-heatmap-cell {
+    transition: none;
+  }
+}
+
+.agent-activity-heatmap-cell[data-level="0"] { background-color: var(--app-faint); opacity: 0.2; }
+.agent-activity-heatmap-cell[data-level="1"] { background-color: var(--app-blue-soft); }
+.agent-activity-heatmap-cell[data-level="2"] { background-color: var(--app-blue); }
+.agent-activity-heatmap-cell[data-level="3"] { background-color: var(--app-blue-strong); }
+
+.agent-activity-heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--app-text);
+  opacity: 0.8;
+}
+
+.agent-activity-heatmap-legend-items {
+  display: flex;
+  gap: 4px;
+}
+
+.agent-activity-heatmap-legend-cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}

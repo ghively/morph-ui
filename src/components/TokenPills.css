@@ -1,0 +1,28 @@
+.token-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  align-items: center;
+}
+
+/* Leverage existing [data-chip] styling from runtime.css / app.css 
+   We wrap them in token-pills and apply our layout/motion logic */
+.token-pills > .token-pill {
+  /* Spatial motion for pill add/remove reflow */
+  transition: 
+    background-color var(--d2) var(--ease-fx),
+    color var(--d2) var(--ease-fx),
+    border-color var(--d2) var(--ease-fx),
+    box-shadow var(--d3) var(--ease-emph),
+    transform var(--d3) var(--ease-soft),
+    margin var(--d3) var(--ease-spring),
+    padding var(--d3) var(--ease-spring),
+    opacity var(--d2) var(--ease-emph),
+    border-radius var(--d2) var(--ease-emph);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .token-pills > .token-pill {
+    transition: none !important;
+  }
+}
