@@ -18,4 +18,6 @@ export * from "./components/AgentActivityHeatmap";
 export * from "./components/AdaptiveBento";
 export * from "./components/ArchiveCollection";
 export * from "./components/PanelDestinationTransition";
+export * from "./components/AmbientState";
+export * from "./components/AgentTopologyView";
 export * from "./components/FluidWorkspaceBoard";
