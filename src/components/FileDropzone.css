@@ -1,7 +1,7 @@
 [data-dropzone] {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--s3);
   font: inherit;
 }
 
@@ -12,25 +12,25 @@
   gap: 6px;
   padding: 26px 18px;
   text-align: center;
-  border: 1.5px dashed var(--morph-border-strong, rgba(128, 128, 128, 0.6));
-  border-radius: var(--morph-radius-lg, 12px);
-  background: var(--morph-card-bg, rgba(128, 128, 128, 0.05));
+  border: 1.5px dashed var(--morph-border-strong);
+  border-radius: var(--morph-radius-lg);
+  background: var(--morph-card-bg);
   cursor: pointer;
 }
 
 [data-droparea]:hover:not([data-disabled]) {
-  border-color: var(--morph-accent, #2f7cf6);
+  border-color: var(--morph-accent);
 }
 
 [data-droparea]:focus-visible {
-  outline: 2px solid var(--morph-accent, #2f7cf6);
+  outline: 2px solid var(--morph-accent);
   outline-offset: 2px;
 }
 
 [data-droparea][data-dragging] {
   border-style: solid;
-  border-color: var(--morph-accent, #2f7cf6);
-  background: rgba(47, 124, 246, 0.08);
+  border-color: var(--morph-accent);
+  background: rgba(108, 156, 240, 0.08);
 }
 
 [data-droparea][data-disabled] {
@@ -43,12 +43,12 @@
 }
 
 [data-droptitle] {
-  font-size: 14px;
+  font-size: var(--t-lead);
   font-weight: 650;
 }
 
 [data-drophint] {
-  font-size: 12.5px;
+  font-size: var(--t-ctl);
   opacity: 0.7;
   max-width: 380px;
 }
@@ -65,12 +65,12 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 12.5px;
+  font-size: var(--t-ctl);
   font-weight: 600;
-  color: var(--morph-danger, #f2555a);
+  color: var(--morph-danger);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--s1);
 }
 
 [data-droplist] {
@@ -85,10 +85,10 @@
 [data-dropfile] {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--s3);
   padding: 8px 10px;
-  font-size: 13px;
-  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.32));
+  font-size: var(--t-body);
+  border: 1px solid var(--morph-border);
   border-radius: 8px;
 }
 
@@ -105,7 +105,7 @@
   flex: none;
   font-variant-numeric: tabular-nums;
   opacity: 0.7;
-  font-size: 12px;
+  font-size: var(--t-small);
 }
 
 [data-dropfile] button {
@@ -113,7 +113,7 @@
   border: none;
   background: transparent;
   color: inherit;
-  font-size: 15px;
+  font-size: var(--t-input);
   cursor: pointer;
   border-radius: 6px;
   padding: 0 5px;

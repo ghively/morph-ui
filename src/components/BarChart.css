@@ -7,8 +7,8 @@
 [data-bararea] {
   display: flex;
   align-items: stretch;
-  gap: 10px;
-  border-bottom: 1px solid var(--morph-border, rgba(128, 128, 128, 0.35));
+  gap: var(--s3);
+  border-bottom: 1px solid var(--morph-border);
   padding-bottom: 0;
 }
 
@@ -23,7 +23,7 @@
 }
 
 [data-barvalue] {
-  font-size: 11.5px;
+  font-size: var(--t-meta);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
@@ -35,7 +35,7 @@
 }
 
 [data-barlabel] {
-  font-size: 11.5px;
+  font-size: var(--t-meta);
   opacity: 0.78;
   white-space: nowrap;
   overflow: hidden;
@@ -46,7 +46,7 @@
 
 [data-barempty] {
   margin: auto;
-  font-size: 13px;
+  font-size: var(--t-body);
   opacity: 0.7;
 }
 

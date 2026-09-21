@@ -1,7 +1,7 @@
 [data-card] {
-  background: var(--morph-card-bg, rgba(128, 128, 128, 0.07));
-  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.32));
-  border-radius: var(--morph-radius-lg, 12px);
+  background: var(--morph-card-bg);
+  border: 1px solid var(--morph-border);
+  border-radius: var(--morph-radius-lg);
   padding: 16px;
   min-width: 0;
 }
@@ -10,7 +10,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--s4);
   margin-bottom: 12px;
 }
 
@@ -20,24 +20,24 @@
 
 [data-cardtitle] {
   margin: 0;
-  font-size: 14px;
+  font-size: var(--t-lead);
   font-weight: 650;
 }
 
 [data-cardsubtitle] {
   margin: 2px 0 0;
-  font-size: 12.5px;
+  font-size: var(--t-ctl);
   opacity: 0.72;
 }
 
 [data-cardactions] {
   display: flex;
-  gap: 8px;
+  gap: var(--s2);
   align-items: center;
   flex: none;
 }
 
 [data-cardbody] {
   min-width: 0;
-  font-size: 13.5px;
+  font-size: var(--t-title);
 }

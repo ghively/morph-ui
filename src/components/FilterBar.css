@@ -2,10 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: var(--s3);
   flex-wrap: wrap;
   font: inherit;
-  font-size: 12.5px;
+  font-size: var(--t-ctl);
 }
 
 [data-filterbar][data-empty] {
@@ -29,30 +29,30 @@
   font-weight: 600;
   padding: 4px 5px 4px 10px;
   border-radius: 999px;
-  background: rgba(47, 124, 246, 0.13);
-  border: 1px solid rgba(47, 124, 246, 0.38);
+  background: rgba(108, 156, 240, 0.13);
+  border: 1px solid rgba(108, 156, 240, 0.38);
 }
 
 [data-filterchip] button {
   border: none;
-  background: rgba(47, 124, 246, 0.2);
+  background: rgba(108, 156, 240, 0.2);
   color: inherit;
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  font-size: 12px;
+  font-size: var(--t-small);
   line-height: 1;
   cursor: pointer;
 }
 
 [data-filterchip] button:hover {
-  background: rgba(47, 124, 246, 0.38);
+  background: rgba(108, 156, 240, 0.38);
 }
 
 [data-filteractions] {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--s3);
 }
 
 [data-filtercount] {
@@ -66,7 +66,7 @@
   font-weight: 650;
   border: none;
   background: transparent;
-  color: var(--morph-accent, #2f7cf6);
+  color: var(--morph-accent);
   cursor: pointer;
   padding: 2px 4px;
 }

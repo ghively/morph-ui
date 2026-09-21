@@ -33,10 +33,13 @@
   --color-error-bg: #fde8e8;
   --color-error-border: #f2b3b3;
   --color-error-text: #c43a3a;
+  --color-warning-bg: rgba(224, 140, 32, 0.16);
+  --color-warning-border: rgba(224, 140, 32, 0.4);
   --color-info-bg: rgba(31, 111, 230, 0.16);
   --color-info-border: rgba(31, 111, 230, 0.4);
   --color-info-text: #7fb0f5;
   --color-surface-raised: rgba(4, 18, 58, 0.16);
+  --app-surface-raised: var(--color-surface-raised);
 
   /* CPI gray ramp (dark-frame remaps: 400/500/600 alias app ink levels) */
   --cpi-gray-50: #f8f8f8;
@@ -97,6 +100,7 @@
   --h-bar: 52px;
 
   /* radii */
+  --r-sm: 8px;
   --r-ctl: 12px;
   --r-card: 20px;
   --r-pane: 28px;
@@ -104,6 +108,7 @@
 
   /* typography */
   --t-small: 12px;
+  --t-body: 13px;
   --t-num: 11px;
   --t-input: 15px;
   --t-prose: 14.5px;
@@ -144,4 +149,59 @@
 
   /* theme-neutral (no sane default; hosts override) */
   --mark: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Morph UI — component token namespace (added 2026-09-21)
+
+   The component waves were authored against a `--morph-*` namespace that was
+   never declared, so every one of them silently rendered from the literal
+   fallback baked into each `var(--morph-x, #hex)` — and the waves disagreed
+   on those fallbacks (three accents, two greens, two reds, five border
+   alphas). That is what made the library look like two libraries.
+
+   These map the namespace onto the ChatUIMorph dark-frame tokens above, so
+   the components inherit the same palette, radii and ink as the rest of the
+   library. Host overrides still work the usual way: redeclare either layer
+   on :root. Tinted surfaces stay on the --app-blue hue (150,175,255) so they
+   read as one family rather than neutral gray.
+
+   --morph-fill-pct and --morph-tree-depth are deliberately absent: those are
+   per-instance runtime knobs set inline from the components' TSX.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ink */
+  --morph-fg: var(--app-text);
+  --morph-placeholder: var(--app-faint);
+  --morph-badge-fg: var(--app-text);
+
+  /* accents & semantics */
+  --morph-accent: var(--app-blue);
+  --morph-success: var(--color-success);
+  --morph-danger: var(--color-error);
+  --morph-warn: var(--color-warning);
+  --morph-info: var(--color-info-text);
+
+  /* surfaces */
+  --morph-card-bg: var(--app-panel);
+  --morph-menu-bg: var(--app-elev);
+  --morph-drawer-bg: var(--app-elev);
+  --morph-stack-ring: var(--app-bg);
+  --morph-hover: var(--app-hover);
+  --morph-input-bg: rgba(150, 175, 255, 0.07);
+  --morph-thead-bg: rgba(150, 175, 255, 0.09);
+  --morph-btn-bg: rgba(150, 175, 255, 0.12);
+  --morph-badge-bg: rgba(150, 175, 255, 0.16);
+  --morph-track: rgba(150, 175, 255, 0.18);
+  --morph-stack-bg: rgba(150, 175, 255, 0.24);
+
+  /* lines */
+  --morph-border: var(--app-line);
+  --morph-border-strong: rgba(150, 175, 255, 0.34);
+
+  /* radii — folded onto the existing scale (controls 12, cards 20) */
+  --morph-radius-sm: var(--r-sm);
+  --morph-radius: var(--r-ctl);
+  --morph-radius-lg: var(--r-card);
 }

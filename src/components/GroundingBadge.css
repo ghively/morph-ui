@@ -2,7 +2,7 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-size: 12.5px;
+  font-size: var(--t-ctl);
   font-weight: 650;
   padding: 4px 10px;
   border-radius: 999px;
@@ -19,21 +19,21 @@
 }
 
 [data-grounding][data-verdict='grounded'] {
-  color: var(--morph-success, #3cb179);
-  border-color: rgba(48, 164, 108, 0.4);
-  background: rgba(48, 164, 108, 0.12);
+  color: var(--morph-success);
+  border-color: rgba(26, 155, 94, 0.4);
+  background: rgba(26, 155, 94, 0.12);
 }
 
 [data-grounding][data-verdict='partial'] {
-  color: var(--morph-warn, #e8930c);
-  border-color: rgba(232, 147, 12, 0.45);
-  background: rgba(232, 147, 12, 0.12);
+  color: var(--morph-warn);
+  border-color: rgba(224, 140, 32, 0.45);
+  background: rgba(224, 140, 32, 0.12);
 }
 
 [data-grounding][data-verdict='ungrounded'] {
-  color: var(--morph-danger, #f2555a);
-  border-color: rgba(229, 72, 77, 0.45);
-  background: rgba(229, 72, 77, 0.12);
+  color: var(--morph-danger);
+  border-color: rgba(214, 60, 60, 0.45);
+  background: rgba(214, 60, 60, 0.12);
 }
 
 [data-groundingdetail] {

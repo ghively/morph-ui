@@ -1,12 +1,12 @@
 [data-citations] {
   display: inline-flex;
-  gap: 4px;
+  gap: var(--s1);
   vertical-align: baseline;
 }
 
 [data-cite] {
   font: inherit;
-  font-size: 11px;
+  font-size: var(--t-num);
   font-weight: 700;
   line-height: 1;
   min-width: 19px;
@@ -16,25 +16,25 @@
   align-items: center;
   justify-content: center;
   border-radius: 6px;
-  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
-  background: var(--morph-badge-bg, rgba(128, 128, 128, 0.14));
+  border: 1px solid var(--morph-border);
+  background: var(--morph-badge-bg);
   color: inherit;
   cursor: pointer;
   vertical-align: 2px;
 }
 
 [data-cite]:hover {
-  border-color: var(--morph-accent, #2f7cf6);
-  color: var(--morph-accent, #2f7cf6);
+  border-color: var(--morph-accent);
+  color: var(--morph-accent);
 }
 
 [data-cite]:focus-visible {
-  outline: 2px solid var(--morph-accent, #2f7cf6);
+  outline: 2px solid var(--morph-accent);
   outline-offset: 1px;
 }
 
 [data-cite][data-active] {
-  background: var(--morph-accent, #2f7cf6);
-  border-color: var(--morph-accent, #2f7cf6);
-  color: #fff;
+  background: var(--morph-accent);
+  border-color: var(--morph-accent);
+  color: var(--on-accent);
 }

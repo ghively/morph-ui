@@ -4,12 +4,12 @@
   flex-direction: column;
   gap: 6px;
   font: inherit;
-  font-size: 13.5px;
+  font-size: var(--t-title);
   min-width: 0;
 }
 
 [data-multiselect] > label {
-  font-size: 13px;
+  font-size: var(--t-body);
   font-weight: 600;
 }
 
@@ -20,14 +20,14 @@
   gap: 6px;
   min-height: 34px;
   padding: 4px 8px;
-  border-radius: var(--morph-radius, 8px);
-  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
-  background: var(--morph-input-bg, rgba(128, 128, 128, 0.08));
+  border-radius: var(--morph-radius);
+  border: 1px solid var(--morph-border);
+  background: var(--morph-input-bg);
   cursor: text;
 }
 
 [data-msbox]:focus-within {
-  outline: 2px solid var(--morph-accent, #2f7cf6);
+  outline: 2px solid var(--morph-accent);
   outline-offset: 1px;
 }
 
@@ -35,12 +35,12 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 12.5px;
+  font-size: var(--t-ctl);
   font-weight: 600;
   padding: 3px 4px 3px 9px;
   border-radius: 999px;
-  background: rgba(47, 124, 246, 0.15);
-  border: 1px solid rgba(47, 124, 246, 0.4);
+  background: rgba(108, 156, 240, 0.15);
+  border: 1px solid rgba(108, 156, 240, 0.4);
 }
 
 [data-mschip] button {
@@ -48,14 +48,14 @@
   background: transparent;
   color: inherit;
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--t-lead);
   line-height: 1;
   padding: 0 4px;
   border-radius: 999px;
 }
 
 [data-mschip] button:hover {
-  background: rgba(47, 124, 246, 0.25);
+  background: rgba(108, 156, 240, 0.25);
 }
 
 [data-msbox] input {
@@ -71,7 +71,7 @@
 
 [data-msclear] {
   font: inherit;
-  font-size: 11.5px;
+  font-size: var(--t-meta);
   font-weight: 650;
   border: none;
   background: transparent;
@@ -97,8 +97,8 @@
   max-height: 200px;
   overflow-y: auto;
   border-radius: 9px;
-  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
-  background: var(--morph-menu-bg, #23262c);
+  border: 1px solid var(--morph-border);
+  background: var(--morph-menu-bg);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
 }
 
@@ -109,11 +109,11 @@
 }
 
 [data-msoption]:hover {
-  background: var(--morph-hover, rgba(128, 128, 128, 0.16));
+  background: var(--morph-hover);
 }
 
 [data-msempty] {
   padding: 10px;
-  font-size: 12.5px;
+  font-size: var(--t-ctl);
   opacity: 0.7;
 }

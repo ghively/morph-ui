@@ -1,6 +1,6 @@
 [data-tree] {
   font: inherit;
-  font-size: 13.5px;
+  font-size: var(--t-title);
   display: flex;
   flex-direction: column;
   gap: 1px;
@@ -16,17 +16,17 @@
 }
 
 [data-treeitem]:hover {
-  background: var(--morph-hover, rgba(128, 128, 128, 0.1));
+  background: var(--morph-hover);
 }
 
 [data-treeitem]:focus-visible {
-  outline: 2px solid var(--morph-accent, #2f7cf6);
+  outline: 2px solid var(--morph-accent);
   outline-offset: -1px;
 }
 
 [data-treeitem][data-selected] {
-  background: rgba(47, 124, 246, 0.14);
-  color: var(--morph-accent, #4d94ff);
+  background: rgba(108, 156, 240, 0.14);
+  color: var(--morph-accent);
   font-weight: 650;
 }
 
@@ -47,7 +47,7 @@
 
 [data-treemeta] {
   flex: none;
-  font-size: 11.5px;
+  font-size: var(--t-meta);
   opacity: 0.6;
   font-variant-numeric: tabular-nums;
 }

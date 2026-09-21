@@ -27,14 +27,14 @@
 
 [data-searchfield] input[type='search'] {
   font: inherit;
-  font-size: 13.5px;
+  font-size: var(--t-title);
   height: 34px;
   width: 100%;
   box-sizing: border-box;
   padding: 0 30px 0 32px;
-  border-radius: var(--morph-radius, 8px);
-  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
-  background: var(--morph-input-bg, rgba(128, 128, 128, 0.08));
+  border-radius: var(--morph-radius);
+  border: 1px solid var(--morph-border);
+  background: var(--morph-input-bg);
   color: inherit;
 }
 
@@ -43,7 +43,7 @@
 }
 
 [data-searchfield] input[type='search']:focus-visible {
-  outline: 2px solid var(--morph-accent, #2f7cf6);
+  outline: 2px solid var(--morph-accent);
   outline-offset: 1px;
 }
 
@@ -58,11 +58,11 @@
   color: inherit;
   opacity: 0.6;
   cursor: pointer;
-  font-size: 15px;
+  font-size: var(--t-input);
   line-height: 1;
 }
 
 [data-searchclear]:hover {
   opacity: 1;
-  background: var(--morph-hover, rgba(128, 128, 128, 0.14));
+  background: var(--morph-hover);
 }

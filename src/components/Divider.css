@@ -1,7 +1,7 @@
 [data-divider] {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--s3);
   color: inherit;
 }
 
@@ -13,7 +13,7 @@
 [data-divider][data-orientation='horizontal']::after {
   content: '';
   height: 1px;
-  background: var(--morph-border, rgba(128, 128, 128, 0.35));
+  background: var(--morph-border);
 }
 
 [data-divider][data-orientation='horizontal']::before {
@@ -35,12 +35,12 @@
   align-self: stretch;
   width: 1px;
   min-height: 1em;
-  background: var(--morph-border, rgba(128, 128, 128, 0.35));
+  background: var(--morph-border);
 }
 
 [data-dividerlabel] {
   flex: none;
-  font-size: 12px;
+  font-size: var(--t-small);
   font-weight: 600;
   letter-spacing: 0.02em;
   opacity: 0.7;

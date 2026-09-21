@@ -1,8 +1,8 @@
 [data-stages] {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  font-size: 12.5px;
+  gap: var(--s1);
+  font-size: var(--t-ctl);
   font-weight: 600;
   flex-wrap: wrap;
 }
@@ -16,12 +16,12 @@
 
 [data-stage][data-state='active'] {
   opacity: 1;
-  color: var(--morph-accent, #2f7cf6);
+  color: var(--morph-accent);
 }
 
 [data-stage][data-state='done'] {
   opacity: 0.85;
-  color: var(--morph-success, #3cb179);
+  color: var(--morph-success);
 }
 
 [data-stagedot] {

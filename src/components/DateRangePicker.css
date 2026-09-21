@@ -1,9 +1,9 @@
 [data-daterange] {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--s2);
   font: inherit;
-  font-size: 13px;
+  font-size: var(--t-body);
 }
 
 [data-daterangepills] {
@@ -13,44 +13,44 @@
 
 [data-preset] {
   font: inherit;
-  font-size: 12px;
+  font-size: var(--t-small);
   font-weight: 650;
   padding: 5px 11px;
   border-radius: 999px;
-  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
+  border: 1px solid var(--morph-border);
   background: transparent;
   color: inherit;
   cursor: pointer;
 }
 
 [data-preset][data-on] {
-  border-color: var(--morph-accent, #2f7cf6);
-  color: var(--morph-accent, #2f7cf6);
-  background: rgba(47, 124, 246, 0.12);
+  border-color: var(--morph-accent);
+  color: var(--morph-accent);
+  background: rgba(108, 156, 240, 0.12);
 }
 
 [data-datefields] {
   display: flex;
   align-items: flex-end;
-  gap: 8px;
+  gap: var(--s2);
 }
 
 [data-datefields] label {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  font-size: 12px;
+  gap: var(--s1);
+  font-size: var(--t-small);
   font-weight: 600;
 }
 
 [data-datefields] input[type='date'] {
   font: inherit;
-  font-size: 13px;
+  font-size: var(--t-body);
   height: 34px;
   padding: 0 9px;
   border-radius: 8px;
-  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
-  background: var(--morph-input-bg, rgba(128, 128, 128, 0.08));
+  border: 1px solid var(--morph-border);
+  background: var(--morph-input-bg);
   color: inherit;
   color-scheme: light dark;
 }
@@ -61,7 +61,7 @@
 }
 
 [data-dateerror] {
-  font-size: 12px;
+  font-size: var(--t-small);
   font-weight: 600;
-  color: var(--morph-danger, #e5484d);
+  color: var(--morph-danger);
 }

@@ -1,7 +1,7 @@
 [data-plan] {
   font: inherit;
-  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.32));
-  border-radius: var(--morph-radius-lg, 12px);
+  border: 1px solid var(--morph-border);
+  border-radius: var(--morph-radius-lg);
   overflow: hidden;
 }
 
@@ -10,8 +10,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 14px;
-  background: var(--morph-thead-bg, rgba(128, 128, 128, 0.09));
-  font-size: 12px;
+  background: var(--morph-thead-bg);
+  font-size: var(--t-small);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -31,14 +31,14 @@
 
 [data-planstep] {
   display: flex;
-  gap: 10px;
+  gap: var(--s3);
   padding: 8px 10px;
   border-radius: 8px;
   align-items: flex-start;
 }
 
 [data-planstep][data-state='active'] {
-  background: rgba(47, 124, 246, 0.08);
+  background: rgba(108, 156, 240, 0.08);
 }
 
 [data-planmarker] {
@@ -50,27 +50,27 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  font-size: 12px;
+  font-size: var(--t-small);
   font-weight: 800;
 }
 
 [data-planstep][data-state='done'] [data-planmarker] {
-  background: rgba(48, 164, 108, 0.16);
-  color: var(--morph-success, #3cb179);
+  background: rgba(26, 155, 94, 0.16);
+  color: var(--morph-success);
 }
 
 [data-planstep][data-state='active'] [data-planmarker] {
-  background: rgba(47, 124, 246, 0.16);
-  color: var(--morph-accent, #2f7cf6);
+  background: rgba(108, 156, 240, 0.16);
+  color: var(--morph-accent);
 }
 
 [data-planstep][data-state='blocked'] [data-planmarker] {
-  background: rgba(229, 72, 77, 0.16);
-  color: var(--morph-danger, #f2555a);
+  background: rgba(214, 60, 60, 0.16);
+  color: var(--morph-danger);
 }
 
 [data-planstep][data-state='todo'] [data-planmarker] {
-  border: 1.5px solid var(--morph-border-strong, rgba(128, 128, 128, 0.6));
+  border: 1.5px solid var(--morph-border-strong);
 }
 
 [data-planpulse] {
@@ -97,7 +97,7 @@
 }
 
 [data-planlabel] {
-  font-size: 13.5px;
+  font-size: var(--t-title);
   font-weight: 600;
 }
 
@@ -106,7 +106,7 @@
 }
 
 [data-plandetail] {
-  font-size: 12px;
+  font-size: var(--t-small);
   opacity: 0.7;
 }
 

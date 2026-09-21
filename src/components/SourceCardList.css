@@ -4,17 +4,17 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--s2);
   font: inherit;
 }
 
 [data-sourcecards][data-empty] {
   padding: 18px 14px;
   text-align: center;
-  font-size: 13px;
+  font-size: var(--t-body);
   opacity: 0.7;
-  border: 1px dashed var(--morph-border, rgba(128, 128, 128, 0.4));
-  border-radius: var(--morph-radius-lg, 12px);
+  border: 1px dashed var(--morph-border);
+  border-radius: var(--morph-radius-lg);
 }
 
 [data-sourcecard] {
@@ -29,34 +29,34 @@
   width: 100%;
   text-align: left;
   padding: 11px 13px;
-  background: var(--morph-card-bg, rgba(128, 128, 128, 0.07));
-  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.32));
-  border-radius: var(--morph-radius, 8px);
+  background: var(--morph-card-bg);
+  border: 1px solid var(--morph-border);
+  border-radius: var(--morph-radius);
   color: inherit;
   cursor: pointer;
 }
 
 [data-sourcebtn]:hover {
-  border-color: var(--morph-border-strong, rgba(128, 128, 128, 0.65));
+  border-color: var(--morph-border-strong);
 }
 
 [data-sourcebtn]:focus-visible {
-  outline: 2px solid var(--morph-accent, #2f7cf6);
+  outline: 2px solid var(--morph-accent);
   outline-offset: 1px;
 }
 
 [data-sourcecard][data-active] [data-sourcebtn] {
-  border-color: var(--morph-accent, #2f7cf6);
-  box-shadow: inset 3px 0 0 var(--morph-accent, #2f7cf6);
+  border-color: var(--morph-accent);
+  box-shadow: inset 3px 0 0 var(--morph-accent);
 }
 
 [data-sourcetitle] {
-  font-size: 13.5px;
+  font-size: var(--t-title);
   font-weight: 650;
 }
 
 [data-sourceexcerpt] {
-  font-size: 12.5px;
+  font-size: var(--t-ctl);
   line-height: 1.5;
   opacity: 0.8;
   display: -webkit-box;
@@ -68,8 +68,8 @@
 [data-sourcemeta] {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 11.5px;
+  gap: var(--s3);
+  font-size: var(--t-meta);
   flex-wrap: wrap;
 }
 
@@ -93,18 +93,18 @@
   width: 56px;
   height: 5px;
   border-radius: 999px;
-  background: var(--morph-track, rgba(128, 128, 128, 0.2));
+  background: var(--morph-track);
   overflow: hidden;
 }
 
 [data-scorefill] {
   display: block;
   height: 100%;
-  background: var(--morph-success, #30a46c);
+  background: var(--morph-success);
 }
 
 [data-sourcelink] {
-  color: var(--morph-accent, #2f7cf6);
+  color: var(--morph-accent);
   font-weight: 600;
 }
 

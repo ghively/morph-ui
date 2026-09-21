@@ -7,14 +7,14 @@
 }
 
 [data-progresslabel] {
-  font-size: 12.5px;
+  font-size: var(--t-ctl);
   font-weight: 600;
 }
 
 [data-progress] {
   height: 8px;
   border-radius: 999px;
-  background: var(--morph-track, rgba(128, 128, 128, 0.18));
+  background: var(--morph-track);
   overflow: hidden;
 }
 
@@ -22,20 +22,20 @@
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: var(--morph-accent, #2f7cf6);
+  background: var(--morph-accent);
   transition: width 200ms ease;
 }
 
 [data-progress][data-tone='success'] [data-progressfill] {
-  background: var(--morph-success, #30a46c);
+  background: var(--morph-success);
 }
 
 [data-progress][data-tone='warn'] [data-progressfill] {
-  background: var(--morph-warn, #e8930c);
+  background: var(--morph-warn);
 }
 
 [data-progress][data-tone='danger'] [data-progressfill] {
-  background: var(--morph-danger, #e5484d);
+  background: var(--morph-danger);
 }
 
 [data-progress][data-indeterminate] [data-progressfill] {

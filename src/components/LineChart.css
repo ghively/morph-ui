@@ -5,7 +5,7 @@
 }
 
 [data-linearea] {
-  border-bottom: 1px solid var(--morph-border, rgba(128, 128, 128, 0.35));
+  border-bottom: 1px solid var(--morph-border);
   padding-bottom: 4px;
 }
 
@@ -16,18 +16,18 @@
 }
 
 [data-linestroke] {
-  stroke: var(--morph-accent, #2f7cf6);
+  stroke: var(--morph-accent);
   stroke-width: 2;
 }
 
 [data-linefill] {
-  fill: var(--morph-accent, #2f7cf6);
+  fill: var(--morph-accent);
   opacity: 0.14;
 }
 
 [data-linedot] {
-  fill: var(--morph-accent, #2f7cf6);
-  stroke: var(--morph-card-bg, #fff);
+  fill: var(--morph-accent);
+  stroke: var(--morph-card-bg);
   stroke-width: 1.5;
 }
 
@@ -36,7 +36,7 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  font-size: 13px;
+  font-size: var(--t-body);
   opacity: 0.7;
 }
 

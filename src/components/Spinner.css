@@ -6,8 +6,8 @@
 [data-spinner] {
   display: inline-block;
   border-radius: 50%;
-  border: 2px solid var(--morph-track, rgba(128, 128, 128, 0.3));
-  border-top-color: var(--morph-accent, #2f7cf6);
+  border: 2px solid var(--morph-track);
+  border-top-color: var(--morph-accent);
   animation: morph-spin 0.8s linear infinite;
 }
 

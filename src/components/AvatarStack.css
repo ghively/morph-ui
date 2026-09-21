@@ -11,8 +11,8 @@
   justify-content: center;
   border-radius: 50%;
   font-weight: 700;
-  border: 2px solid var(--morph-stack-ring, #1e2127);
-  background: var(--morph-stack-bg, rgba(128, 128, 128, 0.24));
+  border: 2px solid var(--morph-stack-ring);
+  background: var(--morph-stack-bg);
   overflow: hidden;
 }
 
@@ -20,7 +20,7 @@
 [data-avatarstack][data-size='md'] [data-stackmore] {
   width: 30px;
   height: 30px;
-  font-size: 11px;
+  font-size: var(--t-num);
 }
 
 [data-avatarstack][data-size='sm'] [data-stackavatar],
@@ -41,7 +41,7 @@
 }
 
 [data-stackmore] {
-  background: var(--morph-accent, #2f7cf6);
-  color: #fff;
+  background: var(--morph-accent);
+  color: var(--on-accent);
   font-variant-numeric: tabular-nums;
 }

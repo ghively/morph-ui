@@ -7,7 +7,7 @@
 [data-donutrow] {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--s5);
   flex-wrap: wrap;
 }
 
@@ -16,7 +16,7 @@
 }
 
 [data-donuttrack] {
-  stroke: var(--morph-track, rgba(128, 128, 128, 0.18));
+  stroke: var(--morph-track);
 }
 
 [data-donutseg] {
@@ -37,7 +37,7 @@
   display: flex;
   flex-direction: column;
   gap: 7px;
-  font-size: 13px;
+  font-size: var(--t-body);
   min-width: 140px;
   flex: 1;
 }
@@ -45,7 +45,7 @@
 [data-donutlegend] li {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--s2);
 }
 
 [data-donutswatch] {

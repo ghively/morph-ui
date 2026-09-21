@@ -12,7 +12,7 @@
 }
 
 [data-gaugetrack] {
-  stroke: var(--morph-track, rgba(128, 128, 128, 0.18));
+  stroke: var(--morph-track);
 }
 
 [data-gaugecenter] {

@@ -1,7 +1,7 @@
 [data-feedback] {
   font: inherit;
-  font-size: 13px;
-  border-top: 1px solid var(--morph-border, rgba(128, 128, 128, 0.24));
+  font-size: var(--t-body);
+  border-top: 1px solid var(--morph-border);
   padding-top: 10px;
 }
 
@@ -27,48 +27,48 @@
 
 [data-thumb]:hover {
   opacity: 1;
-  background: var(--morph-hover, rgba(128, 128, 128, 0.12));
+  background: var(--morph-hover);
 }
 
 [data-thumb]:focus-visible {
-  outline: 2px solid var(--morph-accent, #2f7cf6);
+  outline: 2px solid var(--morph-accent);
   outline-offset: 1px;
 }
 
 [data-thumb][data-active] {
   opacity: 1;
-  border-color: var(--morph-accent, #2f7cf6);
-  color: var(--morph-accent, #2f7cf6);
+  border-color: var(--morph-accent);
+  color: var(--morph-accent);
 }
 
 [data-feedbackhint] {
-  font-size: 12.5px;
+  font-size: var(--t-ctl);
   opacity: 0.65;
 }
 
 [data-feedbacksend] {
   font: inherit;
-  font-size: 12.5px;
+  font-size: var(--t-ctl);
   font-weight: 650;
   margin-left: 4px;
   padding: 5px 12px;
   border-radius: 7px;
-  border: 1px solid var(--morph-accent, #2f7cf6);
+  border: 1px solid var(--morph-accent);
   background: transparent;
-  color: var(--morph-accent, #2f7cf6);
+  color: var(--morph-accent);
   cursor: pointer;
 }
 
 [data-feedbacksend]:hover {
-  background: var(--morph-accent, #2f7cf6);
-  color: #fff;
+  background: var(--morph-accent);
+  color: var(--on-accent);
 }
 
 [data-feedbackdetail] {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--s3);
 }
 
 [data-reasonchips] {
@@ -79,27 +79,27 @@
 
 [data-reasonchip] {
   font: inherit;
-  font-size: 12px;
+  font-size: var(--t-small);
   font-weight: 600;
   padding: 5px 10px;
   border-radius: 999px;
-  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
+  border: 1px solid var(--morph-border);
   background: transparent;
   color: inherit;
   cursor: pointer;
 }
 
 [data-reasonchip][data-on] {
-  border-color: var(--morph-danger, #e5484d);
-  color: var(--morph-danger, #f2555a);
-  background: rgba(229, 72, 77, 0.1);
+  border-color: var(--morph-danger);
+  color: var(--morph-danger);
+  background: rgba(214, 60, 60, 0.1);
 }
 
 [data-correctionlabel] {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 12.5px;
+  font-size: var(--t-ctl);
   font-weight: 600;
 }
 
@@ -108,8 +108,8 @@
   font-weight: 400;
   padding: 8px 10px;
   border-radius: 8px;
-  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
-  background: var(--morph-input-bg, rgba(128, 128, 128, 0.08));
+  border: 1px solid var(--morph-border);
+  background: var(--morph-input-bg);
   color: inherit;
   resize: vertical;
 }

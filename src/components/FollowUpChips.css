@@ -6,7 +6,7 @@
 }
 
 [data-followupslabel] {
-  font-size: 11.5px;
+  font-size: var(--t-meta);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -21,10 +21,10 @@
 
 [data-followup] {
   font: inherit;
-  font-size: 13px;
+  font-size: var(--t-body);
   padding: 7px 13px;
   border-radius: 999px;
-  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
+  border: 1px solid var(--morph-border);
   background: transparent;
   color: inherit;
   cursor: pointer;
@@ -32,11 +32,11 @@
 }
 
 [data-followup]:hover {
-  border-color: var(--morph-accent, #2f7cf6);
-  color: var(--morph-accent, #2f7cf6);
+  border-color: var(--morph-accent);
+  color: var(--morph-accent);
 }
 
 [data-followup]:focus-visible {
-  outline: 2px solid var(--morph-accent, #2f7cf6);
+  outline: 2px solid var(--morph-accent);
   outline-offset: 1px;
 }

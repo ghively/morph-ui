@@ -2,7 +2,7 @@
   position: fixed;
   inset: 0;
   z-index: 80;
-  background: rgba(0, 0, 0, 0.55);
+  background: var(--scrim);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,11 +12,11 @@
 [data-confirm] {
   width: min(420px, 100%);
   padding: 20px;
-  border-radius: var(--morph-radius-lg, 12px);
-  background: var(--morph-drawer-bg, #1e2127);
-  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.35));
+  border-radius: var(--morph-radius-lg);
+  background: var(--morph-drawer-bg);
+  border: 1px solid var(--morph-border);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  font-size: 13.5px;
+  font-size: var(--t-title);
 }
 
 [data-confirm] h2 {
@@ -35,7 +35,7 @@
 [data-confirmactions] {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: var(--s2);
 }
 
 [data-confirmcancel] {
@@ -44,7 +44,7 @@
   height: 34px;
   padding: 0 14px;
   border-radius: 8px;
-  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
+  border: 1px solid var(--morph-border);
   background: transparent;
   color: inherit;
   cursor: pointer;
@@ -57,17 +57,17 @@
   padding: 0 16px;
   border-radius: 8px;
   border: none;
-  background: var(--morph-accent, #2f7cf6);
-  color: #fff;
+  background: var(--morph-accent);
+  color: var(--on-accent);
   cursor: pointer;
 }
 
 [data-confirm][data-danger] [data-confirmgo] {
-  background: var(--morph-danger, #e5484d);
+  background: var(--morph-danger);
 }
 
 [data-confirmcancel]:focus-visible,
 [data-confirmgo]:focus-visible {
-  outline: 2px solid var(--morph-accent, #2f7cf6);
+  outline: 2px solid var(--morph-accent);
   outline-offset: 2px;
 }

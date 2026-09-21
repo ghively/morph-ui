@@ -10,8 +10,8 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 10px;
-  font-size: 12.5px;
+  gap: var(--s3);
+  font-size: var(--t-ctl);
   font-weight: 650;
 }
 
@@ -23,25 +23,25 @@
 [data-costbar] {
   height: 8px;
   border-radius: 999px;
-  background: var(--morph-track, rgba(128, 128, 128, 0.18));
+  background: var(--morph-track);
   overflow: hidden;
 }
 
 [data-costfill] {
   display: block;
   height: 100%;
-  background: var(--morph-success, #30a46c);
+  background: var(--morph-success);
   transition: width 200ms ease;
 }
 
 [data-cost][data-over] [data-costfill] {
-  background: var(--morph-danger, #e5484d);
+  background: var(--morph-danger);
 }
 
 [data-costover] {
-  font-size: 12.5px;
+  font-size: var(--t-ctl);
   font-weight: 650;
-  color: var(--morph-danger, #f2555a);
+  color: var(--morph-danger);
 }
 
 @media (prefers-reduced-motion: reduce) {

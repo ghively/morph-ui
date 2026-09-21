@@ -4,41 +4,41 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--s2);
   font: inherit;
 }
 
 [data-approvals][data-empty] {
   padding: 18px 14px;
   text-align: center;
-  font-size: 13px;
+  font-size: var(--t-body);
   opacity: 0.7;
-  border: 1px dashed var(--morph-border, rgba(128, 128, 128, 0.4));
-  border-radius: var(--morph-radius-lg, 12px);
+  border: 1px dashed var(--morph-border);
+  border-radius: var(--morph-radius-lg);
 }
 
 [data-approval] {
   display: flex;
-  gap: 12px;
+  gap: var(--s4);
   align-items: flex-start;
   justify-content: space-between;
   padding: 12px 14px;
-  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.32));
+  border: 1px solid var(--morph-border);
   border-left-width: 3px;
   border-radius: 10px;
-  background: var(--morph-card-bg, rgba(128, 128, 128, 0.06));
+  background: var(--morph-card-bg);
 }
 
 [data-approval][data-risk='low'] {
-  border-left-color: var(--morph-success, #30a46c);
+  border-left-color: var(--morph-success);
 }
 
 [data-approval][data-risk='medium'] {
-  border-left-color: var(--morph-warn, #e8930c);
+  border-left-color: var(--morph-warn);
 }
 
 [data-approval][data-risk='high'] {
-  border-left-color: var(--morph-danger, #e5484d);
+  border-left-color: var(--morph-danger);
 }
 
 [data-approvalmain] {
@@ -49,20 +49,20 @@
 }
 
 [data-approvaltitle] {
-  font-size: 13.5px;
+  font-size: var(--t-title);
   font-weight: 650;
 }
 
 [data-approvaldetail] {
-  font-size: 12.5px;
+  font-size: var(--t-ctl);
   opacity: 0.8;
   line-height: 1.5;
 }
 
 [data-approvalmeta] {
   display: flex;
-  gap: 10px;
-  font-size: 11.5px;
+  gap: var(--s3);
+  font-size: var(--t-meta);
   opacity: 0.65;
   flex-wrap: wrap;
 }
@@ -75,7 +75,7 @@
 }
 
 [data-approval][data-risk='high'] [data-riskflag] {
-  color: var(--morph-danger, #f2555a);
+  color: var(--morph-danger);
   opacity: 1;
 }
 
@@ -88,7 +88,7 @@
 [data-approveok],
 [data-approvereject] {
   font: inherit;
-  font-size: 12.5px;
+  font-size: var(--t-ctl);
   font-weight: 650;
   height: 30px;
   padding: 0 12px;
@@ -98,12 +98,12 @@
 
 [data-approveok] {
   border: none;
-  background: var(--morph-success, #30a46c);
-  color: #fff;
+  background: var(--morph-success);
+  color: var(--on-accent);
 }
 
 [data-approvereject] {
-  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
+  border: 1px solid var(--morph-border);
   background: transparent;
   color: inherit;
 }
