@@ -138,10 +138,9 @@
   --app-rail-dim: #aab2e2;
   --app-rail-faint: #8189bd;
 
-  /* motion */
-  --d4: 540ms;
-  --ease-soft: cubic-bezier(0.33, 0, 0.2, 1);
-  --ease-emph: cubic-bezier(0.22, 1, 0.36, 1);
+  /* motion (ease tokens already declared above with shipped values — not re-declared;
+     d4 wrapped in d-scale to match its siblings) */
+  --d4: calc(540ms * var(--d-scale, 1));
 
   /* theme-neutral (no sane default; hosts override) */
   --mark: none;
