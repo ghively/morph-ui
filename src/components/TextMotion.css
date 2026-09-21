@@ -1,0 +1,54 @@
+[data-text-motion] {
+  display: inline-block;
+}
+
+.text-motion-word {
+  display: inline-block;
+  opacity: 0;
+  transform-origin: center;
+  transition-property: opacity, transform;
+  transition-duration: var(--d3, 360ms);
+  transition-timing-function: var(--ease-spring, cubic-bezier(0.42, 1.67, 0.21, 0.9));
+  transition-delay: var(--stagger-delay, 0ms);
+}
+
+/* slide-fade-scale preset */
+[data-text-motion][data-preset="slide-fade-scale"] .text-motion-word {
+  transform: translateY(20px) scale(0.9);
+}
+
+[data-text-motion][data-preset="slide-fade-scale"][data-active] .text-motion-word {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* fade-scale preset */
+[data-text-motion][data-preset="fade-scale"] .text-motion-word {
+  transform: scale(0.9);
+}
+
+[data-text-motion][data-preset="fade-scale"][data-active] .text-motion-word {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* slide-fade preset */
+[data-text-motion][data-preset="slide-fade"] .text-motion-word {
+  transform: translateY(20px);
+}
+
+[data-text-motion][data-preset="slide-fade"][data-active] .text-motion-word {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-motion-word {
+    transition: opacity var(--d2, 220ms) ease;
+    transform: none !important;
+  }
+
+  [data-text-motion][data-active] .text-motion-word {
+    opacity: 1;
+  }
+}

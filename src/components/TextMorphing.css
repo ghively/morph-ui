@@ -1,0 +1,102 @@
+[data-text-morphing] {
+  position: relative;
+  display: inline-block;
+}
+
+.text-morphing-sizer {
+  display: inline-block;
+  visibility: hidden;
+}
+
+.text-morphing-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.text-morphing-filter {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.text-morphing-content {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.text-morphing-prev,
+.text-morphing-curr {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  transition: opacity var(--d5, 780ms) var(--ease-morph, cubic-bezier(0.38, 1.21, 0.22, 1)),
+              transform var(--d5, 780ms) var(--ease-morph, cubic-bezier(0.38, 1.21, 0.22, 1));
+}
+
+.text-morphing-prev {
+  opacity: 0;
+  transform: scale(0.9) skewX(10deg);
+}
+
+.text-morphing-curr {
+  opacity: 1;
+  transform: scale(1) skewX(0);
+}
+
+[data-text-morphing][data-morphing] .text-morphing-prev {
+  opacity: 1;
+  transform: scale(1) skewX(0);
+  animation: morph-out var(--d5, 780ms) var(--ease-morph, cubic-bezier(0.38, 1.21, 0.22, 1)) forwards;
+}
+
+[data-text-morphing][data-morphing] .text-morphing-curr {
+  opacity: 0;
+  transform: scale(1.1) skewX(-10deg);
+  animation: morph-in var(--d5, 780ms) var(--ease-morph, cubic-bezier(0.38, 1.21, 0.22, 1)) forwards;
+}
+
+@keyframes morph-out {
+  to {
+    opacity: 0;
+    transform: scale(0.9) skewX(10deg);
+  }
+}
+
+@keyframes morph-in {
+  to {
+    opacity: 1;
+    transform: scale(1) skewX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-morphing-content {
+    filter: none !important;
+  }
+
+  .text-morphing-prev,
+  .text-morphing-curr {
+    transition: opacity var(--d2, 220ms) ease;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  [data-text-morphing][data-morphing] .text-morphing-prev {
+    opacity: 0;
+  }
+
+  [data-text-morphing][data-morphing] .text-morphing-curr {
+    opacity: 1;
+  }
+}

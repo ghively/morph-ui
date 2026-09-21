@@ -1,0 +1,78 @@
+[data-text-glitch] {
+  position: relative;
+  display: inline-block;
+  color: transparent;
+}
+
+.text-glitch-base {
+  position: relative;
+  color: var(--app-text, #fff);
+  display: inline-block;
+}
+
+.text-glitch-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--app-text, #fff);
+  background: var(--app-bg, transparent);
+  overflow: hidden;
+}
+
+.text-glitch-red {
+  color: #ff003c;
+  mix-blend-mode: screen;
+  animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+}
+
+.text-glitch-blue {
+  color: #00e1ff;
+  mix-blend-mode: screen;
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+[data-text-glitch][data-intensity="low"] .text-glitch-red {
+  animation-duration: 4s;
+}
+
+[data-text-glitch][data-intensity="low"] .text-glitch-blue {
+  animation-duration: 5s;
+}
+
+[data-text-glitch][data-intensity="high"] .text-glitch-red {
+  animation-duration: 1.5s;
+}
+
+[data-text-glitch][data-intensity="high"] .text-glitch-blue {
+  animation-duration: 2s;
+}
+
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+  20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+  40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+  60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+  80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
+  100% { clip-path: inset(30% 0 40% 0); transform: translate(1px, -1px); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
+  20% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, 1px); }
+  40% { clip-path: inset(70% 0 10% 0); transform: translate(2px, -2px); }
+  60% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, 2px); }
+  80% { clip-path: inset(50% 0 30% 0); transform: translate(1px, -1px); }
+  100% { clip-path: inset(5% 0 80% 0); transform: translate(-1px, 1px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-glitch-red,
+  .text-glitch-blue {
+    animation: none;
+    clip-path: inset(0 0 0 0);
+    transform: none;
+    opacity: 0;
+  }
+}
