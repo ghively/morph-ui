@@ -23,6 +23,11 @@
   height: 34px;
   width: 100%;
   box-sizing: border-box;
+  transition: background-color var(--d2) var(--ease-fx),
+    border-color var(--d2) var(--ease-fx),
+    color var(--d2) var(--ease-fx),
+    box-shadow var(--d2) var(--ease-fx),
+    opacity var(--d2) var(--ease-fx);
 }
 
 [data-textarea] textarea {
@@ -57,6 +62,11 @@
 [data-textarea][data-invalid] textarea,
 [data-select][data-invalid] select {
   border-color: var(--morph-danger);
+  transition: background-color var(--d2) var(--ease-fx),
+    border-color var(--d2) var(--ease-fx),
+    color var(--d2) var(--ease-fx),
+    box-shadow var(--d2) var(--ease-fx),
+    opacity var(--d2) var(--ease-fx);
 }
 
 [data-textfield][data-invalid] input:focus-visible,

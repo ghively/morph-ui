@@ -52,6 +52,11 @@
   line-height: 1;
   padding: 0 4px;
   border-radius: 999px;
+  transition: background-color var(--d2) var(--ease-fx),
+    border-color var(--d2) var(--ease-fx),
+    color var(--d2) var(--ease-fx),
+    box-shadow var(--d2) var(--ease-fx),
+    opacity var(--d2) var(--ease-fx);
 }
 
 [data-mschip] button:hover {
@@ -79,6 +84,11 @@
   opacity: 0.65;
   cursor: pointer;
   padding: 2px 4px;
+  transition: background-color var(--d2) var(--ease-fx),
+    border-color var(--d2) var(--ease-fx),
+    color var(--d2) var(--ease-fx),
+    box-shadow var(--d2) var(--ease-fx),
+    opacity var(--d2) var(--ease-fx);
 }
 
 [data-msclear]:hover {

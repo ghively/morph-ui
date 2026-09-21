@@ -1,0 +1,78 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Morph UI — frame / base layer (added 2026-09-21)
+
+   tokens.css only DECLARES custom properties; nothing ever applied them. A
+   host that imported the library got dark-frame components floating on the
+   browser default surface: transparent background, black ink, and — because
+   111 of the 176 component stylesheets never set font-family — Times New
+   Roman. This is the layer that was missing.
+
+   Opt-in on purpose: hosts that already own their shell should not have the
+   library reach up and repaint <body>. Apply it by putting `morph-frame` (or
+   data-morph-frame) on whatever element owns the surface — <body>, the app
+   root, or a single panel.
+
+   Every rule is wrapped in :where() so it carries zero specificity and any
+   component rule beats it.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:where(.morph-frame, [data-morph-frame]) {
+  background: var(--app-bg);
+  color: var(--app-text);
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  accent-color: var(--app-blue);
+}
+
+:where(.morph-frame, [data-morph-frame]) :where(*, *::before, *::after) {
+  box-sizing: border-box;
+}
+
+/* Form controls do not inherit type by default — the single biggest source
+   of "why is that input serif". */
+:where(.morph-frame, [data-morph-frame]) :where(button, input, select, textarea, optgroup) {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+:where(.morph-frame, [data-morph-frame]) :where(svg) {
+  display: block;
+}
+
+:where(.morph-frame, [data-morph-frame]) :where(h1, h2, h3, h4, h5, h6, p, figure, blockquote) {
+  margin: 0;
+}
+
+:where(.morph-frame, [data-morph-frame]) :where(code, kbd, samp, pre) {
+  font-family: var(--app-mono);
+}
+
+/* Selection and focus read off the accent rather than the UA default. */
+:where(.morph-frame, [data-morph-frame]) ::selection {
+  background: var(--app-blue-soft);
+  color: var(--app-text);
+}
+
+:where(.morph-frame, [data-morph-frame]) :where(:focus-visible) {
+  outline: 2px solid var(--app-blue);
+  outline-offset: 2px;
+}
+
+:where(.morph-frame, [data-morph-frame]) :where(::placeholder) {
+  color: var(--morph-placeholder);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.morph-frame, [data-morph-frame]) :where(*) {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

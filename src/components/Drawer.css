@@ -58,6 +58,11 @@
   background: transparent;
   color: inherit;
   cursor: pointer;
+  transition: background-color var(--d2) var(--ease-fx),
+    border-color var(--d2) var(--ease-fx),
+    color var(--d2) var(--ease-fx),
+    box-shadow var(--d2) var(--ease-fx),
+    opacity var(--d2) var(--ease-fx);
 }
 
 [data-drawerclose]:hover {

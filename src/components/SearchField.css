@@ -36,6 +36,11 @@
   border: 1px solid var(--morph-border);
   background: var(--morph-input-bg);
   color: inherit;
+  transition: background-color var(--d2) var(--ease-fx),
+    border-color var(--d2) var(--ease-fx),
+    color var(--d2) var(--ease-fx),
+    box-shadow var(--d2) var(--ease-fx),
+    opacity var(--d2) var(--ease-fx);
 }
 
 [data-searchfield] input[type='search']::-webkit-search-cancel-button {
@@ -60,6 +65,11 @@
   cursor: pointer;
   font-size: var(--t-input);
   line-height: 1;
+  transition: background-color var(--d2) var(--ease-fx),
+    border-color var(--d2) var(--ease-fx),
+    color var(--d2) var(--ease-fx),
+    box-shadow var(--d2) var(--ease-fx),
+    opacity var(--d2) var(--ease-fx);
 }
 
 [data-searchclear]:hover {

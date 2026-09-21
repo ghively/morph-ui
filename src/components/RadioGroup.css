@@ -47,6 +47,11 @@
   cursor: inherit;
   display: inline-grid;
   place-content: center;
+  transition: background-color var(--d2) var(--ease-fx),
+    border-color var(--d2) var(--ease-fx),
+    color var(--d2) var(--ease-fx),
+    box-shadow var(--d2) var(--ease-fx),
+    opacity var(--d2) var(--ease-fx);
 }
 
 [data-radio] input[type='radio']:hover:not(:disabled) {

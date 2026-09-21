@@ -1,0 +1,16 @@
+/* Let the frame own the full canvas rather than sitting in a white margin. */
+html,
+body,
+#ladle-root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--app-bg);
+}
+
+[data-ladle-frame] {
+  min-height: 100%;
+  padding: 24px;
+}

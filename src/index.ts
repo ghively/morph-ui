@@ -6,6 +6,13 @@
  * properties; import "./styles.css" (or define the tokens yourself) for the
  * default dark theme.
  */
+
+// The published styles.css previously carried component rules but no token
+// DECLARATIONS, so a consumer got components referencing variables that did
+// not exist. Tokens and the opt-in frame layer now ship with the bundle;
+// frame.css is inert until something carries the `morph-frame` class.
+import "./tokens.css";
+import "./frame.css";
 export * from "./components/AgentPresence";
 export * from "./components/AgentActivityCapsule";
 export * from "./components/GenerativePlaceholder";

@@ -26,6 +26,11 @@
   opacity: 0.72;
   cursor: pointer;
   white-space: nowrap;
+  transition: background-color var(--d2) var(--ease-fx),
+    border-color var(--d2) var(--ease-fx),
+    color var(--d2) var(--ease-fx),
+    box-shadow var(--d2) var(--ease-fx),
+    opacity var(--d2) var(--ease-fx);
 }
 
 [data-tablist] [role='tab']:hover:not(:disabled) {

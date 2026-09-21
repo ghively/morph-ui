@@ -43,6 +43,11 @@
   font-size: var(--t-small);
   line-height: 1;
   cursor: pointer;
+  transition: background-color var(--d2) var(--ease-fx),
+    border-color var(--d2) var(--ease-fx),
+    color var(--d2) var(--ease-fx),
+    box-shadow var(--d2) var(--ease-fx),
+    opacity var(--d2) var(--ease-fx);
 }
 
 [data-filterchip] button:hover {
@@ -69,6 +74,11 @@
   color: var(--morph-accent);
   cursor: pointer;
   padding: 2px 4px;
+  transition: background-color var(--d2) var(--ease-fx),
+    border-color var(--d2) var(--ease-fx),
+    color var(--d2) var(--ease-fx),
+    box-shadow var(--d2) var(--ease-fx),
+    opacity var(--d2) var(--ease-fx);
 }
 
 [data-filterclear]:hover {

@@ -13,6 +13,11 @@
   padding: 7px 10px 7px calc(10px + var(--morph-tree-depth, 0) * 20px);
   border-radius: 7px;
   cursor: pointer;
+  transition: background-color var(--d2) var(--ease-fx),
+    border-color var(--d2) var(--ease-fx),
+    color var(--d2) var(--ease-fx),
+    box-shadow var(--d2) var(--ease-fx),
+    opacity var(--d2) var(--ease-fx);
 }
 
 [data-treeitem]:hover {

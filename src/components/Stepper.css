@@ -29,6 +29,11 @@
   padding: 2px;
   border-radius: 8px;
   text-align: left;
+  transition: background-color var(--d2) var(--ease-fx),
+    border-color var(--d2) var(--ease-fx),
+    color var(--d2) var(--ease-fx),
+    box-shadow var(--d2) var(--ease-fx),
+    opacity var(--d2) var(--ease-fx);
 }
 
 [data-stepbtn]:not(:disabled) {
