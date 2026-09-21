@@ -1,0 +1,262 @@
+/* MessageTile CSS */
+
+[data-turn] {
+  display: flex;
+  gap: var(--s4);
+  position: relative;
+  outline: none;
+  border-radius: var(--r-md);
+  padding: 4px;
+}
+
+[data-turn][data-highlight] {
+  background: var(--app-hover);
+}
+
+[data-turn="user"] {
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+[data-turn="assistant"] {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.initials-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--app-panel);
+  color: var(--app-text);
+  border-radius: 50%;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.initials-avatar-md {
+  width: 32px;
+  height: 32px;
+  font-size: var(--t-ctl);
+}
+.initials-avatar-sm {
+  width: 20px;
+  height: 20px;
+  font-size: var(--t-meta);
+}
+
+img.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+[data-avatarspacer] {
+  width: 32px;
+  flex-shrink: 0;
+}
+
+[data-body] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  min-width: 0;
+  flex: 1;
+}
+
+[data-bubble] {
+  background: var(--app-panel);
+  border-radius: var(--r-card);
+  padding: var(--s3) var(--s4);
+  max-width: 85%;
+  word-wrap: break-word;
+}
+
+[data-turn="user"] > [data-bubble] {
+  background: var(--sec);
+  color: var(--on-accent);
+}
+[data-turn="user"] > [data-bubble] [data-msgbody] {
+  color: inherit;
+}
+[data-turn="user"] > [data-bubble] a {
+  color: inherit;
+}
+
+[data-attach] {
+  max-width: 85%;
+}
+
+[data-msgmeta] {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--t-meta);
+  color: var(--app-faint);
+  margin-top: 2px;
+}
+[data-turn="user"] > [data-msgmeta] {
+  justify-content: flex-end;
+}
+
+[data-msgactions] {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--app-bg);
+  border: 1px solid var(--app-line);
+  border-radius: var(--r-card);
+  padding: 4px;
+  position: absolute;
+  top: -12px;
+  right: 12px;
+  opacity: 0;
+  transition: opacity var(--d1) var(--ease-emph);
+  z-index: 10;
+}
+[data-turn]:hover > [data-msgactions],
+[data-turn]:focus-within > [data-msgactions] {
+  opacity: 1;
+}
+/* For assistant, source mentions action bar and picker as siblings of [data-body] */
+/* We've placed it at the end of [data-turn] which works with position absolute */
+
+[data-iconbtn] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  color: var(--app-dim);
+  cursor: pointer;
+  transition: all var(--d1) var(--ease-emph);
+}
+[data-iconbtn]:hover {
+  background: var(--app-hover);
+  color: var(--app-text);
+}
+[data-iconbtn][data-tone="danger"]:hover {
+  color: var(--danger-ink);
+  background: rgba(240, 128, 128, 0.1);
+}
+
+[data-reactpicker] {
+  display: flex;
+  background: var(--app-bg);
+  border: 1px solid var(--app-line);
+  border-radius: var(--r-card);
+  padding: 4px;
+  position: absolute;
+  top: 24px;
+  right: 12px;
+  z-index: 11;
+  gap: 2px;
+}
+
+[data-reactpicker] [data-iconbtn] {
+  font-size: 16px;
+}
+
+[data-replyquote] {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  border-left: 3px solid var(--sec);
+  padding-left: var(--s2);
+  margin-bottom: var(--s2);
+  background: transparent;
+  border-top: none; border-right: none; border-bottom: none;
+  color: var(--app-dim);
+  font-size: var(--t-small);
+  cursor: pointer;
+  max-width: 100%;
+}
+[data-replyquote]:hover {
+  color: var(--app-text);
+}
+
+[data-threadsummary] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  background: transparent;
+  border: none;
+  color: var(--sec);
+  font-size: var(--t-small);
+  cursor: pointer;
+  padding: 0;
+  margin-top: var(--s2);
+}
+[data-threadsummary] [data-meta] {
+  color: var(--app-faint);
+}
+
+[data-artifacttile] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  background: var(--app-panel);
+  border: 1px solid var(--app-line);
+  border-radius: var(--r-card);
+  padding: var(--s2) var(--s3);
+  color: var(--app-text);
+  font-size: var(--t-small);
+  cursor: pointer;
+}
+[data-artifacttile][data-degraded] {
+  border-style: dashed;
+}
+
+[data-stateline] {
+  text-align: center;
+  margin: var(--s3) 0;
+}
+[data-stateline] > [data-meta] {
+  font-size: var(--t-small);
+  color: var(--app-dim);
+}
+
+[data-sendername] {
+  font-weight: 600;
+  color: var(--app-text);
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+[data-agentbadge] {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
+  padding: 2px 6px;
+  border-radius: var(--r-md);
+  font-size: var(--t-num);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+[data-tag] {
+  background: var(--app-panel);
+  color: var(--app-dim);
+  padding: 2px 6px;
+  border-radius: var(--r-md);
+  font-size: var(--t-num);
+  text-transform: uppercase;
+}
+
+[data-receipts] {
+  display: flex;
+  align-items: center;
+}
+[data-receipts] .initials-avatar {
+  margin-left: -4px;
+  border: 1px solid var(--app-bg);
+}
+

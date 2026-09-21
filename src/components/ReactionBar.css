@@ -1,0 +1,36 @@
+[data-reactions] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+[data-reactions] > [data-chip] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s1);
+  padding: 4px 8px;
+  border-radius: var(--r-card);
+  border: 1px solid transparent;
+  background: var(--app-panel);
+  color: var(--app-text);
+  font-size: var(--t-ctl);
+  cursor: pointer;
+  transition: all var(--d1) var(--ease-emph);
+}
+
+[data-reactions] > [data-chip][data-on="true"] {
+  background: var(--sec-soft);
+  border-color: var(--sec);
+  color: var(--sec);
+}
+
+[data-reactions] > [data-chip] > [data-num] {
+  font-size: var(--t-num);
+  opacity: 0.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reactions] > [data-chip] {
+    transition: none;
+  }
+}

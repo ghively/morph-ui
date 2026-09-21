@@ -1,0 +1,21 @@
+/* Note: some basic styling inherited from context but keeping structural needs */
+[data-daysep] {
+  text-align: center;
+  margin: var(--s5) 0;
+}
+[data-daysep] > [data-eyebrow] {
+  font-size: var(--t-meta);
+  color: var(--app-faint);
+  text-transform: uppercase;
+  letter-spacing: var(--tk-wide);
+  font-weight: 600;
+}
+[data-stategroup] {
+  margin-left: 48px;
+}
+[data-stategroup] > [data-meta] {
+  cursor: pointer;
+  user-select: none;
+  font-size: var(--t-small);
+  color: var(--app-dim);
+}
