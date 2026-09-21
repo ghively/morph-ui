@@ -1,0 +1,53 @@
+[data-diff-stat-pill] {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+}
+
+[data-diff-stat-filename] {
+  color: var(--app-text);
+  font-family: var(--app-mono);
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+[data-diff-stat-numbers] {
+  display: flex;
+  gap: 4px;
+  font-family: var(--app-mono);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+[data-diff-stat-num="added"] {
+  color: var(--color-success);
+}
+
+[data-diff-stat-num="removed"] {
+  color: var(--color-error);
+}
+
+[data-diff-stat-bar-container] {
+  display: flex;
+  width: 40px; /* Fixed width for the bar area */
+  height: 6px;
+  background: var(--color-surface-raised);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+[data-diff-stat-bar] {
+  height: 100%;
+}
+
+[data-diff-stat-bar="added"] {
+  background: var(--color-success);
+}
+
+[data-diff-stat-bar="removed"] {
+  background: var(--color-error);
+}

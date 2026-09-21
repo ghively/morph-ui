@@ -1,0 +1,133 @@
+[data-agent-card] {
+  background: var(--app-panel);
+  border: 1px solid var(--app-line);
+  border-radius: var(--r-md);
+  padding: 16px;
+  font-family: var(--font-sans);
+  color: var(--app-text);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform var(--d2) var(--ease-fx), border-color var(--d2) var(--ease-fx);
+  outline: none;
+}
+
+[data-agent-card][role="button"] {
+  cursor: pointer;
+}
+
+[data-agent-card][role="button"]:hover,
+[data-agent-card][role="button"]:focus-visible {
+  border-color: var(--app-blue);
+  background: var(--app-hover);
+}
+
+[data-agent-card-header] {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+[data-agent-card-avatar] {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface-raised);
+}
+
+[data-agent-card-identity] {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+[data-agent-card-name] {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+[data-agent-card-role] {
+  font-size: 13px;
+  color: var(--app-dim);
+}
+
+[data-agent-card-status-row] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+[data-agent-card-status] {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--app-dim);
+  font-weight: 500;
+}
+
+[data-agent-card-status-dot] {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid transparent; /* default empty border */
+}
+
+/* offline: hollow circle */
+[data-agent-card-status="offline"] [data-agent-card-status-dot] {
+  border-color: var(--app-dim);
+  background: transparent;
+}
+
+/* idle: solid gray/dim */
+[data-agent-card-status="idle"] [data-agent-card-status-dot] {
+  background: var(--app-faint);
+  border-radius: 2px; /* shape diff */
+}
+[data-agent-card-status="idle"] {
+  color: var(--app-faint);
+}
+
+/* working: blue diamond */
+[data-agent-card-status="working"] [data-agent-card-status-dot] {
+  background: var(--app-blue);
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+[data-agent-card-status="working"] {
+  color: var(--app-blue);
+}
+
+/* busy: warning color */
+[data-agent-card-status="busy"] [data-agent-card-status-dot] {
+  background: var(--color-warning);
+}
+[data-agent-card-status="busy"] {
+  color: var(--color-warning);
+}
+
+[data-agent-card-last-active] {
+  color: var(--app-dim);
+  font-size: 11px;
+}
+
+[data-agent-card-capabilities] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+[data-agent-card-cap] {
+  background: var(--color-surface-raised);
+  border: 1px solid var(--app-line);
+  color: var(--app-dim);
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+}

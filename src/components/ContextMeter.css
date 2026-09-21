@@ -1,0 +1,73 @@
+[data-context-meter] {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--font-sans);
+  width: 100%;
+}
+
+[data-context-meter-header] {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 13px;
+}
+
+[data-context-meter-label] {
+  color: var(--app-dim);
+}
+
+[data-context-meter-value] {
+  color: var(--app-text);
+  font-family: var(--app-mono);
+  font-weight: 500;
+}
+
+[data-context-meter][data-level="danger"] [data-context-meter-value] {
+  color: var(--color-error);
+}
+
+[data-context-meter][data-level="warn"] [data-context-meter-value] {
+  color: var(--color-warning);
+}
+
+[data-context-meter-track] {
+  position: relative;
+  height: 8px;
+  background: var(--color-surface-raised);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--app-line);
+}
+
+[data-context-meter-fill] {
+  height: 100%;
+  border-radius: 4px;
+  transition: width var(--d3) var(--ease-spring), background-color var(--d3) var(--ease-fx);
+  /* The base color */
+  background: var(--app-blue);
+}
+
+/* Color ramps via CSS color-mix or variables */
+[data-context-meter][data-level="warn"] [data-context-meter-fill] {
+  background: color-mix(in srgb, var(--app-blue) 20%, var(--color-warning));
+}
+
+[data-context-meter][data-level="danger"] [data-context-meter-fill] {
+  background: color-mix(in srgb, var(--color-warning) 20%, var(--color-error));
+}
+
+[data-context-meter-tick] {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--app-line);
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-context-meter-fill] {
+    transition: none;
+  }
+}
