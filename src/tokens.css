@@ -76,3 +76,73 @@
   --ease-emph: cubic-bezier(0.34, 0.8, 0.34, 1);
   --ease-cycle: linear;
 }
+/* ═══════════════════════════════════════════════════════════════════════════
+   Morph UI — app-frame token additions (ChatUIMorph dark-frame defaults)
+
+   Added for the app-UI extraction campaign (specs:
+   ~/.hermes/hermes-workspace/requests/morph-extract-specs.md §3). These are
+   the production dark-frame values the app used; hosts override freely.
+   --mark ships as none per spec rule (no theme-neutral value exists).
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* spacing scale */
+  --s4: 12px;
+  --s5: 16px;
+  --s6: 20px;
+  --seam: 2px;
+  --gap: 10px;
+  --gut: var(--s6);
+  --dock-pad: 10px;
+  --h-bar: 52px;
+
+  /* radii */
+  --r-ctl: 12px;
+  --r-card: 20px;
+  --r-pane: 28px;
+  --r-xl: 28px;
+
+  /* typography */
+  --t-small: 12px;
+  --t-num: 11px;
+  --t-input: 15px;
+  --t-prose: 14.5px;
+  --t-lead: 14px;
+  --t-title: 13.5px;
+  --t-hero: 36px;
+  --tk-snug: -0.2px;
+  --tk-wide: 0.3px;
+  --tk-display: -1.1px;
+
+  /* elevation / scrim / ink */
+  --el1: none;
+  --el2: none;
+  --scrim: rgba(6, 8, 32, 0.52);
+  --scrim-soft: rgba(6, 8, 32, 0.34);
+  --hi: rgba(255, 255, 255, 0.26);
+  --on-accent: #ffffff;
+  --danger-ink: #f08080;
+
+  /* secondary accent ramp */
+  --sec: #3f83f5;
+  --sec-soft: rgba(80, 137, 236, 0.18);
+
+  /* AI accent ramp (agent accents) */
+  --ai: #3f83f5;
+  --ai-strong: #0d54c9;
+  --ai-deep: #0a3a8f;
+  --ai-glow: rgba(63, 131, 245, 0.38);
+
+  /* app rail */
+  --app-rail-text: #eef1ff;
+  --app-rail-dim: #aab2e2;
+  --app-rail-faint: #8189bd;
+
+  /* motion */
+  --d4: 540ms;
+  --ease-soft: cubic-bezier(0.33, 0, 0.2, 1);
+  --ease-emph: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* theme-neutral (no sane default; hosts override) */
+  --mark: none;
+}
