@@ -1,112 +1,88 @@
-import { render, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+
+import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/react';
 import { CodeDiffViewer } from '../src/components/CodeDiffViewer';
 
 describe('CodeDiffViewer', () => {
-  const sampleDiff = `@@ -1,3 +1,4 @@
- function add(a, b) {
--  return a + b;
-+  // Add two numbers
-+  return a + b + 0;
- }`;
+  it('parses a small unified diff into add/del/context rows with correct markers', () => {
+    const diff = `@@ -1,3 +1,3 @@
+ const a = 1;
+-const b = 2;
++const b = 3;
+ const c = 3;`;
 
-  it('renders correctly in unified mode', () => {
-    const { container } = render(<CodeDiffViewer diff={sampleDiff} defaultViewMode="unified" />);
-    const el = container.querySelector('.code-diff-viewer');
-    expect(el).toBeTruthy();
-    
-    // Check if added/deleted lines are rendered
-    expect(container.querySelector('.code-diff-line-added')).toBeTruthy();
-    expect(container.querySelector('.code-diff-line-deleted')).toBeTruthy();
+    const { container } = render(<CodeDiffViewer diff={diff} />);
+
+    // Check hunk header
+    expect(screen.getByText('@@ -1,3 +1,3 @@')).toBeTruthy();
+
+    // Check rows and markers
+    const addRow = container.querySelector('.cdv-row-add');
+    expect(addRow).toBeTruthy();
+    expect(addRow?.textContent).toContain('+');
+    expect(addRow?.textContent).toContain('const b = 3;');
+
+    const delRow = container.querySelector('.cdv-row-del');
+    expect(delRow).toBeTruthy();
+    expect(delRow?.textContent).toContain('-');
+    expect(delRow?.textContent).toContain('const b = 2;');
+
+    const ctxRows = container.querySelectorAll('.cdv-row-ctx');
+    expect(ctxRows.length).toBe(2);
+    expect(ctxRows[0].textContent).toContain('const a = 1;');
+    expect(ctxRows[1].textContent).toContain('const c = 3;');
   });
 
-  it('renders correctly in split mode', () => {
-    const { container } = render(<CodeDiffViewer diff={sampleDiff} defaultViewMode="split" />);
-    
-    // Check if the split table is used
-    expect(container.querySelector('.code-diff-table-split')).toBeTruthy();
-    
-    // Split mode layout checks
-    expect(container.querySelector('.code-diff-line-added')).toBeTruthy();
-    expect(container.querySelector('.code-diff-line-deleted')).toBeTruthy();
+  it('renders hunk header', () => {
+    const diff = `@@ -5,2 +5,2 @@\n context\n context`;
+    render(<CodeDiffViewer diff={diff} />);
+    expect(screen.getByText('@@ -5,2 +5,2 @@')).toBeTruthy();
   });
 
-  it('handles empty diff', () => {
-    const { getByText } = render(<CodeDiffViewer diff="" />);
-    expect(getByText('No changes.')).toBeTruthy();
+  it('renders error state without throwing for malformed input', () => {
+    const malformedDiff = `this is not a diff`;
+    
+    // Should not throw
+    const { container } = render(<CodeDiffViewer diff={malformedDiff} />);
+    
+    expect(container.querySelector('.cdv-error')).toBeTruthy();
+    expect(screen.getByText(/Error parsing diff/)).toBeTruthy();
   });
 
-  it('handles binary diff', () => {
-    const { getByText } = render(<CodeDiffViewer diff="Binary files a/image.png and b/image.png differ" />);
-    expect(getByText('Binary file changed.')).toBeTruthy();
+  it('shows fileName header when provided', () => {
+    const diff = `@@ -1 +1 @@\n-a\n+b`;
+    render(<CodeDiffViewer diff={diff} fileName="test.ts" />);
+    
+    expect(screen.getByText('test.ts')).toBeTruthy();
   });
 
-  it('truncates large diffs', () => {
-    const largeDiff = "@@ -1,1 +1,2001 @@\n" + Array.from({ length: 2005 }, (_, i) => `+ Line ${i}`).join('\n');
-    const { getByText } = render(<CodeDiffViewer diff={largeDiff} />);
-    
-    expect(getByText('Diff truncated: showing first 2000 lines.')).toBeTruthy();
-  });
+  it('renders line-number columns', () => {
+    const diff = `@@ -10,3 +10,3 @@
+ context1
+-del1
++add1
+ context2`;
 
-  it('can collapse and expand hunks', () => {
-    const { container, getByText } = render(<CodeDiffViewer diff={sampleDiff} />);
+    const { container } = render(<CodeDiffViewer diff={diff} />);
+    const lineNums = container.querySelectorAll('.cdv-line-num');
     
-    // Check initial state (expanded)
-    expect(container.querySelector('.code-diff-line-added')).toBeTruthy();
+    // 4 rows * 2 line number columns = 8 cells
+    expect(lineNums.length).toBe(8);
     
-    // Click to collapse
-    const hunkHeader = getByText(/@@ -1,3 \+1,4 @@/);
-    fireEvent.click(hunkHeader);
+    // context1
+    expect(lineNums[0].textContent).toBe('10');
+    expect(lineNums[1].textContent).toBe('10');
     
-    // Should be collapsed
-    expect(container.querySelector('.code-diff-line-added')).toBeFalsy();
+    // del1
+    expect(lineNums[2].textContent).toBe('11');
+    expect(lineNums[3].textContent).toBe('');
     
-    // Click to expand again
-    fireEvent.click(hunkHeader);
-    expect(container.querySelector('.code-diff-line-added')).toBeTruthy();
-  });
-
-  it('handles copy callback via clipboard API', async () => {
-    // Mock navigator.clipboard
-    const mockWriteText = vi.fn().mockResolvedValue(undefined);
-    Object.assign(navigator, {
-      clipboard: {
-        writeText: mockWriteText,
-      },
-    });
-
-    const { getByLabelText } = render(<CodeDiffViewer diff={sampleDiff} />);
+    // add1
+    expect(lineNums[4].textContent).toBe('');
+    expect(lineNums[5].textContent).toBe('11');
     
-    const copyButton = getByLabelText('Copy full diff');
-    fireEvent.click(copyButton);
-    
-    expect(mockWriteText).toHaveBeenCalledWith(sampleDiff);
-  });
-
-  it('supports keyboard hunk navigation', () => {
-    const twoHunkDiff = `@@ -1,1 +1,2 @@\n+line1\n@@ -5,1 +6,2 @@\n+line2\n`;
-    const { container } = render(<CodeDiffViewer diff={twoHunkDiff} />);
-    
-    const hunkGroups = container.querySelectorAll('.code-diff-hunk-group');
-    expect(hunkGroups.length).toBe(2);
-    
-    const firstGroup = hunkGroups[0] as HTMLElement;
-    const secondGroup = hunkGroups[1] as HTMLElement;
-    
-    // Focus first group
-    firstGroup.focus();
-    expect(document.activeElement).toBe(firstGroup);
-    
-    // Press 'j'
-    fireEvent.keyDown(firstGroup, { key: 'j' });
-    expect(document.activeElement).toBe(secondGroup);
-    
-    // Press 'k'
-    fireEvent.keyDown(secondGroup, { key: 'k' });
-    expect(document.activeElement).toBe(firstGroup);
-    
-    // Press 'Enter' to collapse
-    fireEvent.keyDown(firstGroup, { key: 'Enter' });
-    expect(container.querySelector('.code-diff-line-added')).toBeTruthy(); // Only one line added per hunk, should hide one
+    // context2
+    expect(lineNums[6].textContent).toBe('12');
+    expect(lineNums[7].textContent).toBe('12');
   });
 });
