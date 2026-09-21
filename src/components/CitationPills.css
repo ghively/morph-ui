@@ -1,0 +1,40 @@
+[data-citations] {
+  display: inline-flex;
+  gap: 4px;
+  vertical-align: baseline;
+}
+
+[data-cite] {
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
+  background: var(--morph-badge-bg, rgba(128, 128, 128, 0.14));
+  color: inherit;
+  cursor: pointer;
+  vertical-align: 2px;
+}
+
+[data-cite]:hover {
+  border-color: var(--morph-accent, #2f7cf6);
+  color: var(--morph-accent, #2f7cf6);
+}
+
+[data-cite]:focus-visible {
+  outline: 2px solid var(--morph-accent, #2f7cf6);
+  outline-offset: 1px;
+}
+
+[data-cite][data-active] {
+  background: var(--morph-accent, #2f7cf6);
+  border-color: var(--morph-accent, #2f7cf6);
+  color: #fff;
+}

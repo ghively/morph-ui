@@ -1,0 +1,13 @@
+@import './TextField.css';
+
+[data-textarea] {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font: inherit;
+}
+
+[data-textarea] > label {
+  font-size: 13px;
+  font-weight: 600;
+}

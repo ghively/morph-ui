@@ -1,0 +1,76 @@
+[data-filterbar] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  font: inherit;
+  font-size: 12.5px;
+}
+
+[data-filterbar][data-empty] {
+  justify-content: flex-start;
+}
+
+[data-filternone] {
+  opacity: 0.65;
+}
+
+[data-filterchips] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+[data-filterchip] {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  padding: 4px 5px 4px 10px;
+  border-radius: 999px;
+  background: rgba(47, 124, 246, 0.13);
+  border: 1px solid rgba(47, 124, 246, 0.38);
+}
+
+[data-filterchip] button {
+  border: none;
+  background: rgba(47, 124, 246, 0.2);
+  color: inherit;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+[data-filterchip] button:hover {
+  background: rgba(47, 124, 246, 0.38);
+}
+
+[data-filteractions] {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+[data-filtercount] {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.72;
+  font-weight: 600;
+}
+
+[data-filterclear] {
+  font: inherit;
+  font-weight: 650;
+  border: none;
+  background: transparent;
+  color: var(--morph-accent, #2f7cf6);
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+[data-filterclear]:hover {
+  text-decoration: underline;
+}

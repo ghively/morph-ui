@@ -1,0 +1,83 @@
+[data-varprompt] {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font: inherit;
+  font-size: 13.5px;
+}
+
+[data-varprompt] > label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+[data-templatetext] {
+  font: inherit;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12.5px;
+  line-height: 1.6;
+  padding: 9px 11px;
+  border-radius: 8px;
+  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
+  background: var(--morph-input-bg, rgba(128, 128, 128, 0.08));
+  color: inherit;
+  resize: vertical;
+}
+
+[data-varfields] {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px;
+}
+
+[data-varfield] {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+[data-varname] {
+  font-size: 11.5px;
+  font-weight: 700;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--morph-accent, #2f7cf6);
+}
+
+[data-varfield] input {
+  font: inherit;
+  font-size: 13px;
+  height: 32px;
+  padding: 0 9px;
+  border-radius: 7px;
+  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
+  background: var(--morph-input-bg, rgba(128, 128, 128, 0.08));
+  color: inherit;
+}
+
+[data-varpreview] {
+  font-size: 12.5px;
+  line-height: 1.55;
+  padding: 9px 11px;
+  border-radius: 8px;
+  border-left: 3px solid var(--morph-accent, #2f7cf6);
+  background: var(--morph-card-bg, rgba(128, 128, 128, 0.07));
+  white-space: pre-wrap;
+}
+
+[data-varactions] {
+  display: flex;
+  justify-content: flex-end;
+}
+
+[data-varrun] {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  height: 33px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border: none;
+  background: var(--morph-accent, #2f7cf6);
+  color: #fff;
+  cursor: pointer;
+}

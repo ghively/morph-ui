@@ -1,0 +1,55 @@
+[data-shortcuts] {
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+[data-shortcuttitle] {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.65;
+}
+
+[data-shortcutlist] {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+[data-shortcutrow] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 13px;
+}
+
+[data-keys] {
+  display: inline-flex;
+  gap: 4px;
+  flex: none;
+}
+
+[data-keys] kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 6px;
+  border: 1px solid var(--morph-border-strong, rgba(128, 128, 128, 0.55));
+  border-bottom-width: 2px;
+  background: var(--morph-card-bg, rgba(128, 128, 128, 0.1));
+  white-space: nowrap;
+}
+
+[data-shortcutaction] {
+  opacity: 0.85;
+  text-align: right;
+}

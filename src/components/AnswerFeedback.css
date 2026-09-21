@@ -1,0 +1,115 @@
+[data-feedback] {
+  font: inherit;
+  font-size: 13px;
+  border-top: 1px solid var(--morph-border, rgba(128, 128, 128, 0.24));
+  padding-top: 10px;
+}
+
+[data-feedbackrow] {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+[data-thumb] {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: inherit;
+  opacity: 0.65;
+  cursor: pointer;
+}
+
+[data-thumb]:hover {
+  opacity: 1;
+  background: var(--morph-hover, rgba(128, 128, 128, 0.12));
+}
+
+[data-thumb]:focus-visible {
+  outline: 2px solid var(--morph-accent, #2f7cf6);
+  outline-offset: 1px;
+}
+
+[data-thumb][data-active] {
+  opacity: 1;
+  border-color: var(--morph-accent, #2f7cf6);
+  color: var(--morph-accent, #2f7cf6);
+}
+
+[data-feedbackhint] {
+  font-size: 12.5px;
+  opacity: 0.65;
+}
+
+[data-feedbacksend] {
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 650;
+  margin-left: 4px;
+  padding: 5px 12px;
+  border-radius: 7px;
+  border: 1px solid var(--morph-accent, #2f7cf6);
+  background: transparent;
+  color: var(--morph-accent, #2f7cf6);
+  cursor: pointer;
+}
+
+[data-feedbacksend]:hover {
+  background: var(--morph-accent, #2f7cf6);
+  color: #fff;
+}
+
+[data-feedbackdetail] {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+[data-reasonchips] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+[data-reasonchip] {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+[data-reasonchip][data-on] {
+  border-color: var(--morph-danger, #e5484d);
+  color: var(--morph-danger, #f2555a);
+  background: rgba(229, 72, 77, 0.1);
+}
+
+[data-correctionlabel] {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+[data-correctionlabel] textarea {
+  font: inherit;
+  font-weight: 400;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
+  background: var(--morph-input-bg, rgba(128, 128, 128, 0.08));
+  color: inherit;
+  resize: vertical;
+}

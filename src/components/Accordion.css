@@ -1,0 +1,75 @@
+[data-accordion] {
+  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.32));
+  border-radius: var(--morph-radius-lg, 12px);
+  overflow: hidden;
+  font: inherit;
+}
+
+[data-accitem] + [data-accitem] {
+  border-top: 1px solid var(--morph-border, rgba(128, 128, 128, 0.32));
+}
+
+[data-acchead] {
+  margin: 0;
+  font-size: inherit;
+}
+
+[data-acchead] > button {
+  font: inherit;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 14px;
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+[data-acchead] > button:hover:not(:disabled) {
+  background: var(--morph-hover, rgba(128, 128, 128, 0.08));
+}
+
+[data-acchead] > button:focus-visible {
+  outline: 2px solid var(--morph-accent, #2f7cf6);
+  outline-offset: -2px;
+}
+
+[data-acchead] > button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+[data-acctitle] {
+  flex: 1;
+  font-size: 13.5px;
+  font-weight: 600;
+  min-width: 0;
+}
+
+[data-accbadge] {
+  flex: none;
+}
+
+[data-accicon] {
+  flex: none;
+  opacity: 0.7;
+  transition: transform 140ms ease;
+}
+
+[data-accitem][data-open] [data-accicon] {
+  transform: rotate(180deg);
+}
+
+[data-accpanel] {
+  padding: 0 14px 14px;
+  font-size: 13.5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-accicon] {
+    transition: none;
+  }
+}

@@ -1,0 +1,128 @@
+[data-plan] {
+  font: inherit;
+  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.32));
+  border-radius: var(--morph-radius-lg, 12px);
+  overflow: hidden;
+}
+
+[data-planhead] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--morph-thead-bg, rgba(128, 128, 128, 0.09));
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+[data-planprogress] {
+  font-variant-numeric: tabular-nums;
+}
+
+[data-planlist] {
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+[data-planstep] {
+  display: flex;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  align-items: flex-start;
+}
+
+[data-planstep][data-state='active'] {
+  background: rgba(47, 124, 246, 0.08);
+}
+
+[data-planmarker] {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+[data-planstep][data-state='done'] [data-planmarker] {
+  background: rgba(48, 164, 108, 0.16);
+  color: var(--morph-success, #3cb179);
+}
+
+[data-planstep][data-state='active'] [data-planmarker] {
+  background: rgba(47, 124, 246, 0.16);
+  color: var(--morph-accent, #2f7cf6);
+}
+
+[data-planstep][data-state='blocked'] [data-planmarker] {
+  background: rgba(229, 72, 77, 0.16);
+  color: var(--morph-danger, #f2555a);
+}
+
+[data-planstep][data-state='todo'] [data-planmarker] {
+  border: 1.5px solid var(--morph-border-strong, rgba(128, 128, 128, 0.6));
+}
+
+[data-planpulse] {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: morph-plan-pulse 1s ease-in-out infinite;
+}
+
+[data-plantodo] {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.4;
+}
+
+[data-plantext] {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+[data-planlabel] {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+[data-planstep][data-state='done'] [data-planlabel] {
+  opacity: 0.75;
+}
+
+[data-plandetail] {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+@keyframes morph-plan-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-planpulse] {
+    animation: none;
+    opacity: 1;
+  }
+}

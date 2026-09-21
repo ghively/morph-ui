@@ -1,0 +1,60 @@
+[data-kpi] {
+  background: var(--morph-card-bg, rgba(128, 128, 128, 0.07));
+  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.32));
+  border-radius: var(--morph-radius-lg, 12px);
+  padding: 14px 16px;
+  min-width: 0;
+  font: inherit;
+}
+
+[data-kpilabel] {
+  font-size: 12.5px;
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+[data-kpirow] {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+[data-kpivalue] {
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+}
+
+[data-kpispark] {
+  flex: none;
+  opacity: 0.75;
+  color: var(--morph-accent, #2f7cf6);
+}
+
+[data-kpidelta] {
+  margin-top: 2px;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+[data-kpidelta][data-tone='good'] {
+  color: var(--morph-success, #3cb179);
+}
+
+[data-kpidelta][data-tone='bad'] {
+  color: var(--morph-danger, #f2555a);
+}
+
+[data-kpidelta][data-tone='neutral'] {
+  opacity: 0.7;
+}
+
+[data-kpihint] {
+  margin-top: 4px;
+  font-size: 12px;
+  opacity: 0.7;
+}

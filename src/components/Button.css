@@ -1,0 +1,96 @@
+[data-button] {
+  --btn-bg: var(--morph-btn-bg, rgba(128, 128, 128, 0.12));
+  --btn-fg: var(--morph-fg, inherit);
+  --btn-border: var(--morph-border, rgba(128, 128, 128, 0.4));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  border-radius: var(--morph-radius, 8px);
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 0 14px;
+  height: 34px;
+  font-size: 13.5px;
+}
+
+[data-button][data-size='sm'] {
+  height: 28px;
+  padding: 0 10px;
+  font-size: 12.5px;
+  border-radius: var(--morph-radius-sm, 6px);
+}
+
+[data-button][data-size='lg'] {
+  height: 42px;
+  padding: 0 20px;
+  font-size: 15px;
+}
+
+[data-button][data-variant='primary'] {
+  --btn-bg: var(--morph-accent, #2f7cf6);
+  --btn-fg: #fff;
+  --btn-border: transparent;
+}
+
+[data-button][data-variant='ghost'] {
+  --btn-bg: transparent;
+  --btn-border: transparent;
+}
+
+[data-button][data-variant='danger'] {
+  --btn-bg: var(--morph-danger, #e5484d);
+  --btn-fg: #fff;
+  --btn-border: transparent;
+}
+
+[data-button]:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+[data-button]:active:not(:disabled) {
+  filter: brightness(0.94);
+}
+
+[data-button]:focus-visible {
+  outline: 2px solid var(--morph-accent, #2f7cf6);
+  outline-offset: 2px;
+}
+
+[data-button]:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+[data-btnspinner] {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  animation: morph-btn-spin 0.7s linear infinite;
+}
+
+[data-button][data-loading] {
+  cursor: progress;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-btnspinner] {
+    animation: none;
+    border-top-color: currentColor;
+    opacity: 0.6;
+  }
+}
+
+@keyframes morph-btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

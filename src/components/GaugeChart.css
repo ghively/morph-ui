@@ -1,0 +1,35 @@
+[data-gauge] {
+  margin: 0;
+  font: inherit;
+  min-width: 0;
+  max-width: 280px;
+}
+
+[data-gaugesvg] {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+[data-gaugetrack] {
+  stroke: var(--morph-track, rgba(128, 128, 128, 0.18));
+}
+
+[data-gaugecenter] {
+  font-size: 24px;
+  font-weight: 800;
+  fill: currentColor;
+  font-variant-numeric: tabular-nums;
+}
+
+[data-gauge] [data-sronly] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

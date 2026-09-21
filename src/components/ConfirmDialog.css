@@ -1,0 +1,73 @@
+[data-confirmscrim] {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+[data-confirm] {
+  width: min(420px, 100%);
+  padding: 20px;
+  border-radius: var(--morph-radius-lg, 12px);
+  background: var(--morph-drawer-bg, #1e2127);
+  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.35));
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  font-size: 13.5px;
+}
+
+[data-confirm] h2 {
+  margin: 0 0 8px;
+  font-size: 15.5px;
+  font-weight: 700;
+}
+
+[data-confirmbody],
+#confirm-body {
+  opacity: 0.85;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+[data-confirmactions] {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+[data-confirmcancel] {
+  font: inherit;
+  font-weight: 600;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 8px;
+  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+[data-confirmgo] {
+  font: inherit;
+  font-weight: 650;
+  height: 34px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border: none;
+  background: var(--morph-accent, #2f7cf6);
+  color: #fff;
+  cursor: pointer;
+}
+
+[data-confirm][data-danger] [data-confirmgo] {
+  background: var(--morph-danger, #e5484d);
+}
+
+[data-confirmcancel]:focus-visible,
+[data-confirmgo]:focus-visible {
+  outline: 2px solid var(--morph-accent, #2f7cf6);
+  outline-offset: 2px;
+}

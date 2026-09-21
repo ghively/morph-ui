@@ -1,0 +1,84 @@
+[data-textfield] {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font: inherit;
+}
+
+[data-textfield] > label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+[data-textfield] input,
+[data-textarea] textarea,
+[data-select] select {
+  font: inherit;
+  font-size: 13.5px;
+  color: var(--morph-fg, inherit);
+  background: var(--morph-input-bg, rgba(128, 128, 128, 0.08));
+  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
+  border-radius: var(--morph-radius, 8px);
+  padding: 0 10px;
+  height: 34px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+[data-textarea] textarea {
+  height: auto;
+  min-height: 76px;
+  padding: 8px 10px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+[data-textfield] input::placeholder,
+[data-textarea] textarea::placeholder {
+  color: var(--morph-placeholder, rgba(128, 128, 128, 0.9));
+  opacity: 1;
+}
+
+[data-textfield] input:hover:not(:disabled),
+[data-textarea] textarea:hover:not(:disabled),
+[data-select] select:hover:not(:disabled) {
+  border-color: var(--morph-border-strong, rgba(128, 128, 128, 0.65));
+}
+
+[data-textfield] input:focus-visible,
+[data-textarea] textarea:focus-visible,
+[data-select] select:focus-visible {
+  outline: 2px solid var(--morph-accent, #2f7cf6);
+  outline-offset: 1px;
+  border-color: var(--morph-accent, #2f7cf6);
+}
+
+[data-textfield][data-invalid] input,
+[data-textarea][data-invalid] textarea,
+[data-select][data-invalid] select {
+  border-color: var(--morph-danger, #e5484d);
+}
+
+[data-textfield][data-invalid] input:focus-visible,
+[data-textarea][data-invalid] textarea:focus-visible,
+[data-select][data-invalid] select:focus-visible {
+  outline-color: var(--morph-danger, #e5484d);
+}
+
+[data-textfield] input:disabled,
+[data-textarea] textarea:disabled,
+[data-select] select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+[data-hint] {
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+[data-error] {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--morph-danger, #e5484d);
+}

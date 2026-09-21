@@ -1,0 +1,42 @@
+[data-followups] {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font: inherit;
+}
+
+[data-followupslabel] {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+}
+
+[data-followupchips] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+[data-followup] {
+  font: inherit;
+  font-size: 13px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.4));
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+[data-followup]:hover {
+  border-color: var(--morph-accent, #2f7cf6);
+  color: var(--morph-accent, #2f7cf6);
+}
+
+[data-followup]:focus-visible {
+  outline: 2px solid var(--morph-accent, #2f7cf6);
+  outline-offset: 1px;
+}

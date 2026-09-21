@@ -1,0 +1,131 @@
+[data-ragdemo] {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font: inherit;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 20px 20px 40px;
+}
+
+[data-demohead] {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+[data-demotitle] {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+
+[data-demosub] {
+  margin: 4px 0 0;
+  font-size: 13px;
+  opacity: 0.72;
+}
+
+[data-demoactions] {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+[data-kpirow] {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+[data-demogrid] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 14px;
+  align-items: start;
+}
+
+[data-demomain] {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+[data-demoside] {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+[data-scopefields] {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+[data-chartgrid] {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+[data-labgrid] {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+[data-askrow] {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+[data-askrow] [data-searchfield] {
+  flex: 1;
+}
+
+[data-stagerow] {
+  margin-top: 12px;
+}
+
+[data-answer] {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+[data-answerhead] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+[data-answertext] {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+[data-sourcegrid] {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  [data-demogrid],
+  [data-labgrid] {
+    grid-template-columns: 1fr;
+  }
+}

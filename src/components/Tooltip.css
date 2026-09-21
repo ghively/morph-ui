@@ -1,0 +1,106 @@
+[data-tooltip] {
+  position: relative;
+  display: inline-flex;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  z-index: 60;
+  max-width: 240px;
+  padding: 6px 9px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: normal;
+  color: #fff;
+  background: rgba(20, 22, 26, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+[data-tooltip][data-placement='top']::after {
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%) translateY(2px);
+}
+
+[data-tooltip][data-placement='bottom']::after {
+  top: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-2px);
+}
+
+[data-tooltip][data-placement='left']::after {
+  right: calc(100% + 7px);
+  top: 50%;
+  transform: translateY(-50%) translateX(2px);
+}
+
+[data-tooltip][data-placement='right']::after {
+  left: calc(100% + 7px);
+  top: 50%;
+  transform: translateY(-50%) translateX(-2px);
+}
+
+[data-tooltip]:hover::after,
+[data-tooltip]:focus-within::after {
+  opacity: 1;
+}
+
+[data-tooltip][data-placement='top']:hover::after,
+[data-tooltip][data-placement='top']:focus-within::after {
+  transform: translateX(-50%) translateY(0);
+}
+
+[data-tooltip][data-placement='bottom']:hover::after,
+[data-tooltip][data-placement='bottom']:focus-within::after {
+  transform: translateX(-50%) translateY(0);
+}
+
+[data-tooltip][data-placement='left']:hover::after,
+[data-tooltip][data-placement='left']:focus-within::after,
+[data-tooltip][data-placement='right']:hover::after,
+[data-tooltip][data-placement='right']:focus-within::after {
+  transform: translateY(-50%) translateX(0);
+}
+
+[data-tooltip]:not([data-tip])::after {
+  display: none;
+}
+
+[data-tipbody] {
+  position: absolute;
+  z-index: 60;
+  max-width: 240px;
+  padding: 6px 9px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #fff;
+  background: rgba(20, 22, 26, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%) translateY(2px);
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+[data-tooltip]:hover [data-tipbody],
+[data-tooltip]:focus-within [data-tipbody] {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-tooltip]::after,
+  [data-tipbody] {
+    transition: none;
+  }
+}

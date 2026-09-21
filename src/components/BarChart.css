@@ -1,0 +1,63 @@
+[data-barchart] {
+  margin: 0;
+  font: inherit;
+  min-width: 0;
+}
+
+[data-bararea] {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  border-bottom: 1px solid var(--morph-border, rgba(128, 128, 128, 0.35));
+  padding-bottom: 0;
+}
+
+[data-barcol] {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+[data-barvalue] {
+  font-size: 11.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+[data-bar] {
+  width: min(44px, 70%);
+  border-radius: 4px 4px 0 0;
+  min-height: 2px;
+}
+
+[data-barlabel] {
+  font-size: 11.5px;
+  opacity: 0.78;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  padding-bottom: 6px;
+}
+
+[data-barempty] {
+  margin: auto;
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+[data-barchart] [data-sronly] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

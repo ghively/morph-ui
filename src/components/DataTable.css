@@ -1,0 +1,86 @@
+[data-tablewrap] {
+  overflow-x: auto;
+  border: 1px solid var(--morph-border, rgba(128, 128, 128, 0.32));
+  border-radius: var(--morph-radius-lg, 12px);
+  font: inherit;
+}
+
+[data-table] {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+[data-table] caption {
+  text-align: left;
+  padding: 12px 14px;
+  font-weight: 650;
+  font-size: 14px;
+}
+
+[data-table] th,
+[data-table] td {
+  padding: 9px 14px;
+  border-top: 1px solid var(--morph-border, rgba(128, 128, 128, 0.24));
+  vertical-align: middle;
+}
+
+[data-table] thead th {
+  border-top: none;
+  background: var(--morph-thead-bg, rgba(128, 128, 128, 0.09));
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  opacity: 1;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+}
+
+[data-table] tbody tr:hover {
+  background: var(--morph-hover, rgba(128, 128, 128, 0.07));
+}
+
+[data-table] [data-align='center'] {
+  text-align: center;
+}
+
+[data-table] [data-align='right'] {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+[data-sortbtn] {
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+[data-sortbtn]:focus-visible {
+  outline: 2px solid var(--morph-accent, #2f7cf6);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+[data-sorticon] {
+  font-size: 9px;
+  opacity: 0.45;
+}
+
+[data-sorticon][data-dir] {
+  opacity: 1;
+  color: var(--morph-accent, #2f7cf6);
+}
+
+[data-emptycell] {
+  text-align: center;
+  padding: 26px 14px !important;
+  opacity: 0.7;
+}
