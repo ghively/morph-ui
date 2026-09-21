@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { LiquidNavMenu } from "./LiquidNavMenu";
 import type { LiquidNavActionProps } from "./LiquidNavMenu";
 

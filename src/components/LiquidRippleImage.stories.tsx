@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { LiquidRippleImage } from "./LiquidRippleImage";
 
 const rippleSource = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(

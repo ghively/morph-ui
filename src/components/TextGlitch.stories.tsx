@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { TextGlitch } from './TextGlitch';
 
 const frame: React.CSSProperties = {

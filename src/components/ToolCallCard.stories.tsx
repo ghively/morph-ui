@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { ToolCallCard } from './ToolCallCard';
 
 const frame: React.CSSProperties = {

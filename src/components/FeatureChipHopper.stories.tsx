@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { FeatureChipHopper } from "./FeatureChipHopper";
 
 export const Default = () => (

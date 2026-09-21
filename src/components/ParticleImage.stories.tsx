@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { ParticleImage } from "./ParticleImage";
 
 const particleSource = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(

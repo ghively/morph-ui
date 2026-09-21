@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { MorphWizard } from "./MorphWizard";
 import type { MorphWizardStep } from "./MorphWizard";
 

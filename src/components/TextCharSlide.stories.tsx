@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { useEffect, useState } from 'react';
 import { TextCharSlide } from './TextCharSlide';
 

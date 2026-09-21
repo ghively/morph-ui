@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { ColorArchiveScroll } from "./ColorArchiveScroll";
 import type { ArchiveItem } from "./ColorArchiveScroll";
 

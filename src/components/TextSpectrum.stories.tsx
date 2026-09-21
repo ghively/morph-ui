@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { TextSpectrum } from "./TextSpectrum";
 
 export const Default = () => (

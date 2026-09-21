@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { useRef } from "react";
 import { GradientBlindBackdrop } from "./GradientBlindBackdrop";
 

@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { FanHoverStack } from "./FanHoverStack";
 import type { FanHoverStackItem } from "./FanHoverStack";
 

@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { TactileKeyboardShowcase } from "./TactileKeyboardShowcase";
 
 export const Default = () => (

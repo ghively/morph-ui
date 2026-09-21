@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { TextShimmer } from "./TextShimmer";
 
 export const Default = () => (

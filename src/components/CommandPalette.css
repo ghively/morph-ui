@@ -118,3 +118,25 @@
     animation: none;
   }
 }
+
+[data-command-palette-hint] {
+  color: var(--app-faint);
+  font-size: var(--t-meta);
+  margin-left: auto;
+}
+
+[data-command-palette-status] {
+  padding: var(--s2) var(--s3);
+  font-size: var(--t-meta);
+  color: var(--app-faint);
+  border-top: 1px solid var(--app-line);
+  background: var(--app-elev);
+  border-bottom-left-radius: var(--r-pane);
+  border-bottom-right-radius: var(--r-pane);
+}
+
+[data-command-palette-item] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

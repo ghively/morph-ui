@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { ContextMeter } from './ContextMeter';
 
 const frame: React.CSSProperties = {

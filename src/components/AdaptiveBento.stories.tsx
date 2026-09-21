@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import type { ReactNode } from 'react';
 import { AdaptiveBento, type AdaptiveBentoItem } from './AdaptiveBento';
 

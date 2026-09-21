@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { LineFillText } from "./LineFillText";
 
 export const Default = () => (

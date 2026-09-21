@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { MetricSparkline } from './MetricSparkline';
 
 export const Default = () => (

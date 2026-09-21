@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { MultimodalComposer } from "./MultimodalComposer";
 import type { AttachmentStatus } from "./MultimodalComposer";
 

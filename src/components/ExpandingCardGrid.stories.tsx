@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { ExpandingCardGrid } from "./ExpandingCardGrid";
 import type { ExpandingCardItem } from "./ExpandingCardGrid";
 

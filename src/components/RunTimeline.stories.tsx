@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { RunTimeline, type RunTimelineStep } from './RunTimeline';
 
 const frame: React.CSSProperties = {

@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { useState } from 'react';
 import { AgentActivityHeatmap, type HeatmapDataPoint } from './AgentActivityHeatmap';
 

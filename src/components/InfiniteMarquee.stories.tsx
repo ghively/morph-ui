@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { InfiniteMarquee } from "./InfiniteMarquee";
 
 const tags = ["React 19", "Vite", "TypeScript", "Vitest", "Ladle", "Design Tokens"];

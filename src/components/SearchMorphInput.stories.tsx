@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { SearchMorphInput } from "./SearchMorphInput";
 
 export const Default = () => (

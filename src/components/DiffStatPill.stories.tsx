@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { DiffStatPill } from './DiffStatPill';
 
 const frame: React.CSSProperties = {

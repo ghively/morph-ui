@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { TextBlurReveal } from "./TextBlurReveal";
 
 export const Default = () => (

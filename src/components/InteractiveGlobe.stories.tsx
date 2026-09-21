@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { InteractiveGlobe } from "./InteractiveGlobe";
 import type { GlobeMarker } from "./InteractiveGlobe";
 

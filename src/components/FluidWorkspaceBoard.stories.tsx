@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { FluidWorkspaceBoard } from "./FluidWorkspaceBoard";
 import type { FluidWorkspaceBoardItem } from "./FluidWorkspaceBoard";
 

@@ -1,3 +1,4 @@
+import type { StoryDefault, Story } from '@ladle/react';
 import { MorphingBlobBackground } from "./MorphingBlobBackground";
 
 export const Default = () => (
