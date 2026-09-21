@@ -1,0 +1,90 @@
+[data-scroll-pinned-sequence] {
+  position: relative;
+  width: 100%;
+}
+
+.scroll-pinned-sequence-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.scroll-pinned-sequence-content {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-pinned-sequence-step {
+  position: absolute;
+  width: 100%;
+  transition: transform 0.1s linear, opacity 0.1s linear;
+  display: flex;
+  justify-content: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-pinned-sequence-step {
+    transition: opacity var(--d2) var(--ease-fx);
+    transform: none !important;
+  }
+}
+
+.scroll-pinned-sequence-step-inner {
+  background: var(--app-panel);
+  border: 1px solid var(--app-line);
+  border-radius: var(--r-md);
+  padding: var(--s3) 32px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-pinned-sequence-title {
+  margin: 0 0 var(--s2) 0;
+  color: var(--app-text);
+  font-family: var(--font-sans);
+  font-size: 24px;
+}
+
+.scroll-pinned-sequence-body {
+  color: var(--app-dim);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.scroll-pinned-sequence-indicators {
+  position: absolute;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.scroll-pinned-sequence-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--app-line);
+  transition: background var(--d2) var(--ease-fx), transform var(--d2) var(--ease-spring);
+}
+
+.scroll-pinned-sequence-indicator[data-past="true"] {
+  background: var(--app-blue-soft);
+}
+
+.scroll-pinned-sequence-indicator[data-active="true"] {
+  background: var(--app-blue);
+  transform: scale(1.5);
+}

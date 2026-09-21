@@ -1,0 +1,124 @@
+[data-color-archive-scroll] {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--r-md);
+  --active-bg-color: var(--app-bg);
+}
+
+.color-archive-scroll-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--active-bg-color);
+  opacity: 0.15;
+  transition: background-color var(--d5) var(--ease-fx);
+  z-index: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .color-archive-scroll-background {
+    transition: none;
+  }
+}
+
+.color-archive-scroll-viewport {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  z-index: 1;
+}
+
+.color-archive-scroll-viewport::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .color-archive-scroll-viewport {
+    scroll-behavior: auto;
+  }
+}
+
+.color-archive-scroll-track {
+  display: flex;
+  padding: var(--s3) 10vw; /* padding to center active item if it's 80vw */
+  gap: var(--s2);
+  min-width: min-content;
+}
+
+.color-archive-scroll-item {
+  flex: 0 0 80vw;
+  max-width: 600px;
+  scroll-snap-align: center;
+  transition: transform var(--d3) var(--ease-spring), opacity var(--d3) var(--ease-fx);
+  opacity: 0.5;
+  transform: scale(0.9);
+}
+
+.color-archive-scroll-item[data-active="true"] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .color-archive-scroll-item {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.color-archive-scroll-card {
+  background: var(--app-panel);
+  border: 1px solid var(--app-line);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 300px;
+}
+
+.color-archive-scroll-preview {
+  flex: 1;
+  min-height: 200px;
+  background: #000;
+  overflow: hidden;
+  position: relative;
+}
+
+.color-archive-scroll-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.color-archive-scroll-content {
+  padding: var(--s3);
+  background: var(--app-bg);
+}
+
+.color-archive-scroll-title {
+  margin: 0 0 var(--s1) 0;
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.color-archive-scroll-desc {
+  margin: 0;
+  color: var(--app-dim);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+}

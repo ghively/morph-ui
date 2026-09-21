@@ -1,0 +1,16 @@
+[data-confetti-cannon] {
+  position: absolute; /* Usually overlays its parent */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Don't block clicks */
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.confetti-cannon-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

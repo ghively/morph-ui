@@ -1,0 +1,145 @@
+[data-animated-media-tabs] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  width: 100%;
+  max-width: 400px;
+}
+
+.animated-media-tabs-list {
+  display: flex;
+  position: relative;
+  background: var(--app-panel);
+  padding: var(--s1);
+  border-radius: var(--r-md);
+  gap: var(--s1);
+  overflow: hidden;
+}
+
+.animated-media-tabs-indicator {
+  position: absolute;
+  top: var(--s1);
+  bottom: var(--s1);
+  left: 0;
+  background: var(--app-elev);
+  border-radius: calc(var(--r-md) - var(--s1));
+  transition: transform var(--d2) var(--ease-spring), width var(--d2) var(--ease-spring);
+  z-index: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-media-tabs-indicator {
+    transition: none;
+  }
+}
+
+.animated-media-tabs-tab {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--app-dim);
+  font-family: var(--font-sans);
+  font-size: var(--t-ctl);
+  padding: var(--s2) var(--s3);
+  border-radius: calc(var(--r-md) - var(--s1));
+  cursor: pointer;
+  transition: color var(--d1) var(--ease-fx);
+}
+
+.animated-media-tabs-tab:hover {
+  color: var(--app-text);
+}
+
+.animated-media-tabs-tab[data-selected="true"] {
+  color: var(--app-text);
+  font-weight: 500;
+}
+
+.animated-media-tabs-deck {
+  position: relative;
+  aspect-ratio: 4/5;
+  width: 100%;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.animated-media-tabs-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--d3) var(--ease-spring), opacity var(--d2) var(--ease-fx);
+  transform-origin: bottom center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px) scale(0.95);
+}
+
+.animated-media-tabs-card[data-selected="true"] {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+/* Stack effect for non-selected cards */
+.animated-media-tabs-card:not([data-selected="true"]) {
+  /* We use the inline variable --card-offset set in JS to compute transform */
+  transform: translateY(calc(var(--card-offset, 1) * 8px)) scale(calc(1 - (var(--card-offset, 1) * 0.05)));
+  opacity: calc(1 - (var(--card-offset, 1) * 0.3));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-media-tabs-card {
+    transition: none;
+  }
+}
+
+.animated-media-tabs-card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--app-bg);
+  border: 1px solid var(--app-line);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.animated-media-tabs-image-wrapper {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.animated-media-tabs-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.animated-media-tabs-footer {
+  padding: var(--s3);
+  background: var(--app-panel);
+  border-top: 1px solid var(--app-line);
+}
+
+.animated-media-tabs-title {
+  margin: 0 0 var(--s1) 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--app-text);
+  font-weight: 600;
+}
+
+.animated-media-tabs-description {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--t-meta);
+  color: var(--app-dim);
+  line-height: 1.4;
+}

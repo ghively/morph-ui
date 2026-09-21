@@ -1,0 +1,68 @@
+[data-aurora-glow-card] {
+  position: relative;
+  border-radius: var(--r-md);
+  padding: 1px;
+  background: var(--app-line);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  --aurora-intensity: 1;
+  --aurora-color-1: var(--app-blue);
+  --aurora-color-2: var(--color-info-text);
+  --aurora-color-3: var(--app-faint);
+}
+
+.aurora-glow-card-content {
+  position: relative;
+  z-index: 1;
+  background: var(--app-bg);
+  border-radius: calc(var(--r-md) - 1px);
+  padding: var(--s3);
+  height: 100%;
+}
+
+.aurora-glow-card-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity var(--d3) var(--ease-fx);
+  background: conic-gradient(
+    from 0deg,
+    var(--aurora-color-1),
+    var(--aurora-color-2),
+    var(--aurora-color-3),
+    var(--aurora-color-2),
+    var(--aurora-color-1)
+  );
+  filter: blur(calc(8px * var(--aurora-intensity)));
+  animation: aurora-spin 4s linear infinite;
+}
+
+[data-aurora-glow-card][data-active="true"] .aurora-glow-card-border {
+  opacity: calc(0.8 * var(--aurora-intensity));
+}
+
+@keyframes aurora-spin {
+  from {
+    transform: rotate(0deg) scale(1.5);
+  }
+  to {
+    transform: rotate(360deg) scale(1.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-glow-card-border {
+    animation: none;
+    background: linear-gradient(
+      135deg,
+      var(--aurora-color-1),
+      var(--aurora-color-2),
+      var(--aurora-color-3)
+    );
+  }
+}

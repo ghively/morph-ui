@@ -1,0 +1,129 @@
+[data-pulse-orb] {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --orb-color: var(--app-blue);
+}
+
+.pulse-orb-core {
+  position: absolute;
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  background: var(--orb-color);
+  box-shadow: 0 0 20px var(--orb-color);
+  transition: transform var(--d2) var(--ease-spring), opacity var(--d2) var(--ease-fx);
+  z-index: 4;
+}
+
+.pulse-orb-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--orb-color);
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+/* States */
+
+/* Idle - soft slow breathing */
+[data-pulse-orb][data-state="idle"] .pulse-orb-core {
+  animation: orb-breathe 4s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+/* Thinking - concentric pulses */
+[data-pulse-orb][data-state="thinking"] .pulse-orb-ring {
+  animation: orb-ripple 2s linear infinite;
+}
+
+[data-pulse-orb][data-state="thinking"] .ring-1 {
+  animation-delay: 0s;
+}
+[data-pulse-orb][data-state="thinking"] .ring-2 {
+  animation-delay: 0.6s;
+}
+[data-pulse-orb][data-state="thinking"] .ring-3 {
+  animation-delay: 1.2s;
+}
+[data-pulse-orb][data-state="thinking"] .pulse-orb-core {
+  transform: scale(0.8);
+  opacity: 0.8;
+}
+
+/* Speaking - dynamic scaling like an equalizer */
+[data-pulse-orb][data-state="speaking"] .pulse-orb-core {
+  animation: orb-speak 0.5s var(--ease-spring) infinite alternate;
+  opacity: 1;
+  box-shadow: 0 0 30px var(--orb-color);
+}
+
+[data-pulse-orb][data-state="speaking"] .pulse-orb-ring {
+  animation: orb-speak-ring 1s var(--ease-fx) infinite;
+  border-width: 4px;
+}
+[data-pulse-orb][data-state="speaking"] .ring-1 {
+  animation-delay: 0s;
+}
+[data-pulse-orb][data-state="speaking"] .ring-2 {
+  animation-delay: 0.2s;
+}
+[data-pulse-orb][data-state="speaking"] .ring-3 {
+  animation-delay: 0.4s;
+}
+
+/* Animations */
+@keyframes orb-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes orb-ripple {
+  0% {
+    transform: scale(0.4);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes orb-speak {
+  0% { transform: scale(0.9); }
+  100% { transform: scale(1.3); }
+}
+
+@keyframes orb-speak-ring {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .pulse-orb-core, .pulse-orb-ring {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  [data-pulse-orb][data-state="thinking"] .pulse-orb-core {
+    opacity: 0.7;
+  }
+  
+  [data-pulse-orb][data-state="speaking"] .pulse-orb-core {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  
+  [data-pulse-orb][data-state="speaking"] .pulse-orb-ring {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+}
