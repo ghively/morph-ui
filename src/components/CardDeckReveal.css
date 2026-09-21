@@ -1,0 +1,97 @@
+[data-card-deck-reveal] {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.deck-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--app-bg, #080c2c);
+  border: 1px solid var(--app-line, rgba(150, 175, 255, 0.16));
+  border-radius: var(--r-md, 12px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: transform var(--d3, 300ms) var(--ease-spring),
+              opacity var(--d3, 300ms) var(--ease-spring);
+  transform-style: preserve-3d;
+}
+
+/* Static positions */
+.card-pos-0 {
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
+}
+
+.card-pos-1 {
+  transform: translate3d(0, 10px, -20px) scale(0.95);
+  opacity: 0.8;
+}
+
+.card-pos-2 {
+  transform: translate3d(0, 20px, -40px) scale(0.9);
+  opacity: 0.5;
+}
+
+.card-pos-3 {
+  transform: translate3d(0, 30px, -60px) scale(0.85);
+  opacity: 0;
+}
+
+/* Animations */
+.card-animating-out {
+  animation: drop-away 500ms var(--ease-fx) forwards;
+}
+
+.card-promoting-to-0 {
+  animation: promote-to-0 500ms var(--ease-spring) forwards;
+}
+
+.card-promoting-to-1 {
+  animation: promote-to-1 500ms var(--ease-spring) forwards;
+}
+
+@keyframes drop-away {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotateX(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translate3d(0, 50px, 0) scale(0.9) rotateX(-20deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate3d(0, 100px, -100px) scale(0.5) rotateX(-40deg);
+    opacity: 0;
+  }
+}
+
+@keyframes promote-to-0 {
+  0% { transform: translate3d(0, 10px, -20px) scale(0.95); opacity: 0.8; }
+  100% { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
+}
+
+@keyframes promote-to-1 {
+  0% { transform: translate3d(0, 20px, -40px) scale(0.9); opacity: 0.5; }
+  100% { transform: translate3d(0, 10px, -20px) scale(0.95); opacity: 0.8; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deck-card {
+    transition: opacity var(--d3, 300ms) ease-in-out;
+    transform: none !important;
+  }
+  .card-pos-1, .card-pos-2, .card-pos-3 {
+    opacity: 0;
+  }
+  .card-animating-out,
+  .card-promoting-to-0,
+  .card-promoting-to-1 {
+    animation: none;
+  }
+}

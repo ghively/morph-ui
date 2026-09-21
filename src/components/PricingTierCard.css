@@ -1,0 +1,194 @@
+[data-pricing-tier-card] {
+  position: relative;
+  background: var(--app-bg, #080c2c);
+  border-radius: var(--r-md, 12px);
+  padding: 1px; /* space for the gradient border */
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform var(--d3, 300ms) var(--ease-spring),
+              box-shadow var(--d3, 300ms) var(--ease-spring);
+}
+
+[data-pricing-tier-card]::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from var(--gradient-angle, 0deg), 
+    transparent 0%, 
+    var(--app-blue, #6c9cf0) 25%, 
+    transparent 50%,
+    var(--color-error, #d63c3c) 75%,
+    transparent 100%
+  );
+  animation: rotate-border 4s linear infinite;
+  z-index: -1;
+  opacity: 0.3;
+  transition: opacity var(--d3, 300ms) ease;
+}
+
+[data-pricing-tier-card]:hover::before {
+  opacity: 1;
+}
+
+[data-pricing-tier-card]:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(214, 60, 60, 0.15); /* Wensity Red halo */
+}
+
+@property --gradient-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotate-border {
+  0% { --gradient-angle: 0deg; }
+  100% { --gradient-angle: 360deg; }
+}
+
+.pricing-content {
+  background: var(--app-bg, #080c2c);
+  border-radius: calc(var(--r-md, 12px) - 1px);
+  padding: var(--s3, 10px) 20px 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.is-highlight .pricing-content {
+  background: linear-gradient(180deg, rgba(31, 111, 230, 0.1) 0%, var(--app-bg, #080c2c) 100%);
+}
+
+.pricing-title {
+  color: var(--app-text, #eef1fc);
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.pricing-price {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--app-blue-strong, #1f6fe6);
+  margin-bottom: 24px;
+}
+
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+  flex-grow: 1;
+}
+
+.pricing-feature-item {
+  color: var(--app-dim, #a9b0d8);
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+}
+
+.pricing-feature-item::before {
+  content: '✓';
+  color: var(--color-success, #1a9b5e);
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+.pricing-toggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.pricing-toggle input {
+  display: none;
+}
+
+.pricing-toggle-slider {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  background-color: var(--app-faint, #979ecd);
+  border-radius: 20px;
+  transition: background-color var(--d2, 220ms) ease;
+}
+
+.pricing-toggle-slider::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: white;
+  transition: transform var(--d2, 220ms) var(--ease-spring);
+}
+
+.pricing-toggle input:checked + .pricing-toggle-slider {
+  background-color: var(--app-blue-strong, #1f6fe6);
+}
+
+.pricing-toggle input:checked + .pricing-toggle-slider::before {
+  transform: translateX(20px);
+}
+
+.pricing-cta {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+  background-color: var(--app-blue, #6c9cf0);
+  color: var(--app-bg, #080c2c);
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 200ms ease;
+}
+
+.pricing-cta::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.4), 
+    transparent
+  );
+  transform: skewX(-20deg);
+}
+
+.pricing-cta.is-approaching::after {
+  animation: shimmer var(--d5, 780ms) ease infinite;
+}
+
+@keyframes shimmer {
+  100% { left: 200%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-pricing-tier-card]::before,
+  .pricing-cta::after {
+    animation: none;
+  }
+  
+  [data-pricing-tier-card] {
+    transition: none;
+  }
+  
+  [data-pricing-tier-card]:hover {
+    transform: none;
+  }
+}
