@@ -1,0 +1,96 @@
+.modal-surface-scrim {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  background-color: var(--scrim);
+  /* The default zIndex will be handled in tsx based on placement */
+}
+
+.modal-surface-scrim[data-soft="true"] {
+  background-color: var(--scrim-soft);
+}
+
+.modal-surface-panel {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--app-bg);
+  box-shadow: 0 8px 32px var(--app-elev);
+  border: 1px solid var(--app-line);
+}
+
+.modal-surface-panel[data-pane=""] {
+  border-radius: var(--r-pane);
+}
+
+.modal-surface-panel[data-sheet=""] {
+  border-radius: var(--r-pane) var(--r-pane) 0 0;
+  border-bottom: none;
+}
+
+.modal-surface-panel[data-drawerpanel=""] {
+  border-radius: 0 0 var(--r-pane) var(--r-pane);
+  border-top: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-surface-panel {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+.modal-surface-head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  height: var(--h-bar, 52px);
+  padding: 0 var(--gut);
+  gap: var(--s4);
+}
+
+.modal-surface-title {
+  flex: 1;
+  font-size: var(--t-title);
+  font-weight: 700;
+  margin: 0;
+}
+
+[data-tabstrip] {
+  display: flex;
+  gap: var(--s4);
+  flex: 1;
+}
+
+[data-tab] {
+  background: transparent;
+  border: none;
+  color: var(--app-dim);
+  font-size: var(--t-ctl);
+  padding: var(--s2) 0;
+  cursor: pointer;
+}
+
+[data-tab][aria-selected="true"] {
+  color: var(--app-text);
+  font-weight: 600;
+  box-shadow: 0 2px 0 var(--sec);
+}
+
+[data-iconbtn] {
+  background: transparent;
+  border: none;
+  color: var(--app-dim);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  padding: 0;
+}
+
+[data-iconbtn]:hover {
+  background: var(--app-hover);
+  color: var(--app-text);
+}

@@ -1,0 +1,110 @@
+[data-screen] {
+  /* No specific classes needed by default, handled in inline styles. */
+}
+
+[data-sec="blue"] {
+  --sec: #6c9cf0;
+  --sec-soft: rgba(108, 156, 240, 0.18);
+}
+[data-sec="cyan"] {
+  --sec: #4dc2c9;
+  --sec-soft: rgba(77, 194, 201, 0.18);
+}
+[data-sec="green"] {
+  --sec: #4caf50;
+  --sec-soft: rgba(76, 175, 80, 0.18);
+}
+[data-sec="gold"] {
+  --sec: #ffc107;
+  --sec-soft: rgba(255, 193, 7, 0.18);
+}
+
+[data-toolrail] {
+  display: flex;
+  align-items: center;
+  height: var(--h-bar, 52px);
+  padding: 0 var(--gut);
+  border-bottom: 1px solid var(--app-line);
+  background-color: var(--app-bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  gap: var(--s4);
+}
+
+[data-tabstrip] {
+  display: flex;
+  height: 100%;
+}
+
+[data-tabstrip] > [data-tab] {
+  background: transparent;
+  border: none;
+  color: var(--app-dim);
+  font-size: var(--t-ctl);
+  padding: 0 var(--s4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  height: 100%;
+  border-bottom: 2px solid transparent;
+}
+
+[data-tabstrip] > [data-tab][aria-selected="true"] {
+  color: var(--app-text);
+  font-weight: 600;
+  border-bottom-color: var(--sec);
+}
+
+[data-tabstrip] > [data-tab] > [data-count] {
+  background-color: var(--app-line);
+  color: var(--app-dim);
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: var(--t-num);
+  font-weight: 500;
+}
+
+[data-tabstrip] > [data-tab][aria-selected="true"] > [data-count] {
+  color: var(--app-text);
+}
+
+[data-searchcap] {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  background-color: var(--app-line);
+  border-radius: var(--r-ctl);
+  padding: 0 var(--s3);
+  height: 32px;
+  min-width: 200px;
+}
+
+[data-searchcap]:focus-within {
+  box-shadow: 0 0 0 2px var(--sec);
+  background-color: transparent;
+  border: 1px solid var(--sec);
+}
+
+[data-searchcap] > svg {
+  color: var(--app-dim);
+}
+
+[data-searchcap]:focus-within > svg {
+  color: var(--sec);
+}
+
+[data-searchcap] > input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--app-text);
+  font-size: var(--t-ctl);
+}
+
+[data-searchcap] > input::placeholder {
+  color: var(--app-dim);
+}

@@ -1,0 +1,239 @@
+[data-rows] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+[data-rows][data-gap="flush"] {
+  gap: 0;
+}
+
+[data-row] {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  padding: var(--s3) var(--s4);
+  border-radius: var(--r-ctl);
+  transition: background-color var(--d1);
+}
+
+[data-row][data-size="lg"] {
+  padding: var(--s4);
+  gap: var(--s5);
+}
+
+[data-row][data-align-start] {
+  align-items: flex-start;
+}
+
+[data-row][data-state=""] {
+  cursor: pointer;
+}
+
+[data-row][data-state=""]:hover {
+  background-color: var(--app-hover);
+}
+
+[data-row][data-on] {
+  background-color: var(--sec-soft);
+}
+
+[data-fill] {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+[data-fill][data-linkish] {
+  cursor: pointer;
+}
+
+[data-strong] {
+  font-weight: 600;
+  color: var(--app-text);
+  word-break: break-word;
+}
+
+[data-lead="true"] {
+  font-size: var(--t-lead);
+}
+
+[data-meta] {
+  color: var(--app-dim);
+  font-size: var(--t-meta);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+[data-num] {
+  font-family: var(--app-mono);
+  font-size: var(--t-num);
+}
+
+[data-dot] {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--app-text);
+  flex: none;
+}
+
+[data-dot][data-tone="ok"] {
+  background-color: var(--color-success);
+}
+
+[data-dot][data-tone="warn"] {
+  background-color: var(--color-warning);
+}
+
+[data-dot][data-tone="danger"] {
+  background-color: var(--color-error);
+}
+
+[data-dot][data-live] {
+  animation: status-pulse var(--d5) var(--ease-cycle) infinite alternate;
+}
+
+@keyframes status-pulse {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+
+[data-chip] {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 6px;
+  background-color: var(--app-line);
+  color: var(--app-dim);
+  border-radius: 4px;
+  font-size: var(--t-num);
+  white-space: nowrap;
+}
+
+[data-tag] {
+  font-size: var(--t-num);
+  color: var(--app-dim);
+  padding: 2px 6px;
+  border: 1px solid var(--app-line);
+  border-radius: 4px;
+}
+
+[data-tag][data-solid] {
+  border: none;
+  background-color: var(--app-line);
+  color: var(--app-text);
+}
+
+[data-tag][data-tone="ok"] {
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text);
+}
+
+[data-tag][data-tone="warn"] {
+  background-color: var(--color-warning-bg, rgba(224, 140, 32, 0.16));
+  color: var(--color-warning);
+}
+
+[data-tag][data-tone="danger"] {
+  background-color: var(--color-error-bg);
+  color: var(--color-error-text);
+}
+
+[data-btn] {
+  padding: var(--s2) var(--s4);
+  border-radius: var(--r-ctl);
+  font-size: var(--t-ctl);
+  font-weight: 500;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--app-line);
+  color: var(--app-text);
+}
+
+[data-btn="fill"] {
+  background: var(--app-text);
+  color: var(--app-bg);
+  border: none;
+}
+
+[data-btn="accent"] {
+  background: var(--sec);
+  color: var(--on-accent);
+  border: none;
+}
+
+[data-btn="text"] {
+  border: none;
+  background: transparent;
+}
+
+[data-btn][data-tone="danger"] {
+  color: var(--color-error-text);
+}
+
+[data-btn="fill"][data-tone="danger"],
+[data-btn="accent"][data-tone="danger"] {
+  background: var(--color-error);
+  color: var(--on-accent);
+}
+
+[data-busy="true"] {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+}
+
+[data-busy="true"] [data-spin] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: status-spin 600ms linear infinite;
+  color: var(--app-text);
+}
+
+[data-btn="fill"][data-busy="true"] [data-spin] {
+  color: var(--app-bg);
+}
+
+@keyframes status-spin {
+  to { transform: rotate(360deg); }
+}
+
+[data-card] {
+  border: 1px solid var(--app-line);
+  border-radius: var(--r-ctl);
+  background: var(--app-bg);
+  padding: var(--s4);
+  margin-bottom: var(--s4);
+}
+
+[data-card] > summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+[data-card] > summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-row] {
+    transition: none !important;
+  }
+  [data-dot][data-live] {
+    animation: none !important;
+  }
+  [data-busy="true"] [data-spin] {
+    animation: none !important;
+  }
+}
