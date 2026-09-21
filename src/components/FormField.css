@@ -1,0 +1,34 @@
+[data-formfield] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+[data-formfield] > label {
+  font-family: var(--font-sans);
+  font-size: var(--t-lead);
+  font-weight: 500;
+  color: var(--app-text);
+}
+
+[data-formfield][data-invalid] > label {
+  color: var(--color-error-text);
+}
+
+[data-hint] {
+  font-family: var(--font-sans);
+  font-size: var(--t-meta);
+  color: var(--app-dim);
+}
+
+[data-hint][data-probe="fail"] {
+  color: var(--color-error-text);
+}
+
+[data-hint][data-probe="ok"] {
+  color: var(--color-success-text);
+}
+
+[data-hint][data-probe="checking"] {
+  color: var(--app-blue);
+}

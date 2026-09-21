@@ -1,0 +1,48 @@
+[data-avatar] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-ctl);
+  background-color: var(--app-elev);
+  color: var(--app-text);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--t-small);
+  user-select: none;
+  flex: none;
+}
+
+[data-avatar="user"] {
+  border-radius: 50%;
+}
+
+[data-avatar][data-size="sm"] {
+  width: 24px;
+  height: 24px;
+  font-size: 10px;
+}
+
+[data-avatar][data-size="lg"] {
+  width: 48px;
+  height: 48px;
+  font-size: 16px;
+}
+
+[data-avatar][data-ring] {
+  box-shadow: 0 0 0 2px var(--color-info-border);
+  animation: pulse-ring var(--d5) infinite alternate;
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 2px var(--color-info-border); }
+  100% { box-shadow: 0 0 0 4px var(--color-info-border); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-avatar][data-ring] {
+    animation: none;
+    box-shadow: 0 0 0 2px var(--color-info-border);
+  }
+}
