@@ -1,4 +1,5 @@
-import type { ReactElement, ReactNode } from 'react';
+import type { ReactElement, ReactNode, KeyboardEvent } from 'react';
+import { useRef } from 'react';
 import './TabbedListScreen.css';
 
 export interface ScreenTab {
@@ -33,7 +34,7 @@ export interface TabbedListScreenProps {
   className?: string;
 }
 
-function GlyphIcon({ name, size = 14 }: { name: string; size?: number }) {
+function GlyphIcon({ name, size = 16 }: { name: string; size?: number }) {
   if (name === 'search') {
     return (
       <svg width={size} height={size} viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -59,6 +60,21 @@ export function TabbedListScreen({
   className = ''
 }: TabbedListScreenProps): ReactElement {
   const hasRail = tabs.length > 0;
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    let newIndex = -1;
+    if (e.key === 'ArrowRight') {
+      newIndex = (index + 1) % tabs.length;
+    } else if (e.key === 'ArrowLeft') {
+      newIndex = (index - 1 + tabs.length) % tabs.length;
+    }
+    if (newIndex !== -1) {
+      e.preventDefault();
+      onTabChange(tabs[newIndex].id);
+      tabRefs.current[newIndex]?.focus();
+    }
+  };
 
   return (
     <div
@@ -75,14 +91,17 @@ export function TabbedListScreen({
       {hasRail && (
         <div data-toolrail="">
           <div data-tabstrip="" role="tablist" aria-label={tablistLabel}>
-            {tabs.map(tab => (
+            {tabs.map((tab, index) => (
               <button
                 key={tab.id}
+                ref={el => { tabRefs.current[index] = el; }}
                 type="button"
                 data-tab=""
                 role="tab"
+                tabIndex={activeTab === tab.id ? 0 : -1}
                 aria-selected={activeTab === tab.id}
                 onClick={() => onTabChange(tab.id)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
               >
                 {tab.label}
                 {tab.count !== undefined && (
@@ -94,7 +113,7 @@ export function TabbedListScreen({
           
           {search && (
             <div data-focusring="" data-search="" data-searchcap="">
-              <GlyphIcon name="search" size={14} />
+              <GlyphIcon name="search" size={16} />
               <input
                 placeholder={search.placeholder}
                 value={search.value}
@@ -115,8 +134,8 @@ export function TabbedListScreen({
 
       <div style={
         hasRail 
-          ? { flex: 1, minHeight: 0, overflow: "auto", padding: "18px var(--gut) 26px" }
-          : { padding: "18px var(--gut) 26px" }
+          ? { flex: 1, minHeight: 0, overflow: "auto", padding: "var(--s5) var(--gut) var(--s6)" }
+          : { padding: "var(--s5) var(--gut) var(--s6)" }
       }>
         <div 
           style={{ maxWidth: contentMaxWidth, margin: "0 auto" }} 

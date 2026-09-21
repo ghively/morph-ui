@@ -191,3 +191,4 @@ export * from "./components/AvatarStack";
 export * from "./components/GaugeChart";
 export * from "./components/FunnelChart";
 export * from "./components/ShortcutHelp";
+export * from "./components/TabbedListScreen";

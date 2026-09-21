@@ -3,20 +3,20 @@
 }
 
 [data-sec="blue"] {
-  --sec: #6c9cf0;
-  --sec-soft: rgba(108, 156, 240, 0.18);
+  --sec: var(--app-blue);
+  --sec-soft: var(--app-blue-soft);
 }
 [data-sec="cyan"] {
-  --sec: #4dc2c9;
-  --sec-soft: rgba(77, 194, 201, 0.18);
+  --sec: var(--color-info-text);
+  --sec-soft: var(--color-info-bg);
 }
 [data-sec="green"] {
-  --sec: #4caf50;
-  --sec-soft: rgba(76, 175, 80, 0.18);
+  --sec: var(--color-success);
+  --sec-soft: var(--color-success-bg);
 }
 [data-sec="gold"] {
-  --sec: #ffc107;
-  --sec-soft: rgba(255, 193, 7, 0.18);
+  --sec: var(--color-warning);
+  --sec-soft: var(--app-hover);
 }
 
 [data-toolrail] {
@@ -61,7 +61,7 @@
   background-color: var(--app-line);
   color: var(--app-dim);
   border-radius: 12px;
-  padding: 2px 8px;
+  padding: var(--s1) var(--s2);
   font-size: var(--t-num);
   font-weight: 500;
 }
@@ -77,7 +77,7 @@
   background-color: var(--app-line);
   border-radius: var(--r-ctl);
   padding: 0 var(--s3);
-  height: 32px;
+  height: var(--r-xl);
   min-width: 200px;
 }
 
