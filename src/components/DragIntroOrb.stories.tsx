@@ -1,5 +1,13 @@
 import { DragIntroOrb } from "./DragIntroOrb";
 
 export const Default = () => (
-  <DragIntroOrb />
+  <div style={{ height: 480, position: "relative" }}>
+    <DragIntroOrb onEnter={() => {}} skipLabel="Skip intro" />
+  </div>
+);
+
+export const ShortThreshold = () => (
+  <div style={{ height: 480, position: "relative" }}>
+    <DragIntroOrb onEnter={() => {}} dragThreshold={40} skipLabel="Enter workspace" />
+  </div>
 );

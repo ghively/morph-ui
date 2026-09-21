@@ -1,5 +1,13 @@
 import { SplitFlapDisplay } from "./SplitFlapDisplay";
 
 export const Default = () => (
-  <SplitFlapDisplay value={"Hello World"} />
+  <div style={{ padding: "3rem" }}>
+    <SplitFlapDisplay value="MORPH UI" />
+  </div>
+);
+
+export const PaddedCounter = () => (
+  <div style={{ padding: "3rem" }}>
+    <SplitFlapDisplay value="249" padLength={6} />
+  </div>
 );

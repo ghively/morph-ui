@@ -1,5 +1,13 @@
 import { TactileKeyboardShowcase } from "./TactileKeyboardShowcase";
 
 export const Default = () => (
-  <TactileKeyboardShowcase />
+  <div style={{ padding: "2rem" }}>
+    <TactileKeyboardShowcase colorway="classic" />
+  </div>
+);
+
+export const RetroWithSound = () => (
+  <div style={{ padding: "2rem" }}>
+    <TactileKeyboardShowcase colorway="retro" enableSound />
+  </div>
 );

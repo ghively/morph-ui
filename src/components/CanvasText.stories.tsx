@@ -1,5 +1,7 @@
 import { CanvasText } from "./CanvasText";
 
 export const Default = () => (
-  <CanvasText text={"Hello World"} />
+  <div style={{ padding: "3rem" }}>
+    <CanvasText text="Morph UI" />
+  </div>
 );
