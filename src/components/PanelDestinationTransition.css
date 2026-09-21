@@ -1,0 +1,24 @@
+/* src/components/PanelDestinationTransition.css */
+
+.panel-destination-transition {
+  position: relative;
+}
+
+.panel-destination-content {
+  /* Optional: control visibility during transition.
+     Opacity is driven by the component's inline styles. */
+}
+
+.panel-destination-ghost {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  transform-origin: top left;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel-destination-ghost {
+    transition: none !important;
+  }
+}

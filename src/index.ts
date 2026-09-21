@@ -15,3 +15,6 @@ export * from "./components/MetricSparkline";
 export * from "./components/TokenPills";
 export * from "./components/CodeDiffViewer";
 export * from "./components/AgentActivityHeatmap";
+export * from "./components/AdaptiveBento";
+export * from "./components/ArchiveCollection";
+export * from "./components/PanelDestinationTransition";

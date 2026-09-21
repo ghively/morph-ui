@@ -1,0 +1,79 @@
+.adaptive-bento {
+  container-type: inline-size;
+  container-name: bento;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  grid-auto-flow: dense;
+  /* Use gap tokens depending on density */
+  gap: var(--s3);
+  width: 100%;
+}
+
+.adaptive-bento[data-density="compact"] {
+  gap: var(--s1);
+}
+
+.adaptive-bento-empty {
+  color: var(--app-dim);
+  padding: var(--s3);
+  text-align: center;
+  border: 1px dashed var(--app-line);
+  border-radius: var(--r-md);
+}
+
+.adaptive-bento-tile {
+  background: var(--app-elev);
+  border-radius: var(--r-md);
+  border: 1px solid var(--app-line);
+  overflow: hidden;
+}
+
+/* Base transitions (FLIP fallback for grid reflow isn't easily possible with plain CSS transitions for grid-area, so we animate bounds if possible or rely on container structure changes). 
+   We apply ease-morph for position changes if we use transforms, but native grid layout changes jump instantly in many browsers. 
+   We will keep it simple and skip complex FLIP animation for pure grid layout changes, per instructions: "otherwise skip animation under a prefers-reduced-motion-aware guard and accept instant reflow". */
+
+@media (prefers-reduced-motion: no-preference) {
+  .adaptive-bento-tile {
+    /* Transitions for color, box-shadow, opacity if any. Grid row/column transitions are not broadly supported */
+    transition: transform var(--d3) var(--ease-morph), opacity var(--d3) var(--ease-morph);
+  }
+}
+
+/* Container Queries for grid reflow */
+
+/* Small screen (< 480px): 1 column, all spans are 1 (collapsed) */
+@container bento (max-width: 479px) {
+  .adaptive-bento {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .adaptive-bento-tile {
+    grid-column: span 1 !important;
+    /* Row spans might still be respected, but often collapsed on mobile */
+  }
+}
+
+/* Medium screen (480px - 759px): 2 columns */
+@container bento (min-width: 480px) and (max-width: 759px) {
+  .adaptive-bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .adaptive-bento-tile[data-span="1"] { grid-column: span 1; }
+  .adaptive-bento-tile[data-span="2"] { grid-column: span 2; }
+  .adaptive-bento-tile[data-span="3"] { grid-column: span 2; } /* Cap at 2 */
+  
+  .adaptive-bento-tile[data-rowspan="1"] { grid-row: span 1; }
+  .adaptive-bento-tile[data-rowspan="2"] { grid-row: span 2; }
+}
+
+/* Large screen (>= 760px): 3 columns */
+@container bento (min-width: 760px) {
+  .adaptive-bento {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .adaptive-bento-tile[data-span="1"] { grid-column: span 1; }
+  .adaptive-bento-tile[data-span="2"] { grid-column: span 2; }
+  .adaptive-bento-tile[data-span="3"] { grid-column: span 3; }
+  
+  .adaptive-bento-tile[data-rowspan="1"] { grid-row: span 1; }
+  .adaptive-bento-tile[data-rowspan="2"] { grid-row: span 2; }
+}
