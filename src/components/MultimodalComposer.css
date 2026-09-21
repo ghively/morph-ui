@@ -36,6 +36,7 @@
   gap: 6px;
   font-size: 12px;
   color: var(--app-text);
+  justify-content: space-between;
 }
 
 .mm-attachment-remove {
@@ -183,4 +184,72 @@
   .mm-voice-btn.active {
     animation: none;
   }
+}
+
+/* Attachment states */
+.mm-attachment-item {
+  flex-direction: row;
+  position: relative;
+  overflow: hidden;
+}
+
+.mm-attachment-item.uploading {
+  opacity: 0.8;
+}
+
+.mm-attachment-item.failed {
+  border: 1px solid var(--color-error);
+  background-color: color-mix(in srgb, var(--color-error) 10%, transparent);
+}
+
+.mm-attachment-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mm-attachment-progress {
+  font-size: 11px;
+  color: var(--app-dim);
+}
+
+.mm-attachment-error {
+  font-size: 11px;
+  color: var(--color-error);
+}
+
+.mm-attachment-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mm-attachment-retry {
+  background: transparent;
+  border: 1px solid var(--color-error);
+  color: var(--color-error);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.mm-attachment-retry:hover {
+  background-color: var(--color-error);
+  color: #fff;
+}
+
+.mm-attachment-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: var(--app-line);
+}
+
+.mm-attachment-progress-fill {
+  height: 100%;
+  background-color: var(--app-blue);
+  transition: width 0.2s linear;
 }

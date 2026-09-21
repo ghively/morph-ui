@@ -2,6 +2,11 @@ import React, { useState, useRef, useEffect, type KeyboardEvent as RKE } from 'r
 import './MultimodalComposer.css';
 import { AgentPresence } from './AgentPresence';
 
+export interface AttachmentStatus {
+  status: 'staged' | 'uploading' | 'done' | 'failed';
+  progress?: number;
+}
+
 export interface MultimodalComposerProps {
   onSend?: (text: string, attachments: File[]) => void;
   className?: string;
@@ -12,6 +17,13 @@ export interface MultimodalComposerProps {
   onKeyDown?: (e: RKE<HTMLTextAreaElement>) => void;
   onAttach?: (files: FileList | File[]) => void;
   replyOrEditMode?: boolean;
+  /**
+   * Optional controlled map of attachment states (keyed by file name).
+   * If provided, determines the visual state of each attachment.
+   */
+  attachmentStatuses?: Record<string, AttachmentStatus>;
+  onRetryAttachment?: (fileName: string) => void;
+  onRemoveAttachment?: (fileName: string) => void;
 }
 
 export function MultimodalComposer({ 
@@ -23,7 +35,10 @@ export function MultimodalComposer({
   onDraftChange,
   onKeyDown,
   onAttach,
-  replyOrEditMode = false
+  replyOrEditMode = false,
+  attachmentStatuses = {},
+  onRetryAttachment,
+  onRemoveAttachment
 }: MultimodalComposerProps) {
   const [text, setText] = useState(draftText);
   const [isFocused, setIsFocused] = useState(false);
@@ -89,10 +104,24 @@ export function MultimodalComposer({
 
   const handleSubmit = () => {
     if (disabled) return;
-    if (text.trim() || attachments.length > 0) {
-      onSend?.(text, attachments);
+    
+    // Filter out failed attachments from blocking the send
+    const failedAttachmentNames = new Set(
+      Object.entries(attachmentStatuses)
+        .filter(([, status]) => status.status === 'failed')
+        .map(([name]) => name)
+    );
+    const validAttachments = attachments.filter(f => !failedAttachmentNames.has(f.name));
+
+    if (text.trim() || validAttachments.length > 0) {
+      onSend?.(text, attachments); // Pass original attachments or just valid? The spec says: "failed attachments must not block sending the text remainder." It implies onSend gets called. Usually we send all attachments and let the parent deal with it, or we exclude failed. Let's send all attachments, parent controls the state. Wait, the spec says "failed attachments must not block sending the text remainder." It implies text is sent. Sending attachments is fine.
       if (!onDraftChange) setText(''); // Only clear if not fully controlled
-      setAttachments([]);
+      
+      // If we don't have attachment statuses, clear all.
+      // If we do, we might leave failed ones? The spec doesn't specify if we clear them from internal state. Let's clear all for simplicity unless controlled.
+      if (!onAttach) {
+         setAttachments([]);
+      }
       if (textareaRef.current) {
         textareaRef.current.style.height = 'auto';
       }
@@ -122,17 +151,54 @@ export function MultimodalComposer({
     >
       {attachments.length > 0 && !onAttach && (
         <div className="mm-attachments">
-          {attachments.map((file, i) => (
-            <div key={i} className="mm-attachment-item">
-              <span className="mm-attachment-name">{file.name}</span>
-              <button 
-                className="mm-attachment-remove"
-                onClick={() => setAttachments(prev => prev.filter((_, index) => index !== i))}
-              >
-                ×
-              </button>
-            </div>
-          ))}
+          {attachments.map((file, i) => {
+            const statusObj = attachmentStatuses[file.name] || { status: 'staged' };
+            const isFailed = statusObj.status === 'failed';
+            const isUploading = statusObj.status === 'uploading';
+            
+            return (
+              <div key={i} className={`mm-attachment-item ${statusObj.status}`}>
+                <div className="mm-attachment-info">
+                  <span className="mm-attachment-name">{file.name}</span>
+                  {isUploading && statusObj.progress !== undefined && (
+                    <span className="mm-attachment-progress">{Math.round(statusObj.progress * 100)}%</span>
+                  )}
+                  {isFailed && <span className="mm-attachment-error">Failed</span>}
+                </div>
+                
+                <div className="mm-attachment-actions">
+                  {isFailed && onRetryAttachment && (
+                    <button 
+                      className="mm-attachment-retry"
+                      onClick={() => onRetryAttachment(file.name)}
+                      aria-label="Retry upload"
+                    >
+                      Retry
+                    </button>
+                  )}
+                  <button 
+                    className="mm-attachment-remove"
+                    onClick={() => {
+                      if (onRemoveAttachment) onRemoveAttachment(file.name);
+                      setAttachments(prev => prev.filter((_, index) => index !== i));
+                    }}
+                    aria-label="Remove attachment"
+                  >
+                    ×
+                  </button>
+                </div>
+                
+                {isUploading && (
+                  <div className="mm-attachment-progress-bar">
+                    <div 
+                      className="mm-attachment-progress-fill" 
+                      style={{ width: `${(statusObj.progress || 0) * 100}%` }}
+                    />
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
 
@@ -188,7 +254,7 @@ export function MultimodalComposer({
         )}
 
         <div className="mm-actions">
-          {text.trim() || (attachments.length > 0 && !onAttach) ? (
+          {text.trim() || (attachments.filter(f => attachmentStatuses[f.name]?.status !== 'failed').length > 0 && !onAttach) ? (
             <button 
               className="mm-send-btn" 
               onClick={handleSubmit} 
