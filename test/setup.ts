@@ -1,6 +1,11 @@
-import { expect } from 'vitest';
+import { cleanup } from "@testing-library/react";
+import { afterEach } from "vitest";
+import "../src/tokens.css";
 
-Object.defineProperty(window, 'matchMedia', {
+afterEach(cleanup);
+
+// jsdom lacks matchMedia; components use it for reduced-motion / responsive checks.
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: (query: string) => ({
     matches: false,
@@ -14,103 +19,13 @@ Object.defineProperty(window, 'matchMedia', {
   }),
 });
 
-// Mock pointer capture functions for jsdom
-if (typeof Element !== 'undefined') {
-  Element.prototype.setPointerCapture = function() {};
-  Element.prototype.releasePointerCapture = function() {};
-  Element.prototype.hasPointerCapture = function() { return false; };
-}
-
-// Mock matchMedia
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: (query: string) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: () => {},
-    removeListener: () => {},
-    addEventListener: () => {},
-    removeEventListener: () => {},
-    dispatchEvent: () => false,
-  }),
-});
-
-// Mock pointer capture functions for jsdom
-if (typeof Element !== 'undefined') {
-  Element.prototype.setPointerCapture = function() {};
-  Element.prototype.releasePointerCapture = function() {};
-  Element.prototype.hasPointerCapture = function() { return false; };
-}
-
-// Mock matchMedia for UI tests
-if (typeof window.matchMedia === 'undefined') {
-  Object.defineProperty(window, 'matchMedia', {
-    writable: true,
-    value: (query: string) => ({
-      matches: false,
-      media: query,
-      onchange: null,
-      addListener: () => {},
-      removeListener: () => {},
-      addEventListener: () => {},
-      removeEventListener: () => {},
-      dispatchEvent: () => false,
-    }),
-  });
-}
-
-// Mock pointer capture functions for jsdom
-if (typeof Element !== 'undefined' && !Element.prototype.setPointerCapture) {
-  Element.prototype.setPointerCapture = function() {};
-  Element.prototype.releasePointerCapture = function() {};
-  Element.prototype.hasPointerCapture = function() { return false; };
-}
-
-// Mock matchMedia for UI tests
-if (!window.matchMedia) {
-  Object.defineProperty(window, 'matchMedia', {
-    writable: true,
-    value: (query: string) => ({
-      matches: false,
-      media: query,
-      onchange: null,
-      addListener: () => {},
-      removeListener: () => {},
-      addEventListener: () => {},
-      removeEventListener: () => {},
-      dispatchEvent: () => false,
-    }),
-  });
-}
-
-// Mock pointer capture functions for jsdom
-if (typeof Element !== 'undefined' && !Element.prototype.setPointerCapture) {
-  Element.prototype.setPointerCapture = function() {};
-  Element.prototype.releasePointerCapture = function() {};
-  Element.prototype.hasPointerCapture = function() { return false; };
-}
-
-// Mock matchMedia for UI tests
-if (typeof window.matchMedia === 'undefined') {
-  Object.defineProperty(window, 'matchMedia', {
-    writable: true,
-    value: (query: string) => ({
-      matches: false,
-      media: query,
-      onchange: null,
-      addListener: () => {},
-      removeListener: () => {},
-      addEventListener: () => {},
-      removeEventListener: () => {},
-      dispatchEvent: () => false,
-    }),
-  });
-}
-
-// Mock pointer capture functions for jsdom
-if (typeof Element !== 'undefined' && !Element.prototype.setPointerCapture) {
-  Element.prototype.setPointerCapture = function() {};
-  Element.prototype.releasePointerCapture = function() {};
-  Element.prototype.hasPointerCapture = function() { return false; };
+// jsdom lacks pointer capture APIs.
+if (typeof Element !== "undefined") {
+  Element.prototype.setPointerCapture = Element.prototype.setPointerCapture || function () {};
+  Element.prototype.releasePointerCapture = Element.prototype.releasePointerCapture || function () {};
+  Element.prototype.hasPointerCapture =
+    Element.prototype.hasPointerCapture ||
+    function () {
+      return false;
+    };
 }
