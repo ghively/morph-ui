@@ -89,7 +89,7 @@ describe('ThreadList', () => {
   });
 
   it('pluralizes replies', () => {
-    const { getByText } = render(
+    const { getByText: _g } = render(
       <ThreadList
         label="Threads"
         activeId={null}
@@ -164,7 +164,7 @@ describe('ThreadList', () => {
   it('selection callbacks', () => {
     const onSelect = vi.fn();
     const onSelectMain = vi.fn();
-    const { getByTitle } = render(
+    const { getByText, getByTitle } = render(
       <ThreadList
         label="Threads"
         activeId={null}
@@ -173,7 +173,7 @@ describe('ThreadList', () => {
         threads={[{ id: 't1', title: 'A', replyCount: 1 }]}
       />
     );
-    
+
     fireEvent.click(getByText('Main timeline'));
     expect(onSelectMain).toHaveBeenCalled();
     

@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { DragIntroOrb } from "./DragIntroOrb";
 
 export const Default = () => (

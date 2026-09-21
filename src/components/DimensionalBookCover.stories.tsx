@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { DimensionalBookCover } from "./DimensionalBookCover";
 
 export const Default = () => (

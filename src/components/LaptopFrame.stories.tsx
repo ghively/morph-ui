@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { LaptopFrame } from "./LaptopFrame";
 
 const screen = (

@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { TextScribble } from "./TextScribble";
 
 export const Default = () => (

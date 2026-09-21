@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { PerspectiveMarquee } from "./PerspectiveMarquee";
 import type { PerspectiveMarqueeRow } from "./PerspectiveMarquee";
 

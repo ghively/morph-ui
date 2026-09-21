@@ -48,7 +48,7 @@ export interface MessageComposerProps {
   /** ArrowUp on an empty draft. */
   onEditLast?: () => void;
   /** Files dropped or attached. */
-  onAttach?: (files: File[]) => void | Promise<void>;
+  onAttach?: (files: File[] | FileList) => void | Promise<void>;
   uploads?: UploadProgress[];
   /** Throttled typing signal; called at most once per `typingThrottleMs`. */
   onTyping?: (active: boolean) => void;
@@ -224,7 +224,7 @@ export function MessageComposer({
     let isSendKey = false;
     if (sendOnEnter) {
       // The IME `isComposing` guard is mandatory
-      isSendKey = e.key === 'Enter' && !e.shiftKey && !(e.nativeEvent as any).isComposing;
+      isSendKey = e.key === 'Enter' && !e.shiftKey && !(e.nativeEvent as unknown as { isComposing?: boolean }).isComposing;
     } else {
       isSendKey = e.key === 'Enter' && (e.metaKey || e.ctrlKey);
     }

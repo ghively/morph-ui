@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { useEffect, useRef, useState } from 'react';
 import { ConfettiCannon, type ConfettiCannonRef } from './ConfettiCannon';
 

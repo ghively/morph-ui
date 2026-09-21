@@ -4,7 +4,8 @@ import { DirectoryBrowser } from '../src/components/DirectoryBrowser';
 import type { DirectoryListState } from '../src/components/DirectoryBrowser';
 
 describe('DirectoryBrowser', () => {
-  const { status: "done", entries: [], hasMore: false, error: null, degraded: false }: DirectoryListState = { status: 'done', entries: [], hasMore: false, error: null, degraded: false };
+    const doneList: DirectoryListState = { status: 'done', entries: [], hasMore: false, error: null, degraded: false };
+    void doneList;
 
   it('renders tabs and handles switching', () => {
     const onTabChange = vi.fn();

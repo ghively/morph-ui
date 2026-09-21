@@ -342,6 +342,8 @@ export function MessageTimeline({
       </div>
     </div>
   );
+}
+
 export function formatBytes(bytes: number | undefined | null): string {
   if (bytes == null) return '';
   if (bytes === 0) return '0 B';

@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { AuroraGlowCard } from "./AuroraGlowCard";
 
 const cardBody = (

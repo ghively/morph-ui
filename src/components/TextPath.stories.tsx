@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { TextPath } from "./TextPath";
 
 export const Default = () => (

@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import type { CSSProperties } from "react";
 import { GlassEnvelopeCard } from "./GlassEnvelopeCard";
 

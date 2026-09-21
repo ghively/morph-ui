@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { PricingTierCard } from "./PricingTierCard";
 
 const features = [

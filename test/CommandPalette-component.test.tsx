@@ -52,7 +52,7 @@ describe('CommandPalette', () => {
     const input = screen.getByPlaceholderText('Search commands...');
     
     // First item is active by default
-    let options = screen.getAllByRole('option');
+    const options = screen.getAllByRole('option');
     expect(options[0].getAttribute('data-active')).toBe("true");
     
     // Arrow down

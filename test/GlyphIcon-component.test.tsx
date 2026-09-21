@@ -46,6 +46,6 @@ describe('GlyphIcon', () => {
 
   it('glyphs.plus() returns an element with stroke-width="1.9"', () => {
     const plusElement = glyphs.plus();
-    expect((plusElement as any).props.strokeWidth).toBe(1.9);
+    expect((plusElement as unknown as { props: { strokeWidth: number } }).props.strokeWidth).toBe(1.9);
   });
 });

@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { TextWordFlip } from "./TextWordFlip";
 
 export const Default = () => (

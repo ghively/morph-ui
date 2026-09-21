@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { BloomSheet } from "./BloomSheet";
 
 export const Default = () => (

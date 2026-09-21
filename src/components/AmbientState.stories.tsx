@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { useState, type ReactNode } from 'react';
 import {
   AmbientState,

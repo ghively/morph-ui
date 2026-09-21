@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { useState } from 'react';
 import { AgentCard, type AgentStatus } from './AgentCard';
 

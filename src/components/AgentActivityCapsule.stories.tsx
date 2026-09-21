@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { AgentActivityCapsule } from "./AgentActivityCapsule";
 
 const details = [

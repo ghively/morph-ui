@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { SplitFlapDisplay } from "./SplitFlapDisplay";
 
 export const Default = () => (

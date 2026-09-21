@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { SwipeDeck } from "./SwipeDeck";
 
 function swipeCard(title: string, body: string, accent: string) {

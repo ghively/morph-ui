@@ -1,5 +1,5 @@
 import { createElement } from 'react';
-import type { ReactElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import './GlyphIcon.css';
 
 export type GlyphName =
@@ -26,7 +26,7 @@ const S = (
   extra: ReactElement | null = null
 ) => {
   const s = sizeOverride ?? defaultSize;
-  const props: Record<string, any> = {
+  const props: Record<string, unknown> = {
     width: s,
     height: s,
     viewBox: "0 0 16 16",
@@ -89,9 +89,9 @@ export function GlyphIcon({ name, size, className = '' }: GlyphIconProps) {
   const iconElement = iconThunk(size);
   
   if (className) {
-      const elementProps = (iconElement as any).props || {};
+      const elementProps = (iconElement as ReactElement<{ className?: string; children?: ReactNode }>).props as { className?: string; children?: ReactNode };
       const newClassName = `${elementProps.className || ''} ${className}`.trim();
-      const children = (iconElement as any).props?.children;
+      const children = (iconElement as ReactElement<{ children?: ReactNode }>).props.children;
       return createElement("svg", { ...(elementProps), className: newClassName }, children);
   }
 

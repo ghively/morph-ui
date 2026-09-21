@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { KeyboardShowcase } from "./KeyboardShowcase";
 
 export const Default = () => (

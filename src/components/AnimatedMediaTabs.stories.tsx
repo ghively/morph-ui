@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { AnimatedMediaTabs, type MediaTabItem } from "./AnimatedMediaTabs";
 
 const workflowItems: MediaTabItem[] = [

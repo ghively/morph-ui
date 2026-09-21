@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { TerminalEmulator } from "./TerminalEmulator";
 import type { TerminalLine } from "./TerminalEmulator";
 

@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { CoverFlowCarousel } from "./CoverFlowCarousel";
 import type { CoverFlowItem } from "./CoverFlowCarousel";
 

@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { RefractionGlassPanel } from "./RefractionGlassPanel";
 
 const body = (

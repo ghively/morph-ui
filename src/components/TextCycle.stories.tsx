@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { TextCycle } from './TextCycle';
 
 const frame: React.CSSProperties = {

@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { ArchiveCollection } from "./ArchiveCollection";
 import type { ArchiveEntry } from "./ArchiveCollection";
 

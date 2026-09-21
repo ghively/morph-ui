@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { PrismOrb } from "./PrismOrb";
 
 export const Default = () => (

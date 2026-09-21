@@ -24,6 +24,8 @@ export interface MultimodalComposerProps {
   attachmentStatuses?: Record<string, AttachmentStatus>;
   onRetryAttachment?: (fileName: string) => void;
   onRemoveAttachment?: (fileName: string) => void;
+  /** Optional externally-controlled textarea ref (e.g. for focus management from a host composer). */
+  textareaRef?: React.RefObject<HTMLTextAreaElement | null>;
 }
 
 export function MultimodalComposer({ 
@@ -38,14 +40,16 @@ export function MultimodalComposer({
   replyOrEditMode = false,
   attachmentStatuses = {},
   onRetryAttachment,
-  onRemoveAttachment
+  onRemoveAttachment,
+  textareaRef: externalTextareaRef
 }: MultimodalComposerProps) {
   const [text, setText] = useState(draftText);
   const [isFocused, setIsFocused] = useState(false);
   const [isVoiceMode, setIsVoiceMode] = useState(false);
   const [attachments, setAttachments] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const localTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaRef = externalTextareaRef ?? localTextareaRef;
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Sync prop changes to local state
@@ -59,7 +63,7 @@ export function MultimodalComposer({
       textareaRef.current.style.height = 'auto';
       textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 200)}px`;
     }
-  }, [text]);
+  }, [text, textareaRef]);
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();

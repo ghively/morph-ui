@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { FollowCursorLabel } from "./FollowCursorLabel";
 
 export const Default = () => (

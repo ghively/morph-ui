@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { BeforeAfterCompare } from "./BeforeAfterCompare";
 
 function createSvgDataUri(svg: string): string {

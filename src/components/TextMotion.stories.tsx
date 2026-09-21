@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { useEffect, useState } from 'react';
 import { TextMotion } from './TextMotion';
 

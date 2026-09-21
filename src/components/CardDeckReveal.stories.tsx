@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { CardDeckReveal } from "./CardDeckReveal";
 
 function deckCard(title: string, body: string, accent: string) {

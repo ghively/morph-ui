@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { GenerativePlaceholder } from "./GenerativePlaceholder";
 import type { GenerativePlaceholderVariant } from "./GenerativePlaceholder";
 

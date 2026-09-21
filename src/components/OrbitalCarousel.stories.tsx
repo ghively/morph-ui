@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { OrbitalCarousel, type OrbitalImage } from './OrbitalCarousel';
 
 function createSvgDataUri(svgString: string): string {

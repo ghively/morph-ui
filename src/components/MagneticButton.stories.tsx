@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { MagneticButton } from "./MagneticButton";
 
 export const Default = () => (

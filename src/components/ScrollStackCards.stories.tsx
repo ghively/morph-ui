@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { ScrollStackCards } from "./ScrollStackCards";
 import type { ScrollStackCard } from "./ScrollStackCards";
 

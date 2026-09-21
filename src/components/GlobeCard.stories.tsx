@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { GlobeCard } from "./GlobeCard";
 
 const markers = [

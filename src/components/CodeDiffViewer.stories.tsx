@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { CodeDiffViewer } from "./CodeDiffViewer";
 import type { DiffHunk } from "./CodeDiffViewer";
 

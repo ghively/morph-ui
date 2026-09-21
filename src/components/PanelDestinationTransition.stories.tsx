@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { useRef, useState } from "react";
 import { PanelDestinationTransition } from "./PanelDestinationTransition";
 

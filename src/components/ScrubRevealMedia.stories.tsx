@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { ScrubRevealMedia } from "./ScrubRevealMedia";
 
 function frame(title: string, background: string, detail: string): string {

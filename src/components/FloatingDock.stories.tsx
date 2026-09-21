@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { FloatingDock } from "./FloatingDock";
 import type { DockItem } from "./FloatingDock";
 

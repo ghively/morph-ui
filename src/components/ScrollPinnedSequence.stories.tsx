@@ -1,4 +1,3 @@
-import type { StoryDefault, Story } from '@ladle/react';
 import { ScrollPinnedSequence } from "./ScrollPinnedSequence";
 import type { SequenceStep } from "./ScrollPinnedSequence";
 
