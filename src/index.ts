@@ -92,7 +92,6 @@ export * from "./components/ApprovalGate";
 export * from "./components/RunTimeline";
 export * from "./components/DiffStatPill";
 export * from "./components/AgentCard";
-<<<<<<< ours
 export * from "./components/InitialsAvatar";
 export * from "./components/EmptyState";
 export * from "./components/ToggleSwitch";
