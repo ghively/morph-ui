@@ -1,0 +1,9 @@
+/* Note: Empty for now, as most of AppFrame's specific logic relies on external tokens or inline styles / data attributes.
+If needed, specific reduced-motion blocks or other styling go here. */
+
+@media (prefers-reduced-motion: reduce) {
+  /* No animations strictly defined for AppFrame natively, but as a precaution. */
+  [data-frame] {
+    transition: none !important;
+  }
+}

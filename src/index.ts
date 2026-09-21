@@ -92,6 +92,7 @@ export * from "./components/ApprovalGate";
 export * from "./components/RunTimeline";
 export * from "./components/DiffStatPill";
 export * from "./components/AgentCard";
+<<<<<<< ours
 export * from "./components/InitialsAvatar";
 export * from "./components/EmptyState";
 export * from "./components/ToggleSwitch";
@@ -120,3 +121,9 @@ export * from "./components/ToastStack";
 export * from "./components/AlertBanner";
 export * from "./components/HeroPanel";
 export * from "./components/StatusRowList";
+export * from "./components/AppFrame";
+export * from "./components/NavigationRail";
+export * from "./components/SidePanel";
+export * from "./components/PaneHeader";
+export * from "./components/DetailsPanel";
+export * from "./components/SettingsPanel";

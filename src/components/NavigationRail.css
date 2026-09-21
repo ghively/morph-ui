@@ -1,0 +1,7 @@
+/* Note: Empty for now, styling is heavily reliant on global CSS tokens and the attributes correctly rendering. */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-ind] {
+    transition: none !important;
+  }
+}
