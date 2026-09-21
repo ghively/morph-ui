@@ -1,3 +1,5 @@
 export default {
-  defaultTheme: "dark"
+  defaultTheme: "dark",
+  viteConfig: "./vite.ladle.config.ts",
+  outDir: "catalog-dist",
 };
