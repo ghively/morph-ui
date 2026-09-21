@@ -57,17 +57,17 @@ export function AgentActivityHeatmap({
     return max;
   }, [filteredData]);
 
-  const getLevel = (count: number) => {
-    if (count === 0) return 0;
-    if (maxCount === 0) return 1;
-    const ratio = count / maxCount;
-    if (ratio <= 0.33) return 1;
-    if (ratio <= 0.66) return 2;
-    return 3;
-  };
-  
   // Build columns of 7 days
   const gridCells = useMemo(() => {
+    const getLevel = (count: number) => {
+      if (count === 0) return 0;
+      if (maxCount === 0) return 1;
+      const ratio = count / maxCount;
+      if (ratio <= 0.33) return 1;
+      if (ratio <= 0.66) return 2;
+      return 3;
+    };
+
     const dataMap = new Map<string, number>();
     filteredData.forEach(d => dataMap.set(d.date, d.count));
     
