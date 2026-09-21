@@ -1,0 +1,80 @@
+.fluid-workspace-board {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  position: relative;
+  width: 100%;
+}
+
+.fluid-workspace-board[data-density="compact"] {
+  gap: 8px;
+}
+
+.fluid-workspace-board[data-density="comfortable"] {
+  gap: 24px;
+}
+
+.fluid-workspace-board-empty {
+  color: var(--app-dim);
+  padding: 24px;
+  text-align: center;
+  width: 100%;
+}
+
+.fluid-workspace-board-item {
+  position: relative;
+  box-sizing: border-box;
+  background-color: var(--app-elev);
+  border: 1px solid var(--app-line);
+  border-radius: 8px;
+  padding: 16px;
+  color: var(--app-text);
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+  outline: none;
+  z-index: 1;
+
+  /* Spring animation for layout changes */
+  transition: transform var(--ease-spring) 0.4s, box-shadow var(--ease-fx) var(--d2);
+}
+
+.fluid-workspace-board[data-density="compact"] .fluid-workspace-board-item {
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.fluid-workspace-board[data-density="comfortable"] .fluid-workspace-board-item {
+  padding: 24px;
+  border-radius: 12px;
+}
+
+.fluid-workspace-board-item:focus-visible {
+  border-color: var(--app-blue);
+  box-shadow: 0 0 0 2px var(--app-blue-strong);
+  z-index: 2;
+}
+
+.fluid-workspace-board-item.is-dragging {
+  cursor: grabbing;
+  z-index: 10;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+  transition: none; /* No transition while dragging */
+}
+
+.fluid-workspace-board-item-header {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--app-text);
+}
+
+.fluid-workspace-board-item-content {
+  color: var(--app-dim);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fluid-workspace-board-item {
+    transition: none;
+  }
+}
