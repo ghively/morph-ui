@@ -1,0 +1,115 @@
+.text-word-flip-container {
+  display: inline-flex;
+  position: relative;
+  vertical-align: top;
+  overflow: hidden; /* clip the flip out of bounds */
+  /* Reserve height of one line */
+  line-height: 1.2;
+}
+
+.text-word-flip-words {
+  display: inline-flex;
+  position: relative;
+}
+
+.text-word-flip-word {
+  display: inline-block;
+  white-space: nowrap;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  color: var(--app-text);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  
+  /* All words stack on top of each other except the first one dictating width if needed, or absolute positioning is best */
+}
+
+/* Base positioning */
+.text-word-flip-word:not(:first-child) {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.text-word-flip-word:first-child {
+  position: relative; 
+  /* Need width to adapt, simplest is to let the first word dictate width if absolute.
+     Alternatively, to allow dynamic width we'd need grid stacking. Let's use CSS grid stacking. */
+}
+
+.text-word-flip-words {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-items: center; /* or start */
+}
+
+.text-word-flip-word {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  position: relative; /* override earlier rule for grid stack */
+}
+
+.text-word-flip-word.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.text-word-flip-word.is-entering {
+  animation: flip-in var(--d3) var(--ease-morph) forwards;
+}
+
+.text-word-flip-word.is-leaving {
+  animation: flip-out var(--d2) var(--ease-morph) forwards;
+}
+
+@keyframes flip-in {
+  0% {
+    transform: translateY(100%) rotateX(-90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes flip-out {
+  0% {
+    transform: translateY(0) rotateX(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%) rotateX(90deg);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-word-flip-word.is-entering,
+  .text-word-flip-word.is-leaving {
+    animation: none;
+  }
+  
+  .text-word-flip-word.is-entering {
+    opacity: 1;
+    transform: none;
+  }
+  
+  .text-word-flip-word.is-leaving {
+    opacity: 0;
+    transform: none;
+  }
+}
+
+.text-word-flip-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

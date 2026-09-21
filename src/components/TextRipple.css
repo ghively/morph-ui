@@ -1,0 +1,63 @@
+.text-ripple-container {
+  display: inline-flex;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--t-ctl);
+  color: var(--app-text);
+  font-weight: 500;
+}
+
+.text-ripple-container:not([onClick]) {
+  cursor: default;
+}
+
+.text-ripple-chars {
+  display: inline-flex;
+}
+
+.text-ripple-char {
+  display: inline-block;
+  transform-origin: center bottom;
+  animation: text-ripple-wave var(--ripple-duration, 0.6s) var(--ease-morph) forwards;
+  animation-delay: calc(var(--char-index) * var(--ripple-stagger, 0.05s));
+  will-change: transform, color;
+}
+
+.text-ripple-char.is-space {
+  width: 0.25em; /* roughly equivalent to space width */
+}
+
+@keyframes text-ripple-wave {
+  0% {
+    transform: translateY(0) scaleY(1);
+    color: var(--app-text);
+  }
+  30% {
+    transform: translateY(-8px) scaleY(1.1);
+    color: var(--app-blue);
+  }
+  100% {
+    transform: translateY(0) scaleY(1);
+    color: var(--app-text);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-ripple-char {
+    animation: none;
+    transform: none;
+    color: var(--app-text);
+  }
+}
+
+.text-ripple-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

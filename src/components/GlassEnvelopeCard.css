@@ -1,0 +1,116 @@
+.glass-envelope-card {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  margin: 100px auto 0; /* Space for cards to lift into */
+  cursor: pointer;
+  perspective: 1000px;
+  outline: none;
+}
+
+.glass-envelope-card:focus-visible {
+  outline: 2px solid var(--app-blue);
+  outline-offset: 8px;
+}
+
+.glass-envelope-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--app-panel);
+  border-radius: var(--r-md);
+  border: 1px solid var(--app-line);
+  box-shadow: 0 10px 30px var(--app-elev);
+  z-index: 1;
+}
+
+.glass-envelope-front {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--r-md);
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.05); /* very subtle light */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Top flap cut effect simulated with clip-path or gradient if desired, simple for now */
+  clip-path: polygon(0 20%, 50% 40%, 100% 20%, 100% 100%, 0 100%);
+  transition: transform var(--d2) var(--ease-morph);
+  transform-origin: bottom center;
+}
+
+/* Interior glow */
+.glass-envelope-front::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, var(--app-blue-soft), transparent 70%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.glass-envelope-card.is-hovered .glass-envelope-front {
+  transform: rotateX(5deg);
+}
+
+.glass-envelope-card.is-open .glass-envelope-front {
+  transform: rotateX(20deg);
+}
+
+.glass-envelope-content {
+  position: absolute;
+  bottom: var(--s3);
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: var(--app-text);
+  font-family: var(--font-sans);
+  font-weight: 500;
+}
+
+.glass-envelope-cards {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.glass-envelope-inner-card {
+  position: absolute;
+  width: 80%;
+  height: 90%;
+  background: var(--app-bg);
+  border: 1px solid var(--app-line);
+  border-radius: var(--s2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform var(--d3) var(--ease-spring);
+  transform-origin: bottom center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--app-text);
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-envelope-inner-card {
+    transition: transform var(--d2) linear;
+  }
+  .glass-envelope-front {
+    transition: none;
+  }
+}

@@ -1,0 +1,141 @@
+.morph-wizard {
+  display: flex;
+  flex-direction: column;
+  background: var(--app-panel);
+  border-radius: var(--r-md);
+  padding: var(--s3);
+  gap: var(--s3);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 12px var(--app-elev);
+  border: 1px solid var(--app-line);
+  transition: width var(--d3) var(--ease-morph), height var(--d3) var(--ease-morph);
+  width: 100%;
+  max-width: 500px;
+}
+
+.morph-wizard-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.morph-wizard-progress {
+  display: flex;
+  gap: var(--s1);
+  justify-content: center;
+}
+
+.morph-wizard-progress-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--app-line);
+  transition: background var(--d2) var(--ease-soft), transform var(--d2) var(--ease-soft);
+}
+
+.morph-wizard-progress-dot[data-completed="true"] {
+  background: var(--app-blue);
+}
+
+.morph-wizard-progress-dot[data-active="true"] {
+  background: var(--app-blue-strong);
+  transform: scale(1.25);
+}
+
+.morph-wizard-title {
+  text-align: center;
+  font-size: var(--t-ctl);
+  color: var(--app-text);
+  font-weight: 600;
+  margin-top: var(--s1);
+}
+
+.morph-wizard-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  transition: height var(--d3) var(--ease-morph);
+}
+
+.morph-wizard-content-slider {
+  display: flex;
+  width: 100%;
+  transition: transform var(--d3) var(--ease-morph);
+}
+
+.morph-wizard-step-content {
+  flex: 0 0 100%;
+  width: 100%;
+  padding: var(--s2) 0;
+  opacity: 0.5;
+  transition: opacity var(--d3) var(--ease-morph);
+  box-sizing: border-box;
+}
+
+.morph-wizard-step-content[aria-hidden="false"] {
+  opacity: 1;
+}
+
+.morph-wizard-error {
+  color: var(--color-error-text);
+  background: var(--color-error-bg);
+  padding: var(--s2);
+  border-radius: var(--s1);
+  font-size: var(--t-meta);
+  text-align: center;
+}
+
+.morph-wizard-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: var(--s2);
+  border-top: 1px solid var(--app-line);
+}
+
+.morph-wizard-btn {
+  padding: var(--s2) var(--s3);
+  border-radius: var(--s1);
+  font-family: inherit;
+  font-size: var(--t-ctl);
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background var(--d1) var(--ease-soft), opacity var(--d1) var(--ease-soft);
+}
+
+.morph-wizard-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.morph-wizard-btn-secondary {
+  background: transparent;
+  color: var(--app-dim);
+  border: 1px solid var(--app-line);
+}
+
+.morph-wizard-btn-secondary:hover:not(:disabled) {
+  background: var(--app-hover);
+  color: var(--app-text);
+}
+
+.morph-wizard-btn-primary {
+  background: var(--app-blue);
+  color: #fff;
+}
+
+.morph-wizard-btn-primary:hover:not(:disabled) {
+  background: var(--app-blue-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .morph-wizard,
+  .morph-wizard-container,
+  .morph-wizard-content-slider,
+  .morph-wizard-step-content,
+  .morph-wizard-progress-dot {
+    transition: none !important;
+  }
+}

@@ -1,0 +1,60 @@
+.fan-hover-stack {
+  position: relative;
+  width: 250px;
+  height: 350px;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+.fan-hover-stack-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--app-panel);
+  border: 1px solid var(--app-line);
+  border-radius: var(--r-md);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform var(--d3) var(--ease-spring), box-shadow var(--d2) var(--ease-morph);
+  transform-origin: bottom center;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--app-text);
+  font-family: var(--font-sans);
+}
+
+.fan-hover-stack-item:focus-visible {
+  outline: 2px solid var(--app-blue);
+  outline-offset: 2px;
+}
+
+/* Base stack stagger */
+.fan-hover-stack:not(.is-fanned) .fan-hover-stack-item {
+  transform: translateY(calc(var(--index, 0) * 4px)) scale(calc(1 - var(--index, 0) * 0.05));
+}
+.fan-hover-stack:not(.is-fanned) .fan-hover-stack-item:nth-child(1) { --index: 0; }
+.fan-hover-stack:not(.is-fanned) .fan-hover-stack-item:nth-child(2) { --index: 1; }
+.fan-hover-stack:not(.is-fanned) .fan-hover-stack-item:nth-child(3) { --index: 2; }
+.fan-hover-stack:not(.is-fanned) .fan-hover-stack-item:nth-child(4) { --index: 3; }
+.fan-hover-stack:not(.is-fanned) .fan-hover-stack-item:nth-child(5) { --index: 4; }
+
+/* Fanned state */
+.fan-hover-stack.is-fanned .fan-hover-stack-item {
+  transform: translateX(var(--spread-x)) translateY(var(--spread-y)) rotate(var(--spread-rotate));
+}
+
+/* Active item lifts up slightly */
+.fan-hover-stack.is-fanned .fan-hover-stack-item.is-active {
+  transform: translateX(var(--spread-x)) translateY(calc(var(--spread-y) - 20px)) rotate(var(--spread-rotate)) scale(1.05);
+  box-shadow: 0 12px 24px var(--app-elev);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fan-hover-stack-item {
+    transition: transform var(--d2) linear !important;
+  }
+}

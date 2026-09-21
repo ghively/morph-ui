@@ -1,0 +1,21 @@
+.scrub-reveal-media {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  border-radius: var(--r-md);
+  box-shadow: 0 4px 12px var(--app-elev);
+  cursor: ew-resize;
+  touch-action: none; /* Prevent scroll on touch devices while scrubbing */
+  background: var(--app-bg);
+}
+
+.scrub-reveal-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.scrub-reveal-canvas[data-dragging="true"] {
+  cursor: grabbing;
+}

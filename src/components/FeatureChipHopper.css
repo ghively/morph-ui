@@ -1,0 +1,76 @@
+.feature-chip-hopper {
+  position: relative;
+  display: inline-block;
+  min-width: 150px;
+  height: 50px;
+  outline: none;
+}
+
+.feature-chip-hopper:focus-visible {
+  outline: 2px solid var(--app-blue);
+  outline-offset: 4px;
+  border-radius: var(--r-md);
+}
+
+.feature-chip-hopper-glass {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--app-line);
+  border-radius: var(--r-md);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-chip {
+  position: absolute;
+  padding: var(--s1) var(--s2);
+  background: var(--app-panel);
+  border: 1px solid var(--app-line);
+  border-radius: var(--r-md);
+  color: var(--app-text);
+  font-family: var(--font-sans);
+  font-size: var(--t-meta);
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px var(--app-elev);
+  will-change: transform, opacity;
+  /* Default waiting state (above, invisible) */
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.feature-chip.is-active {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+  transition: transform var(--d3) var(--ease-spring), opacity var(--d2) var(--ease-soft);
+  z-index: 2;
+}
+
+.feature-chip.is-leaving {
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform var(--d2) var(--ease-morph), opacity var(--d2) var(--ease-morph);
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-chip {
+    transition: none !important;
+  }
+  .feature-chip.is-waiting,
+  .feature-chip.is-leaving {
+    display: none;
+  }
+  .feature-chip.is-active {
+    transform: none;
+  }
+}

@@ -1,0 +1,148 @@
+.tactile-keyboard {
+  padding: calc(var(--s3) * 4);
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tactile-case {
+  background: var(--tk-case, #2a2a2a);
+  padding: var(--s3);
+  border-radius: var(--s2);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.5),
+    inset 0 2px 2px rgba(255,255,255,0.1),
+    inset 0 -5px 10px rgba(0,0,0,0.5);
+  transform: rotateX(15deg) rotateZ(0deg);
+  transform-style: preserve-3d;
+}
+
+/* Colorways */
+.colorway-classic {
+  --tk-case: #333;
+  --tk-base-bg: #d0d0ce;
+  --tk-base-text: #333;
+  --tk-mod-bg: #8a8d91;
+  --tk-mod-text: #fff;
+  --tk-accent-bg: #d44d4d;
+}
+
+.colorway-retro {
+  --tk-case: #e3dccf;
+  --tk-base-bg: #e5dfd3;
+  --tk-base-text: #594d45;
+  --tk-mod-bg: #a19a8d;
+  --tk-mod-text: #fff;
+  --tk-accent-bg: #c96b52;
+}
+
+.colorway-cyber {
+  --tk-case: #111;
+  --tk-base-bg: #222;
+  --tk-base-text: #0ff;
+  --tk-mod-bg: #333;
+  --tk-mod-text: #f0f;
+  --tk-accent-bg: #ff00ff;
+}
+
+.tactile-row {
+  display: flex;
+  gap: 4px;
+  transform-style: preserve-3d;
+}
+
+.tactile-key {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  user-select: none;
+}
+
+.keycap-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--tk-base-bg);
+  color: var(--tk-base-text);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: bold;
+  font-size: 12px;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.4);
+  transform: translateZ(10px);
+  transition: transform 100ms cubic-bezier(0.2, 1.5, 0.5, 1);
+  z-index: 2;
+}
+
+.tactile-key.modifier .keycap-top {
+  background: var(--tk-mod-bg);
+  color: var(--tk-mod-text);
+  font-size: 10px;
+}
+
+.tactile-key.key-esc .keycap-top,
+.tactile-key.key-enter .keycap-top {
+  background: var(--tk-accent-bg);
+  color: #fff;
+}
+
+.keycap-side-front {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: rgba(0,0,0,0.3);
+  transform-origin: bottom;
+  transform: rotateX(-90deg) translateY(10px);
+  border-radius: 0 0 6px 6px;
+}
+
+.keycap-side-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 100%;
+  background: rgba(0,0,0,0.2);
+  transform-origin: right;
+  transform: rotateY(90deg) translateX(10px);
+  border-radius: 0 6px 6px 0;
+}
+
+/* Key travel animation */
+.tactile-key.pressed .keycap-top {
+  transform: translateZ(2px);
+  transition: transform 50ms ease-out;
+}
+
+/* Widths */
+.key-backspace { width: 96px; }
+.key-tab { width: 72px; }
+.key-\\ { width: 72px; }
+.key-caps { width: 84px; }
+.key-enter { width: 108px; }
+.key-shift-l { width: 108px; }
+.key-shift-r { width: 132px; }
+.key-ctrl-l, .key-ctrl-r, .key-win, .key-alt-l, .key-alt-r, .key-fn { width: 60px; }
+.key-space { width: 300px; flex-grow: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .keycap-top {
+    transition: none;
+  }
+}

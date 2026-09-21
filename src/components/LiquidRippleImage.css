@@ -1,0 +1,61 @@
+.liquid-ripple-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: var(--r-md);
+  /* The overlay creates the mask that follows the cursor using the custom properties */
+}
+
+.liquid-ripple-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform var(--d5) var(--ease-soft);
+}
+
+/* We use a pseudo element or overlay with the SVG filter, masked radially to the cursor */
+.liquid-ripple-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: inherit;
+  /* Instead of a complex WebGL shader, we use backdrop-filter or the SVG filter on an overlay */
+  /* SVG displacement map on backdrop filter doesn't work universally, so we apply filter to overlay image via hack, or just a radial gradient ripple. 
+     To keep it simple and cheap: */
+  background-image: inherit;
+  background-size: cover;
+  background-position: center;
+  mask-image: radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%), rgba(0,0,0,1) 0%, rgba(0,0,0,0) 40%);
+  -webkit-mask-image: radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%), rgba(0,0,0,1) 0%, rgba(0,0,0,0) 40%);
+  backdrop-filter: url(#liquid-ripple-filter);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity var(--d2) var(--ease-soft);
+}
+
+.liquid-ripple-container:hover .liquid-ripple-overlay {
+  opacity: 1;
+}
+
+.liquid-ripple-container:hover .liquid-ripple-img {
+  transform: scale(1.02);
+}
+
+.liquid-ripple-svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liquid-ripple-overlay {
+    display: none;
+  }
+  .liquid-ripple-img {
+    transform: none !important;
+  }
+}

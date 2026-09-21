@@ -1,0 +1,125 @@
+.liquid-nav-menu-container {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.liquid-nav-svg-filters {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.liquid-nav-menu {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  /* Apply goo filter */
+  filter: url('#liquid-nav-goo');
+}
+
+.liquid-nav-trigger {
+  position: relative;
+  z-index: 10;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--app-blue, #6c9cf0);
+  color: var(--app-bg, #080c2c);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform var(--d2, 220ms) var(--ease-spring, cubic-bezier(0.42, 1.67, 0.21, 0.9)),
+              background-color var(--d2, 220ms) ease;
+}
+
+.liquid-nav-trigger:hover,
+.liquid-nav-trigger:focus-visible {
+  background-color: var(--app-blue-strong, #1f6fe6);
+  transform: scale(1.05);
+  outline: none;
+}
+
+.liquid-nav-trigger:active {
+  transform: scale(0.95);
+}
+
+.liquid-nav-trigger-icon {
+  width: 24px;
+  height: 24px;
+  transition: transform var(--d3, 360ms) var(--ease-spring, cubic-bezier(0.42, 1.67, 0.21, 0.9));
+}
+
+.liquid-nav-trigger[aria-expanded="true"] .liquid-nav-trigger-icon {
+  transform: rotate(45deg);
+}
+
+.liquid-nav-actions {
+  position: absolute;
+  bottom: 10px; /* Offset to center relative to trigger */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 60px; /* Space above trigger */
+  pointer-events: none;
+  z-index: 5;
+}
+
+.liquid-nav-action {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--app-elev, rgba(34, 46, 112, 0.72));
+  color: var(--app-text, #eef1fc);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateY(60px) scale(0.5);
+  transition: all var(--d3, 360ms) var(--ease-spring, cubic-bezier(0.42, 1.67, 0.21, 0.9));
+}
+
+.liquid-nav-action:hover,
+.liquid-nav-action:focus-visible {
+  background-color: var(--app-blue, #6c9cf0);
+  color: var(--app-bg, #080c2c);
+  outline: none;
+}
+
+/* Staggered transition delays are handled via inline styles based on index */
+
+.liquid-nav-menu[data-expanded="true"] .liquid-nav-action {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liquid-nav-menu {
+    filter: none;
+  }
+  
+  .liquid-nav-trigger,
+  .liquid-nav-action,
+  .liquid-nav-trigger-icon {
+    transition: opacity var(--d2, 220ms) ease;
+  }
+  
+  .liquid-nav-action {
+    transform: none;
+  }
+  
+  .liquid-nav-menu:not([data-expanded="true"]) .liquid-nav-actions {
+    display: none;
+  }
+}

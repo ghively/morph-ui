@@ -1,0 +1,116 @@
+.laptop-frame-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  perspective: 1200px;
+}
+
+.laptop-screen-lid {
+  position: relative;
+  width: 90%;
+  margin: 0 auto;
+  background: var(--cpi-gray-700);
+  border-radius: var(--r-md) var(--r-md) 0 0;
+  padding: var(--s2);
+  transform-origin: bottom center;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+  /* Fallback rotation if no animation */
+  transform: rotateX(0deg);
+  transition: transform var(--d5) var(--ease-spring);
+}
+
+.laptop-bezel {
+  position: relative;
+  background: #000;
+  border-radius: calc(var(--r-md) - var(--s2));
+  padding: calc(var(--s2) * 2) calc(var(--s2) * 2) calc(var(--s2) * 3);
+  overflow: hidden;
+}
+
+.laptop-camera {
+  position: absolute;
+  top: calc(var(--s2) * 1.5);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: #222;
+  border-radius: 50%;
+  box-shadow: inset 0 0 2px rgba(0,0,0,0.8);
+}
+
+.laptop-camera::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 1px;
+  height: 1px;
+  background: rgba(108, 156, 240, 0.4);
+  border-radius: 50%;
+}
+
+.laptop-screen {
+  background: var(--app-bg);
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  border-radius: var(--s1);
+  overflow: hidden;
+  position: relative;
+}
+
+.laptop-base {
+  position: relative;
+  width: 100%;
+  height: calc(var(--s2) * 2);
+  background: linear-gradient(to bottom, var(--cpi-gray-300), var(--cpi-gray-400));
+  border-radius: 0 0 calc(var(--r-md) * 2) calc(var(--r-md) * 2);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.laptop-thumb-notch {
+  position: absolute;
+  top: 0;
+  width: 80px;
+  height: 6px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 0 0 var(--s2) var(--s2);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.laptop-base-bottom {
+  position: absolute;
+  bottom: -4px;
+  left: 1%;
+  width: 98%;
+  height: 8px;
+  background: linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.8) 10%, rgba(0,0,0,0.8) 90%, rgba(0,0,0,0.4));
+  border-radius: 0 0 50% 50%;
+  z-index: 1;
+  filter: blur(2px);
+}
+
+/* Open Animation */
+.animate-open .laptop-screen-lid {
+  animation: laptop-open-anim 1.5s var(--ease-spring) forwards;
+}
+
+@keyframes laptop-open-anim {
+  0% {
+    transform: rotateX(-90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-open .laptop-screen-lid {
+    animation: none;
+    transform: rotateX(0deg);
+  }
+}

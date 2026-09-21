@@ -1,0 +1,125 @@
+.cover-flow-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 400px;
+  margin: 0 auto;
+  perspective: 1000px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  outline: none;
+  overflow: hidden;
+  user-select: none;
+}
+
+.cover-flow-track {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+}
+
+.cover-flow-item {
+  position: absolute;
+  width: 200px;
+  height: 250px;
+  transition: transform var(--d3) var(--ease-morph);
+  cursor: pointer;
+  transform-style: preserve-3d;
+}
+
+.cover-flow-item-content {
+  width: 100%;
+  height: 100%;
+  background: var(--app-panel);
+  border-radius: var(--r-md);
+  box-shadow: 0 10px 30px var(--app-elev);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  color: var(--app-text);
+  overflow: hidden;
+  border: 1px solid var(--app-line);
+}
+
+.cover-flow-item.active {
+  cursor: default;
+}
+
+.cover-flow-item-reflection {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scaleY(-1);
+  opacity: 0.3;
+  mask-image: linear-gradient(to bottom, transparent, white);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, white);
+  pointer-events: none;
+}
+
+.cover-flow-item-reflection > * {
+  width: 100%;
+  height: 100%;
+  background: var(--app-panel);
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--app-line);
+}
+
+.has-mirror {
+  padding-bottom: 60px; /* Space for reflection */
+}
+
+.cover-flow-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s3);
+  margin-top: var(--s3);
+  z-index: 10;
+}
+
+.cover-flow-controls button {
+  background: var(--app-panel);
+  color: var(--app-text);
+  border: 1px solid var(--app-line);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background var(--d1) var(--ease-soft);
+}
+
+.cover-flow-controls button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.cover-flow-controls button:hover:not(:disabled) {
+  background: var(--app-hover);
+}
+
+.cover-flow-indicator {
+  font-family: var(--app-mono);
+  font-size: var(--t-meta);
+  color: var(--app-dim);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover-flow-item {
+    transition: none !important;
+  }
+}

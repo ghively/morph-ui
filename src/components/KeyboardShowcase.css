@@ -1,0 +1,160 @@
+.keyboard-showcase {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: calc(var(--s3) * 4);
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.keyboard-chassis {
+  background: var(--kb-chassis-bg, #e3e4e6);
+  border-radius: var(--r-md);
+  padding: calc(var(--s2) * 1.5) var(--s2);
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.1),
+    inset 0 1px 1px rgba(255,255,255,0.8),
+    inset 0 -1px 2px rgba(0,0,0,0.1);
+  border: 1px solid var(--kb-chassis-border, #d1d1d1);
+}
+
+/* Finishes */
+.finish-silver {
+  --kb-chassis-bg: linear-gradient(180deg, #e3e4e6 0%, #d5d6d8 100%);
+  --kb-chassis-border: #b3b3b3;
+  --kb-key-bg: #ffffff;
+  --kb-key-text: #333333;
+}
+
+.finish-space-gray {
+  --kb-chassis-bg: linear-gradient(180deg, #6c6d70 0%, #5b5c5f 100%);
+  --kb-chassis-border: #4a4a4a;
+  --kb-key-bg: #2a2a2a;
+  --kb-key-text: #e0e0e0;
+}
+
+.finish-dark {
+  --kb-chassis-bg: linear-gradient(180deg, #2c2c2e 0%, #1c1c1e 100%);
+  --kb-chassis-border: #111111;
+  --kb-key-bg: #1c1c1e;
+  --kb-key-text: #ffffff;
+}
+
+.keyboard-keys-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.keyboard-row {
+  display: flex;
+  gap: 4px;
+  justify-content: space-between;
+}
+
+.keyboard-key {
+  position: relative;
+  background: var(--kb-key-bg);
+  color: var(--kb-key-text);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  padding: 4px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  min-width: 40px;
+  height: 40px;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 
+    0 1px 1px rgba(0,0,0,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+  transition: transform 50ms ease, box-shadow 50ms ease;
+  will-change: transform;
+}
+
+.keyboard-row:first-child .keyboard-key {
+  height: 20px;
+  font-size: 8px;
+}
+
+/* Modifier widths */
+.key-delete { min-width: 60px; }
+.key-tab { min-width: 60px; }
+.key-caps { min-width: 72px; }
+.key-return { min-width: 72px; }
+.key-shift-l { min-width: 90px; }
+.key-shift-r { min-width: 90px; flex-grow: 1; }
+.key-cmd-l, .key-cmd-r { min-width: 50px; }
+.key-space { min-width: 240px; flex-grow: 1; }
+
+/* ISO specific */
+.layout-iso .key-shift-l { min-width: 44px; }
+.layout-iso .key-enter-iso-top { 
+  min-width: 50px; 
+  height: 84px; 
+  position: absolute; 
+  right: 0;
+  border-radius: 4px 4px 4px 4px; 
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%, 20% 50%, 0 50%);
+  /* Z-index to layer over the bottom row */
+  z-index: 2;
+}
+
+/* For ISO, since enter spans two rows, we use absolute positioning on the top part and hide the bottom part or make it a spacer */
+.layout-iso .keyboard-row:nth-child(3) { position: relative; }
+.layout-iso .key-enter-iso-bottom { visibility: hidden; min-width: 40px; }
+
+
+.keyboard-key.pressed {
+  transform: translateY(1px);
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+}
+
+.caps-led {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.2);
+}
+
+.caps-led.on {
+  background: #34c759;
+  box-shadow: 0 0 4px #34c759;
+}
+
+.keyboard-key-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.keyboard-arrows-top {
+  display: flex;
+  justify-content: center;
+}
+
+.keyboard-arrows-bottom {
+  display: flex;
+  gap: 4px;
+}
+
+.key-arrow {
+  min-width: 40px;
+  height: 19px;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .keyboard-key {
+    transition: none;
+    transform: none !important;
+  }
+}

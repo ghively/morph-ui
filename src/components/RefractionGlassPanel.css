@@ -1,0 +1,42 @@
+.refraction-glass-panel {
+  position: relative;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--app-line);
+  box-shadow: 0 4px 12px var(--app-elev);
+}
+
+.refraction-glass-svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.refraction-glass-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  z-index: 1;
+}
+
+.refraction-glass-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--app-panel);
+  z-index: 2;
+  mix-blend-mode: overlay;
+}
+
+.refraction-glass-content {
+  position: relative;
+  z-index: 3;
+  padding: var(--s3);
+  color: var(--app-text);
+}

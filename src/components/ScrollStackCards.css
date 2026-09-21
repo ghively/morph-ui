@@ -1,0 +1,66 @@
+.scroll-stack-container {
+  position: relative;
+  width: 100%;
+}
+
+.scroll-stack-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  perspective: 1000px;
+}
+
+.scroll-stack-scene {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 60vh;
+  min-height: 400px;
+  transform-style: preserve-3d;
+}
+
+.scroll-stack-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--app-panel);
+  border-radius: var(--r-md);
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
+  padding: var(--s3);
+  border: 1px solid var(--app-line);
+  will-change: transform, opacity;
+  transform-origin: top center;
+  /* Transition handled mostly by scroll, but add a tiny ease for smoothness */
+  transition: opacity 0.1s linear, visibility 0.1s linear;
+}
+
+.scroll-stack-card.static-card {
+  position: relative;
+  height: auto;
+  min-height: 300px;
+  margin-bottom: var(--s3);
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  box-shadow: 0 4px 12px var(--app-elev);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-stack-sticky {
+    position: relative;
+    height: auto;
+    display: block;
+    overflow: visible;
+  }
+  
+  .scroll-stack-scene {
+    height: auto;
+  }
+}

@@ -1,0 +1,98 @@
+.perspective-marquee {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  overflow: hidden;
+  background: var(--app-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--r-md);
+}
+
+.perspective-marquee-scene {
+  width: 100%;
+  height: 150%;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(45deg) rotateZ(-20deg) scale(1.5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.perspective-marquee-row-wrapper {
+  display: flex;
+  overflow: visible;
+  width: 200%; /* Wider to ensure no gaps when scrolling */
+  transform: translateX(-25%); /* Center it slightly */
+}
+
+.perspective-marquee-row {
+  display: flex;
+  gap: var(--s2);
+  width: max-content;
+  will-change: transform;
+}
+
+.perspective-marquee-row.direction-left {
+  animation: marquee-scroll-left linear infinite;
+}
+
+.perspective-marquee-row.direction-right {
+  animation: marquee-scroll-right linear infinite;
+}
+
+.perspective-marquee-item {
+  width: 250px;
+  height: 180px;
+  border-radius: var(--s2);
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--app-panel);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.perspective-marquee-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes marquee-scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); /* Scroll halfway because content is duplicated */
+  }
+}
+
+@keyframes marquee-scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .perspective-marquee-row.direction-left,
+  .perspective-marquee-row.direction-right {
+    animation-play-state: paused !important;
+  }
+  
+  .perspective-marquee-scene {
+    transform: none; /* Fallback to flat layout for reduced motion if preferred, or keep static 3D */
+    height: 100%;
+    overflow-y: auto;
+    gap: var(--s3);
+  }
+  
+  .perspective-marquee-row-wrapper {
+    width: 100%;
+    transform: none;
+    overflow-x: auto;
+  }
+}

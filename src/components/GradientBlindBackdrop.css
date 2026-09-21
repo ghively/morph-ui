@@ -1,0 +1,75 @@
+.gradient-blind-backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--app-bg, #080c2c);
+}
+
+.gradient-blind-layer {
+  position: absolute;
+  inset: -10%; /* give room for rotation */
+  width: 120%;
+  height: 120%;
+  transform-origin: center;
+  transition: transform var(--d5, 780ms) var(--ease-spring, cubic-bezier(0.42, 1.67, 0.21, 0.9)),
+              opacity var(--d3, 360ms) ease;
+}
+
+.gradient-blind-layer-1 {
+  background: linear-gradient(135deg, var(--app-blue-soft, rgba(108, 156, 240, 0.18)) 0%, transparent 50%);
+  opacity: 0.8;
+}
+
+.gradient-blind-layer-2 {
+  background: linear-gradient(225deg, var(--app-blue, #6c9cf0) 0%, transparent 40%);
+  opacity: 0.3;
+}
+
+.gradient-blind-layer-3 {
+  background: linear-gradient(45deg, var(--color-info-text, #7fb0f5) 0%, transparent 60%);
+  opacity: 0.15;
+}
+
+/* Base state */
+.gradient-blind-backdrop[data-state="idle"] .gradient-blind-layer-1 {
+  transform: rotate(0deg) translateY(0);
+}
+.gradient-blind-backdrop[data-state="idle"] .gradient-blind-layer-2 {
+  transform: rotate(5deg) translateY(-2%);
+}
+.gradient-blind-backdrop[data-state="idle"] .gradient-blind-layer-3 {
+  transform: rotate(-5deg) translateY(2%);
+}
+
+/* Active state */
+.gradient-blind-backdrop[data-state="active"] .gradient-blind-layer-1 {
+  transform: rotate(15deg) translateY(-5%);
+}
+.gradient-blind-backdrop[data-state="active"] .gradient-blind-layer-2 {
+  transform: rotate(-10deg) translateY(5%);
+}
+.gradient-blind-backdrop[data-state="active"] .gradient-blind-layer-3 {
+  transform: rotate(20deg) translateY(-10%);
+}
+
+/* Scroll effect modifies base via inline styles in JS, 
+   but transitions smooth the movement */
+
+@media (prefers-reduced-motion: reduce) {
+  .gradient-blind-layer {
+    transition: opacity var(--d5, 780ms) ease;
+    transform: none !important;
+  }
+  
+  .gradient-blind-backdrop[data-state="active"] .gradient-blind-layer-1 {
+    opacity: 1;
+  }
+  .gradient-blind-backdrop[data-state="active"] .gradient-blind-layer-2 {
+    opacity: 0.5;
+  }
+  .gradient-blind-backdrop[data-state="active"] .gradient-blind-layer-3 {
+    opacity: 0.3;
+  }
+}

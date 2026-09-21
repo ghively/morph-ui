@@ -1,0 +1,141 @@
+.magnetic-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s2) var(--s3);
+  border-radius: var(--r-md);
+  border: none;
+  background: var(--app-panel);
+  color: var(--app-text);
+  font-family: var(--font-sans);
+  font-size: var(--t-ctl);
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  overflow: visible;
+  transition: transform var(--d2) var(--ease-spring), background var(--d2) var(--ease-morph);
+  transform: translate(0px, 0px);
+  will-change: transform;
+}
+
+.magnetic-button[data-variant="primary"] {
+  background: var(--app-blue);
+  color: #fff;
+}
+
+.magnetic-button[data-variant="secondary"] {
+  background: var(--app-panel);
+}
+
+.magnetic-button[data-variant="danger"] {
+  background: var(--color-error);
+  color: #fff;
+}
+
+.magnetic-button:active:not(:disabled) {
+  transform: scale(0.92) translate(0px, 0px) !important;
+  transition: transform var(--d1) var(--ease-spring);
+}
+
+.magnetic-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.magnetic-button-glow-container {
+  position: absolute;
+  inset: -3px;
+  border-radius: calc(var(--r-md) + 3px);
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity var(--d2) var(--ease-morph);
+  pointer-events: none;
+  /* background fallback if needed */
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.magnetic-button-glow-layer-1,
+.magnetic-button-glow-layer-2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background: conic-gradient(from 0deg, transparent 0%, var(--app-blue-strong) 15%, transparent 30%);
+  animation: orbit-spin var(--d5) linear infinite;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.magnetic-button-glow-layer-2 {
+  background: conic-gradient(from 180deg, transparent 0%, var(--app-faint) 15%, transparent 30%);
+  animation-duration: calc(var(--d5) * 1.5);
+  animation-direction: reverse;
+  filter: blur(4px);
+}
+
+.magnetic-button:hover:not(:disabled) .magnetic-button-glow-container {
+  opacity: 1;
+}
+
+@keyframes orbit-spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.magnetic-button-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.magnetic-button-shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: skewX(-20deg);
+}
+
+.magnetic-button:hover:not(:disabled) .magnetic-button-shine::after {
+  animation: shine-sweep var(--d3) var(--ease-morph);
+}
+
+@keyframes shine-sweep {
+  100% {
+    left: 200%;
+  }
+}
+
+.magnetic-button-content {
+  position: relative;
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .magnetic-button {
+    transition: background var(--d2) var(--ease-morph) !important;
+    transform: none !important;
+  }
+  .magnetic-button:active:not(:disabled) {
+    transform: none !important;
+  }
+  .magnetic-button-glow-layer-1,
+  .magnetic-button-glow-layer-2 {
+    animation: none;
+    background: var(--app-blue-soft);
+  }
+  .magnetic-button:hover:not(:disabled) .magnetic-button-shine::after {
+    animation: none;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+  }
+}

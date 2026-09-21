@@ -1,0 +1,54 @@
+.line-fill-text-container {
+  display: inline-block;
+  width: 100%;
+  max-width: 800px;
+}
+
+.line-fill-text-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  font-family: var(--font-sans);
+  font-weight: 900;
+  font-size: 100px;
+}
+
+.line-fill-text-stroke {
+  fill: none;
+  stroke: var(--app-line);
+  stroke-width: 2px;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw-text var(--d5) var(--ease-morph) forwards;
+}
+
+.line-fill-text-fill {
+  fill: var(--app-text);
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  animation: fill-text var(--d5) var(--ease-soft) forwards;
+  animation-delay: var(--fill-delay, var(--d3));
+}
+
+@keyframes draw-text {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fill-text {
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line-fill-text-stroke {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .line-fill-text-fill {
+    animation: none;
+    clip-path: none;
+  }
+}

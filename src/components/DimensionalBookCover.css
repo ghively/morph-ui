@@ -1,0 +1,182 @@
+.dimensional-book-wrapper {
+  perspective: 1500px;
+  width: 250px;
+  height: 350px;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.dimensional-book {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform var(--d2) var(--ease-soft);
+  transform-origin: left center;
+}
+
+.dimensional-book.is-open {
+  transform: translateX(125px) rotateY(0deg) !important;
+}
+
+/* Front Cover */
+.book-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: left;
+  transform-style: preserve-3d;
+  transition: transform var(--d5) var(--ease-spring);
+  z-index: 5;
+  border-radius: 2px 4px 4px 2px;
+  overflow: hidden;
+  box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.1);
+  background: var(--app-panel);
+}
+
+.book-cover-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.dimensional-book.is-open .book-cover {
+  transform: rotateY(-160deg);
+}
+
+/* Specular Highlight */
+.book-specular-highlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right, 
+    rgba(255, 255, 255, 0) 0%, 
+    rgba(255, 255, 255, 0.1) 15%, 
+    rgba(255, 255, 255, 0) 30%
+  );
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  transition: transform var(--d2) linear;
+  transform: translateX(-50%);
+}
+
+.dimensional-book-wrapper:hover .book-specular-highlight {
+  transform: translateX(50%);
+}
+
+/* Back Cover */
+.book-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--app-panel);
+  border-radius: 2px 4px 4px 2px;
+  transform: translateZ(-20px);
+  box-shadow: 10px 10px 30px var(--app-elev);
+}
+
+/* Spine */
+.book-spine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 100%;
+  transform-origin: left;
+  transform: rotateY(-90deg);
+  background: var(--app-panel);
+  border-radius: 2px 0 0 2px;
+}
+
+.book-spine-default {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0.05), transparent);
+}
+
+/* Pages Edges */
+.book-pages-side {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  width: 20px;
+  height: calc(100% - 4px);
+  transform-origin: right;
+  transform: rotateY(90deg);
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--app-faint) 0px,
+    var(--app-faint) 1px,
+    var(--app-bg) 1px,
+    var(--app-bg) 2px
+  );
+  border-radius: 0 2px 2px 0;
+}
+
+.book-pages-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 2px;
+  width: calc(100% - 4px);
+  height: 20px;
+  transform-origin: bottom;
+  transform: rotateX(-90deg);
+  background: repeating-linear-gradient(
+    to right,
+    var(--app-faint) 0px,
+    var(--app-faint) 1px,
+    var(--app-bg) 1px,
+    var(--app-bg) 2px
+  );
+}
+
+/* Inside / Page content */
+.book-inside {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  background: var(--app-bg);
+  transform: translateZ(-19px);
+  z-index: 1;
+  border-radius: 0 2px 2px 0;
+  overflow: hidden;
+}
+
+.book-page {
+  width: 100%;
+  height: 100%;
+  background: var(--app-bg);
+  padding: var(--s3);
+  box-sizing: border-box;
+}
+
+.book-page-default {
+  width: 100%;
+  height: 100%;
+  border: 1px dashed var(--app-line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dimensional-book {
+    transition: none !important;
+    transform: none !important;
+  }
+  .book-cover {
+    transition: transform var(--d2) var(--ease-morph);
+  }
+  .book-specular-highlight {
+    transition: none;
+    transform: none;
+  }
+}

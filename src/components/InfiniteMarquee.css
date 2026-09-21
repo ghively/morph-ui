@@ -1,0 +1,64 @@
+.infinite-marquee-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  /* Prevent any vertical stretch affecting content */
+  align-items: center;
+  /* Tokens */
+  --marquee-speed: var(--d5, 30s);
+  --marquee-gap: var(--s2, 32px);
+}
+
+.infinite-marquee-track {
+  display: flex;
+  gap: var(--marquee-gap);
+  /* The track is double width due to content duplication */
+  width: max-content;
+  will-change: transform;
+  animation: marquee-scroll var(--marquee-speed) linear infinite;
+}
+
+.infinite-marquee-container:hover .infinite-marquee-track,
+.infinite-marquee-container:focus-within .infinite-marquee-track {
+  animation-play-state: paused;
+}
+
+.infinite-marquee-content {
+  display: flex;
+  gap: var(--marquee-gap);
+  align-items: center;
+  /* Ensure children don't wrap */
+  flex-wrap: nowrap;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    /* Translate by EXACTLY -50% of the track's width (since track contains two equal .infinite-marquee-content children + gap) */
+    /* Because flex gap applies between the two content wrappers as well, 
+       we need to translate exactly the width of ONE content wrapper + ONE gap. 
+       A cleaner way: make the content 50% and translate -50%. */
+    transform: translate3d(calc(-50% - (var(--marquee-gap) / 2)), 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .infinite-marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .infinite-marquee-content {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* Hide the clone when motion is reduced to avoid duplicates in static view */
+  .infinite-marquee-content[aria-hidden="true"] {
+    display: none;
+  }
+}

@@ -1,0 +1,77 @@
+.globe-card {
+  --globe-card-bg: var(--app-bg, #080c2c);
+  --globe-card-border: var(--app-line, rgba(150, 175, 255, 0.16));
+  --globe-card-text: var(--app-text, #eef1fc);
+  --globe-card-dim: var(--app-dim, #a9b0d8);
+  --globe-dot: var(--app-faint, #979ecd);
+  --globe-marker: var(--app-blue, #6c9cf0);
+  
+  display: flex;
+  flex-direction: column;
+  background-color: var(--globe-card-bg);
+  border: 1px solid var(--globe-card-border);
+  border-radius: var(--r-md, 12px);
+  padding: var(--s2, 8px);
+  width: 100%;
+  max-width: 320px;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  font-family: var(--font-sans, sans-serif);
+}
+
+.globe-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--s2, 8px);
+  margin-bottom: var(--s2, 8px);
+  padding: var(--s1, 4px);
+}
+
+.globe-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--globe-card-text);
+}
+
+.globe-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--globe-card-text);
+  margin: 0;
+}
+
+.globe-card-description {
+  font-size: var(--t-meta, 11.5px);
+  color: var(--globe-card-dim);
+  margin: 0;
+  padding: 0 var(--s1, 4px);
+  margin-bottom: var(--s2, 8px);
+}
+
+.globe-card-canvas-container {
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.globe-card-canvas {
+  width: 100%;
+  height: 100%;
+  max-width: 280px;
+  max-height: 280px;
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .globe-card-canvas-container[data-reduced-motion="true"] {
+    /* Handle reduced motion inside JS, no CSS change needed mostly, 
+       just static canvas drawing */
+  }
+}

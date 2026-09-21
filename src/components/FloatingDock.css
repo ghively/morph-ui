@@ -1,0 +1,139 @@
+.floating-dock-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: var(--s3);
+  pointer-events: none; /* Let clicks pass through container */
+}
+
+.floating-dock-container.horizontal {
+  flex-direction: row;
+}
+
+.floating-dock-container.vertical {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-dock-panel {
+  display: flex;
+  gap: var(--s2);
+  padding: var(--s2);
+  background: var(--app-elev);
+  border-radius: var(--r-md);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events: auto; /* Re-enable for the dock itself */
+}
+
+.floating-dock-container.vertical .floating-dock-panel {
+  flex-direction: column;
+}
+
+.floating-dock-item-wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transition: width var(--d1) ease-out, height var(--d1) ease-out;
+  /* Will-change helps with smooth resizing */
+  will-change: width, height;
+}
+
+.floating-dock-container.vertical .floating-dock-item-wrapper {
+  align-items: center;
+}
+
+.floating-dock-item {
+  position: relative;
+  background: var(--app-panel);
+  border: 1px solid var(--app-line);
+  border-radius: var(--s2);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--app-text);
+  cursor: pointer;
+  transform-origin: bottom center;
+  transition: transform var(--d1) ease-out, background var(--d2) var(--ease-soft);
+  will-change: transform;
+}
+
+.floating-dock-container.vertical .floating-dock-item {
+  transform-origin: center left;
+}
+
+.floating-dock-item:hover {
+  background: var(--app-hover);
+}
+
+.floating-dock-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 50%;
+}
+
+.floating-dock-tooltip {
+  position: absolute;
+  top: -40px;
+  background: var(--app-bg);
+  color: var(--app-text);
+  padding: var(--s1) var(--s2);
+  border-radius: var(--s1);
+  font-size: var(--t-meta);
+  font-family: var(--font-sans);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(10px) scale(0.5); /* Reset scale against parent */
+  transition: opacity var(--d2) var(--ease-soft), transform var(--d2) var(--ease-soft);
+  white-space: nowrap;
+  border: 1px solid var(--app-line);
+}
+
+.floating-dock-container.vertical .floating-dock-tooltip {
+  top: auto;
+  left: calc(100% + var(--s3));
+  transform: translateX(-10px) scale(0.5);
+}
+
+.floating-dock-item:hover .floating-dock-tooltip {
+  opacity: 1;
+  /* Inverse scale trick: since parent is scaled, we could technically divide by scale, but using a fixed scale factor is easier. 
+     For now, we just rely on the parent scaling it, or use fixed transform. To keep it simple, let parent scale it. */
+  transform: translateY(0) scale(calc(1 / var(--current-scale, 1)));
+}
+
+.floating-dock-container.vertical .floating-dock-item:hover .floating-dock-tooltip {
+  transform: translateX(0) scale(calc(1 / var(--current-scale, 1)));
+}
+
+
+.floating-dock-item.bouncing {
+  animation: dock-bounce 1s var(--ease-spring);
+}
+
+@keyframes dock-bounce {
+  0%, 100% { transform: translateY(0) scale(var(--current-scale, 1)); }
+  25% { transform: translateY(-30px) scale(var(--current-scale, 1)); }
+  50% { transform: translateY(0) scale(var(--current-scale, 1)); }
+  75% { transform: translateY(-15px) scale(var(--current-scale, 1)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-dock-item-wrapper {
+    transition: none;
+  }
+  .floating-dock-item {
+    transition: background var(--d2) var(--ease-soft);
+    transform: none !important;
+  }
+  .floating-dock-item.bouncing {
+    animation: none;
+    background: var(--app-blue);
+  }
+}

@@ -1,0 +1,53 @@
+.text-path-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  max-width: 400px; /* Default max-width, can be overridden */
+}
+
+.text-path-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.text-path-text {
+  font-family: var(--font-sans);
+  font-size: var(--t-ctl);
+  fill: var(--app-text);
+  font-weight: 600;
+  letter-spacing: var(--tk-wide, 1px);
+}
+
+.text-path-text textPath {
+  animation: text-path-move var(--duration, 10s) linear infinite;
+}
+
+@keyframes text-path-move {
+  0% {
+    startOffset: 0%;
+  }
+  100% {
+    startOffset: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-path-text textPath {
+    animation: none;
+    startOffset: 0%; /* Static fallback */
+  }
+}
+
+.text-path-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

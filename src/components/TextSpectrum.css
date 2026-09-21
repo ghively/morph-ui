@@ -1,0 +1,30 @@
+.text-spectrum {
+  display: inline-block;
+  color: transparent;
+  background-size: 400% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-spectrum-wash var(--spectrum-duration, 8s) linear infinite;
+  
+  /* Inherit typography context */
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+@keyframes text-spectrum-wash {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: -400% center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-spectrum {
+    animation: none;
+    background-position: 0% center; /* Static fallback */
+  }
+}

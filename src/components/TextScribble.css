@@ -1,0 +1,43 @@
+.text-scribble-container {
+  display: inline-block;
+  position: relative;
+}
+
+.text-scribble-content {
+  position: relative;
+  z-index: 1;
+}
+
+.text-scribble-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
+}
+
+.text-scribble-path {
+  stroke: var(--scribble-color, var(--app-blue));
+  stroke-width: 4px; /* Default thick stroke for sketch feel */
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw-scribble var(--scribble-duration, 0.5s) var(--ease-morph) forwards;
+  animation-delay: var(--scribble-delay, 0s);
+  vector-effect: non-scaling-stroke;
+}
+
+@keyframes draw-scribble {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-scribble-path {
+    animation: none;
+    stroke-dashoffset: 0; /* Draw immediately */
+  }
+}

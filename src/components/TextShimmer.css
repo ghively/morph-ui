@@ -1,0 +1,37 @@
+.text-shimmer {
+  display: inline-block;
+  color: transparent;
+  background-image: linear-gradient(
+    var(--shimmer-angle, 60deg),
+    var(--shimmer-color) 20%,
+    var(--shimmer-highlight) 50%,
+    var(--shimmer-color) 80%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer-sweep var(--shimmer-duration, 2s) linear infinite;
+  
+  /* Inherit typography context */
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+@keyframes text-shimmer-sweep {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-shimmer {
+    animation: none;
+    /* Static gradient with the highlight settled */
+    background-position: 50% center;
+  }
+}

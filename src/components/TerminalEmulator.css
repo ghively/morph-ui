@@ -1,0 +1,102 @@
+.terminal-emulator {
+  width: 100%;
+  max-width: 600px;
+  height: 400px;
+  background: #111;
+  border-radius: var(--r-md);
+  padding: 4px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 10px rgba(0,0,0,0.5);
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  color: #33ff33;
+}
+
+.terminal-emulator-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #051505;
+  border-radius: calc(var(--r-md) - 2px);
+  overflow: hidden;
+}
+
+.terminal-emulator-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: var(--s3);
+  overflow-y: auto;
+  box-sizing: border-box;
+  z-index: 2;
+  text-shadow: 0 0 5px rgba(51, 255, 51, 0.5);
+  font-size: var(--t-ctl);
+  line-height: 1.5;
+  scrollbar-width: thin;
+  scrollbar-color: #33ff33 #051505;
+}
+
+.terminal-emulator-line {
+  word-break: break-all;
+  white-space: pre-wrap;
+  margin-bottom: var(--s1);
+  opacity: 0.9;
+}
+
+.terminal-emulator-line.command {
+  color: #fff;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.terminal-emulator-prompt {
+  color: #33ff33;
+  margin-right: var(--s1);
+}
+
+.terminal-emulator-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+  background-color: #33ff33;
+  vertical-align: middle;
+  animation: terminal-blink 1s step-end infinite;
+}
+
+.terminal-emulator-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.terminal-emulator-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(51, 255, 51, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes terminal-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-emulator-cursor {
+    animation: none;
+  }
+}
