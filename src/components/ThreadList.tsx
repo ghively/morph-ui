@@ -68,13 +68,13 @@ export function ThreadList({
       </div>
 
       {/* Count eyebrow */}
-      <div data-eyebrow="" style={{ margin: "var(--s5) var(--s5) var(--s2)" }}>
+      <div data-threadeyebrow="" style={{ margin: "var(--s5) var(--s5) var(--s2)" }}>
         {threads.length} thread{threads.length === 1 ? "" : "s"}
       </div>
 
       {/* Threads */}
       {threads.length === 0 ? (
-        <div data-meta="" style={{ padding: "var(--s2) var(--s5)" }}>
+        <div data-threadmeta="" style={{ padding: "var(--s2) var(--s5)" }}>
           {emptyMessage}
         </div>
       ) : (
@@ -93,7 +93,7 @@ export function ThreadList({
                 <span style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                   {displayTitle}
                 </span>
-                <span data-meta="" style={{ display: "block", fontWeight: 400 }}>
+                <span data-threadmeta="" style={{ display: "block", fontWeight: 400 }}>
                   {thread.replyCount} repl{thread.replyCount === 1 ? "y" : "ies"}
                   {thread.lastSenderName ? ` · ${thread.lastSenderName}` : ''}
                   {timeFormatter(thread.lastTs) ? ` · ${timeFormatter(thread.lastTs)}` : ''}
@@ -105,7 +105,7 @@ export function ThreadList({
                   {(thread.highlight || 0) > 0 ? (
                     <span data-count="" data-tone="danger" aria-label={`${thread.highlight} mentions`}>@{thread.highlight}</span>
                   ) : (thread.unread || 0) > 0 ? (
-                    <span data-dot="" data-live="" aria-label="Unread replies" style={{ width: 7, height: 7, marginRight: 8 }} />
+                    <span data-threaddot="" data-live="" aria-label="Unread replies" style={{ width: 7, height: 7, marginRight: 8 }} />
                   ) : null}
 
                   {onPromote && (

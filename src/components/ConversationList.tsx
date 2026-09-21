@@ -127,7 +127,7 @@ export function ConversationList({
       {/* Invites block */}
       {invites.length > 0 && (
         <div role="group" aria-label="Invites" style={{ display: "contents" }}>
-          <div data-eyebrow="" {...(fade ? { "data-fade": "" } : {})} style={{ margin: "var(--s5) var(--s5) var(--s2)" }}>
+          <div data-conveyebrow="" {...(fade ? { "data-fade": "" } : {})} style={{ margin: "var(--s5) var(--s5) var(--s2)" }}>
             Invites
           </div>
           {invites.map((inv) => (
@@ -155,7 +155,7 @@ export function ConversationList({
       {/* Groups */}
       {groups.map((group) => (
         <div key={group.id} role="group" aria-label={group.label} style={{ display: "contents" }}>
-          <div data-eyebrow="" {...(fade ? { "data-fade": "" } : {})} style={{ margin: "var(--s5) var(--s5) var(--s2)" }}>
+          <div data-conveyebrow="" {...(fade ? { "data-fade": "" } : {})} style={{ margin: "var(--s5) var(--s5) var(--s2)" }}>
             {group.label}
           </div>
           
@@ -196,10 +196,10 @@ export function ConversationList({
           {group.collectionId && (
             <div style={{ padding: "var(--seam) var(--s5) 0" }} {...(fade ? { "data-fade": "" } : {})}>
               {group.conversations.length === 0 && (
-                <div data-meta="">No conversations in this collection</div>
+                <div data-convmeta="">No conversations in this collection</div>
               )}
               <button 
-                data-chip="" 
+                data-convchip="" 
                 data-state="" 
                 title={`Browse ${group.label}`}
                 onClick={() => onBrowse?.(group.collectionId)}
@@ -219,15 +219,15 @@ export function ConversationList({
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
              </svg>
           </div>
-          <div data-eyebrow="" style={{ margin: 0 }}>
+          <div data-conveyebrow="" style={{ margin: 0 }}>
             {filter ? "No conversations match" : "No conversations yet"}
           </div>
-          <div data-meta="" style={{ marginBottom: "var(--s2)" }}>
+          <div data-convmeta="" style={{ marginBottom: "var(--s2)" }}>
             {filter ? "Try another name." : "Browse what already exists, or start something new."}
           </div>
           <div style={{ display: "flex", gap: "var(--s2)" }}>
-            <button data-btn="accent" style={{ height: 30 }} onClick={() => onBrowse?.()}>Browse</button>
-            <button data-btn="" style={{ height: 30 }} onClick={() => onCreate?.()}>New</button>
+            <button data-convbtn="accent" style={{ height: 30 }} onClick={() => onBrowse?.()}>Browse</button>
+            <button data-convbtn="" style={{ height: 30 }} onClick={() => onCreate?.()}>New</button>
           </div>
         </div>
       )}

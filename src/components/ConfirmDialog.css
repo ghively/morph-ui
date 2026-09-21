@@ -3,6 +3,7 @@
   inset: 0;
   z-index: 80;
   background: var(--scrim);
+  backdrop-filter: var(--blur-scrim);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,7 +16,7 @@
   border-radius: var(--morph-radius-lg);
   background: var(--morph-drawer-bg);
   border: 1px solid var(--morph-border);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--el-modal);
   font-size: var(--t-title);
 }
 

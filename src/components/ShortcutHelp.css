@@ -47,6 +47,7 @@
   border-bottom-width: 2px;
   background: var(--morph-card-bg);
   white-space: nowrap;
+  box-shadow: var(--el-raised);
 }
 
 [data-shortcutaction] {

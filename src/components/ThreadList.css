@@ -3,7 +3,7 @@
   color: var(--app-text);
 }
 
-[data-eyebrow] {
+[data-threadeyebrow] {
   color: var(--app-rail-dim);
   font-size: var(--t-meta);
   font-weight: 600;
@@ -56,12 +56,12 @@
   font-weight: 600;
 }
 
-[data-threadrow][data-on="true"][data-threadlink] > button[data-state] [data-meta] {
+[data-threadrow][data-on="true"][data-threadlink] > button[data-state] [data-threadmeta] {
   color: var(--app-blue);
   opacity: 0.8;
 }
 
-[data-meta] {
+[data-threadmeta] {
   color: var(--app-rail-dim);
   font-size: var(--t-meta);
 }
@@ -82,7 +82,7 @@
   color: var(--on-accent);
 }
 
-[data-dot][data-live] {
+[data-threaddot][data-live] {
   border-radius: 50%;
   background: var(--app-blue);
   display: inline-block;

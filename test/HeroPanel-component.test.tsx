@@ -20,7 +20,7 @@ describe('HeroPanel', () => {
     const { container } = render(
       <HeroPanel title="Status" ornament="tile" busy={false} />
     );
-    const tile = container.querySelector('[data-tile]');
+    const tile = container.querySelector('[data-herotile]');
     expect(tile).toBeTruthy();
     
     const dot = tile!.querySelector('[data-dot]');
@@ -28,7 +28,7 @@ describe('HeroPanel', () => {
     expect(dot!.hasAttribute('data-live')).toBe(false);
 
     expect(container.querySelector('h1')).toBeNull();
-    const eyebrow = container.querySelector('[data-eyebrow]');
+    const eyebrow = container.querySelector('[data-heroeyebrow]');
     expect(eyebrow).toBeTruthy();
     expect(eyebrow!.textContent).toBe('Status');
 
@@ -54,7 +54,7 @@ describe('HeroPanel', () => {
       <HeroPanel title="No Ornament" ornament="none" />
     );
     expect(container.querySelector('[data-mark]')).toBeNull();
-    expect(container.querySelector('[data-tile]')).toBeNull();
+    expect(container.querySelector('[data-herotile]')).toBeNull();
     
     const h1 = container.querySelector('h1');
     expect(h1).toBeTruthy();

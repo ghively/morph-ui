@@ -93,7 +93,7 @@ export function MarkdownNoteEditor({
       }}
     >
       {/* List Column */}
-      <div data-card="" data-pad="none" style={{ overflow: "auto" }}>
+      <div data-notecard="" data-pad="none" style={{ overflow: "auto" }}>
         <div role="listbox" aria-label="Notes list" data-statusrowlist="">
           {notes.map((note) => {
             const selected = note.id === activeId;
@@ -101,7 +101,7 @@ export function MarkdownNoteEditor({
               <button
                 key={note.id}
                 type="button"
-                data-row=""
+                data-noterow=""
                 data-state=""
                 role="option"
                 aria-selected={selected}
@@ -118,7 +118,7 @@ export function MarkdownNoteEditor({
                 <div data-fill="">
                   <div data-strong="">{note.title || "Untitled"}</div>
                 </div>
-                {note.updatedLabel && <div data-meta="">{note.updatedLabel}</div>}
+                {note.updatedLabel && <div data-notemeta="">{note.updatedLabel}</div>}
               </button>
             );
           })}
@@ -126,7 +126,7 @@ export function MarkdownNoteEditor({
       </div>
 
       {/* Editor Column */}
-      <div data-card="" data-pad="roomy" style={{ display: "flex", flexDirection: "column", gap: "var(--s3)", minHeight: 0 }}>
+      <div data-notecard="" data-pad="roomy" style={{ display: "flex", flexDirection: "column", gap: "var(--s3)", minHeight: 0 }}>
         {!draft ? (
           <div data-empty-state="">
             <div data-empty-title="">{emptyTitle}</div>
@@ -190,7 +190,7 @@ export function MarkdownNoteEditor({
 
             <div style={{ display: "flex", alignItems: "center", gap: "var(--s3)", marginTop: "auto" }}>
               <button
-                data-btn="fill"
+                data-notebtn="fill"
                 data-state=""
                 disabled={!dirty}
                 onClick={onSave}
@@ -199,7 +199,7 @@ export function MarkdownNoteEditor({
               </button>
               {onDelete && (
                 <button
-                  data-btn="text"
+                  data-notebtn="text"
                   data-state=""
                   data-tone="danger"
                   onClick={handleDelete}
@@ -207,7 +207,7 @@ export function MarkdownNoteEditor({
                   Delete
                 </button>
               )}
-              <span data-meta="" style={{ marginLeft: "auto", alignSelf: "center" }}>
+              <span data-notemeta="" style={{ marginLeft: "auto", alignSelf: "center" }}>
                 {dirty ? dirtyLabel : savedLabel}
               </span>
             </div>

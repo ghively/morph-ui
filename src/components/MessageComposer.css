@@ -41,7 +41,7 @@
   color: var(--app-text);
 }
 
-[data-alert] {
+[data-composeralert] {
   display: flex;
   align-items: center;
   gap: var(--s3);
@@ -52,7 +52,7 @@
   font-size: var(--t-meta);
 }
 
-[data-alert] [data-dot] {
+[data-composeralert] [data-dot] {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -60,7 +60,7 @@
   flex: none;
 }
 
-[data-alert][data-tone="danger"] {
+[data-composeralert][data-tone="danger"] {
   background: var(--color-error-bg);
   border: 1px solid var(--color-error-border);
 }

@@ -236,7 +236,7 @@ describe('ConversationList', () => {
     expect(container.querySelector('[data-searchcap]')?.hasAttribute('data-fade')).toBe(true);
     
     // Eyebrows (invites + 2 groups)
-    const eyebrows = container.querySelectorAll('[data-eyebrow]');
+    const eyebrows = container.querySelectorAll('[data-conveyebrow]');
     eyebrows.forEach(el => {
       // not all eyebrows might have fade, e.g. empty state eyebrow. Only group/invite eyebrows.
       // Actually my implementation put it on the eyebrow. Let's check the ones that do have it.

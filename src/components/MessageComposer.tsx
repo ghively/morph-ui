@@ -285,7 +285,7 @@ export function MessageComposer({
         }}
     >
       {offline && (
-        <div data-alert="" data-tone="danger" data-enter="" role="status" style={{ maxWidth: 780, margin: "0 auto var(--s3)" }}>
+        <div data-composeralert="" data-tone="danger" data-enter="" role="status" style={{ maxWidth: 780, margin: "0 auto var(--s3)" }}>
           <span data-dot="" data-live="" />
           <div>
             {offlineMessage || (

@@ -27,6 +27,7 @@
   border-left-width: 3px;
   border-radius: 10px;
   background: var(--morph-card-bg);
+  box-shadow: var(--el-raised);
 }
 
 [data-approval][data-risk='low'] {

@@ -62,6 +62,7 @@
   border-left: 3px solid var(--morph-accent);
   background: var(--morph-card-bg);
   white-space: pre-wrap;
+  box-shadow: var(--el-raised);
 }
 
 [data-varactions] {

@@ -11,9 +11,9 @@ export interface GaugeChartProps {
 }
 
 const TONE_COLOR: Record<string, string> = {
-  good: 'var(--morph-success, #30a46c)',
-  ok: 'var(--morph-warn, #e8930c)',
-  bad: 'var(--morph-danger, #e5484d)',
+  good: 'var(--morph-success)',
+  ok: 'var(--morph-warn)',
+  bad: 'var(--morph-danger)',
 };
 
 /** Semicircular gauge: SLAs, freshness scores, quota fill. Value always in text. */
@@ -22,7 +22,7 @@ export function GaugeChart({ value, zones, label = 'Gauge', centerLabel, classNa
   // Semicircle path: M20,100 A80,80 0 0 1 180,100 — length = π*80 ≈ 251.3
   const ARC = Math.PI * 80;
   const activeZone = zones ? [...zones].sort((a, b) => a.upTo - b.upTo).find((z) => clamped <= z.upTo) : undefined;
-  const color = activeZone ? TONE_COLOR[activeZone.tone]! : 'var(--morph-accent, #2f7cf6)';
+  const color = activeZone ? TONE_COLOR[activeZone.tone]! : 'var(--morph-accent)';
   return (
     <figure className={className} data-gauge="">
       <svg viewBox="0 0 200 118" role="img" aria-label={`${label}: ${centerLabel ?? `${Math.round(clamped)} of 100`}`} data-gaugesvg="">

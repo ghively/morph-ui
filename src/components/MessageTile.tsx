@@ -74,7 +74,7 @@ export const MessageTile = memo(function MessageTile({
         <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
         <span data-strong="">Artifact</span>
         <span data-ell="">{message.artifact?.label}</span>
-        {message.artifact?.degraded && <span data-tag="">source only</span>}
+        {message.artifact?.degraded && <span data-tiletag="">source only</span>}
       </button>
     );
 
@@ -107,8 +107,8 @@ export const MessageTile = memo(function MessageTile({
                     <span data-num="">{message.agentLabel}</span>
                   </span>
                 )}
-                {message.agentRole && <span data-tag="">{message.agentRole}</span>}
-                {message.depth !== undefined && <span data-tag="" title="Agent-to-agent delegation depth">↳ depth {message.depth}</span>}
+                {message.agentRole && <span data-tiletag="">{message.agentRole}</span>}
+                {message.depth !== undefined && <span data-tiletag="" title="Agent-to-agent delegation depth">↳ depth {message.depth}</span>}
               </div>
             )}
             {tile}
@@ -366,9 +366,9 @@ export const MessageTile = memo(function MessageTile({
                 <span data-num="">{message.agentLabel}</span>
               </span>
             )}
-            {message.agentRole && <span data-tag="">{message.agentRole}</span>}
-            {message.depth !== undefined && <span data-tag="" title="Agent-to-agent delegation depth">↳ depth {message.depth}</span>}
-            {message.kind === 'notice' && !message.isAgent && <span data-tag="">notice</span>}
+            {message.agentRole && <span data-tiletag="">{message.agentRole}</span>}
+            {message.depth !== undefined && <span data-tiletag="" title="Agent-to-agent delegation depth">↳ depth {message.depth}</span>}
+            {message.kind === 'notice' && !message.isAgent && <span data-tiletag="">notice</span>}
           </div>
         )}
         {replyQuote}

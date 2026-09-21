@@ -81,7 +81,8 @@
   border-radius: 9px;
   border: 1px solid var(--morph-border);
   background: var(--morph-menu-bg);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--el-float);
+  backdrop-filter: var(--blur-float);
 }
 
 [data-combooption] {

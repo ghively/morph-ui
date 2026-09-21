@@ -125,7 +125,7 @@ describe('ThreadList', () => {
     const highlight = container.querySelector('[data-count]');
     expect(highlight?.textContent).toBe('@2');
     
-    const unreadDot = container.querySelector('[data-dot][data-live]');
+    const unreadDot = container.querySelector('[data-threaddot][data-live]');
     expect(unreadDot?.getAttribute('aria-label')).toBe('Unread replies');
     expect(unreadDot?.textContent).toBe(''); // it's a dot, no number
   });

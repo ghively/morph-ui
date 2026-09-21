@@ -93,7 +93,9 @@ export function DataTable<TRow extends Record<string, unknown>>({
                     <button type="button" data-sortbtn="" onClick={() => toggleSort(col.key)} aria-label={`Sort by ${col.header}`}>
                       <span>{col.header}</span>
                       <span data-sorticon="" data-dir={active ? sortDir : undefined} aria-hidden="true">
-                        {active ? (sortDir === 'asc' ? '▲' : '▼') : '△'}
+                        <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M3 7.5L6 4.5l3 3" />
+                        </svg>
                       </span>
                     </button>
                   ) : (

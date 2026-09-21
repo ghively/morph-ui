@@ -82,7 +82,7 @@
   cursor: not-allowed;
 }
 
-[data-hint] {
+[data-fieldhint] {
   font-size: var(--t-small);
   opacity: 0.75;
 }

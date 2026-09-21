@@ -22,7 +22,7 @@ describe('StatusRowList', () => {
     const rows = container.querySelector('[data-rows]');
     expect(rows!.getAttribute('role')).toBe('listbox');
     
-    const row = container.querySelector('[data-row]');
+    const row = container.querySelector('[data-statusrow]');
     expect(row!.tagName.toLowerCase()).toBe('button');
     expect(row!.getAttribute('role')).toBe('option');
     expect(row!.getAttribute('aria-selected')).toBe('true');
@@ -33,17 +33,17 @@ describe('StatusRowList', () => {
     const { container, rerender } = render(
       <StatusRowList rows={[{ id: '1', title: 'R1', dot: true, tone: 'warn' }]} />
     );
-    let dot = container.querySelector('[data-dot]');
+    let dot = container.querySelector('[data-statusdot]');
     expect(dot).toBeTruthy();
     expect(dot!.getAttribute('data-tone')).toBe('warn');
 
     rerender(<StatusRowList rows={[{ id: '1', title: 'R1', dot: true }]} />);
-    dot = container.querySelector('[data-dot]');
+    dot = container.querySelector('[data-statusdot]');
     expect(dot!.getAttribute('data-tone')).toBeNull();
 
     rerender(<StatusRowList rows={[{ id: '1', title: 'R1' }]} />);
     // Note: dot default behavior in spec: "Omit dot for no dot" wait, the spec says "Omit tone for a neutral dot; omit dot for no dot". Actually the code says `row.dot !== false && row.dot !== undefined`. If omitted, it's undefined -> no dot.
-    expect(container.querySelector('[data-dot]')).toBeNull();
+    expect(container.querySelector('[data-statusdot]')).toBeNull();
   });
 
   it('renders title button if onTitleSelect provided', () => {
@@ -71,11 +71,11 @@ describe('StatusRowList', () => {
       }]} />
     );
     
-    const badge = container.querySelector('[data-tag][data-solid]');
+    const badge = container.querySelector('[data-statustag][data-solid]');
     expect(badge).toBeTruthy();
     expect(badge!.textContent).toBe('Badge');
 
-    const chips = container.querySelectorAll('[data-chip]');
+    const chips = container.querySelectorAll('[data-statuschip]');
     expect(chips.length).toBe(2);
     expect(chips[0]!.textContent).toBe('Chip1');
 
@@ -118,7 +118,7 @@ describe('StatusRowList', () => {
       ]} />
     );
     
-    const rows = container.querySelectorAll('[data-row]');
+    const rows = container.querySelectorAll('[data-statusrow]');
     
     // Row 1: only onSelect -> whole row clickable
     fireEvent.click(rows[0]!);
@@ -139,7 +139,7 @@ describe('StatusRowList', () => {
       <StatusRowList rows={[{ id: '1', title: 'R1', onSelect }]} />
     );
     
-    const row = container.querySelector('[data-row]');
+    const row = container.querySelector('[data-statusrow]');
     expect(row!.getAttribute('tabindex')).toBe("0");
     
     fireEvent.keyDown(row!, { key: 'Enter' });
@@ -161,8 +161,8 @@ describe('StatusRowList', () => {
     
     const fill = container.querySelector('[data-fill]');
     const children = Array.from(fill!.children);
-    // meta is the first div with data-meta, title is second
-    expect(children[0]!.getAttribute('data-meta')).toBe("");
+    // meta is the first div with data-statusmeta, title is second
+    expect(children[0]!.getAttribute('data-statusmeta')).toBe("");
     expect(children[1]!.getAttribute('data-strong')).toBe("");
   });
 });

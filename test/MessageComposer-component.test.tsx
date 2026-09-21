@@ -150,7 +150,7 @@ describe('MessageComposer', () => {
         offline={true}
       />
     );
-    const alert = container.querySelector('[data-alert][data-tone="danger"]');
+    const alert = container.querySelector('[data-composeralert][data-tone="danger"]');
     expect(alert).toBeTruthy();
 
     rerender(
@@ -162,7 +162,7 @@ describe('MessageComposer', () => {
         offline={false}
       />
     );
-    expect(container.querySelector('[data-alert]')).toBeNull();
+    expect(container.querySelector('[data-composeralert]')).toBeNull();
   });
 
   it('renders uploads', () => {

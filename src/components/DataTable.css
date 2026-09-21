@@ -42,6 +42,12 @@
   background: var(--morph-hover);
 }
 
+/* th defaults to text-align:center in the UA stylesheet, so without this the
+   header of every left-aligned column sat centred over left-aligned cells. */
+[data-table] [data-align='left'] {
+  text-align: left;
+}
+
 [data-table] [data-align='center'] {
   text-align: center;
 }
@@ -75,12 +81,30 @@
 }
 
 [data-sorticon] {
-  font-size: 9px;
-  opacity: 0.45;
+  display: inline-flex;
+  opacity: 0.4;
+  transform: rotate(180deg);
+  transition:
+    opacity var(--d2) var(--ease-fx),
+    transform var(--d2) var(--ease-morph),
+    color var(--d2) var(--ease-fx);
 }
 
-[data-sorticon][data-dir] {
+[data-sortbtn]:hover [data-sorticon] {
+  opacity: 0.7;
+}
+
+/* Active ascending points up; descending flips it. The inactive rest state
+   sits at the descending angle so the first click reads as a rotation. */
+[data-sorticon][data-dir='asc'] {
   opacity: 1;
+  transform: rotate(0deg);
+  color: var(--morph-accent);
+}
+
+[data-sorticon][data-dir='desc'] {
+  opacity: 1;
+  transform: rotate(180deg);
   color: var(--morph-accent);
 }
 
@@ -88,4 +112,16 @@
   text-align: center;
   padding: 26px 14px !important;
   opacity: 0.7;
+}
+
+/* The sort control is inline-flex, so text-align on the cell does not move it
+   on its own; it has to pick up the column's alignment too. */
+[data-table] [data-align='right'] [data-sortbtn] {
+  justify-content: flex-end;
+  width: 100%;
+}
+
+[data-table] [data-align='center'] [data-sortbtn] {
+  justify-content: center;
+  width: 100%;
 }

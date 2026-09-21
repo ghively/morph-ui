@@ -8,7 +8,7 @@
   gap: 0;
 }
 
-[data-row] {
+[data-statusrow] {
   display: flex;
   align-items: center;
   gap: var(--s4);
@@ -17,24 +17,24 @@
   transition: background-color var(--d1);
 }
 
-[data-row][data-size="lg"] {
+[data-statusrow][data-size="lg"] {
   padding: var(--s4);
   gap: var(--s5);
 }
 
-[data-row][data-align-start] {
+[data-statusrow][data-align-start] {
   align-items: flex-start;
 }
 
-[data-row][data-state=""] {
+[data-statusrow][data-state=""] {
   cursor: pointer;
 }
 
-[data-row][data-state=""]:hover {
+[data-statusrow][data-state=""]:hover {
   background-color: var(--app-hover);
 }
 
-[data-row][data-on] {
+[data-statusrow][data-on] {
   background-color: var(--sec-soft);
 }
 
@@ -60,19 +60,19 @@
   font-size: var(--t-lead);
 }
 
-[data-meta] {
+[data-statusmeta] {
   color: var(--app-dim);
   font-size: var(--t-meta);
   line-height: 1.4;
   word-break: break-word;
 }
 
-[data-num] {
+[data-statusnum] {
   font-family: var(--app-mono);
   font-size: var(--t-num);
 }
 
-[data-dot] {
+[data-statusdot] {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -80,19 +80,19 @@
   flex: none;
 }
 
-[data-dot][data-tone="ok"] {
+[data-statusdot][data-tone="ok"] {
   background-color: var(--color-success);
 }
 
-[data-dot][data-tone="warn"] {
+[data-statusdot][data-tone="warn"] {
   background-color: var(--color-warning);
 }
 
-[data-dot][data-tone="danger"] {
+[data-statusdot][data-tone="danger"] {
   background-color: var(--color-error);
 }
 
-[data-dot][data-live] {
+[data-statusdot][data-live] {
   animation: status-pulse var(--d5) var(--ease-cycle) infinite alternate;
 }
 
@@ -101,7 +101,7 @@
   to { opacity: 1; }
 }
 
-[data-chip] {
+[data-statuschip] {
   display: inline-flex;
   align-items: center;
   padding: 2px 6px;
@@ -112,7 +112,7 @@
   white-space: nowrap;
 }
 
-[data-tag] {
+[data-statustag] {
   font-size: var(--t-num);
   color: var(--app-dim);
   padding: 2px 6px;
@@ -120,28 +120,28 @@
   border-radius: 4px;
 }
 
-[data-tag][data-solid] {
+[data-statustag][data-solid] {
   border: none;
   background-color: var(--app-line);
   color: var(--app-text);
 }
 
-[data-tag][data-tone="ok"] {
+[data-statustag][data-tone="ok"] {
   background-color: var(--color-success-bg);
   color: var(--color-success-text);
 }
 
-[data-tag][data-tone="warn"] {
+[data-statustag][data-tone="warn"] {
   background-color: var(--color-warning-bg, rgba(224, 140, 32, 0.16));
   color: var(--color-warning);
 }
 
-[data-tag][data-tone="danger"] {
+[data-statustag][data-tone="danger"] {
   background-color: var(--color-error-bg);
   color: var(--color-error-text);
 }
 
-[data-btn] {
+[data-statusbtn] {
   padding: var(--s2) var(--s4);
   border-radius: var(--r-ctl);
   font-size: var(--t-ctl);
@@ -152,29 +152,29 @@
   color: var(--app-text);
 }
 
-[data-btn="fill"] {
+[data-statusbtn="fill"] {
   background: var(--app-text);
   color: var(--app-bg);
   border: none;
 }
 
-[data-btn="accent"] {
+[data-statusbtn="accent"] {
   background: var(--sec);
   color: var(--on-accent);
   border: none;
 }
 
-[data-btn="text"] {
+[data-statusbtn="text"] {
   border: none;
   background: transparent;
 }
 
-[data-btn][data-tone="danger"] {
+[data-statusbtn][data-tone="danger"] {
   color: var(--color-error-text);
 }
 
-[data-btn="fill"][data-tone="danger"],
-[data-btn="accent"][data-tone="danger"] {
+[data-statusbtn="fill"][data-tone="danger"],
+[data-statusbtn="accent"][data-tone="danger"] {
   background: var(--color-error);
   color: var(--on-accent);
 }
@@ -199,7 +199,7 @@
   color: var(--app-text);
 }
 
-[data-btn="fill"][data-busy="true"] [data-spin] {
+[data-statusbtn="fill"][data-busy="true"] [data-spin] {
   color: var(--app-bg);
 }
 
@@ -207,7 +207,7 @@
   to { transform: rotate(360deg); }
 }
 
-[data-card] {
+[data-statuscard] {
   border: 1px solid var(--app-line);
   border-radius: var(--r-ctl);
   background: var(--app-bg);
@@ -215,22 +215,22 @@
   margin-bottom: var(--s4);
 }
 
-[data-card] > summary {
+[data-statuscard] > summary {
   list-style: none;
   display: flex;
   align-items: center;
   gap: var(--s2);
 }
 
-[data-card] > summary::-webkit-details-marker {
+[data-statuscard] > summary::-webkit-details-marker {
   display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-row] {
+  [data-statusrow] {
     transition: none !important;
   }
-  [data-dot][data-live] {
+  [data-statusdot][data-live] {
     animation: none !important;
   }
   [data-busy="true"] [data-spin] {

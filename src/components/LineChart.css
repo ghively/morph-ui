@@ -20,9 +20,9 @@
   stroke-width: 2;
 }
 
+/* fill comes from the per-instance gradient def in the component */
 [data-linefill] {
-  fill: var(--morph-accent);
-  opacity: 0.14;
+  opacity: 1;
 }
 
 [data-linedot] {

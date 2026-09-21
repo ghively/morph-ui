@@ -144,7 +144,7 @@ export function RagDashboardDemo() {
 
       {indexing !== null && <ProgressBar value={indexing} label={`Reindexing… ${indexing}%`} />}
 
-      <div data-kpirow="">
+      <div data-kpigrid="">
         <KpiCard label="Queries today" value="1,284" delta="12.4% vs yesterday" deltaDirection="up" spark={[8, 10, 9, 12, 14, 13, 18, 22]} />
         <KpiCard label="Median latency" value="1.8s" delta="0.3s slower" deltaDirection="down" />
         <KpiCard label="Grounded answers" value="94%" delta="2 pts up" deltaDirection="up" spark={[88, 90, 89, 92, 93, 94]} />

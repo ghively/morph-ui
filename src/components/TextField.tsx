@@ -29,7 +29,7 @@ export function TextField({ id, label, error, hint, disabled, className = '', ..
         {...rest}
       />
       {hint && !error && (
-        <div data-hint="" id={hintId}>
+        <div data-fieldhint="" id={hintId}>
           {hint}
         </div>
       )}

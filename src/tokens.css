@@ -122,11 +122,34 @@
   /* elevation / scrim / ink */
   --el1: none;
   --el2: none;
+
+  /* Named elevation steps. --el1/--el2 stay `none` per the app-frame spec;
+     these are the explicit depths the chrome components actually use
+     (ModalSurface 0 8px 32px, CommandPalette 0 16px 32px, cards 0 4px 12px),
+     lifted out of those files so every surface reaches for the same step. */
+  --el-raised: 0 4px 12px var(--app-elev);
+  --el-modal: 0 8px 32px var(--app-elev);
+  --el-float: 0 16px 32px var(--app-elev);
+  --ring-focus: 0 0 0 2px var(--sec-soft);
+  --blur-scrim: blur(2px);
+  --blur-float: blur(10px);
   --scrim: rgba(6, 8, 32, 0.52);
   --scrim-soft: rgba(6, 8, 32, 0.34);
   --hi: rgba(255, 255, 255, 0.26);
   --on-accent: #ffffff;
   --danger-ink: #f08080;
+
+  /* Categorical series ramp for charts. The wave components carried their own
+     hardcoded PALETTE in TS (#2f7cf6/#30a46c/#e8930c/#e5484d), which is the
+     divergent wave palette again and reads garish on the navy frame because
+     those hues sit at a much lower lightness than --app-blue. These are tuned
+     to one lightness/chroma family so a multi-series chart reads as a set. */
+  --series-1: #6c9cf0;
+  --series-2: #4bbf94;
+  --series-3: #e0a952;
+  --series-4: #a88be0;
+  --series-5: #e87b7b;
+  --series-6: #5cc2bd;
 
   /* secondary accent ramp */
   --sec: #3f83f5;

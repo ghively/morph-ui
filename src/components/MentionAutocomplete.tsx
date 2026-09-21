@@ -93,7 +93,7 @@ export function MentionAutocomplete({
       }}
     >
       {hasAgent && (
-        <div data-eyebrow="" style={{ margin: 'var(--s1) var(--s2)' }}>
+        <div data-mentioneyebrow="" style={{ margin: 'var(--s1) var(--s2)' }}>
           {groupLabel}
         </div>
       )}
@@ -102,7 +102,7 @@ export function MentionAutocomplete({
           key={c.id}
           id={`mention-opt-${i}`}
           type="button"
-          data-menuitem=""
+          data-mentionitem=""
           role="option"
           aria-selected={i === activeIndex}
           onMouseDown={(e) => {
@@ -122,7 +122,7 @@ export function MentionAutocomplete({
             </span>
           )}
           <span
-            data-num=""
+            data-mentionnum=""
             style={{
               marginLeft: 'auto',
               color: 'var(--app-faint)',

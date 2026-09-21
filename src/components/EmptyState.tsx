@@ -29,10 +29,10 @@ export function EmptyState({
 }: EmptyStateProps) {
   const inner = (
     <div data-empty="" className={className} style={style}>
-      <div data-tile="">
-        {icon ? icon : <div data-dot="" data-live={live ? "" : undefined} />}
+      <div data-emptytile="">
+        {icon ? icon : <div data-emptydot="" data-live={live ? "" : undefined} />}
       </div>
-      <div data-eyebrow="">{title}</div>
+      <div data-emptyeyebrow="">{title}</div>
       {children ? <div>{children}</div> : null}
       {action}
     </div>
@@ -40,7 +40,7 @@ export function EmptyState({
 
   if (framed) {
     return (
-      <div data-card="" data-pad="roomy" data-notconfigured="">
+      <div data-emptycard="" data-pad="roomy" data-notconfigured="">
         {inner}
       </div>
     );

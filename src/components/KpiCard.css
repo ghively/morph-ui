@@ -5,6 +5,7 @@
   padding: 14px 16px;
   min-width: 0;
   font: inherit;
+  box-shadow: var(--el-raised);
 }
 
 [data-kpilabel] {

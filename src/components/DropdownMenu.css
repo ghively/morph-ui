@@ -19,7 +19,8 @@
   border-radius: 10px;
   border: 1px solid var(--morph-border);
   background: var(--morph-menu-bg);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--el-float);
+  backdrop-filter: var(--blur-float);
 }
 
 [data-menupop][data-align='left'] {

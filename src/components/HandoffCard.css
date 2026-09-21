@@ -6,6 +6,7 @@
   border-radius: 10px;
   padding: 13px 15px;
   background: var(--morph-card-bg);
+  box-shadow: var(--el-raised);
 }
 
 [data-handoff][data-urgency='routine'] {

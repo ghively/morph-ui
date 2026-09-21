@@ -51,6 +51,7 @@
   padding: 14px;
   min-width: 0;
   background: var(--morph-card-bg);
+  box-shadow: var(--el-raised);
 }
 
 [data-galcell][data-wide] {

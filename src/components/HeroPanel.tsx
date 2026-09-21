@@ -62,7 +62,7 @@ export function HeroPanel({
           )}
           {ornament === 'tile' && (
             <div data-empty="" role={busy ? "status" : undefined} aria-live="polite">
-              <div data-tile="">
+              <div data-herotile="">
                 <span data-dot="" data-live={busy ? "" : undefined} />
               </div>
             </div>
@@ -72,7 +72,7 @@ export function HeroPanel({
           {ornament === 'mark' || ornament === 'none' ? (
             <h1 className="hero-title-mark">{title}</h1>
           ) : (
-            <div data-eyebrow="">{title}</div>
+            <div data-heroeyebrow="">{title}</div>
           )}
           
           {/* Description */}
@@ -88,7 +88,7 @@ export function HeroPanel({
             {groups.map((g, index) => (
               <div key={g.id}>
                 <div 
-                  data-eyebrow="" 
+                  data-heroeyebrow="" 
                   style={{ 
                     justifyContent: "center", 
                     marginBottom: "var(--s3)",
@@ -103,7 +103,7 @@ export function HeroPanel({
                     <button 
                       key={chip.id} 
                       type="button" 
-                      data-chip="" 
+                      data-herochip="" 
                       data-state="" 
                       onClick={chip.onSelect}
                     >

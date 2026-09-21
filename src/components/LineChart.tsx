@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import './LineChart.css';
 
 export interface LineChartProps {
@@ -39,6 +40,8 @@ export function LineChart({
 
   const line = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
   const summary = points.map((p) => `${p.label}: ${formatValue(p.v)}`).join(', ');
+  // Unique per instance so several charts on one page do not share a def.
+  const fillId = `${useId()}-linefill`;
 
   return (
     <figure className={className} data-linechart="">
@@ -47,7 +50,19 @@ export function LineChart({
           <span data-lineempty="">No data</span>
         ) : (
           <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" aria-hidden="true">
-            {showArea && <path d={`${line} L${(W - PAD).toFixed(1)},${H} L${PAD},${H} Z`} data-linefill="" />}
+            {showArea && (
+              <defs>
+                {/* A flat wash reads as a solid block under the line; fading it
+                    out lets the plot sit on the surface instead of covering it. */}
+                <linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="var(--morph-accent)" stopOpacity="0.32" />
+                  <stop offset="100%" stopColor="var(--morph-accent)" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+            )}
+            {showArea && (
+              <path d={`${line} L${(W - PAD).toFixed(1)},${H} L${PAD},${H} Z`} data-linefill="" fill={`url(#${fillId})`} />
+            )}
             <path d={line} fill="none" data-linestroke="" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
             {showDots &&
               points.map((p, i) => (

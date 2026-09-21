@@ -242,7 +242,7 @@ img.avatar {
   text-transform: uppercase;
 }
 
-[data-tag] {
+[data-tiletag] {
   background: var(--app-panel);
   color: var(--app-dim);
   padding: 2px 6px;

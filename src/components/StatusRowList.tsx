@@ -6,7 +6,7 @@ export type StatusTone = 'ok' | 'warn' | 'danger';
 export interface StatusRowBadge {
   id: string;
   label: string;
-  /** `[data-tag][data-solid]` vs `[data-tag]`. */
+  /** `[data-statustag][data-solid]` vs `[data-statustag]`. */
   solid?: boolean;
   tone?: StatusTone;
   title?: string;
@@ -15,7 +15,7 @@ export interface StatusRowBadge {
 export interface StatusRowAction {
   id: string;
   label: string;
-  /** `[data-btn]` value: '' (default) | 'fill' | 'accent' | 'text'. */
+  /** `[data-statusbtn]` value: '' (default) | 'fill' | 'accent' | 'text'. */
   variant?: '' | 'fill' | 'accent' | 'text';
   tone?: 'danger';
   disabled?: boolean;
@@ -42,9 +42,9 @@ export interface StatusRow {
   badges?: StatusRowBadge[];
   /** Inline status text with its own dot, after the badges (AgentsScreen `statusText`). */
   inlineStatus?: { text: string; tone?: StatusTone; live?: boolean };
-  /** Monospace secondary line (`[data-num]`). */
+  /** Monospace secondary line (`[data-statusnum]`). */
   identifier?: ReactNode;
-  /** Muted secondary line (`[data-meta]`). */
+  /** Muted secondary line (`[data-statusmeta]`). */
   meta?: ReactNode;
   /** Capability chips under the meta. */
   chips?: string[];
@@ -99,10 +99,10 @@ export function CollapsibleSection({
   className = ''
 }: CollapsibleSectionProps): ReactElement {
   return (
-    <details data-card="" open={defaultOpen} className={className}>
+    <details data-statuscard="" open={defaultOpen} className={className}>
       <summary data-strong="" style={{ cursor: "pointer" }}>
         {title}
-        {meta && <span data-meta="">{meta}</span>}
+        {meta && <span data-statusmeta="">{meta}</span>}
       </summary>
       <div style={{ marginTop: "var(--s3)" }}>
         {children}
@@ -176,7 +176,7 @@ function RowItem({ row, semantics }: { row: StatusRow; semantics: StatusRowListP
   } : {};
 
   // For NotesScreen, row is a button natively if semantics=listbox? The spec says:
-  // "NotesScreen list: rows are `<button type="button" data-row="" data-state="" role="option" aria-selected data-on>`"
+  // "NotesScreen list: rows are `<button type="button" data-statusrow="" data-state="" role="option" aria-selected data-on>`"
   // Let's use `div` but apply the attributes to match accessbility/styling. The spec says if it's a div, add tabIndex=0.
   const Component = isListbox ? 'button' : 'div';
   const additionalProps = isListbox ? { type: "button" as const } : {};
@@ -198,7 +198,7 @@ function RowItem({ row, semantics }: { row: StatusRow; semantics: StatusRowListP
         {row.badges && row.badges.map(b => (
           <span 
             key={b.id} 
-            data-tag="" 
+            data-statustag="" 
             data-solid={b.solid ? "" : undefined} 
             data-tone={b.tone}
             title={b.title}
@@ -208,7 +208,7 @@ function RowItem({ row, semantics }: { row: StatusRow; semantics: StatusRowListP
         ))}
         {row.inlineStatus && (
           <span style={{ display: "flex", alignItems: "center", gap: "var(--s1)", color: "var(--app-dim)", fontSize: "var(--t-meta)", fontWeight: "normal" }}>
-            <span data-dot="" data-tone={row.inlineStatus.tone} data-live={row.inlineStatus.live ? "" : undefined} style={{ width: 6, height: 6 }} />
+            <span data-statusdot="" data-tone={row.inlineStatus.tone} data-live={row.inlineStatus.live ? "" : undefined} style={{ width: 6, height: 6 }} />
             {row.inlineStatus.text}
           </span>
         )}
@@ -219,8 +219,8 @@ function RowItem({ row, semantics }: { row: StatusRow; semantics: StatusRowListP
   const MetaNode = () => {
     if (!row.meta && !row.identifier) return null;
     return (
-      <div data-meta="" style={{ overflowWrap: "anywhere" }}>
-        {row.identifier && <span data-num="">{row.identifier}</span>}
+      <div data-statusmeta="" style={{ overflowWrap: "anywhere" }}>
+        {row.identifier && <span data-statusnum="">{row.identifier}</span>}
         {row.identifier && row.meta && " "}
         {row.meta}
       </div>
@@ -229,7 +229,7 @@ function RowItem({ row, semantics }: { row: StatusRow; semantics: StatusRowListP
 
   return (
     <Component
-      data-row=""
+      data-statusrow=""
       data-state={rowIsClickable || isListbox ? "" : undefined}
       data-size={row.size}
       data-align-start={row.alignStart ? "" : undefined}
@@ -247,7 +247,7 @@ function RowItem({ row, semantics }: { row: StatusRow; semantics: StatusRowListP
       {...additionalProps}
     >
       {row.dot !== false && row.dot !== undefined && (
-        <span data-dot="" data-tone={row.tone} data-live={row.live ? "" : undefined} />
+        <span data-statusdot="" data-tone={row.tone} data-live={row.live ? "" : undefined} />
       )}
       
       {row.leading}
@@ -273,13 +273,13 @@ function RowItem({ row, semantics }: { row: StatusRow; semantics: StatusRowListP
         {row.chips && row.chips.length > 0 && (
           <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--s1)", marginTop: "var(--s2)" }}>
             {row.chips.map((chip, i) => (
-              <span key={i} data-chip="">{chip}</span>
+              <span key={i} data-statuschip="">{chip}</span>
             ))}
           </div>
         )}
 
         {row.error && (
-          <div data-meta="" role="alert" style={{ marginTop: "var(--s2)", color: "var(--danger-ink)" }}>
+          <div data-statusmeta="" role="alert" style={{ marginTop: "var(--s2)", color: "var(--danger-ink)" }}>
             {row.error}
           </div>
         )}
@@ -287,14 +287,14 @@ function RowItem({ row, semantics }: { row: StatusRow; semantics: StatusRowListP
 
       {row.metric && (
         <div data-hidenarrow="" style={{ fontSize: "var(--t-small)", textAlign: "right" }}>
-          <div data-meta="">{row.metric.label}</div>
-          <div data-num="">{row.metric.value}</div>
+          <div data-statusmeta="">{row.metric.label}</div>
+          <div data-statusnum="">{row.metric.value}</div>
         </div>
       )}
 
       {row.trailingTag && (
         <span 
-          data-tag="" 
+          data-statustag="" 
           data-solid={row.trailingTag.solid ? "" : undefined} 
           data-tone={row.trailingTag.tone}
           title={row.trailingTag.title}
@@ -309,7 +309,7 @@ function RowItem({ row, semantics }: { row: StatusRow; semantics: StatusRowListP
             <button
               key={act.id}
               type="button"
-              data-btn={act.variant || ""}
+              data-statusbtn={act.variant || ""}
               data-tone={act.tone}
               data-busy={act.busy ? "true" : undefined}
               disabled={act.disabled || act.busy}

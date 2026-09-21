@@ -3,6 +3,7 @@
   inset: 0;
   z-index: 70;
   background: var(--scrim);
+  backdrop-filter: var(--blur-scrim);
   display: flex;
   justify-content: flex-end;
 }
@@ -14,7 +15,7 @@
   flex-direction: column;
   background: var(--morph-drawer-bg);
   border-left: 1px solid var(--morph-border);
-  box-shadow: -18px 0 44px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--el-modal);
   animation: morph-drawer-in 180ms ease;
 }
 

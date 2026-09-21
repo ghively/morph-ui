@@ -78,12 +78,12 @@ describe('MentionAutocomplete component', () => {
     const { rerender, container } = render(
       <MentionAutocomplete trigger={{ start: 0, query: '' }} candidates={candidates} activeIndex={0} onActiveIndexChange={() => {}} onPick={() => {}} />
     );
-    expect(container.querySelector('[data-eyebrow]')).toBeNull();
+    expect(container.querySelector('[data-mentioneyebrow]')).toBeNull();
 
     rerender(
       <MentionAutocomplete trigger={{ start: 0, query: '' }} candidates={[{...candidates[0], agentLabel: 'AI'}]} activeIndex={0} onActiveIndexChange={() => {}} onPick={() => {}} />
     );
-    expect(container.querySelector('[data-eyebrow]')).toBeTruthy();
+    expect(container.querySelector('[data-mentioneyebrow]')).toBeTruthy();
   });
 
   it('calls onPick with preventDefault on mousedown', () => {

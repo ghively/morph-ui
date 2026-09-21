@@ -16,7 +16,14 @@ export interface DonutChartProps {
   className?: string;
 }
 
-const PALETTE = ['#2f7cf6', '#30a46c', '#e8930c', '#8e6cc8', '#e5484d', '#18a999'];
+const PALETTE = [
+  'var(--series-1)',
+  'var(--series-2)',
+  'var(--series-3)',
+  'var(--series-4)',
+  'var(--series-5)',
+  'var(--series-6)',
+];
 
 /** Dependency-free donut with a real list-based legend — color is never the only channel. */
 export function DonutChart({
