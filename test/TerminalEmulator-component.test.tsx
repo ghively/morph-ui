@@ -1,4 +1,4 @@
-import { render, screen, act } from '@testing-library/react';
+import { render, screen, act, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeAll } from 'vitest';
 import { TerminalEmulator, type TerminalEmulatorRef } from '../src/components/TerminalEmulator';
 import { createRef } from 'react';
@@ -35,11 +35,11 @@ describe('TerminalEmulator', () => {
 
     await act(async () => {
       ref.current?.writeLine('hello world', true);
-      // Wait for typing to complete
-      await new Promise(r => setTimeout(r, 50));
     });
 
-    expect(screen.getByText('hello world')).toBeTruthy();
+    // Poll instead of a fixed sleep: the component types via chained
+    // setTimeout macrotasks, which can lag behind real time under load.
+    await waitFor(() => expect(screen.getByText('hello world')).toBeTruthy(), { timeout: 2000 });
 
     act(() => {
       ref.current?.clear();
