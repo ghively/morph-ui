@@ -228,3 +228,102 @@
   --morph-radius: var(--r-ctl);
   --morph-radius-lg: var(--r-card);
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Morph UI — primitive-layer tokens (added 2026-10-02)
+
+   Read by src/primitives.css (the [data-btn]/[data-chip]/[data-tile]… layer
+   extracted from ChatUIMorph app.css). Values are the ChatUIMorph dark-frame
+   :root values those rules were written against.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --deform: 1;
+  --bloom-lg: 0 10px 26px var(--ai-glow);
+  --el5: 0 calc(var(--dp5) * 0.5px) calc(pow(var(--dp5) * 5, 0.7) * 1px) calc((var(--dp5) * -0.3 + pow(var(--dp5) * 0.1, 2)) * 1px) var(--el-ink);
+  --el-ink: rgba(0, 0, 0, 0.78);
+  --dp5: 12;
+  --loop-ring: 2.8s;
+  --loop-sheen: 5.6s;
+  --loop-pulse: 2.6s;
+  --stagger-sm: calc(50ms * var(--d-scale));
+  --stagger-in: calc(30ms * var(--d-scale));
+  --stagger: calc(70ms * var(--d-scale));
+  --knob: #c8cfee;
+  --loop-dot-lag: 0.18s;
+  --ease-swell: cubic-bezier(0.4, 0, 0.6, 1);
+  --loop-dot: 1.2s;
+  --app-line-soft: rgba(150, 175, 255, 0.1);
+  --tk-tight: calc(-0.6px * var(--t-scale));
+  --t-scale: 1;
+  --app-gold-ink: #ffcc3e;
+  --app-green-ink: #00cf6b;
+  --app-cyan-ink: #00d1d8;
+  --app-blue-ink: #6c9cf0;
+  --loop-spin: 0.72s;
+  --bloom: 0 6px 18px var(--ai-glow);
+  --t-input-lg: calc(15.5px * var(--t-scale));
+  --on-user: #04102e;
+  --sec-line: rgba(80, 137, 236, 0.42);
+  --code-ink: #c9d4f5;
+  --code-head: rgba(255, 255, 255, 0.055);
+  --el4: 0 calc(var(--dp4) * 0.5px) calc(pow(var(--dp4) * 5, 0.7) * 1px) calc((var(--dp4) * -0.3 + pow(var(--dp4) * 0.1, 2)) * 1px) var(--el-ink);
+  --dp4: 8;
+  --pop-origin: top center;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --code-dim: #8b93c4;
+  --app-code: rgba(4, 7, 30, 0.7);
+  --app-track: rgba(150, 175, 255, 0.16);
+  --r-xs: calc(4px * var(--r-scale));
+  --r-scale: 1;
+  --tk-caps: calc(0.6px * var(--t-scale));
+  --t-eyebrow: calc(10.5px * var(--t-scale));
+  --r-tile: var(--r-md);
+  --r-2xl: calc(var(--r-xl) * 1.5);
+  --h-head: calc(58px * var(--sp-scale));
+  --sp-scale: 1;
+  --t-h1: calc(30px * var(--t-scale));
+  --d-lag-lg: calc(150ms * var(--d-scale));
+  --on-sec: #fff;
+  --rail-block: rgba(160, 180, 255, 0.13);
+  --d-lag: calc(80ms * var(--d-scale));
+  --r-pill: 999px;
+  --dock-inner: 40px;
+  --el3: 0 calc(var(--dp3) * 0.5px) calc(pow(var(--dp3) * 5, 0.7) * 1px) calc((var(--dp3) * -0.3 + pow(var(--dp3) * 0.1, 2)) * 1px) var(--el-ink);
+  --dp3: 6;
+  --sec-deep: #1f6fe6;
+  --sheen-ink: rgba(255, 255, 255, 0.42);
+  --app-edge: rgba(255, 255, 255, 0.1);
+  --app-pane-shadow: inset 0 0 22px rgba(2, 4, 20, 0.55), inset 0 0 0 1px rgba(2, 4, 20, 0.3);
+  --dock-w-open: 268px;
+  --left-w-wide: 400px;
+  --left-w: 300px;
+  --rooms-w: 264px;
+  --panel-w: 344px;
+  --edge-w: 10px;
+  --dock-w: 60px;
+  --frame-hi: #1b2464;
+  --frame: #131a4e;
+  --ai-ink: #a9c8ff;
+  --ai-line: rgba(63, 131, 245, 0.42);
+  --ai-soft: rgba(63, 131, 245, 0.18);
+  --danger-line: rgba(214, 60, 60, 0.4);
+  --danger-soft: rgba(214, 60, 60, 0.1);
+  --danger: #e05a5a;
+  --warn-ink: #ffc06b;
+  --warn-line: rgba(255, 176, 46, 0.42);
+  --warn-soft: rgba(255, 176, 46, 0.16);
+  --warn: #ffb02e;
+  --ok-ink: #5aeab0;
+  --ok-line: rgba(64, 230, 163, 0.34);
+  --ok-soft: rgba(64, 230, 163, 0.13);
+  --ok: #40e6a3;
+  --app-green: #00cf6b;
+  --app-cyan: #00d1d8;
+  --r-lg: calc(16px * var(--r-scale));
+  --r-lgi: calc(20px * var(--r-scale));
+  --sec-ink: #b6cffc;
+  --pane-wash-b: rgba(0, 209, 216, 0.15);
+  --pane-wash-a: rgba(80, 137, 236, 0.26);
+  --app-gold: #ffcc3e;
+}

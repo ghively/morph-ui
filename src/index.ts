@@ -13,6 +13,11 @@
 // frame.css is inert until something carries the `morph-frame` class.
 import "./tokens.css";
 import "./frame.css";
+// primitives.css: the [data-btn]/[data-chip]/[data-tile]… attribute layer the
+// components emit (previously only in ChatUIMorph app.css). Also frame-scoped.
+import "./primitives.css";
+
+// Agent + data (original extraction set)
 export * from "./components/AgentPresence";
 export * from "./components/AgentActivityCapsule";
 export * from "./components/GenerativePlaceholder";
@@ -25,6 +30,8 @@ export * from "./components/AgentActivityHeatmap";
 export * from "./components/AdaptiveBento";
 export * from "./components/ArchiveCollection";
 export * from "./components/PanelDestinationTransition";
+
+// Motion, effects + showcase surfaces
 export * from "./components/AmbientState";
 export * from "./components/AgentTopologyView";
 export * from "./components/AnimatedMediaTabs";
@@ -49,6 +56,7 @@ export * from "./components/GlobeCard";
 export * from "./components/InfiniteMarquee";
 export * from "./components/InteractiveGlobe";
 export * from "./components/LaptopFrame";
+// (text effects are interleaved below — see README groups)
 export * from "./components/LineFillText";
 export * from "./components/LiquidNavMenu";
 export * from "./components/LiquidRippleImage";
@@ -90,6 +98,8 @@ export * from "./components/TextGlitch";
 export * from "./components/TextHighlight";
 export * from "./components/TextMorphing";
 export * from "./components/TextMotion";
+
+// Agent ops
 export * from "./components/CommandPalette";
 export * from "./components/ToolCallCard";
 export * from "./components/StreamingMessage";
@@ -99,12 +109,16 @@ export * from "./components/ApprovalGate";
 export * from "./components/RunTimeline";
 export * from "./components/DiffStatPill";
 export * from "./components/AgentCard";
+
+// Identity + small controls
 export * from "./components/InitialsAvatar";
 export * from "./components/EmptyState";
 export * from "./components/ToggleSwitch";
 export * from "./components/SegmentedControl";
 export * from "./components/FormField";
 export * from "./components/GlyphIcon";
+
+// Chat
 export * from "./components/MessageTimeline";
 export * from "./components/ReactionBar";
 export * from "./components/MessageContent";
@@ -122,6 +136,8 @@ export * from "./components/AttachmentPreviewPanel";
 export * from "./components/SandboxedContentFrame";
 export * from "./components/SasVerificationPanel";
 export * from "./components/CredentialSignInForm";
+
+// App shell + overlays
 export * from "./components/ModalSurface";
 export * from "./components/ToastStack";
 export * from "./components/AlertBanner";

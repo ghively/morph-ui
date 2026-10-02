@@ -1,0 +1,4044 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Morph UI — attribute primitives (added 2026-10-02)
+
+   The [data-btn] / [data-chip] / [data-tile] / [data-row] / [data-setrow] /
+   [data-panehead] / [data-push] / [data-ell] … layer that the components emit
+   but that previously lived only in ChatUIMorph src/app.css. Without it those
+   components fell back to UA defaults (e.g. TokenPills rendered as white
+   <button>s).
+
+   Generated: every app.css rule whose selector references a data-* attribute
+   that a morph-ui component renders, scoped under the frame so it is opt-in
+   like frame.css. :root/body/html rules and app-shell-only selectors are
+   dropped; required tokens were added to tokens.css. Source: ghively/ChatUIMorph
+   src/app.css @ main, 2026-10-02. Regenerate rather than hand-edit large blocks.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@property --r-scale {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+@property --sp-scale {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+@property --t-scale {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+@property --d-scale {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+@keyframes shOsdOut {
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+@keyframes shFadeOut {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes shDrawerUpOut {
+  to {
+    transform: translateY(calc(100% + var(--gap)));
+  }
+}
+@keyframes shSend {
+  0% {
+    opacity: 1;
+    transform: none;
+  }
+  55% {
+    opacity: 0;
+    transform: translateX(calc(var(--dir, 1) * 46px));
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(calc(var(--dir, 1) * 46px));
+    height: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+@keyframes shPopOut {
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+@keyframes shSquashX {
+  0% {
+    transform: translateX(var(--in, 20px))
+      scaleX(calc(1 - 0.035 * var(--deform)))
+      scaleY(calc(1 + 0.035 * var(--deform)));
+  }
+  58% {
+    transform: translateX(0) scaleX(calc(1 + 0.025 * var(--deform)))
+      scaleY(calc(1 - 0.015 * var(--deform)));
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes shDrawerUp {
+  0% {
+    transform: translateY(calc(100% + var(--gap)))
+      scaleY(calc(1 + 0.03 * var(--deform)))
+      scaleX(calc(1 - 0.015 * var(--deform)));
+  }
+  62% {
+    transform: translateY(0) scaleY(calc(1 - 0.02 * var(--deform)))
+      scaleX(calc(1 + 0.015 * var(--deform)));
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes shDrawerDownIn {
+  0% {
+    transform: translateY(calc(-100% - var(--gap)))
+      scaleY(calc(1 + 0.03 * var(--deform)))
+      scaleX(calc(1 - 0.015 * var(--deform)));
+  }
+  62% {
+    transform: translateY(0) scaleY(calc(1 - 0.02 * var(--deform)))
+      scaleX(calc(1 + 0.015 * var(--deform)));
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes shDrawerDownOut {
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+  }
+}
+@keyframes shSpin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@keyframes shPop {
+  from {
+    transform: scaleY(0.1);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes shFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes shOsd {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes shBar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes shRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes shDot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.22;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+}
+@keyframes shPulse {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.55;
+  }
+  70% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+@keyframes shRing {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.55;
+  }
+  70% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes shSheen {
+  0% {
+    transform: translateX(-140%) rotate(18deg);
+  }
+  55%,
+  100% {
+    transform: translateX(240%) rotate(18deg);
+  }
+}
+
+:where(.morph-frame, [data-morph-frame]) [data-frame]:not([data-theme-id]) {
+  --mark: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 160 167%22%3E%3Cpath fill=%22%23000%22 fill-rule=%22nonzero%22 d=%22M83.65 0.18L87.33 0.04L89.88 2.43C89.88 2.43 89.99 3.90 90.16 4.53C90.33 5.16 90.93 6.20 90.93 6.20L91.09 8.72L91.90 10.47L92.12 13.13L92.92 14.70L93.05 17.39L93.89 18.80L94.09 21.60L94.92 23.33L95.08 25.92L95.50 26.69L96.71 26.46C96.71 26.46 96.79 25.96 97.32 25.32C97.84 24.67 99.06 23.61 99.87 22.62C100.67 21.62 101.47 20.16 102.14 19.32C102.80 18.49 103.34 18.27 103.87 17.62C104.40 16.96 104.65 16.21 105.32 15.38C105.98 14.54 107.20 13.46 107.86 12.61C108.53 11.77 108.76 11.05 109.32 10.32C109.88 9.59 110.71 8.76 111.22 8.22C111.74 7.69 112.42 7.10 112.42 7.10L114.97 6.34L117.70 7.30C117.70 7.30 119.49 9.15 120.32 9.81C121.14 10.46 121.81 10.57 122.64 11.23C123.47 11.89 124.48 13.12 125.29 13.77C126.11 14.41 126.67 14.46 127.51 15.11C128.36 15.76 129.50 17.02 130.37 17.70C131.23 18.37 132.04 18.65 132.70 19.18C133.35 19.70 133.46 20.16 134.29 20.83C135.13 21.50 136.85 22.50 137.70 23.18C138.55 23.85 138.77 24.38 139.42 24.89C140.07 25.41 140.79 25.60 141.62 26.26C142.45 26.91 143.53 28.15 144.38 28.81C145.23 29.47 145.64 29.32 146.71 30.22C147.78 31.12 150.80 34.20 150.80 34.20C150.80 34.20 151.20 35.73 151.22 36.46C151.24 37.19 150.89 38.58 150.89 38.58C150.89 38.58 149.53 40.60 148.74 41.56C147.96 42.51 146.85 43.45 146.18 44.30C145.50 45.15 145.38 45.77 144.70 46.63C144.02 47.50 142.75 48.64 142.10 49.47C141.44 50.30 141.41 50.82 140.76 51.63C140.11 52.45 138.86 53.54 138.19 54.38C137.52 55.22 137.41 55.85 136.74 56.68C136.07 57.51 134.85 58.55 134.18 59.37C133.52 60.20 133.16 61.07 132.76 61.64C132.36 62.20 131.77 62.77 131.77 62.77L131.23 62.98L99.38 62.81L99.04 62.15L98.90 59.66L98.04 58.33L97.92 55.58L97.10 53.78L96.92 51.15L96.16 49.53C96.16 49.53 96.08 47.47 95.91 46.71C95.74 45.96 95.12 45.01 95.12 45.01L94.93 42.32L94.16 40.71L93.91 38.02L93.53 37.40C93.53 37.40 91.00 40.28 90.20 41.33C89.41 42.38 89.42 42.87 88.76 43.70C88.10 44.53 86.91 45.48 86.25 46.31C85.59 47.14 85.46 47.84 84.80 48.67C84.13 49.51 82.77 50.68 82.26 51.32C81.75 51.96 82.37 51.70 81.72 52.53C81.07 53.37 79.05 55.47 78.39 56.32C77.73 57.17 77.76 57.63 77.76 57.63L77.28 57.90L75.99 57.82C75.99 57.82 70.20 54.82 68.79 54.15C67.37 53.49 67.49 53.82 67.49 53.82L66.63 53.12L65.50 52.87L64.71 52.17L63.40 51.79L62.63 51.12L61.39 50.79L60.62 50.13L59.44 49.88C59.44 49.88 59.23 49.48 58.54 49.14C57.86 48.81 55.34 47.85 55.34 47.85L54.56 47.13L53.77 47.02L53.16 47.33L53.15 47.98L53.92 49.65L54.13 52.18L54.92 53.83L55.07 56.49L55.91 57.90L56.10 60.71L56.94 62.38L57.13 65.06L57.90 66.47C57.90 66.47 57.93 68.29 58.10 69.03C58.26 69.77 58.91 70.90 58.91 70.90L58.82 72.44C58.82 72.44 56.40 73.83 54.35 74.78C52.29 75.74 47.94 77.50 46.49 78.18C45.05 78.86 45.68 78.86 45.68 78.86L44.43 79.11L43.60 79.85L42.42 80.11L41.65 80.84L40.38 81.13L39.59 81.84L38.27 82.14L37.41 82.79L36.07 83.20L35.83 83.58L37.02 84.79C37.02 84.79 39.46 85.62 40.50 86.13C41.54 86.63 42.62 87.50 43.29 87.84C43.95 88.18 44.49 88.14 44.49 88.14L45.47 88.91L46.62 89.13L47.35 89.78C47.35 89.78 47.94 89.77 48.63 90.12C49.33 90.47 50.83 91.52 51.51 91.86C52.20 92.20 52.73 92.15 52.73 92.15C52.73 92.15 52.88 92.46 53.58 92.79C54.28 93.13 56.08 93.74 56.96 94.17C57.83 94.60 58.84 95.38 58.84 95.38C58.84 95.38 58.24 96.74 58.08 97.51C57.92 98.29 57.88 100.00 57.88 100.00L57.09 101.71L56.91 104.35L56.08 105.76L55.94 108.44L55.12 110.00L54.83 112.96L54.06 114.49L53.89 116.95L53.09 118.71L53.37 120.24C53.37 120.24 54.21 120.32 55.36 119.80C56.51 119.29 58.90 117.80 60.27 117.14C61.63 116.49 62.85 116.19 63.54 115.86C64.24 115.52 64.43 115.12 64.43 115.12L65.57 114.89L66.35 114.16L67.57 113.88L68.35 113.16L69.62 112.87L70.35 112.22C70.35 112.22 70.64 112.35 71.68 111.87C72.71 111.39 76.57 109.34 76.57 109.34C76.57 109.34 77.36 109.77 77.81 110.32C78.26 110.86 78.59 111.77 79.26 112.62C79.93 113.46 81.18 114.56 81.84 115.41C82.51 116.25 82.61 116.86 83.26 117.68C83.91 118.50 85.08 119.48 85.74 120.32C86.41 121.16 86.57 121.87 87.23 122.71C87.90 123.54 89.08 124.49 89.74 125.32C90.40 126.15 90.77 127.08 91.20 127.67C91.63 128.26 92.33 128.86 92.33 128.86L93.47 129.24L93.94 128.57L94.14 125.46L94.93 123.80C94.93 123.80 94.96 121.71 95.13 120.94C95.29 120.17 95.91 119.16 95.91 119.16C95.91 119.16 95.90 117.27 96.06 116.50C96.23 115.73 96.74 115.32 96.90 114.53C97.07 113.74 97.07 111.76 97.07 111.76L97.90 110.09L98.10 106.97C98.10 106.97 98.65 106.19 98.85 105.73C99.06 105.26 99.30 104.18 99.30 104.18L130.06 104.19C130.06 104.19 131.22 104.78 131.68 105.14C132.13 105.49 132.23 105.56 132.81 106.32C133.39 107.08 134.35 108.70 135.18 109.70C136.00 110.70 137.07 111.50 137.74 112.32C138.42 113.14 138.56 113.81 139.24 114.64C139.92 115.47 141.01 116.30 141.82 117.30C142.64 118.30 143.31 119.62 144.13 120.62C144.96 121.62 146.08 122.47 146.76 123.30C147.44 124.14 147.51 124.71 148.20 125.61C148.89 126.51 150.91 128.71 150.91 128.71L150.88 132.50C150.88 132.50 148.60 135.02 147.68 135.81C146.77 136.60 146.22 136.57 145.37 137.24C144.52 137.91 143.43 139.17 142.59 139.84C141.74 140.50 141.10 140.57 140.29 141.22C139.47 141.87 138.51 143.08 137.68 143.74C136.86 144.41 136.16 144.53 135.33 145.20C134.50 145.87 133.52 147.08 132.69 147.75C131.85 148.42 131.16 148.54 130.32 149.19C129.47 149.85 128.27 151.17 127.63 151.69C126.98 152.20 127.13 151.74 126.46 152.27C125.79 152.80 124.64 154.05 123.62 154.87C122.59 155.68 121.12 156.52 120.30 157.18C119.48 157.83 119.57 158.21 118.68 158.81C117.79 159.40 114.95 160.76 114.95 160.76L112.35 159.90C112.35 159.90 112.07 159.78 111.38 159.06C110.68 158.35 108.96 156.59 108.18 155.63C107.41 154.67 107.41 154.15 106.74 153.32C106.08 152.49 104.83 151.44 104.18 150.63C103.54 149.82 103.52 149.30 102.85 148.46C102.19 147.63 100.88 146.47 100.20 145.61C99.52 144.75 99.48 144.20 98.76 143.30C98.03 142.40 95.85 140.22 95.85 140.22L95.30 140.12C95.30 140.12 95.11 142.00 94.91 142.72C94.71 143.44 94.09 144.46 94.09 144.46L93.90 147.21L93.05 148.62L92.93 151.30L92.12 152.93L91.90 155.59L91.09 157.34L90.93 159.80C90.93 159.80 90.34 160.83 90.17 161.48C89.99 162.13 89.89 163.70 89.89 163.70L88.75 165.75L86.63 167.00L83.33 166.98L82.07 166.12C82.07 166.12 80.22 166.12 79.43 165.94C78.64 165.77 78.08 165.23 77.32 165.06C76.55 164.89 74.82 164.93 74.82 164.93L73.31 164.06L70.51 163.92L68.68 163.07L65.78 162.84L64.30 162.07C64.30 162.07 62.57 162.08 61.78 161.90C61.00 161.73 60.32 161.20 59.58 161.04C58.85 160.88 57.38 160.94 57.38 160.94C57.38 160.94 56.24 160.27 55.46 160.10C54.69 159.92 52.73 159.90 52.73 159.90L51.24 159.08L48.49 158.94L46.84 158.10L44.36 157.89L42.40 156.72L41.08 154.55L41.06 151.93C41.06 151.93 41.74 150.65 41.92 149.86C42.10 149.06 42.16 147.16 42.16 147.16L42.94 145.56C42.94 145.56 42.91 143.95 43.08 143.20C43.24 142.45 43.77 141.83 43.94 141.07C44.11 140.30 44.10 138.60 44.10 138.60L44.91 137.16L45.09 134.34L45.93 132.68L46.01 129.24L44.80 129.11L43.68 129.87L42.45 130.14L41.62 130.87L40.40 131.15L39.62 131.87L38.45 132.14L37.55 132.86L36.37 133.12L35.50 133.82L34.36 134.11C34.36 134.11 35.04 134.01 33.43 134.81C31.82 135.60 24.70 138.89 24.70 138.89C24.70 138.89 23.18 139.07 22.44 139.06C21.71 139.05 20.30 138.82 20.30 138.82L18.16 136.65L17.88 135.38L17.21 134.60C17.21 134.60 17.36 134.31 16.85 133.27C16.35 132.23 15.05 130.10 14.20 128.36C13.35 126.63 12.62 124.60 11.78 122.85C10.94 121.09 9.65 118.89 9.15 117.85C8.66 116.80 8.79 116.58 8.79 116.58L8.15 115.73L7.83 114.49C7.83 114.49 7.50 114.39 7.16 113.71C6.82 113.04 6.10 111.10 5.76 110.42C5.43 109.75 5.13 109.68 5.13 109.68L4.86 108.46L4.12 107.57L3.85 106.34L3.13 105.56L2.84 104.35L2.11 103.58L1.83 102.36L1.12 101.57L0.81 100.19L0.00 99.19L0.06 97.06L0.74 96.42L1.17 95.30L2.37 94.25C2.37 94.25 2.99 94.21 3.68 93.87C4.37 93.52 5.45 92.69 6.49 92.18C7.54 91.67 8.15 91.66 9.95 90.82C11.75 89.98 15.83 87.80 17.27 87.14C18.70 86.48 18.56 86.87 18.56 86.87L19.34 86.15L20.49 85.86L21.29 85.17L22.49 84.86L23.29 84.17L24.80 83.61L24.59 83.16C24.59 83.16 24.04 83.20 23.38 82.87C22.71 82.55 21.29 81.54 20.61 81.20C19.93 80.86 19.29 80.83 19.29 80.83L18.49 80.14C18.49 80.14 18.66 80.52 17.21 79.85C15.76 79.19 11.25 76.82 9.79 76.15C8.33 75.47 8.44 75.81 8.44 75.81L7.63 75.13C7.63 75.13 7.17 75.20 6.51 74.87C5.84 74.54 4.32 73.47 3.62 73.13C2.93 72.79 2.35 72.84 2.35 72.84L0.01 70.37L0.06 67.38L0.82 66.70L2.11 63.42L2.84 62.65L3.13 61.44L3.90 60.53L4.12 59.43L4.87 58.56L5.14 57.32C5.14 57.32 5.44 57.27 5.78 56.60C6.12 55.92 6.83 53.96 7.16 53.29C7.50 52.62 7.81 52.56 7.81 52.56L8.13 51.32L8.80 50.49C8.80 50.49 8.49 50.60 9.15 49.21C9.81 47.82 11.94 43.91 12.78 42.15C13.62 40.40 13.54 40.05 14.22 38.65C14.90 37.26 16.35 34.82 16.85 33.79C17.35 32.75 17.22 32.47 17.22 32.47L17.87 31.68L18.25 30.25L20.50 28.06C20.50 28.06 21.87 27.72 22.54 27.72C23.20 27.72 23.33 27.55 24.49 28.07C25.66 28.58 28.45 30.29 29.51 30.81C30.56 31.32 29.41 30.48 30.85 31.15C32.28 31.83 36.32 34.00 38.10 34.84C39.87 35.68 40.44 35.69 41.49 36.20C42.54 36.71 43.56 37.50 44.40 37.91C45.25 38.32 46.58 38.67 46.58 38.67L46.68 38.34L46.08 37.17L45.90 34.22L45.06 32.56L44.89 29.61L44.09 28.10L43.87 25.20L43.06 23.50C43.06 23.50 43.07 21.67 42.91 20.90C42.74 20.14 42.25 19.67 42.08 18.92C41.92 18.16 42.10 17.16 41.93 16.38C41.76 15.60 41.07 14.25 41.07 14.25L41.19 12.56C41.19 12.56 42.09 11.28 42.44 10.88C42.78 10.47 42.77 10.43 43.26 10.14C43.75 9.84 45.37 9.12 45.37 9.12L48.17 8.92L49.51 8.08L52.36 7.92L53.93 7.12L56.75 6.87L58.34 6.09C58.34 6.09 60.11 6.08 60.85 5.92C61.59 5.75 62.05 5.26 62.78 5.10C63.51 4.93 65.24 4.92 65.24 4.92L66.97 4.09L69.57 3.94L71.33 3.08L74.04 2.92L75.51 2.07L78.23 1.92L79.87 1.12L82.87 0.81L83.65 0.18ZM46.49 128.57L46.49 128.56L46.49 128.57Z%22/%3E%3C/svg%3E");
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] {
+  --frame: #1a62d8;
+  --frame-hi: #2f7cee;
+  --frame-line: rgba(255, 255, 255, 0.24);
+  /* the canvas is tinted with the brand, not with grey: every neutral in the
+     light theme is mixed from --app-blue, so the whole shell reads as one hue
+     family instead of a blue frame around a grey app (ADR-0050) */
+  /* ── The surface ladder is a *perceptual* step, not an alpha (T-639/F-F7) ──
+     Every layer step in light was about half of dark's: pane → card measured
+     ΔL* 4.4 against dark's 6.9, and the track 6.6 against 11.1, so three
+     nominally different depths sampled to one pixel value and the skeleton
+     bars all but vanished. A 9% blue tint over near-black is a real step; the
+     same 9% over #e9eff9 is not. The alphas below are chosen so each light
+     step lands on dark's ΔL*: panel −6.6, hover −6.3, track −10.6. ── */
+  --app-bg: #e9eff9;
+  --app-panel: rgba(31, 111, 230, 0.14);
+  --app-elev: #ffffff;
+  --app-line: rgba(31, 111, 230, 0.24);
+  --app-line-soft: rgba(31, 111, 230, 0.14);
+  --app-edge: rgba(255, 255, 255, 0.85);
+  /* --app-dim goes down with the ladder it sits on: at the old #465379 it
+     measured 4.32:1 on the deepest container the new --app-track composites
+     to, which is the whole point of deepening the container — the ink has to
+     follow or the step is paid for in legibility (T-639). */
+  --app-text: #0d1a3d;
+  --app-dim: #3d4a6f;
+  --app-faint: #46527c;
+  --app-hover: rgba(31, 111, 230, 0.16);
+  --app-track: rgba(31, 111, 230, 0.26);
+  /* ── The four category accents, re-derived as a *set* (ADR-0065, T-639) ──
+     They used to be #1856c4 / #00696e / #0a6b40 / #8a5600 — L* 39.3, 40.0,
+     39.5, 41.3, a spread of 2.0 against dark's 20.0 — because each had been
+     pushed down on its own until it could carry white text. That one
+     constraint is what made "gold" a brown and "cyan" a slate. The set below
+     re-anchors dark's ladder on a light ground instead: the same rank order
+     (blue deepest, then green, cyan, gold), each at the most chroma sRGB has
+     at that lightness, and each still clearing 3:1 against the card it draws
+     on — because --sec is a *graphic* role and text takes --sec-ink. Measured
+     L*: 33.1 / 41.0 / 47.0 / 51.9, spread 18.8. Only gold cannot carry ink at
+     the place its hue wants, so only gold states a separate --sec-fill —
+     which is the mirror of dark, where only blue does. */
+  --app-blue: #004ba1;
+  --app-blue-strong: #003a7d;
+  --app-blue-soft: #d7dbfb;
+  --app-cyan: #007c81;
+  --app-green: #007037;
+  --app-gold: #9a7700;
+  --app-blue-ink: #003c85;
+  --app-cyan-ink: #004649;
+  --app-green-ink: #004922;
+  --app-gold-ink: #4f3c00;
+  --app-code: rgba(11, 5, 68, 0.94);
+  /* rail ink stays dark at the root: a dock module can be mounted off the
+     sheet — Telemetry and Models live in the drawer now (ADR-0044) — and it is
+     the *sheet's* scope below that flips these to light, not the theme */
+  --app-rail-text: #0d1a3d;
+  --app-rail-dim: #465379;
+  --app-rail-faint: #4f5c84;
+  --app-rail-line: rgba(20, 34, 90, 0.12);
+  --app-pane-shadow:
+    inset 0 0 0 1px rgba(20, 34, 90, 0.07), 0 0 0 1px rgba(20, 34, 90, 0.06),
+    0 20px 44px rgba(11, 5, 68, 0.12);
+  /* ── Every derived colour, again, because a custom property substitutes when
+     it is *declared*, not when it is used ─────────────────────────────────
+     `--warn: var(--app-gold)` on :root computes to the dark gold there and
+     inherits as that literal, so redefining --app-gold for the light theme
+     changes nothing downstream. The whole tone family therefore has to be
+     restated here — which is also the bug that had the light theme shipping
+     the dark theme's status colours since it was first written (ADR-0050).
+     The values are chosen against two grounds at once: each must read as ink
+     on the canvas *and* carry white text when it is a fill.
+
+     The tone family carries the same separation dark's does (T-634): the
+     model is a deeper, hotter blue than the blue category, ok is emerald
+     against the category's green, and warn is a real amber — the one tone
+     whose hue cannot be itself while carrying white, so it carries dark ink
+     instead, exactly as gold does. ΔE00 to the accent each used to equal:
+     ai 7.0, ok 7.5, warn 18.7. Tone L* spread 24.2, against 1.8 before.
+
+     Every *-soft is now an opaque container rather than a 10–13% wash. The
+     arithmetic in F-F9 is unavoidable: 13% of a dark brown over a pale blue
+     ground cancels to grey — the light warn ground measured C* 1.1–1.6, which
+     in this system means *disabled*. A container states the tint it wants
+     instead of hoping the ground agrees: C* 16.7–24.8, all carrying their own
+     ink at ≥5.7:1. ── */
+  --ai: #005dc5;
+  --ai-strong: #004497;
+  --ai-deep: #00306b;
+  --ai-soft: #d7dbfb;
+  --ai-line: rgba(0, 93, 197, 0.34);
+  --ai-ink: #003c85;
+  --ai-glow: rgba(0, 93, 197, 0.3);
+  --ok: #008353;
+  --ok-soft: #bce7ce;
+  --ok-line: rgba(0, 131, 83, 0.34);
+  --ok-ink: #00492c;
+  --warn: #e58200;
+  --warn-soft: #ffd5b2;
+  --warn-line: rgba(229, 130, 0, 0.4);
+  --warn-ink: #603400;
+  --danger: #b3261e;
+  --danger-soft: #ffd3cc;
+  --danger-line: rgba(179, 38, 30, 0.34);
+  --danger-ink: #840012;
+  /* ── Five roles that were never restated, and survived on coincidence ──
+     Each of these is declared once on :root and consumed in the light theme
+     anyway, which is the substitution trap ADR-0050 named and did not finish
+     clearing (T-520). None of them *looked* wrong, and that is the point: each
+     was legible only because some neighbouring token happened not to move.
+     --hi is a white inner highlight, and the light sheet's primary is white, so
+     it had been painting white on white; --code-ink and --code-dim were pale
+     blue-grey on a code ground that stays dark in both themes, so the day the
+     ground lightens three modules go unreadable at once. */
+  --hi: rgba(255, 255, 255, 0.55);
+  --code-ink: #dde6ff;
+  --code-dim: #9fb0e0;
+  --on-accent: #ffffff;
+  --on-sec: #ffffff;
+  --on-user: #ffffff;
+  --knob: #5d6b91;
+  --bloom: 0 6px 18px var(--ai-glow);
+  --bloom-lg: 0 10px 26px var(--ai-glow);
+  /* the sheen sweeps a *pale* surface by day, so a white sweep is invisible:
+     the highlight has to darken when the ground lightens */
+  --sheen-ink: rgba(24, 86, 196, 0.22);
+  --pane-wash-a: rgba(31, 111, 230, 0.16);
+  --pane-wash-b: rgba(0, 151, 157, 0.1);
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-pane] {
+  background:
+    radial-gradient(
+      900px 460px at 14% -14%,
+      var(--pane-wash-a),
+      transparent 70%
+    ),
+    radial-gradient(
+      680px 420px at 99% 112%,
+      var(--pane-wash-b),
+      transparent 70%
+    ),
+    var(--app-bg);
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] {
+  --scrim: rgba(16, 44, 110, 0.42);
+  --scrim-soft: rgba(16, 44, 110, 0.22);
+  --el-ink: rgba(14, 22, 46, 0.2);
+  --app-pane-shadow:
+    inset 0 0 22px rgba(40, 60, 140, 0.16),
+    inset 0 0 0 1px rgba(40, 60, 140, 0.1);
+  --rail-block: rgba(6, 22, 66, 0.16);
+}
+@media (prefers-reduced-transparency: reduce) {
+:where(.morph-frame, [data-morph-frame]) [data-frame] {
+    --blur: 0px;
+    --app-panel: #171f4d;
+    --app-elev: #202a63;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"][data-frame] {
+    --app-panel: #cdddf6;
+    --app-elev: #fff;
+  }
+}
+@media (prefers-contrast: more) {
+:where(.morph-frame, [data-morph-frame]) [data-frame] {
+    --app-faint: var(--app-dim);
+    --sec-line: var(--sec);
+    --app-line: var(--app-dim);
+  }
+}
+:where(.morph-frame, [data-morph-frame]) [data-glass="layers"] {
+  --app-bg: #0a0f33;
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-theme="light"] {
+  --cpi-blue-500: var(--sec-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-theme="light"] {
+  --sec: #004ba1;
+  --sec-soft: #d7dbfb;
+  --sec-line: rgba(0, 75, 161, 0.34);
+  --sec-ink: #003c85;
+  --sec-fill: #004ba1;
+  --sec-deep: #003c85;
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"][data-glass="layers"] {
+  --app-bg: #f4f7fd;
+}
+:where(.morph-frame, [data-morph-frame]) [data-glass="full"],
+:where(.morph-frame, [data-morph-frame]) [data-glass="layers"] {
+  --blur: 16px;
+  --app-panel: rgba(27, 37, 92, 0.55);
+  --app-elev: rgba(34, 46, 112, 0.72);
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"][data-glass="full"],
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"][data-glass="layers"] {
+  --app-panel: rgba(31, 111, 230, 0.14);
+  --app-elev: #ffffff;
+}
+:where(.morph-frame, [data-morph-frame]) [data-glass="off"] {
+  --blur: 0px;
+  --app-panel: #171f4d;
+  --app-elev: #202a63;
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"][data-glass="off"] {
+  --app-panel: #cdddf6;
+  --app-elev: #fff;
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame] {
+  --r-xs: calc(4px * var(--r-scale));
+  --r-sm: calc(8px * var(--r-scale));
+  --r-md: calc(12px * var(--r-scale));
+  --r-lg: calc(16px * var(--r-scale));
+  --r-lgi: calc(20px * var(--r-scale));
+  --r-xl: calc(28px * var(--r-scale));
+  --r-ctl: var(--r-md);
+  --r-card: var(--r-lgi);
+  --r-pane: var(--r-xl);
+  --r-tile: var(--r-md);
+  --r-2xl: calc(var(--r-xl) * 1.5);
+  --r-3xl: calc(var(--r-xl) * 2);
+  --seam: calc(2px * var(--sp-scale));
+  --s1: calc(4px * var(--sp-scale));
+  --s2: calc(8px * var(--sp-scale));
+  --s3: calc(10px * var(--sp-scale));
+  --s4: calc(12px * var(--sp-scale));
+  --s5: calc(16px * var(--sp-scale));
+  --s6: calc(20px * var(--sp-scale));
+  --h-head: calc(58px * var(--sp-scale));
+  --h-bar: calc(52px * var(--sp-scale));
+  --gut: var(--s6);
+  --gap: var(--s3);
+  --d1: calc(200ms * var(--d-scale));
+  --d2: calc(340ms * var(--d-scale));
+  --d3: calc(400ms * var(--d-scale));
+  --d4: calc(500ms * var(--d-scale));
+  --d5: calc(650ms * var(--d-scale));
+  --d-lag: calc(80ms * var(--d-scale));
+  --d-lag-lg: calc(150ms * var(--d-scale));
+  --stagger: calc(70ms * var(--d-scale));
+  --stagger-sm: calc(50ms * var(--d-scale));
+  --stagger-in: calc(30ms * var(--d-scale));
+  /* ── the tracking ladder (ADR-0076, T-603) ──────────────────────────────
+     Tracking was 25 hand-written declarations at 11 distinct amounts and no
+     token, which made it the last raw-value family with no floor — the same
+     shape as spacing before ADR-0068 and curves before ADR-0072. It is named
+     by ROLE rather than numbered like --s1…--s6 or --d1…--d5, because tracking
+     is not a scale: it is a property of the letterform. Uppercase needs to
+     open up, display type needs to close, and body needs neither. Three
+     uppercase labels were tracking at 1.1px, .5px and .3px, two of them at the
+     SAME --t-eyebrow size, which is the incoherence the row names.
+     It rides --t-scale so the tracking travels with the type axis.
+     The rungs are not invented: measured across the tree, tracking already
+     followed the TYPE ROLE and tightened as type grew — eyebrow-tier text
+     opens up, body through title sits just negative, h1 more so, hero most.
+     That is the oldest rule in typography and it was already latent here in
+     hand-written values; the ladder only names it. */
+  --tk-caps: calc(
+    0.6px * var(--t-scale)
+  ); /* uppercase labels — the histogram's peak, 7 sites */
+  --tk-snug: calc(
+    -0.2px * var(--t-scale)
+  ); /* body through title, and tabular numerals */
+  --tk-tight: calc(-0.6px * var(--t-scale)); /* headings */
+  --tk-display: calc(-1.1px * var(--t-scale)); /* the hero line */
+  --t-eyebrow: calc(10.5px * var(--t-scale));
+  --t-num: calc(11px * var(--t-scale));
+  --t-meta: calc(11.5px * var(--t-scale));
+  --t-small: calc(12px * var(--t-scale));
+  --t-ctl: calc(12.5px * var(--t-scale));
+  --t-body: calc(13px * var(--t-scale));
+  --t-title: calc(13.5px * var(--t-scale));
+  --t-lead: calc(14px * var(--t-scale));
+  --t-prose: calc(14.5px * var(--t-scale));
+  --t-input: calc(15px * var(--t-scale));
+  --t-input-lg: calc(15.5px * var(--t-scale));
+  --t-h1: calc(30px * var(--t-scale));
+  --t-hero: calc(36px * var(--t-scale));
+}
+:where(.morph-frame, [data-morph-frame]) [data-density="compact"] {
+  --h-head: 48px;
+  --h-bar: 44px;
+  --gut: var(--s5);
+  --gap: var(--s2);
+  --r-pane: var(--r-lgi);
+  --r-card: var(--r-lg);
+  --panel-w: 312px;
+}
+:where(.morph-frame, [data-morph-frame]) [data-radius="soft"] {
+  --r-ctl: var(--r-sm);
+  --r-card: var(--r-md);
+  --r-pane: var(--r-lg);
+  --r-tile: var(--r-sm);
+}
+:where(.morph-frame, [data-morph-frame]) [data-radius="round"] {
+  --r-xli: 32px;
+  --r-ctl: var(--r-lg);
+  --r-card: var(--r-xl);
+  --r-pane: var(--r-xli);
+  --r-tile: var(--r-lg);
+}
+:where(.morph-frame, [data-morph-frame]) [data-sec="blue"] {
+  --sec: var(--app-blue);
+  --sec-soft: rgba(91, 144, 238, 0.18);
+  --sec-line: rgba(91, 144, 238, 0.42);
+  --sec-fill: var(--app-blue-strong);
+  --sec-deep: #1f6fe6;
+}
+:where(.morph-frame, [data-morph-frame]) [data-sec="cyan"] {
+  --sec: var(--app-cyan);
+  --sec-soft: var(--pane-wash-b);
+  --sec-line: rgba(0, 209, 216, 0.42);
+  --sec-fill: var(--app-cyan);
+  --sec-deep: #00696e;
+  --on-sec: #04202a;
+}
+:where(.morph-frame, [data-morph-frame]) [data-sec="green"] {
+  --sec: var(--app-green);
+  --sec-soft: rgba(0, 207, 107, 0.14);
+  --sec-line: rgba(0, 207, 107, 0.4);
+  --sec-fill: var(--app-green);
+  --sec-deep: #0a6b40;
+  --on-sec: #04200f;
+}
+:where(.morph-frame, [data-morph-frame]) [data-sec="gold"] {
+  --sec: var(--app-gold);
+  --sec-soft: rgba(255, 204, 62, 0.15);
+  --sec-line: rgba(255, 204, 62, 0.42);
+  --sec-fill: var(--app-gold);
+  --sec-deep: #8a5600;
+  --on-sec: #2a1d00;
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"][data-sec="blue"],
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-sec="blue"] {
+  --sec: #004ba1;
+  --sec-soft: #d7dbfb;
+  --sec-line: rgba(0, 75, 161, 0.34);
+  --sec-ink: #003c85;
+  --sec-fill: #004ba1;
+  --sec-deep: #003c85;
+  --on-sec: #fff;
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"][data-sec="cyan"],
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-sec="cyan"] {
+  --sec: #007c81;
+  --sec-soft: #abe8ea;
+  --sec-line: rgba(0, 124, 129, 0.34);
+  --sec-ink: #004649;
+  --sec-fill: #007c81;
+  --sec-deep: #004649;
+  --on-sec: #fff;
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"][data-sec="green"],
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-sec="green"] {
+  --sec: #007037;
+  --sec-soft: #c1e6c9;
+  --sec-line: rgba(0, 112, 55, 0.34);
+  --sec-ink: #004922;
+  --sec-fill: #007037;
+  --sec-deep: #004922;
+  --on-sec: #fff;
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"][data-sec="gold"],
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-sec="gold"] {
+  --sec: #9a7700;
+  --sec-soft: #f1daaf;
+  --sec-line: rgba(154, 119, 0, 0.38);
+  --sec-ink: #4f3c00;
+  --sec-fill: #b38b00;
+  --sec-deep: #4f3c00;
+  --on-sec: #2a1d00;
+}
+:where(.morph-frame, [data-morph-frame]) [data-tone="ok"] {
+  --sec: var(--ok);
+  --sec-soft: var(--ok-soft);
+  --sec-line: var(--ok-line);
+  --sec-ink: var(--ok-ink);
+  --sec-deep: var(--ok-ink);
+  --sec-fill: var(--ok);
+  --on-sec: #04200f;
+}
+:where(.morph-frame, [data-morph-frame]) [data-tone="warn"] {
+  --sec: var(--warn);
+  --sec-soft: var(--warn-soft);
+  --sec-line: var(--warn-line);
+  --sec-ink: var(--warn-ink);
+  --sec-deep: var(--warn-ink);
+  --sec-fill: var(--warn);
+  --on-sec: #2a1d00;
+}
+:where(.morph-frame, [data-morph-frame]) [data-tone="danger"] {
+  --sec: var(--danger);
+  --sec-soft: var(--danger-soft);
+  --sec-line: var(--danger-line);
+  --sec-ink: var(--danger-ink);
+  --sec-deep: var(--danger-ink);
+  --sec-fill: var(--danger);
+  --on-sec: #fff;
+}
+:where(.morph-frame, [data-morph-frame]) [data-tone="ai"] {
+  --sec: var(--ai);
+  --sec-soft: var(--ai-soft);
+  --sec-line: var(--ai-line);
+  --sec-ink: var(--ai-ink);
+  --sec-deep: var(--ai-ink);
+  --sec-fill: var(--ai-strong);
+  --on-sec: var(--on-accent);
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-tone="ok"],
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-tone="danger"],
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-tone="ai"] {
+  --on-sec: #fff;
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-edgezone] [data-tone] {
+  --on-sec: var(--frame);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame] {
+  --cpi-blue-500: var(--sec);
+  --color-surface-white: var(--app-panel);
+  --color-text-primary: var(--app-text);
+  --color-text-secondary: var(--app-dim);
+  --radius-lg: var(--r-card);
+  --shadow-sm: none;
+  /* no border anywhere, the vendored components included: their stroke tokens are
+     re-pointed to nothing rather than the components being restyled (T-122, T-446) */
+  --color-border: transparent;
+  --color-border-subtle: transparent;
+  --color-border-strong: transparent;
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame] {
+  --cpi-gray-500: var(--app-dim);
+  --cpi-gray-400: var(--app-faint);
+  --cpi-gray-600: var(--app-text);
+  --color-error: var(--danger);
+  --color-success: var(--ok);
+  --color-warning: var(--warn);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame] {
+  --series-1: var(--app-blue);
+  --series-2: var(--app-cyan);
+  --series-3: var(--app-green);
+  --series-4: var(--app-gold);
+  --series-5: var(--ai);
+  --cpi-accent-blue: var(--series-1);
+  --cpi-accent-cyan: var(--series-2);
+  --cpi-accent-green: var(--series-3);
+  --cpi-accent-gold: var(--series-4);
+  --cpi-accent-navy: var(--series-5);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame] {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr;
+  padding: var(--gap) 0;
+  box-sizing: border-box;
+  background: linear-gradient(150deg, var(--frame-hi), var(--frame) 58%);
+  color: var(--app-text);
+  transition:
+    --r-scale var(--d4) var(--ease-emph),
+    --sp-scale var(--d4) var(--ease-emph),
+    --t-scale var(--d4) var(--ease-emph),
+    --deform var(--d4) var(--ease-emph);
+  --c-dock: var(--dock-w);
+  --c-rooms: 0px;
+  --c-left: 0px;
+  --c-right: var(--edge-w);
+  grid-template-columns: var(--c-dock) var(--c-rooms) var(--c-left) minmax(
+      0,
+      1fr
+    ) var(--c-right);
+  transition:
+    grid-template-columns var(--d4) var(--ease-emph),
+    background var(--d4) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-right="true"],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-left="true"],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-left="wide"],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-rooms="true"],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-pinned="true"],
+:where(.morph-frame, [data-morph-frame]) [data-frame]:has([data-dockzone]:hover) {
+  transition:
+    grid-template-columns var(--d5) var(--ease-morph),
+    background var(--d4) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame] > [data-dockzone] {
+  grid-column: 1;
+  grid-row: 1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame] > [data-leftzone] {
+  grid-column: 2;
+  grid-row: 1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame] > [data-leftzone]:has([data-slot="left"]) {
+  grid-column: 3;
+  grid-row: 1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame] > [data-inner] {
+  grid-column: 4;
+  grid-row: 1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame] > [data-edgezone] {
+  grid-column: 5;
+  grid-row: 1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-right="true"] {
+  --c-right: var(--panel-w);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-rooms="true"] {
+  --c-rooms: var(--rooms-w);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-left="true"] {
+  --c-left: var(--left-w);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-left="wide"] {
+  --c-left: var(--left-w-wide);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame] {
+  --dest-dock: var(--dock-w);
+  --dest-rooms: 0px;
+  --dest-left: 0px;
+  --dest-right: var(--edge-w);
+  --hole-shift: calc(
+    (var(--c-dock) + var(--c-rooms) + var(--c-left) - var(--c-right)) / 2
+  );
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-pinned="true"] {
+  --dest-dock: var(--dock-w-open);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-dock="collapsed"] {
+  --dest-dock: var(--edge-w);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-right="true"] {
+  --dest-right: var(--panel-w);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-rooms="true"] {
+  --dest-rooms: var(--rooms-w);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-left="true"] {
+  --dest-left: var(--left-w);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-left="wide"] {
+  --dest-left: var(--left-w-wide);
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot="edge"] {
+  --dest-w: calc(var(--panel-w) - 28px);
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot="left"] {
+  --dest-w: calc(var(--left-w) - 14px);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-left="wide"] [data-slot="left"] {
+  --dest-w: calc(var(--left-w-wide) - 14px);
+}
+:where(.morph-frame, [data-morph-frame]) [data-leftpanel][data-slot="drawer"] {
+  --dest-w: calc(var(--rooms-w) - 14px);
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot="pane"] {
+  --dest-w: calc(
+    (
+        100vw - var(--dest-dock) - var(--dest-rooms) - var(--dest-left) -
+          var(--dest-right) - var(--gap)
+      ) -
+      2px
+  );
+}
+:where(.morph-frame, [data-morph-frame]) [data-inner][data-split="true"] [data-slot="pane"] {
+  --dest-w: calc(
+    (
+        100vw - var(--dest-dock) - var(--dest-rooms) - var(--dest-left) -
+          var(--dest-right) - var(--gap) * 2
+      ) /
+      (var(--split-n, 1) + 1)
+  );
+}
+:where(.morph-frame, [data-morph-frame]) [data-inner][data-split="true"] [data-pane]:first-child [data-slot="pane"] {
+  --dest-w: calc(
+    (
+        100vw - var(--dest-dock) - var(--dest-rooms) - var(--dest-left) -
+          var(--dest-right) - var(--gap) * 2
+      ) *
+      var(--split-n, 1) / (var(--split-n, 1) + 1)
+  );
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot="inline"] {
+  --dest-w: auto;
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-pinned="true"],
+:where(.morph-frame, [data-morph-frame]) [data-frame]:has([data-dockzone]:hover) {
+  --c-dock: var(--dock-w-open);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-dock="collapsed"] {
+  --c-dock: var(--edge-w);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-dock="collapsed"] [data-dockzone] > * {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--d2) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-dock="collapsed"]:has([data-dockzone]:hover)
+  [data-dockzone]
+  > * {
+  opacity: 1;
+  pointer-events: auto;
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-fuse="off"] > [data-fuselayer] {
+  display: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame]:not([data-fuse="off"]) {
+  background: var(--frame);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame]:has([data-inner][data-split="true"]) [data-fusehole="one"] {
+  display: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame]:has([data-inner][data-split="true"]) [data-fusehole="a"],
+:where(.morph-frame, [data-morph-frame]) [data-frame]:has([data-inner][data-split="true"]) [data-fusehole="b"] {
+  display: block;
+}
+:where(.morph-frame, [data-morph-frame]) [data-inner] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 0px 0fr;
+  column-gap: 0px;
+  min-width: 0;
+  min-height: 0;
+  transition: grid-template-columns var(--d4) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-inner][data-split="true"] {
+  grid-template-columns: minmax(0, var(--split, 1fr)) var(--gap) minmax(0, 1fr);
+  transition: grid-template-columns var(--d5) var(--ease-morph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-inner] > [data-pane] {
+  min-height: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-inner] > [data-pane][data-second] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--d3) var(--ease-emph),
+    visibility 0s var(--d3);
+}
+:where(.morph-frame, [data-morph-frame]) [data-inner][data-split="true"] > [data-pane][data-second] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: var(--d2);
+  transition:
+    opacity var(--d3) var(--ease-emph) var(--d2),
+    visibility 0s;
+  --in: 22px;
+  animation: shSquashX var(--d5) var(--ease-morph) var(--d1) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-pane] {
+  position: relative;
+  min-width: 0;
+  contain: paint;
+  background:
+    radial-gradient(
+      860px 440px at 16% -12%,
+      var(--pane-wash-a),
+      transparent 68%
+    ),
+    radial-gradient(
+      640px 400px at 98% 110%,
+      var(--pane-wash-b),
+      transparent 68%
+    ),
+    var(--app-bg);
+  border-radius: var(--r-pane);
+  box-shadow: var(--app-pane-shadow);
+  overflow: hidden;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  transition: border-radius var(--d5) var(--ease-morph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-pane]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 3;
+  box-shadow:
+    inset 0 3px 0 -1px var(--sec),
+    inset 0 1px 0 var(--app-edge);
+  transition: box-shadow var(--d4) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-dockzone],
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-leftzone],
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-edgezone],
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-sheet] [data-subrail],
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-osd],
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-dockzone] [data-theme],
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-leftzone] [data-theme],
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-edgezone] [data-theme] {
+  /* `color` is inherited as a *computed* value, and [data-frame] computed it
+     against the canvas — so the sheet has to set it again or every module
+     inside carries the canvas's ink (ADR-0050's rule, one level up). */
+  color: var(--app-text);
+  /* --on-sec is the section's own deep accent, not the sheet's blue: on brand
+     blue the accent has to become white (ADR-0049), which spent the dock's
+     "which section am I in" channel on white in every section — a #eebe39 gold
+     pill in dark against a #edf3fc one in light (T-635/F-F5). The pill stays
+     white, because on this ground white *is* the emphasis; the ink inside it
+     goes back to being the section's. --sec-deep is declared in every section
+     scope precisely so it survives this one. */
+  --sec: #ffffff;
+  --sec-soft: rgba(4, 18, 58, 0.22);
+  --sec-line: var(--sheen-ink);
+  --sec-ink: #ffffff;
+  --sec-fill: #ffffff;
+  --on-accent: var(--frame);
+  --on-sec: var(--sec-deep);
+  /* a well on the sheet goes *down*, not up: a lighter wash raises the ground
+     under white ink and eats the contrast it needs, so selection, hover and
+     the focused search capsule are all deeper blue rather than paler */
+  --app-hover: rgba(4, 18, 58, 0.2);
+  --app-track: rgba(4, 18, 58, 0.26);
+  --app-panel: rgba(4, 18, 58, 0.16);
+  --app-elev: rgba(4, 18, 58, 0.3);
+  --app-line: rgba(255, 255, 255, 0.24);
+  --app-line-soft: rgba(255, 255, 255, 0.18);
+  --app-text: #ffffff;
+  --app-dim: rgba(255, 255, 255, 0.94);
+  --app-faint: rgba(255, 255, 255, 0.9);
+  --app-rail-text: #ffffff;
+  --app-rail-dim: rgba(255, 255, 255, 0.94);
+  --app-rail-faint: rgba(255, 255, 255, 0.86);
+  --app-rail-line: rgba(255, 255, 255, 0.24);
+  /* the wordmark's cyan hyphen and any status dot on the sheet lift to their
+     bright ends: a mid-tone accent on a mid-tone ground is not an accent */
+  --app-blue: #a9caff;
+  --app-cyan: #b6f4f7;
+  --app-green: #8df7c4;
+  --app-gold: #ffe49b;
+  --app-blue-ink: #a9caff;
+  --app-cyan-ink: #b6f4f7;
+  --app-green-ink: #8df7c4;
+  --app-gold-ink: #ffe49b;
+  /* and the whole tone family with them — the artifact rail carries content on
+     the sheet, so ok/warn/danger have to read as ink on brand blue rather than
+     on a pale canvas (ADR-0051). Restated in full, per ADR-0050's rule. */
+  /* a *soft* ground on the sheet is a deep well, not a pale wash — the hue
+     stays in the ink, which is where it can still be read (ADR-0051) */
+  /* A well on the sheet still goes down, and a *status* well keeps a trace of
+     its hue on the way: the three were literally one value, so the four rows
+     of the artifact rail sampled #11449e pixel-identical and the row that says
+     a site missed target was the same object as the row that says it cleared
+     (T-641/F-F4). C* 20 at L* 34 — muted enough to stay a well, separated by
+     ΔE00 18–36 from each other, and still carrying white ink at ≥8:1. The
+     section's own well above stays neutral: ADR-0051's rule is unchanged for
+     the accent, and narrowed only where status has to be told from status. */
+  --ok: #8df7c4;
+  --ok-soft: #375740;
+  --ok-line: rgba(141, 247, 196, 0.4);
+  --ok-ink: #8df7c4;
+  --warn: #ffe49b;
+  --warn-soft: #5d4e30;
+  --warn-line: rgba(255, 228, 155, 0.4);
+  --warn-ink: #ffe49b;
+  --danger: #ffb3ae;
+  --danger-soft: #6e4540;
+  --danger-line: rgba(255, 179, 174, 0.4);
+  --danger-ink: #ffcdc9;
+  /* --ai-deep is the second stop of the primary's gradient, and it was the one
+     --ai-* role this scope did not restate: a [data-primary] on the sheet but
+     outside the dock rendered white-to-navy, and only the dock's own override
+     below hid it (T-520) */
+  --ai: #ffffff;
+  --ai-strong: #ffffff;
+  --ai-deep: #ffffff;
+  --ai-soft: rgba(4, 18, 58, 0.22);
+  --ai-line: rgba(255, 255, 255, 0.4);
+  --ai-ink: #ffffff;
+  --ai-glow: rgba(4, 18, 58, 0.3);
+  --code-ink: #dde6ff;
+  --code-dim: #9fb0e0;
+  /* on the sheet the highlight and the sweep are dark, because the ground is
+     bright — the same inversion the tones make two lines above */
+  --hi: rgba(4, 18, 58, 0.18);
+  --sheen-ink: rgba(4, 18, 58, 0.2);
+  --on-user: var(--frame);
+  --knob: rgba(255, 255, 255, 0.94);
+  /* the vendored components' own tokens are re-pointed on [data-frame], which
+     substitutes them there — so on the sheet they have to be stated again,
+     or a chart's axis keeps the canvas's ink (ADR-0050, ADR-0051) */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.88);
+  --cpi-blue-500: #ffffff;
+  /* the ramp resolves where it is declared, so the sheet states it again or a
+     chart in the artifact rail keeps the canvas's series (ADR-0050, T-640) */
+  --series-1: var(--app-blue);
+  --series-2: var(--app-cyan);
+  --series-3: var(--app-green);
+  --series-4: var(--app-gold);
+  --series-5: var(--ai);
+  --cpi-accent-blue: var(--series-1);
+  --cpi-accent-cyan: var(--series-2);
+  --cpi-accent-green: var(--series-3);
+  --cpi-accent-gold: var(--series-4);
+  --cpi-accent-navy: var(--series-5);
+  /* a zebra table alternates surface-white and surface-sunken, so both have
+     to be wells on the sheet — one of them stayed #fff and took a whole row
+     of a table with it (ADR-0051) */
+  --color-surface-white: rgba(4, 18, 58, 0.16);
+  --color-surface-sunken: rgba(4, 18, 58, 0.3);
+  --color-surface-raised: rgba(4, 18, 58, 0.16);
+  --color-surface-content: rgba(4, 18, 58, 0.24);
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-dockitem][data-primary] {
+  background: var(--sec);
+  color: var(--frame);
+  box-shadow: var(--el2);
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-dockzone] [data-avatar="user"] {
+  background: var(--sec);
+  color: var(--frame);
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-dockitem][data-primary]:hover {
+  box-shadow: var(--el3);
+}
+:where(.morph-frame, [data-morph-frame]) [data-markwell] {
+  flex: none;
+  width: var(--dock-inner);
+  height: var(--dock-inner);
+  display: grid;
+  place-items: center;
+}
+:where(.morph-frame, [data-morph-frame]) [data-dockzone] {
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  color: var(--app-rail-text);
+}
+:where(.morph-frame, [data-morph-frame]) [data-dockzone] > * {
+  flex: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-dockitem] {
+  display: grid;
+  grid-template-columns: var(--dock-inner) 1fr;
+  align-items: center;
+  height: var(--dock-inner);
+  width: var(--dock-inner);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--app-rail-dim);
+  text-align: left;
+  font: 700 var(--t-title)/1.2 var(--font-sans, Arial, Helvetica, sans-serif);
+  cursor: pointer;
+  border-radius: var(--r-pill);
+  position: relative;
+  isolation: isolate;
+  transition:
+    width var(--d4) var(--ease-emph),
+    color var(--d3) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-dockzone]:hover [data-dockitem],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-pinned="true"] [data-dockitem] {
+  width: calc(var(--dock-w-open) - var(--dock-pad) * 2);
+  transition:
+    width var(--d5) var(--ease-morph),
+    color var(--d3) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-dockitem] > svg,
+:where(.morph-frame, [data-morph-frame]) [data-dockitem] > span[data-ic] {
+  justify-self: center;
+  width: 18px;
+  height: 18px;
+  transition: transform var(--d3) var(--ease-fx);
+}
+:where(.morph-frame, [data-morph-frame]) [data-dockitem]:hover > svg,
+:where(.morph-frame, [data-morph-frame]) [data-dockitem]:hover > span[data-ic] {
+  transform: scale(1.14);
+}
+:where(.morph-frame, [data-morph-frame]) [data-dockitem] > span[data-lb] {
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition:
+    opacity var(--d3) var(--ease-emph),
+    transform var(--d4) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-dockzone]:hover [data-dockitem] > span[data-lb],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-pinned="true"] [data-dockitem] > span[data-lb] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--d3) var(--ease-emph) var(--d-lag),
+    transform var(--d5) var(--ease-morph) var(--d-lag);
+}
+:where(.morph-frame, [data-morph-frame]) [data-dockitem][data-on="true"] {
+  color: var(--app-rail-text);
+}
+:where(.morph-frame, [data-morph-frame]) [data-dockitem][data-on="true"] > svg {
+  color: var(--sec);
+}
+:where(.morph-frame, [data-morph-frame]) [data-fade] {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition:
+    opacity var(--d3) var(--ease-emph),
+    transform var(--d4) var(--ease-emph);
+  pointer-events: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-dockzone]:hover [data-fade],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-pinned="true"] [data-fade] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  transition:
+    opacity var(--d3) var(--ease-emph) var(--d-lag),
+    transform var(--d5) var(--ease-morph) var(--d-lag);
+}
+:where(.morph-frame, [data-morph-frame]) [data-navgroup] {
+  background: var(--rail-block);
+  border-radius: var(--r-pill);
+  transition:
+    border-radius var(--d4) var(--ease-emph),
+    background var(--d4) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-dockzone]:hover [data-navgroup],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-pinned="true"] [data-navgroup] {
+  border-radius: var(--r-xl);
+  transition:
+    border-radius var(--d5) var(--ease-morph),
+    background var(--d4) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-ind] {
+  position: absolute;
+  left: 4px;
+  width: 32px;
+  height: var(--dock-inner);
+  border-radius: var(--r-pill);
+  background: var(--sec-fill, var(--sec));
+  box-shadow: var(--el2);
+  pointer-events: none;
+  transition:
+    transform var(--d5) var(--ease-morph),
+    width var(--d5) var(--ease-morph),
+    border-radius var(--d5) var(--ease-morph),
+    background var(--d4) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-navgroup] {
+  --nav-n: 4;
+}
+:where(.morph-frame, [data-morph-frame]) [data-dockzone]:hover [data-ind],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-pinned="true"] [data-ind] {
+  width: calc(var(--dock-w-open) - var(--dock-pad) * 2 - 8px);
+  border-radius: var(--r-xl);
+}
+:where(.morph-frame, [data-morph-frame]) [data-navgroup] [data-ind] {
+  transform: none;
+  height: auto;
+  top: calc(4px + var(--nav-i, 0) * 44px);
+  bottom: calc(4px + (var(--nav-n) - 1 - var(--nav-i, 0)) * 44px);
+  transition:
+    top var(--d5) var(--ease-morph),
+    bottom var(--d4) var(--ease-morph),
+    width var(--d5) var(--ease-morph),
+    border-radius var(--d5) var(--ease-morph),
+    background var(--d4) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-navgroup] [data-dockitem][data-on="true"] {
+  color: var(--on-sec);
+}
+:where(.morph-frame, [data-morph-frame]) [data-navgroup] [data-dockitem][data-on="true"] > svg {
+  color: var(--on-sec);
+}
+:where(.morph-frame, [data-morph-frame]) [data-navgroup][data-nav="none"] [data-ind] {
+  opacity: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-leftpanel] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--left-w);
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--s2) 0 var(--s2);
+  box-sizing: border-box;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(-20px);
+  /* This base rule is the CLOSE (ADR-0039): the browser reads the transition
+     from the state being entered, and leaving [data-open] enters this one. So it
+     takes the effects curve one duration step quicker, while the open state keeps
+     the spatial curve at full duration through shSquashX. It carried --ease-morph,
+     which overshoots — the rail bounced on its way out. The visibility defer moves
+     to --d4 with it, or the panel would go invisible before it finished leaving. */
+  transition:
+    opacity var(--d3) var(--ease-emph),
+    transform var(--d4) var(--ease-emph),
+    visibility 0s linear var(--d4);
+}
+:where(.morph-frame, [data-morph-frame]) [data-leftpanel][data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  transition:
+    opacity var(--d4) var(--ease-emph) var(--d-lag-lg),
+    visibility 0s;
+  --in: -20px;
+  animation: shSquashX var(--d5) var(--ease-morph) var(--d-lag) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-leftpanel][data-slot="drawer"] {
+  width: var(--rooms-w);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-left="wide"] [data-leftpanel][data-slot="left"] {
+  width: var(--left-w-wide);
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot="left"] [data-fade],
+:where(.morph-frame, [data-morph-frame]) [data-slot="drawer"] [data-fade] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot="drawer"] {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot="drawer"] > .sc-host {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-right="true"] [data-edgehandle] {
+  opacity: 0;
+  pointer-events: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-edgepanel][data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  transition:
+    opacity var(--d4) var(--ease-emph) var(--d-lag-lg),
+    visibility 0s;
+  --in: 20px;
+  animation: shSquashX var(--d5) var(--ease-morph) var(--d-lag) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-mark] {
+  display: inline-block;
+  flex: none;
+  background: currentColor;
+  -webkit-mask: var(--mark) center/contain no-repeat;
+  mask: var(--mark) center/contain no-repeat;
+}
+:where(.morph-frame, [data-morph-frame]) [data-wordmark] {
+  font-weight: 700;
+  font-size: var(--t-input);
+  letter-spacing: var(--tk-snug);
+  white-space: nowrap;
+}
+:where(.morph-frame, [data-morph-frame]) [data-wordmark] > span {
+  color: var(--app-cyan);
+}
+:where(.morph-frame, [data-morph-frame]) [data-status] {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s3);
+  flex-wrap: wrap;
+  min-width: 0;
+  font-size: var(--t-h1);
+  font-weight: 700;
+  letter-spacing: var(--tk-snug);
+  color: var(--app-text);
+}
+:where(.morph-frame, [data-morph-frame]) [data-status] > [data-dot] {
+  align-self: center;
+}
+:where(.morph-frame, [data-morph-frame]) [data-status] > [data-basis] {
+  flex-basis: 100%;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+:where(.morph-frame, [data-morph-frame]) [data-status] > [data-basis] > span + span::before {
+  content: "\00B7";
+  margin-inline-end: var(--s3);
+}
+:where(.morph-frame, [data-morph-frame]) [data-status] > [data-btn] {
+  align-self: center;
+  margin-inline-start: var(--s2);
+}
+:where(.morph-frame, [data-morph-frame]) [data-panehead] {
+  flex: none;
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  height: var(--h-head);
+  box-sizing: border-box;
+  padding: 0 var(--s3) 0 var(--s4);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-headcluster] {
+  margin-left: auto;
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--seam);
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-hb] {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  color: var(--app-dim);
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  font: 700 var(--t-ctl)/1 var(--app-mono);
+  padding: 0;
+  overflow: hidden;
+  transition:
+    background var(--d3) var(--ease-emph),
+    box-shadow var(--d3) var(--ease-emph),
+    color var(--d2) var(--ease-fx);
+}
+:where(.morph-frame, [data-morph-frame]) [data-hb] > svg {
+  flex: none;
+  width: 36px;
+  transition: transform var(--d3) var(--ease-fx);
+}
+:where(.morph-frame, [data-morph-frame]) [data-hb]:hover > svg {
+  transform: scale(1.12);
+}
+:where(.morph-frame, [data-morph-frame]) [data-hb] > span[data-hbl] {
+  white-space: nowrap;
+  flex: none;
+  max-width: 0;
+  opacity: 0;
+  padding-right: 0;
+  transform: translateX(-8px);
+  transition:
+    max-width var(--d5) var(--ease-morph),
+    opacity var(--d3) var(--ease-emph),
+    transform var(--d5) var(--ease-morph),
+    padding var(--d5) var(--ease-morph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-panehead]:hover [data-hb] > span[data-hbl],
+:where(.morph-frame, [data-morph-frame]) [data-toolrail]:hover [data-hb] > span[data-hbl],
+:where(.morph-frame, [data-morph-frame]) [data-headcluster]:focus-within [data-hb] > span[data-hbl] {
+  max-width: 140px;
+  opacity: 1;
+  transform: none;
+  padding-right: var(--s5);
+  transition-delay: var(--d-lag);
+}
+:where(.morph-frame, [data-morph-frame]) [data-hb]:hover {
+  color: var(--app-text);
+}
+:where(.morph-frame, [data-morph-frame]) [data-hb][data-on="true"] {
+  color: var(--sec-ink);
+  background: linear-gradient(90deg, var(--sec-soft), transparent 88%);
+}
+:where(.morph-frame, [data-morph-frame]) [data-hb][data-on="true"] > svg {
+  color: var(--sec);
+}
+:where(.morph-frame, [data-morph-frame]) [data-headmeta] {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--t-meta);
+  color: var(--app-faint);
+  padding-right: var(--seam);
+}
+:where(.morph-frame, [data-morph-frame]) [data-toolrail] [data-search] {
+  flex: 1 1 0;
+  min-width: 0;
+}
+@container (max-width:880px) {
+:where(.morph-frame, [data-morph-frame]) [data-hidenarrow] {
+    display: none;
+  }
+}
+@container (max-width:760px) {
+:where(.morph-frame, [data-morph-frame]) [data-search]:not([data-searchcap]) {
+    display: none;
+  }
+}
+@container (max-width:640px) {
+:where(.morph-frame, [data-morph-frame]) [data-panehead]:hover [data-hb] > span[data-hbl] {
+    max-width: 0;
+    opacity: 0;
+    padding-right: 0;
+  }
+}
+:where(.morph-frame, [data-morph-frame]) [data-card] {
+  background: var(--app-panel);
+  border-radius: var(--r-card);
+  padding: var(--s4) var(--s5);
+}
+:where(.morph-frame, [data-morph-frame]) [data-card][data-pad="roomy"] {
+  padding: var(--s5);
+}
+:where(.morph-frame, [data-morph-frame]) [data-card][data-pad="none"] {
+  padding: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-card="hero"] {
+  border-radius: var(--r-2xl);
+}
+:where(.morph-frame, [data-morph-frame]) [data-tile][data-size="sm"] {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--r-sm);
+}
+:where(.morph-frame, [data-morph-frame]) [data-tile] {
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border-radius: var(--r-tile);
+  display: grid;
+  place-items: center;
+  background: var(--sec-soft);
+  color: var(--sec);
+  transition: background var(--d3) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-eyebrow] {
+  font-size: var(--t-eyebrow);
+  font-weight: 700;
+  letter-spacing: var(--tk-caps);
+  text-transform: uppercase;
+  color: var(--app-faint);
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+:where(.morph-frame, [data-morph-frame]) [data-eyebrow]::before {
+  content: "";
+  width: 12px;
+  height: 2px;
+  border-radius: var(--r-xs);
+  background: var(--sec);
+  flex: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-chip],
+:where(.morph-frame, [data-morph-frame]) [data-tag],
+:where(.morph-frame, [data-morph-frame]) [data-count],
+:where(.morph-frame, [data-morph-frame]) [data-tile] {
+  border: 0;
+  font-family: inherit;
+}
+:where(.morph-frame, [data-morph-frame]) [data-chip] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: var(--s1) var(--s3);
+  border-radius: var(--r-pill);
+  background: var(--app-panel);
+  color: var(--app-dim);
+  font-size: var(--t-meta);
+  font-weight: 700;
+  white-space: nowrap;
+}
+:where(.morph-frame, [data-morph-frame]) button[data-chip],
+:where(.morph-frame, [data-morph-frame]) button[data-tag] {
+  cursor: pointer;
+}
+:where(.morph-frame, [data-morph-frame]) [data-chip][data-on="true"],
+:where(.morph-frame, [data-morph-frame]) [data-chip][data-solid] {
+  background: var(--sec-soft);
+  color: var(--sec-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-num] {
+  font-family: var(--app-mono);
+  font-size: var(--t-num);
+  letter-spacing: var(--tk-snug);
+  font-variant-numeric: tabular-nums;
+}
+:where(.morph-frame, [data-morph-frame]) [data-seg] {
+  flex: none;
+  display: inline-flex;
+  gap: var(--seam);
+  padding: var(--s1);
+  border-radius: var(--r-pill);
+  background: var(--app-track);
+}
+:where(.morph-frame, [data-morph-frame]) [data-segbtn] {
+  padding: var(--s2) var(--s5);
+  border: 0;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--app-dim);
+  font: 700 var(--t-ctl)/1 var(--app-mono);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  transition:
+    color var(--d2) var(--ease-fx),
+    background var(--d3) var(--ease-emph),
+    box-shadow var(--d3) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-segbtn]:hover {
+  color: var(--app-text);
+}
+:where(.morph-frame, [data-morph-frame]) [data-segbtn][data-on="true"] {
+  background: var(--app-elev);
+  color: var(--app-text);
+  box-shadow: var(--el2);
+}
+:where(.morph-frame, [data-morph-frame]) [data-count] {
+  padding: 1px var(--s2);
+  border-radius: var(--r-pill);
+  background: var(--app-hover);
+  color: var(--app-dim);
+  font-size: var(--t-num);
+  font-weight: 700;
+}
+:where(.morph-frame, [data-morph-frame]) [data-rows] > div {
+  border-radius: var(--r-card);
+  transition: background var(--d3) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-rows][data-gap="flush"] {
+  gap: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-rows][data-gap="flush"] > div {
+  border-radius: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-card]:has(> [data-rows][data-gap="flush"]) {
+  overflow: hidden;
+}
+:where(.morph-frame, [data-morph-frame]) [data-card]:not([data-pad="none"]) > [data-rows][data-gap="flush"] {
+  margin-inline: calc(-1 * var(--s5));
+}
+:where(.morph-frame, [data-morph-frame]) [data-thumb] {
+  aspect-ratio: 16/6;
+  border-radius: var(--r-md);
+  background: var(--app-track);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: var(--sec);
+  transition: background var(--d3) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-thumb] > svg {
+  width: 100%;
+  height: 100%;
+}
+:where(.morph-frame, [data-morph-frame]) [data-thumb][data-kind="code"] {
+  background: var(--app-code);
+  color: var(--code-dim);
+}
+:where(.morph-frame, [data-morph-frame]) [data-thumb][data-kind="draft"] {
+  background: transparent;
+  outline: 2px dashed var(--app-line);
+  outline-offset: -4px;
+  color: var(--app-faint);
+}
+:where(.morph-frame, [data-morph-frame]) [data-rows] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+:where(.morph-frame, [data-morph-frame]) [data-rows][data-fadescroll] {
+  display: block;
+  gap: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-rows][data-gap="lg"] {
+  gap: var(--s3);
+}
+:where(.morph-frame, [data-morph-frame]) [data-stitch] {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-stitch] > * {
+  border-radius: var(--r-xs) !important;
+  transition:
+    border-radius var(--d2) var(--ease-emph),
+    background var(--d2) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-stitch] > *:first-child {
+  border-radius: var(--r-md) var(--r-md) var(--r-xs) var(--r-xs) !important;
+}
+:where(.morph-frame, [data-morph-frame]) [data-stitch] > *:last-child {
+  border-radius: var(--r-xs) var(--r-xs) var(--r-md) var(--r-md) !important;
+}
+:where(.morph-frame, [data-morph-frame]) [data-stitch] > *:only-child {
+  border-radius: var(--r-md) !important;
+}
+:where(.morph-frame, [data-morph-frame]) [data-stitch] > *[data-on="true"],
+:where(.morph-frame, [data-morph-frame]) [data-stitch] > *[aria-selected="true"] {
+  border-radius: var(--r-md) !important;
+}
+:where(.morph-frame, [data-morph-frame]) [data-overflowchip] > [data-chip] {
+  background: var(--sec-fill, var(--sec));
+  color: var(--on-sec);
+}
+:where(.morph-frame, [data-morph-frame]) [data-rows] > [data-empty] {
+  display: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-rows]:not(:has(> *:not([data-empty]):not([data-fadeedge])))
+  > [data-empty] {
+  display: flex;
+  animation: shRise var(--d4) var(--ease-soft) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-state],
+:where(.morph-frame, [data-morph-frame]) [data-btn],
+:where(.morph-frame, [data-morph-frame]) [data-iconbtn],
+:where(.morph-frame, [data-morph-frame]) [data-hb],
+:where(.morph-frame, [data-morph-frame]) [data-railitem],
+:where(.morph-frame, [data-morph-frame]) [data-menuitem],
+:where(.morph-frame, [data-morph-frame]) [data-segbtn],
+:where(.morph-frame, [data-morph-frame]) [data-chip],
+:where(.morph-frame, [data-morph-frame]) [data-rows] > div,
+:where(.morph-frame, [data-morph-frame]) button[data-row],
+:where(.morph-frame, [data-morph-frame]) [data-threadrow] > button:first-child,
+:where(.morph-frame, [data-morph-frame]) [data-tab] {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: currentColor;
+    opacity: 0;
+    transition: opacity var(--d2) var(--ease-fx);
+  }
+  &:hover::before {
+    opacity: 0.08;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: radial-gradient(
+      circle at center,
+      currentColor 0,
+      transparent 62%
+    );
+    opacity: 0;
+    transform: scale(0.55);
+    transition:
+      transform var(--d4) var(--ease-out),
+      opacity var(--d4) var(--ease-emph);
+  }
+  &:active::after {
+    opacity: 0.1;
+    transform: scale(1.3);
+    transition: none;
+  }
+}
+:where(.morph-frame, [data-morph-frame]) [data-sw] {
+  isolation: isolate;
+}
+:where(.morph-frame, [data-morph-frame]) [data-sw]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--d2) var(--ease-fx);
+}
+:where(.morph-frame, [data-morph-frame]) [data-sw]:hover::before {
+  opacity: 0.08;
+}
+:where(.morph-frame, [data-morph-frame]) [data-sw]:active::before {
+  opacity: 0.1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-radio]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--d2) var(--ease-fx);
+}
+:where(.morph-frame, [data-morph-frame]) [data-radio]:hover::after {
+  opacity: 0.08;
+}
+:where(.morph-frame, [data-morph-frame]) [data-radio]:active::after {
+  opacity: 0.1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-state] {
+  overflow: hidden;
+}
+:where(.morph-frame, [data-morph-frame]) [data-collapse] {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition:
+    grid-template-rows var(--d2) var(--ease-emph),
+    opacity var(--d1) var(--ease-emph);
+  opacity: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-collapse] > * {
+  overflow: hidden;
+  min-height: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-collapse][data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition:
+    grid-template-rows var(--d3) var(--ease-soft),
+    opacity var(--d2) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-morph] {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows var(--d3) var(--ease-emph),
+    opacity var(--d2) var(--ease-fx);
+}
+:where(.morph-frame, [data-morph-frame]) [data-morph] > * {
+  overflow: hidden;
+  min-height: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-focusring]:focus-within [data-morph],
+:where(.morph-frame, [data-morph-frame]) [data-morph][data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition:
+    grid-template-rows var(--d3) var(--ease-soft),
+    opacity var(--d2) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-scrim][data-leaving="true"] {
+  animation: shFadeOut var(--d2) var(--ease-emph) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-osditem][data-leaving="true"] {
+  animation: shOsdOut var(--d3) var(--ease-emph) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-sheet][data-drawer="up"][data-leaving="true"] {
+  animation: shDrawerUpOut var(--d4) var(--ease-morph) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-rows] > [data-leaving="true"],
+:where(.morph-frame, [data-morph-frame]) [data-threadrow][data-leaving="true"],
+:where(.morph-frame, [data-morph-frame]) [data-setrow][data-leaving="true"] {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  animation: shSend var(--d4) var(--ease-emph) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-pop] {
+  transform-origin: var(--pop-origin, top right);
+  animation: shPop var(--d3) var(--ease-soft) both;
+  position: absolute;
+  position-anchor: --pop-anchor;
+  top: anchor(bottom);
+  left: anchor(left);
+  margin-top: var(--gap);
+  max-width: min(92vw, 420px);
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline;
+  position-visibility: anchors-visible;
+}
+:where(.morph-frame, [data-morph-frame]) [data-pop][data-leaving="true"] {
+  animation: shPopOut var(--d2) var(--ease-emph) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-pop] {
+  position-anchor: var(--anchor, --pop-anchor);
+  background: var(--app-elev);
+  border-radius: var(--r-lg);
+  box-shadow: var(--el4);
+  padding: var(--s2);
+  z-index: 60;
+  min-width: 180px;
+  color: var(--app-text);
+}
+:where(.morph-frame, [data-morph-frame]) [data-menu] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--seam);
+  min-width: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-menuitem] {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  width: 100%;
+  height: 32px;
+  padding: 0 var(--s3);
+  border: 0;
+  background: transparent;
+  color: var(--app-text);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  text-align: left;
+  font: 600 var(--t-ctl)/1 var(--app-mono);
+  white-space: nowrap;
+  position: relative;
+  isolation: isolate;
+}
+:where(.morph-frame, [data-morph-frame]) [data-menuitem][data-tone="danger"] {
+  color: var(--danger-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-menuitem][disabled] {
+  color: var(--app-faint);
+  cursor: not-allowed;
+  background: transparent !important;
+}
+:where(.morph-frame, [data-morph-frame]) [data-menuitem] > [data-kbd] {
+  margin-left: auto;
+}
+:where(.morph-frame, [data-morph-frame]) [data-tip] {
+  background: var(--app-text);
+  color: var(--app-bg);
+  border-radius: var(--r-sm);
+  padding: var(--s2) var(--s3);
+  font-size: var(--t-meta);
+  font-weight: 600;
+  max-width: 260px;
+  white-space: normal;
+  box-shadow: var(--el3);
+  pointer-events: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-tipped] > [data-tip] {
+  position: absolute;
+  top: calc(100% + var(--s2));
+  inset-inline-end: 0;
+  z-index: 60;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity var(--d2) var(--ease-fx),
+    transform var(--d3) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-tipped]:is(:hover, :focus-within) > [data-tip] {
+  opacity: 1;
+  transform: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-code] {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border-radius: var(--r-card);
+  overflow: hidden;
+  background: var(--app-code);
+}
+:where(.morph-frame, [data-morph-frame]) [data-codehead] {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s2) var(--s4);
+  color: var(--code-dim);
+  background: var(--code-head);
+  font: 600 var(--t-num)/1 var(--app-mono);
+}
+:where(.morph-frame, [data-morph-frame]) [data-codehead] [data-btn],
+:where(.morph-frame, [data-morph-frame]) [data-codehead] [data-meta] {
+  color: var(--code-dim);
+}
+:where(.morph-frame, [data-morph-frame]) [data-codehead] > [data-btn] {
+  margin-left: auto;
+  height: 26px;
+  padding: 0 var(--s3);
+  font-size: var(--t-num);
+}
+:where(.morph-frame, [data-morph-frame]) [data-code] > pre {
+  margin: 0;
+  padding: 0 var(--s5) var(--s5);
+  overflow: auto;
+  color: var(--code-ink);
+  font: var(--t-num)/1.65 var(--app-mono);
+  tab-size: 2;
+}
+:where(.morph-frame, [data-morph-frame]) [data-formfield] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  min-width: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-formfield] > label {
+  font-size: var(--t-ctl);
+  font-weight: 700;
+  color: var(--app-text);
+}
+:where(.morph-frame, [data-morph-frame]) [data-hint] {
+  font-size: var(--t-meta);
+  color: var(--app-faint);
+}
+:where(.morph-frame, [data-morph-frame]) [data-error] {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--t-meta);
+  font-weight: 600;
+  color: var(--danger-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-formfield]:has([aria-invalid="true"]) > [data-hint] {
+  display: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-slider] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 22px;
+  background: transparent;
+  cursor: pointer;
+}
+:where(.morph-frame, [data-morph-frame]) [data-slider]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: linear-gradient(
+    90deg,
+    var(--sec-fill, var(--sec)) var(--fill, 50%),
+    var(--app-track) var(--fill, 50%)
+  );
+}
+:where(.morph-frame, [data-morph-frame]) [data-slider]::-moz-range-track {
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: var(--app-track);
+}
+:where(.morph-frame, [data-morph-frame]) [data-slider]::-moz-range-progress {
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: var(--sec-fill, var(--sec));
+}
+:where(.morph-frame, [data-morph-frame]) [data-slider]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: calc(-1 * var(--s1));
+  border: 0;
+  border-radius: 50%;
+  background: var(--app-elev);
+  box-shadow: var(--el2);
+  transition: transform var(--d2) var(--ease-spring);
+}
+:where(.morph-frame, [data-morph-frame]) [data-slider]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--app-elev);
+  box-shadow: var(--el2);
+}
+:where(.morph-frame, [data-morph-frame]) [data-slider]:hover::-webkit-slider-thumb {
+  transform: scale(1.08);
+}
+:where(.morph-frame, [data-morph-frame]) [data-slider]:active::-webkit-slider-thumb {
+  transform: scale(1.15);
+}
+:where(.morph-frame, [data-morph-frame]) [data-slider]:focus-visible {
+  outline: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-slider]:focus-visible::-webkit-slider-thumb {
+  box-shadow:
+    var(--el2),
+    0 0 0 4px var(--sec-soft);
+}
+:where(.morph-frame, [data-morph-frame]) [data-axis] > [data-num] {
+  flex: none;
+  min-width: 34px;
+  text-align: end;
+  color: var(--app-dim);
+}
+:where(.morph-frame, [data-morph-frame]) [data-radio] {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+  padding: var(--s3) var(--s3);
+  width: 100%;
+  border: 0;
+  border-radius: var(--r-card);
+  background: transparent;
+  color: var(--app-text);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  position: relative;
+  isolation: isolate;
+}
+:where(.morph-frame, [data-morph-frame]) [data-radio]::before {
+  content: "";
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px var(--app-line);
+  transition: box-shadow var(--d2) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-radio][aria-checked="true"]::before {
+  box-shadow: inset 0 0 0 5px var(--sec-fill, var(--sec));
+}
+:where(.morph-frame, [data-morph-frame]) [data-checkbox] {
+  display: inline-flex;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border: 0;
+  padding: 0;
+  border-radius: var(--r-xs);
+  background: transparent;
+  color: var(--app-text);
+  box-shadow: inset 0 0 0 2px var(--app-line);
+  cursor: pointer;
+  position: relative;
+  isolation: isolate;
+  transition:
+    background var(--d2) var(--ease-emph),
+    box-shadow var(--d2) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-checkbox][aria-checked="true"],
+:where(.morph-frame, [data-morph-frame]) [data-checkbox][aria-checked="mixed"] {
+  box-shadow: none;
+  background: var(--sec-fill, var(--sec));
+  color: var(--on-sec);
+}
+:where(.morph-frame, [data-morph-frame]) [data-checkbox]::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 3px;
+  top: 3px;
+  width: 8px;
+  height: 5px;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg) scale(0);
+  transform-origin: 1px 2px;
+  opacity: 0;
+  transition:
+    transform var(--d3) var(--ease-emph),
+    opacity var(--d2) var(--ease-fx);
+}
+:where(.morph-frame, [data-morph-frame]) [data-checkbox][aria-checked="true"]::before {
+  opacity: 1;
+  transform: rotate(-45deg) scale(1);
+}
+:where(.morph-frame, [data-morph-frame]) [data-checkbox][aria-checked="mixed"]::before {
+  border-left: 0;
+  width: 8px;
+  height: 0;
+  top: 7px;
+  inset-inline-start: 3px;
+  transform: none;
+  opacity: 1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-checkbox]::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  z-index: -1;
+  border-radius: inherit;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--d2) var(--ease-fx);
+}
+:where(.morph-frame, [data-morph-frame]) [data-checkbox]:hover::after {
+  opacity: 0.08;
+}
+:where(.morph-frame, [data-morph-frame]) [data-checkbox]:active::after {
+  opacity: 0.1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-checkbox][disabled]::after {
+  display: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-avatars] {
+  display: flex;
+  align-items: center;
+}
+:where(.morph-frame, [data-morph-frame]) [data-avatars] > * {
+  margin-inline-start: calc(-1 * var(--s2));
+  box-shadow: 0 0 0 2px var(--app-bg);
+}
+:where(.morph-frame, [data-morph-frame]) [data-avatars] > *:first-child {
+  margin-inline-start: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-event] > [data-dot] {
+  margin-top: var(--s1);
+  flex: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-drop][data-over="true"] {
+  background: var(--sec-soft);
+  outline-color: var(--sec-line);
+  color: var(--sec-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-title][data-size="lg"] {
+  font-size: var(--t-lead);
+}
+:where(.morph-frame, [data-morph-frame]) [data-meta] {
+  font-size: var(--t-meta);
+  color: var(--app-faint);
+  min-width: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-strong] {
+  font-size: var(--t-body);
+  font-weight: 700;
+}
+:where(.morph-frame, [data-morph-frame]) [data-strong][data-lead="true"] {
+  font-size: var(--t-lead);
+}
+:where(.morph-frame, [data-morph-frame]) [data-ell] {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-row] {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  padding: var(--s3) var(--s5);
+  min-width: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-row][data-size="lg"] {
+  gap: var(--s5);
+  padding: var(--s5) var(--s5);
+}
+:where(.morph-frame, [data-morph-frame]) button[data-row] {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  width: 100%;
+}
+:where(.morph-frame, [data-morph-frame]) button[data-row]:active {
+  opacity: 0.85;
+}
+:where(.morph-frame, [data-morph-frame]) button[data-row][disabled] {
+  color: var(--app-faint);
+  cursor: not-allowed;
+}
+:where(.morph-frame, [data-morph-frame]) button[data-row][disabled] [data-meta] {
+  color: var(--app-faint);
+}
+:where(.morph-frame, [data-morph-frame]) [data-row]:has([data-stepper]) {
+  align-items: flex-start;
+}
+:where(.morph-frame, [data-morph-frame]) [data-btn][data-size="sm"] {
+  height: 30px;
+  padding: 0 var(--s4);
+  font-size: var(--t-small);
+}
+:where(.morph-frame, [data-morph-frame]) [data-btn][data-size="lg"] {
+  height: 38px;
+  padding: 0 var(--s6);
+}
+:where(.morph-frame, [data-morph-frame]) [data-dot][data-size="sm"] {
+  width: 6px;
+  height: 6px;
+}
+:where(.morph-frame, [data-morph-frame]) [data-dot][data-size="xs"] {
+  width: 5px;
+  height: 5px;
+}
+:where(.morph-frame, [data-morph-frame]) [data-avatar][data-size="sm"] {
+  width: 24px;
+  height: 24px;
+  font-size: var(--t-eyebrow);
+}
+:where(.morph-frame, [data-morph-frame]) [data-avatar][data-size="lg"] {
+  width: 44px;
+  height: 44px;
+  font-size: var(--t-lead);
+}
+:where(.morph-frame, [data-morph-frame]) [data-tile][data-size="lg"] {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-md);
+}
+:where(.morph-frame, [data-morph-frame]) [data-sheet][data-drawer="up"] {
+  animation: shDrawerUp var(--d5) var(--ease-morph) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-sheet][data-drawer="up"],
+:where(.morph-frame, [data-morph-frame]) [data-sheet][data-drawer="up"] [data-subrail] {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-sheet][data-drawer="down"] {
+  border-start-start-radius: 0;
+  border-start-end-radius: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-scrim] {
+  animation: shFade var(--d2) var(--ease-fx) both;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+:where(.morph-frame, [data-morph-frame]) [data-sheet][data-drawer="down"] {
+  animation: shDrawerDownIn var(--d5) var(--ease-morph) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-sheet][data-drawer="down"][data-leaving="true"] {
+  animation: shDrawerDownOut var(--d4) var(--ease-morph) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-drawerbody] {
+  overflow: auto;
+  min-height: 0;
+  padding: 0 var(--gut) var(--gut);
+}
+:where(.morph-frame, [data-morph-frame]) [data-drawer="up"] > [data-grab] {
+  top: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-drawer="down"] > [data-grab] {
+  bottom: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-sheet][data-dragging="true"] {
+  animation: none !important;
+  transition: none !important;
+  transform: translateY(var(--drag, 0px));
+}
+:where(.morph-frame, [data-morph-frame]) [data-osd] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: max-content;
+  translate: var(--hole-shift, 0px) 0;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: var(--seam);
+  min-width: min(380px, calc(100vw - var(--gap) * 6));
+  max-width: calc(100vw - var(--gap) * 6);
+  padding: calc(var(--gap) + 2px) var(--gap) var(--gap);
+  background: var(--frame);
+  border-end-start-radius: var(--r-lg);
+  border-end-end-radius: var(--r-lg);
+  box-shadow: var(--el4);
+  pointer-events: none;
+  animation: shDrawerDownIn var(--d5) var(--ease-morph) both;
+  transition: translate var(--d5) var(--ease-morph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-osd][data-leaving="true"] {
+  animation: shDrawerDownOut var(--d4) var(--ease-morph) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-osditem] {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s2) var(--s4);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--app-text);
+  font-size: var(--t-ctl);
+  font-weight: 700;
+  animation: shOsd var(--d3) var(--ease-emph) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-btn][disabled],
+:where(.morph-frame, [data-morph-frame]) [data-btn][aria-disabled="true"],
+:where(.morph-frame, [data-morph-frame]) [data-primary][disabled],
+:where(.morph-frame, [data-morph-frame]) [data-primary][aria-disabled="true"],
+:where(.morph-frame, [data-morph-frame]) [data-iconbtn][disabled],
+:where(.morph-frame, [data-morph-frame]) [data-chip][disabled],
+:where(.morph-frame, [data-morph-frame]) [data-segbtn][disabled],
+:where(.morph-frame, [data-morph-frame]) [data-sw][disabled],
+:where(.morph-frame, [data-morph-frame]) [data-checkbox][disabled] {
+  background: var(--app-track) !important;
+  color: var(--app-dim) !important;
+  box-shadow: none !important;
+  opacity: 1;
+  cursor: not-allowed;
+}
+:where(.morph-frame, [data-morph-frame]) [data-alert] [data-btn] {
+  color: var(--sec-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-alert] [data-btn][disabled],
+:where(.morph-frame, [data-morph-frame]) [data-alert] [data-btn][aria-disabled="true"] {
+  color: var(--sec-ink) !important;
+  background: transparent !important;
+}
+:where(.morph-frame, [data-morph-frame]) [data-btn][disabled]::before,
+:where(.morph-frame, [data-morph-frame]) [data-btn][disabled]::after,
+:where(.morph-frame, [data-morph-frame]) [data-primary][disabled]::before,
+:where(.morph-frame, [data-morph-frame]) [data-primary][disabled]::after,
+:where(.morph-frame, [data-morph-frame]) [data-iconbtn][disabled]::before,
+:where(.morph-frame, [data-morph-frame]) [data-iconbtn][disabled]::after,
+:where(.morph-frame, [data-morph-frame]) [data-chip][disabled]::before,
+:where(.morph-frame, [data-morph-frame]) [data-chip][disabled]::after {
+  display: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-btn] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  height: 34px;
+  padding: 0 var(--s5);
+  border: 0;
+  background: var(--app-hover);
+  color: var(--app-text);
+  border-radius: var(--r-pill);
+  font: 700 var(--t-ctl)/1 var(--app-mono);
+  cursor: pointer;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+:where(.morph-frame, [data-morph-frame]) [data-btn="text"] {
+  height: auto;
+  padding: var(--s2) var(--s3);
+  background: transparent;
+  color: var(--app-faint);
+  font-size: var(--t-small);
+}
+:where(.morph-frame, [data-morph-frame]) [data-btn="text"]:hover {
+  color: var(--app-text);
+}
+:where(.morph-frame, [data-morph-frame]) [data-btn="accent"] {
+  background: var(--sec-soft);
+  color: var(--sec-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-btn="fill"] {
+  background: var(--sec-fill, var(--sec));
+  color: var(--on-sec);
+}
+:where(.morph-frame, [data-morph-frame]) [data-iconbtn] {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--app-dim);
+  border-radius: var(--r-pill);
+  cursor: pointer;
+}
+:where(.morph-frame, [data-morph-frame]) [data-iconbtn]:hover {
+  color: var(--app-text);
+}
+:where(.morph-frame, [data-morph-frame]) [data-dot] {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--sec);
+  flex: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-dot="glow"] {
+  box-shadow: 0 0 9px color-mix(in srgb, var(--sec) 75%, transparent);
+}
+:where(.morph-frame, [data-morph-frame]) [data-dot="quiet"] {
+  background: var(--app-faint);
+}
+:where(.morph-frame, [data-morph-frame]) [data-avatar] {
+  width: 30px;
+  height: 30px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-tile);
+  background: linear-gradient(145deg, var(--ai), var(--ai-strong));
+  color: var(--on-accent);
+  font-size: var(--t-num);
+  font-weight: 700;
+  position: relative;
+}
+:where(.morph-frame, [data-morph-frame]) [data-avatar="user"] {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: linear-gradient(
+    140deg,
+    var(--app-cyan),
+    var(--app-blue-strong) 70%
+  );
+  color: var(--on-user);
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"] [data-avatar="user"] {
+  color: var(--on-user);
+}
+:where(.morph-frame, [data-morph-frame]) [data-threadrow] {
+  display: flex;
+  align-items: center;
+  gap: var(--seam);
+  border-radius: var(--r-pill);
+  min-width: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-threadrow] > button:first-child,
+:where(.morph-frame, [data-morph-frame]) [data-threadrow] > input {
+  flex: 1;
+  min-width: 0;
+  display: block;
+  padding: var(--s2) var(--s3);
+  border: 0;
+  border-radius: var(--r-pill);
+  text-align: left;
+  font-size: var(--t-body);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: transparent;
+  color: var(--app-rail-dim);
+  font-family: inherit;
+  transition:
+    background var(--d3) var(--ease-emph),
+    color var(--d2) var(--ease-fx);
+}
+:where(.morph-frame, [data-morph-frame]) [data-threadrow] > input {
+  cursor: text;
+  color: var(--app-rail-text);
+  background: var(--app-hover);
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--sec-line);
+}
+:where(.morph-frame, [data-morph-frame]) [data-threadrow]:hover > button:first-child {
+  color: var(--app-rail-text);
+}
+:where(.morph-frame, [data-morph-frame]) [data-threadrow][data-on="true"] > button:first-child {
+  background: var(--app-hover);
+  color: var(--app-rail-text);
+}
+:where(.morph-frame, [data-morph-frame]) [data-threadacts] {
+  display: flex;
+  flex: none;
+  opacity: 0;
+  transform: translateX(4px);
+  pointer-events: none;
+  transition:
+    opacity var(--d2) var(--ease-fx),
+    transform var(--d3) var(--ease-soft);
+}
+:where(.morph-frame, [data-morph-frame]) [data-threadrow]:hover [data-threadacts],
+:where(.morph-frame, [data-morph-frame]) [data-threadrow]:focus-within [data-threadacts] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+:where(.morph-frame, [data-morph-frame]) [data-threadacts] [data-iconbtn] {
+  width: 24px;
+  height: 24px;
+  color: var(--app-rail-faint);
+}
+:where(.morph-frame, [data-morph-frame]) [data-threadacts] [data-iconbtn][data-on="true"] {
+  color: var(--sec);
+}
+:where(.morph-frame, [data-morph-frame]) [data-empty] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--s3);
+  padding: 34px var(--s6);
+  color: var(--app-dim);
+  font-size: var(--t-ctl);
+}
+:where(.morph-frame, [data-morph-frame]) [data-empty] > [data-tile] {
+  width: 40px;
+  height: 40px;
+  margin-bottom: var(--seam);
+}
+:where(.morph-frame, [data-morph-frame]) [data-empty] > [data-eyebrow] {
+  justify-content: center;
+}
+:where(.morph-frame, [data-morph-frame]) [data-alert] {
+  display: flex;
+  gap: var(--s3);
+  align-items: center;
+  padding: var(--s3) var(--s4);
+  background: var(--sec-soft);
+  border-radius: var(--r-card);
+  font-size: var(--t-ctl);
+  color: var(--app-text);
+  min-width: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-alert] > div {
+  min-width: 0;
+  flex: 1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-offline="true"] [data-composer] {
+  pointer-events: none;
+  filter: saturate(0.35);
+  --app-text: var(--app-dim);
+  --app-faint: var(--app-dim);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-offline="true"] [data-composer] [data-send] {
+  opacity: 0.55;
+}
+:where(.morph-frame, [data-morph-frame]) [data-status] > [data-basis] {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  flex-wrap: wrap;
+  font-size: var(--t-meta);
+  color: var(--app-faint);
+}
+:where(.morph-frame, [data-morph-frame]) [data-status] > [data-basis] b {
+  font-weight: 700;
+  color: var(--app-dim);
+}
+:where(.morph-frame, [data-morph-frame]) [data-digest] > [data-point] > [data-num] {
+  flex: none;
+  color: var(--sec-ink);
+  font-weight: 700;
+}
+:where(.morph-frame, [data-morph-frame]) [data-checkitem] > [data-checkbox] {
+  margin-top: 2px;
+  flex: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-checkitem] [data-meta] {
+  display: block;
+}
+:where(.morph-frame, [data-morph-frame]) [data-draft] > [data-drafthead] [data-meta] {
+  display: block;
+}
+:where(.morph-frame, [data-morph-frame]) [data-tracestep] > [data-num] {
+  flex: none;
+  font-weight: 700;
+  color: var(--sec-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-fileref] > [data-tile] {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--r-xs);
+}
+:where(.morph-frame, [data-morph-frame]) [data-confirm] {
+  --gate: var(--warn);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  min-width: 0;
+  padding: var(--s4) var(--s5);
+  border-radius: var(--r-card);
+  background: var(--app-panel);
+  box-shadow: inset 3px 0 0 var(--gate);
+  font-size: var(--t-ctl);
+  color: var(--app-text);
+  transition: box-shadow var(--d3) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-confirm][data-gate="danger"] {
+  --gate: var(--danger);
+}
+:where(.morph-frame, [data-morph-frame]) [data-confirm][data-state="done"] {
+  --gate: var(--ok);
+}
+:where(.morph-frame, [data-morph-frame]) [data-confirm][data-state="declined"] {
+  --gate: var(--app-faint);
+}
+:where(.morph-frame, [data-morph-frame]) [data-confirm] > h4 {
+  margin: 0;
+  font: 700 var(--t-body)/1.4 var(--font-sans, Arial, Helvetica, sans-serif);
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  min-width: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-confirm] > p {
+  margin: 0;
+  font-size: var(--t-meta);
+  color: var(--app-dim);
+}
+:where(.morph-frame, [data-morph-frame]) [data-confirm] > [data-row] {
+  gap: var(--s2);
+  flex-wrap: wrap;
+}
+:where(.morph-frame, [data-morph-frame]) [data-confirm] > [data-row] > [data-btn] {
+  flex: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-confirm] + [data-confirm] {
+  margin-top: var(--s3);
+}
+:where(.morph-frame, [data-morph-frame]) [data-eyebrow] + [data-confirm] {
+  margin-top: var(--s4);
+}
+:where(.morph-frame, [data-morph-frame]) [data-confirm][data-state="done"] > h4,
+:where(.morph-frame, [data-morph-frame]) [data-confirm][data-state="declined"] > h4 {
+  color: var(--app-dim);
+}
+:where(.morph-frame, [data-morph-frame]) [data-setrow] {
+  display: flex;
+  align-items: center;
+  gap: var(--s5);
+}
+:where(.morph-frame, [data-morph-frame]) [data-setrow] > div:first-child {
+  min-width: 0;
+  flex: 1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-setrow] h4 {
+  margin: 0;
+  font-size: var(--t-title);
+  font-weight: 700;
+}
+:where(.morph-frame, [data-morph-frame]) [data-setrow] p {
+  margin: 0;
+  font-size: var(--t-ctl);
+  color: var(--app-dim);
+}
+:where(.morph-frame, [data-morph-frame]) [data-setrule] {
+  height: 6px;
+  background: transparent;
+}
+:where(.morph-frame, [data-morph-frame]) [data-field] {
+  width: 100%;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: var(--r-ctl);
+  background: var(--app-panel);
+  color: var(--app-text);
+  font-size: var(--t-body);
+  padding: var(--s3) var(--s4);
+  outline: none;
+  font-family: inherit;
+}
+:where(.morph-frame, [data-morph-frame]) textarea[data-field] {
+  border-radius: var(--r-card);
+  padding: var(--s4) var(--s5);
+  resize: vertical;
+}
+:where(.morph-frame, [data-morph-frame]) [data-field]:focus {
+  box-shadow:
+    inset 0 0 0 1px var(--sec-line),
+    0 0 0 4px var(--sec-soft);
+}
+:where(.morph-frame, [data-morph-frame]) [data-field]:disabled {
+  color: var(--app-faint);
+  cursor: not-allowed;
+  opacity: 1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-field]:disabled::placeholder {
+  color: var(--app-faint);
+}
+:where(.morph-frame, [data-morph-frame]) [data-palrow][data-on="true"] {
+  background: var(--app-hover);
+}
+:where(.morph-frame, [data-morph-frame]) [data-composer] {
+  width: 100%;
+  max-width: min(560px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  transition:
+    max-width var(--d5) var(--ease-morph),
+    border-radius var(--d4) var(--ease-morph),
+    background var(--d3) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-composer][data-ready="true"] {
+  max-width: min(780px, 100%);
+}
+:where(.morph-frame, [data-morph-frame]) [data-ta][data-lead="true"] {
+  font-size: var(--t-input-lg);
+  padding: var(--seam) 0 var(--s2);
+}
+:where(.morph-frame, [data-morph-frame]) [data-composer][data-ready="true"] [data-send] {
+  opacity: 1;
+  background: var(--ai) !important;
+  color: var(--on-accent) !important;
+  box-shadow: var(--bloom) !important;
+  transform: scale(1.04);
+}
+:where(.morph-frame, [data-morph-frame]) [data-btn][data-busy="true"],
+:where(.morph-frame, [data-morph-frame]) [data-primary][data-busy="true"] {
+  color: transparent !important;
+  pointer-events: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-spin] {
+  display: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-busy="true"] > [data-spin] {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin: calc(-1 * var(--s2)) 0 0 calc(-1 * var(--s2));
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--on-sec) 45%, transparent);
+  border-top-color: var(--on-sec);
+  animation: shSpin var(--loop-spin) var(--ease-cycle) infinite;
+}
+:where(.morph-frame, [data-morph-frame]) [data-btn][data-busy="true"] > [data-spin] {
+  border-color: color-mix(in srgb, var(--app-text) 35%, transparent);
+  border-top-color: var(--app-text);
+}
+:where(.morph-frame, [data-morph-frame]) [data-field],
+:where(.morph-frame, [data-morph-frame]) [data-searchcap] {
+  --ring: 0px;
+  box-shadow: inset 0 0 0 var(--ring) var(--sec-ink);
+  transition:
+    box-shadow var(--d2) var(--ease-emph),
+    border-radius var(--d3) var(--ease-emph),
+    background var(--d2) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-field]:focus,
+:where(.morph-frame, [data-morph-frame]) [data-searchcap]:focus-within {
+  --ring: 1.5px;
+  border-radius: var(--r-lg);
+}
+:where(.morph-frame, [data-morph-frame]) [data-field][aria-invalid="true"] {
+  --ring: 2px;
+  box-shadow: inset 0 0 0 var(--ring) var(--danger-line);
+  background: var(--danger-soft);
+}
+:where(.morph-frame, [data-morph-frame]) [data-screen] {
+  container-type: size;
+  container-name: screen;
+}
+:where(.morph-frame, [data-morph-frame]) [data-turn] {
+  display: flex;
+  gap: var(--s5);
+  min-width: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-turn="user"] {
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--s2);
+}
+:where(.morph-frame, [data-morph-frame]) [data-turn="user"] > [data-bubble] {
+  max-width: 78%;
+  background: linear-gradient(140deg, var(--ai-strong), var(--ai-deep));
+  color: var(--on-accent);
+  border-radius: var(--r-xl) var(--r-xl) var(--r-sm) var(--r-xl);
+  padding: var(--s4) var(--s5);
+  font-size: var(--t-prose);
+  box-shadow: var(--bloom);
+  text-wrap: pretty;
+  letter-spacing: var(--tk-snug);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="calm"] [data-turn="user"] > [data-bubble] {
+  background: linear-gradient(170deg, var(--ai-strong), var(--ai-deep) 220%);
+  box-shadow: var(--el1);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="flip"] [data-turn="user"] > [data-bubble],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="neutral"] [data-turn="user"] > [data-bubble] {
+  background: var(--app-elev);
+  color: var(--app-text);
+  box-shadow: var(--el1);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="flip"] [data-turn="assistant"] [data-body] > [data-prose] {
+  align-self: flex-start;
+  max-width: 78%;
+  background: linear-gradient(140deg, var(--ai-strong), var(--ai-deep));
+  color: var(--on-accent);
+  border-radius: var(--r-xl) var(--r-xl) var(--r-xl) var(--r-sm);
+  padding: var(--s4) var(--s5);
+  box-shadow: var(--bloom);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame]:not([data-turns="peruser"]) [data-turn][data-sec] {
+  --sec: inherit;
+  --sec-soft: inherit;
+  --sec-line: inherit;
+  --sec-ink: inherit;
+  --sec-fill: inherit;
+  --sec-deep: inherit;
+  --on-sec: inherit;
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="peruser"] [data-turn][data-sec="blue"] {
+  --sec: var(--app-blue);
+  --sec-ink: var(--app-blue-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="peruser"] [data-turn][data-sec="cyan"] {
+  --sec: var(--app-cyan);
+  --sec-ink: var(--app-cyan-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="peruser"] [data-turn][data-sec="green"] {
+  --sec: var(--app-green);
+  --sec-ink: var(--app-green-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="peruser"] [data-turn][data-sec="gold"] {
+  --sec: var(--app-gold);
+  --sec-ink: var(--app-gold-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="peruser"] [data-turn][data-sec] {
+  --sec-soft: color-mix(in oklab, var(--sec) 18%, transparent);
+  --sec-line: color-mix(in oklab, var(--sec) 42%, transparent);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="peruser"] [data-turn="user"] > [data-bubble],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="peruser"] [data-turn="assistant"] [data-body] > [data-prose] {
+  background: color-mix(in oklab, var(--sec) 45%, var(--app-bg));
+  color: var(--app-text);
+  box-shadow: var(--el1);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="peruser"] [data-turn="assistant"] [data-body] > [data-prose] {
+  align-self: flex-start;
+  max-width: 78%;
+  border-radius: var(--r-xl) var(--r-xl) var(--r-xl) var(--r-sm);
+  padding: var(--s4) var(--s5);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="peruser"] [data-turn] > [data-avatar] {
+  background: color-mix(in oklab, var(--sec) 55%, var(--sec-ink));
+  color: var(--app-bg);
+}
+:where(.morph-frame, [data-morph-frame]) [data-turn="assistant"] > [data-avatar] {
+  margin-top: var(--seam);
+}
+:where(.morph-frame, [data-morph-frame]) [data-turn="assistant"] > [data-body] {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s5);
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] {
+  font-size: var(--t-prose);
+  color: var(--app-text);
+  text-wrap: pretty;
+  line-height: 1.55;
+  letter-spacing: var(--tk-snug);
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] > * + * {
+  margin-top: 0.7em;
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] h1,
+:where(.morph-frame, [data-morph-frame]) [data-prose] h2,
+:where(.morph-frame, [data-morph-frame]) [data-prose] h3,
+:where(.morph-frame, [data-morph-frame]) [data-prose] h4 {
+  margin: 1.3em 0 0.5em;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--app-text);
+  letter-spacing: var(--tk-tight);
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] h1 {
+  letter-spacing: var(--tk-display);
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] h1 {
+  font-size: var(--t-h1);
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] h2 {
+  font-size: var(--t-input-lg);
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] h3 {
+  font-size: var(--t-input);
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] h4 {
+  font-size: var(--t-lead);
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] :is(h1, h2, h3, h4):first-child {
+  margin-top: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] :is(ul, ol) {
+  margin: 0.6em 0;
+  padding-inline-start: 1.35em;
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] li + li {
+  margin-top: 0.3em;
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] li::marker {
+  color: var(--app-faint);
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] blockquote {
+  margin: 0.8em 0;
+  padding-inline-start: var(--s4);
+  border-inline-start: 2px solid var(--sec-line);
+  color: var(--app-dim);
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] hr {
+  margin: 1.1em 0;
+  height: 1px;
+  border: 0;
+  background: var(--app-line-soft);
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] a {
+  color: var(--sec-ink);
+  text-underline-offset: 2px;
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] strong {
+  font-weight: 700;
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--t-ctl);
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] :is(th, td) {
+  padding: var(--s2) var(--s3);
+  text-align: start;
+}
+:where(.morph-frame, [data-morph-frame]) [data-prose] th {
+  background: var(--sec-soft);
+  color: var(--sec-ink);
+  font-weight: 700;
+}
+:where(.morph-frame, [data-morph-frame]) [data-table] {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--t-ctl);
+  color: var(--app-text);
+}
+:where(.morph-frame, [data-morph-frame]) [data-table] :is(th, td) {
+  padding: var(--s3) var(--s4);
+  text-align: start;
+  vertical-align: middle;
+}
+:where(.morph-frame, [data-morph-frame]) [data-table] thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--sec-soft);
+  color: var(--sec-ink);
+  font-weight: 700;
+  font-size: var(--t-meta);
+  letter-spacing: var(--tk-caps);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+:where(.morph-frame, [data-morph-frame]) [data-table] thead th:first-child {
+  border-start-start-radius: var(--r-sm);
+}
+:where(.morph-frame, [data-morph-frame]) [data-table] thead th:last-child {
+  border-start-end-radius: var(--r-sm);
+}
+:where(.morph-frame, [data-morph-frame]) [data-table] tbody tr:nth-child(even) td {
+  background: var(--app-hover);
+}
+:where(.morph-frame, [data-morph-frame]) [data-table] td[data-num],
+:where(.morph-frame, [data-morph-frame]) [data-table] th[data-num] {
+  text-align: end;
+  font-family: var(--app-mono);
+  font-variant-numeric: tabular-nums;
+}
+:where(.morph-frame, [data-morph-frame]) [data-table] th[aria-sort] button {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+}
+:where(.morph-frame, [data-morph-frame]) [data-table] th[aria-sort] button::after {
+  content: "↕";
+  opacity: 0.5;
+}
+:where(.morph-frame, [data-morph-frame]) [data-table] th[aria-sort] button:hover::after {
+  opacity: 1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-table] th[aria-sort="ascending"] button::after {
+  content: "↑";
+  opacity: 1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-table] th[aria-sort="descending"] button::after {
+  content: "↓";
+  opacity: 1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-table] tbody tr[aria-selected="true"] td {
+  background: var(--sec-soft);
+}
+:where(.morph-frame, [data-morph-frame]) [data-tree] {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-tabstrip] {
+  display: flex;
+  gap: var(--seam);
+  position: relative;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-tabstrip]::-webkit-scrollbar {
+  display: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-tab] {
+  flex: none;
+  height: 38px;
+  padding: 0 var(--s5);
+  border: 0;
+  background: transparent;
+  color: var(--app-dim);
+  cursor: pointer;
+  font: 700 var(--t-ctl)/1 var(--app-mono);
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
+  position: relative;
+  isolation: isolate;
+  transition: color var(--d2) var(--ease-fx);
+}
+:where(.morph-frame, [data-morph-frame]) [data-tab][aria-selected="true"] {
+  color: var(--sec-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-tabstrip] [data-tab][aria-selected="true"] {
+  box-shadow: inset 0 -2px 0 var(--sec);
+}
+:where(.morph-frame, [data-morph-frame]) [data-typing] {
+  display: flex;
+  gap: var(--s1);
+  align-items: center;
+}
+:where(.morph-frame, [data-morph-frame]) [data-typing] > i {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ai);
+  animation: shDot var(--loop-dot) var(--ease-swell) infinite;
+}
+:where(.morph-frame, [data-morph-frame]) [data-typing] > i:nth-child(2) {
+  animation-delay: var(--loop-dot-lag);
+}
+:where(.morph-frame, [data-morph-frame]) [data-typing] > i:nth-child(3) {
+  animation-delay: calc(var(--loop-dot-lag) * 2);
+}
+:where(.morph-frame, [data-morph-frame]) [data-card][data-tone] {
+  background: var(--sec-soft);
+}
+:where(.morph-frame, [data-morph-frame]) [data-sw] {
+  display: inline-block;
+  flex: none;
+  width: 38px;
+  height: 22px;
+  border-radius: var(--r-pill);
+  position: relative;
+  background: var(--app-track);
+  box-sizing: border-box;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  appearance: none;
+  cursor: pointer;
+  transition: background var(--d3) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-sw]::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--knob);
+  box-shadow: var(--el1);
+  transition:
+    transform var(--d3) var(--ease-spring),
+    background var(--d3) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-sw][data-on="true"] {
+  background: var(--sec-fill, var(--sec)) !important;
+}
+:where(.morph-frame, [data-morph-frame]) [data-sw][data-on="true"]::after {
+  transform: translateX(16px);
+  background: var(--on-accent);
+}
+:where(.morph-frame, [data-morph-frame]) [data-radial][data-size="sm"] {
+  --sz: 26px;
+  --ring: 3px;
+  --gp: 8deg;
+}
+:where(.morph-frame, [data-morph-frame]) [data-gauge] {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--t-num);
+  color: var(--app-rail-dim);
+}
+:where(.morph-frame, [data-morph-frame]) [data-gauge] u {
+  display: block;
+  flex: 1;
+  min-width: 34px;
+  height: 4px;
+  border-radius: var(--r-pill);
+  background: var(--app-track);
+  overflow: hidden;
+  text-decoration: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-gauge] u i {
+  display: block;
+  height: 100%;
+  border-radius: var(--r-pill);
+  background: var(--sec);
+  animation: shBar var(--d4) var(--ease-soft) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-swap="title"] {
+  view-transition-name: swap-title;
+}
+:where(.morph-frame, [data-morph-frame]) [data-swap="sub"] {
+  view-transition-name: swap-sub;
+}
+:where(.morph-frame, [data-morph-frame]) [data-enter] {
+  animation: shRise var(--d4) var(--ease-soft) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-enter="2"] {
+  animation-delay: calc(var(--stagger) * 1);
+}
+:where(.morph-frame, [data-morph-frame]) [data-enter="3"] {
+  animation-delay: calc(var(--stagger) * 2);
+}
+:where(.morph-frame, [data-morph-frame]) [data-stagger] > * {
+  animation: shRise var(--d4) var(--ease-soft) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-stagger] > *:nth-child(1) {
+  animation-delay: calc(var(--stagger-in) + var(--stagger-sm) * 0);
+}
+:where(.morph-frame, [data-morph-frame]) [data-stagger] > *:nth-child(2) {
+  animation-delay: calc(var(--stagger-in) + var(--stagger-sm) * 1);
+}
+:where(.morph-frame, [data-morph-frame]) [data-stagger] > *:nth-child(3) {
+  animation-delay: calc(var(--stagger-in) + var(--stagger-sm) * 2);
+}
+:where(.morph-frame, [data-morph-frame]) [data-stagger] > *:nth-child(4) {
+  animation-delay: calc(var(--stagger-in) + var(--stagger-sm) * 3);
+}
+:where(.morph-frame, [data-morph-frame]) [data-stagger] > *:nth-child(5) {
+  animation-delay: calc(var(--stagger-in) + var(--stagger-sm) * 4);
+}
+:where(.morph-frame, [data-morph-frame]) [data-stagger] > *:nth-child(6) {
+  animation-delay: calc(var(--stagger-in) + var(--stagger-sm) * 5);
+}
+:where(.morph-frame, [data-morph-frame]) [data-stagger] > *:nth-child(7) {
+  animation-delay: calc(var(--stagger-in) + var(--stagger-sm) * 6);
+}
+:where(.morph-frame, [data-morph-frame]) [data-stagger] > *:nth-child(8) {
+  animation-delay: calc(var(--stagger-in) + var(--stagger-sm) * 7);
+}
+:where(.morph-frame, [data-morph-frame]) [data-live]:not([data-live="false"]) {
+  position: relative;
+}
+:where(.morph-frame, [data-morph-frame]) [data-live]:not([data-live="false"])::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: currentColor;
+  animation: shPulse var(--loop-pulse) var(--ease-out) infinite;
+  will-change: transform, opacity;
+}
+:where(.morph-frame, [data-morph-frame]) [data-sheen] {
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--sheen-ink),
+    transparent
+  );
+  width: 44%;
+  animation: shSheen var(--loop-sheen) var(--ease-swell) infinite;
+  pointer-events: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-ring]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1.5px solid var(--sec);
+  animation: shRing var(--loop-ring) var(--ease-out) infinite;
+}
+:where(.morph-frame, [data-morph-frame]) [data-chip] {
+  transition:
+    background-color var(--d1) var(--ease-fx),
+    color var(--d1) var(--ease-fx),
+    border-color var(--d1) var(--ease-fx),
+    box-shadow var(--d3) var(--ease-emph),
+    transform var(--d3) var(--ease-soft),
+    opacity var(--d2) var(--ease-emph),
+    border-radius var(--d2) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-btn]:active,
+:where(.morph-frame, [data-morph-frame]) [data-iconbtn]:active,
+:where(.morph-frame, [data-morph-frame]) [data-chip]:active,
+:where(.morph-frame, [data-morph-frame]) [data-segbtn]:active,
+:where(.morph-frame, [data-morph-frame]) [data-railitem]:active,
+:where(.morph-frame, [data-morph-frame]) [data-primary]:active,
+:where(.morph-frame, [data-morph-frame]) [data-dockitem]:active {
+  border-radius: var(--r-md);
+}
+:where(.morph-frame, [data-morph-frame]) [data-chip][data-on="true"],
+:where(.morph-frame, [data-morph-frame]) [data-chip][data-solid],
+:where(.morph-frame, [data-morph-frame]) [data-segbtn][data-on="true"],
+:where(.morph-frame, [data-morph-frame]) [data-railitem][data-on="true"] {
+  border-radius: var(--r-lg);
+}
+:where(.morph-frame, [data-morph-frame]) [data-btn]:active::after,
+:where(.morph-frame, [data-morph-frame]) [data-iconbtn]:active::after,
+:where(.morph-frame, [data-morph-frame]) [data-chip]:active::after {
+  inset: -12px;
+}
+:where(.morph-frame, [data-morph-frame]) [data-focusring] {
+  transition:
+    border-color var(--d2) var(--ease-fx),
+    box-shadow var(--d3) var(--ease-emph),
+    transform var(--d3) var(--ease-soft);
+}
+:where(.morph-frame, [data-morph-frame]) [data-focusring]:focus-within {
+  box-shadow: 0 0 0 4px var(--sec-soft) !important;
+}
+:where(.morph-frame, [data-morph-frame]) [data-tabstrip]::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-focusring] :focus-visible {
+  outline: none;
+}
+@media (forced-colors: active) {
+:where(.morph-frame, [data-morph-frame]) [data-frame] {
+    --pane-wash-a: transparent;
+    --pane-wash-b: transparent;
+    --sheen-ink: transparent;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-sheen] {
+    display: none;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-dockitem][data-on="true"],
+:where(.morph-frame, [data-morph-frame]) [data-ind] {
+    outline: 2px solid SelectedItem;
+    outline-offset: -2px;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-segbtn][data-on="true"] {
+    outline: 2px solid SelectedItem;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-sw] {
+    outline: 1px solid ButtonBorder;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-sw][data-on="true"] {
+    outline: 2px solid SelectedItem;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-rows] > div {
+    outline: 1px solid ButtonBorder;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-field]:focus,
+:where(.morph-frame, [data-morph-frame]) [data-focusring]:focus-within,
+:where(.morph-frame, [data-morph-frame]) [data-searchcap]:focus-within,
+:where(.morph-frame, [data-morph-frame]) [data-slider]:focus-visible {
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px;
+  }
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot] {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot] > .sc-host {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot="pane"] {
+  flex: 1 1 0;
+  min-height: 0;
+  container-type: inline-size;
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot="pane"] > .sc-host {
+  flex: 1 1 0;
+  min-height: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot="edge"] > .sc-host {
+  flex: 1 1 0;
+  min-height: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot="dock"] > .sc-host {
+  flex: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot="inline"] {
+  container-type: inline-size;
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot="float"] {
+  position: fixed;
+  right: calc(var(--c-right) + var(--gap) * 2);
+  bottom: calc(var(--gap) * 3);
+  z-index: 60;
+  width: min(
+    460px,
+    calc(100vw - var(--c-dock) - var(--c-right) - var(--gap) * 6)
+  );
+  background: var(--app-bg);
+  border-radius: var(--r-pane);
+  box-shadow: var(--el5);
+  overflow: hidden;
+  container-type: inline-size;
+  transition: right var(--d5) var(--ease-morph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot="float"] > .sc-host {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot="float"] {
+  view-transition-name: widget;
+}
+:where(.morph-frame, [data-morph-frame]) [data-slot="inline"] > .sc-host {
+  animation: shRise var(--d4) var(--ease-soft) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-screen] {
+  flex: 1;
+  min-height: 0;
+  animation: shRise var(--d4) var(--ease-soft) both;
+}
+:where(.morph-frame, [data-morph-frame]) [data-subrail] {
+  position: relative;
+  flex: none;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  border: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-sheet] [data-subrail] {
+  background: var(--frame);
+  border-start-start-radius: inherit;
+  border-end-start-radius: inherit;
+}
+:where(.morph-frame, [data-morph-frame]) [data-sheet] [data-subrail] {
+  --app-text: var(--app-rail-text);
+  --app-dim: var(--app-rail-dim);
+  --app-faint: var(--app-rail-faint);
+  color: var(--app-rail-text);
+}
+:where(.morph-frame, [data-morph-frame]) [data-railitem] {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  width: 100%;
+  height: 34px;
+  padding: 0 var(--s4);
+  box-sizing: border-box;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--app-dim);
+  font: 700 var(--t-ctl)/1 var(--app-mono);
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  transition:
+    background var(--d3) var(--ease-emph),
+    color var(--d2) var(--ease-fx),
+    box-shadow var(--d3) var(--ease-emph),
+    padding var(--d4) var(--ease-morph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-railitem] > svg,
+:where(.morph-frame, [data-morph-frame]) [data-railitem] > span {
+  flex: none;
+  transition: transform var(--d3) var(--ease-fx);
+}
+:where(.morph-frame, [data-morph-frame]) [data-railitem]:hover {
+  color: var(--app-text);
+  padding-left: var(--s5);
+}
+:where(.morph-frame, [data-morph-frame]) [data-railitem]:hover > svg {
+  transform: scale(1.12);
+}
+:where(.morph-frame, [data-morph-frame]) [data-railitem][data-on="true"] {
+  color: var(--sec-ink);
+  background: var(--sec-soft);
+}
+:where(.morph-frame, [data-morph-frame]) [data-railitem][data-on="true"] > svg {
+  color: var(--sec);
+}
+:where(.morph-frame, [data-morph-frame]) [data-toolrail] {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  min-width: 0;
+  height: var(--h-bar);
+  padding: 0 var(--s4);
+  box-sizing: border-box;
+  background: transparent;
+  border: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-toolrail] > * {
+  flex: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-searchcap] {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 300px;
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  height: 34px;
+  padding: 0 var(--s4);
+  box-sizing: border-box;
+  border-radius: var(--r-pill);
+  background: var(--app-hover);
+  transition:
+    max-width var(--d5) var(--ease-morph),
+    background var(--d3) var(--ease-emph),
+    box-shadow var(--d3) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-searchcap]:focus-within {
+  max-width: 440px;
+  background: var(--app-elev);
+  box-shadow: inset 0 0 0 1px var(--sec-line);
+}
+:where(.morph-frame, [data-morph-frame]) [data-tag] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: var(--seam) var(--s3);
+  border-radius: var(--r-pill);
+  background: var(--app-hover);
+  color: var(--app-dim);
+  font-size: var(--t-eyebrow);
+  font-weight: 700;
+  letter-spacing: var(--tk-caps);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+:where(.morph-frame, [data-morph-frame]) [data-tag][data-on="true"],
+:where(.morph-frame, [data-morph-frame]) [data-tag][data-solid] {
+  background: var(--sec-soft);
+  color: var(--sec-ink);
+}
+:where(.morph-frame, [data-morph-frame]) button[data-tag] {
+  transition:
+    background var(--d3) var(--ease-emph),
+    color var(--d2) var(--ease-fx);
+}
+:where(.morph-frame, [data-morph-frame]) button[data-tag]:hover {
+  background: var(--sec-soft);
+  color: var(--sec-ink);
+}
+:where(.morph-frame, [data-morph-frame]) button[data-tag]:active {
+  opacity: 0.75;
+}
+:where(.morph-frame, [data-morph-frame]) [data-primary] {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  height: 34px;
+  padding: 0 var(--s5);
+  flex: none;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: linear-gradient(135deg, var(--ai-strong), var(--ai-deep));
+  color: var(--on-accent);
+  font-size: var(--t-ctl);
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow:
+    var(--bloom),
+    inset 0 1px 0 var(--hi);
+}
+:where(.morph-frame, [data-morph-frame]) [data-primary]:hover {
+  box-shadow:
+    var(--bloom-lg),
+    inset 0 1px 0 var(--hi);
+}
+:where(.morph-frame, [data-morph-frame]) [data-dockitem][data-primary] {
+  display: grid;
+  gap: 0;
+  padding: 0;
+  height: 44px;
+  box-shadow:
+    var(--bloom),
+    inset 0 1px 0 var(--hi);
+}
+:where(.morph-frame, [data-morph-frame]) [data-dockitem][data-primary]:hover {
+  transform: none;
+  box-shadow:
+    var(--bloom-lg),
+    inset 0 1px 0 var(--hi);
+}
+:where(.morph-frame, [data-morph-frame]) [data-pages] > [data-meta] {
+  margin-inline: var(--s2);
+}
+:where(.morph-frame, [data-morph-frame]) [data-diff] > [data-codehead] {
+  background: var(--code-head);
+}
+:where(.morph-frame, [data-morph-frame]) [data-media] {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin: 0;
+  border-radius: var(--r-card);
+  overflow: hidden;
+  background: var(--app-panel);
+}
+:where(.morph-frame, [data-morph-frame]) [data-media] > [data-stage] {
+  display: grid;
+  place-items: center;
+  min-height: 180px;
+  background: var(--app-code);
+  overflow: hidden;
+  color: var(--code-dim);
+}
+:where(.morph-frame, [data-morph-frame]) [data-media] > [data-stage]:has([data-table]) {
+  background: var(--app-panel);
+  color: var(--app-text);
+  place-items: stretch;
+}
+:where(.morph-frame, [data-morph-frame]) [data-media] > [data-stage] > [data-code] {
+  width: 100%;
+  border-radius: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-media] > [data-stage] > :is(img, video, svg, canvas) {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+:where(.morph-frame, [data-morph-frame]) [data-media] > figcaption {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s3) var(--s5);
+  font-size: var(--t-meta);
+  color: var(--app-dim);
+  min-width: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-media] > figcaption > [data-title] {
+  color: var(--app-text);
+}
+:where(.morph-frame, [data-morph-frame]) [data-media] > [data-toolrail] {
+  height: auto;
+  padding: var(--s2) var(--s2);
+  gap: var(--s1);
+}
+:where(.morph-frame, [data-morph-frame]) [data-stepper] {
+  display: flex;
+  align-items: flex-start;
+  min-width: 0;
+  counter-reset: step;
+}
+:where(.morph-frame, [data-morph-frame]) [data-step] {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s2);
+  text-align: center;
+  position: relative;
+  font-size: var(--t-meta);
+  font-weight: 600;
+  color: var(--app-faint);
+  counter-increment: step;
+}
+:where(.morph-frame, [data-morph-frame]) [data-step]::before {
+  content: counter(step);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  position: relative;
+  z-index: 1;
+  background: var(--app-track);
+  color: var(--app-dim);
+  font: 700 var(--t-num)/1 var(--app-mono);
+  transition:
+    background var(--d3) var(--ease-emph),
+    color var(--d3) var(--ease-emph);
+}
+:where(.morph-frame, [data-morph-frame]) [data-step]::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  right: -50%;
+  height: 2px;
+  background: var(--app-track);
+}
+:where(.morph-frame, [data-morph-frame]) [data-step]:last-child::after {
+  display: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-step][data-done="true"]::before {
+  content: "✓";
+  background: var(--sec-fill, var(--sec));
+  color: var(--on-sec);
+}
+:where(.morph-frame, [data-morph-frame]) [data-step][data-done="true"]::after {
+  background: var(--sec-fill, var(--sec));
+}
+:where(.morph-frame, [data-morph-frame]) [data-step][aria-current="step"] {
+  color: var(--app-text);
+}
+:where(.morph-frame, [data-morph-frame]) [data-step][aria-current="step"]::before {
+  background: var(--sec-fill, var(--sec));
+  color: var(--on-sec);
+}
+:where(.morph-frame, [data-morph-frame]) [data-step][data-tone="danger"] {
+  color: var(--danger-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-step][data-tone="danger"]::before {
+  content: "!";
+  background: var(--danger-soft);
+  color: var(--danger-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-step][data-tone="warn"] {
+  color: var(--warn-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-step][data-tone="warn"]::before {
+  content: "!";
+  background: var(--warn-soft);
+  color: var(--warn-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-stepper][data-flow="down"] {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--s4);
+}
+:where(.morph-frame, [data-morph-frame]) [data-stepper][data-flow="down"] [data-step] {
+  flex: none;
+  flex-direction: row;
+  align-items: flex-start;
+  text-align: start;
+  gap: var(--s4);
+  font-size: var(--t-ctl);
+  font-weight: 400;
+  color: var(--app-text);
+}
+:where(.morph-frame, [data-morph-frame]) [data-stepper][data-flow="down"] [data-step]::before {
+  flex: none;
+  margin-top: -1px;
+}
+:where(.morph-frame, [data-morph-frame]) [data-stepper][data-flow="down"] [data-step]::after {
+  top: 26px;
+  bottom: calc(-1 * var(--s4));
+  left: 13px;
+  right: auto;
+  width: 2px;
+  height: auto;
+}
+:where(.morph-frame, [data-morph-frame]) [data-stepper][data-flow="down"] [data-step] > div {
+  min-width: 0;
+  flex: 1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-stepper][data-flow="down"] [data-step] [data-title] {
+  display: block;
+  font-weight: 700;
+}
+:where(.morph-frame, [data-morph-frame]) [data-stepper][data-flow="down"] [data-step] [data-meta] {
+  display: block;
+}
+:where(.morph-frame, [data-morph-frame]) [data-combobox] {
+  position: relative;
+  min-width: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-combobox] > [data-field] {
+  padding-inline-end: 38px;
+}
+:where(.morph-frame, [data-morph-frame]) [data-combobox] > [data-iconbtn] {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  translate: 0 -50%;
+  color: var(--app-faint);
+}
+:where(.morph-frame, [data-morph-frame]) [data-combobox] > [data-pop] {
+  width: anchor-size(width);
+  min-width: 0;
+  max-width: none;
+  left: anchor(left);
+  margin-top: var(--s2);
+}
+:where(.morph-frame, [data-morph-frame]) [data-menuitem][aria-selected="true"] {
+  background: var(--sec-soft);
+  color: var(--sec-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-setrow] > [data-combobox] {
+  flex: 0 1 280px;
+  margin-inline-start: auto;
+}
+:where(.morph-frame, [data-morph-frame]) [data-combobox] > [data-pop] {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: var(--s2);
+}
+:where(.morph-frame, [data-morph-frame]) [data-tags] > [data-chip] {
+  padding-inline-end: var(--s1);
+  gap: var(--s1);
+}
+:where(.morph-frame, [data-morph-frame]) [data-tags] [data-chip] > [data-iconbtn] {
+  width: 18px;
+  height: 18px;
+  color: inherit;
+  border-radius: 50%;
+}
+:where(.morph-frame, [data-morph-frame]) [data-field]:is(
+  [type="date"],
+  [type="time"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="week"]
+) {
+  color-scheme: dark;
+  font-family: var(--app-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--t-ctl);
+}
+:where(.morph-frame, [data-morph-frame]) [data-theme="light"]
+  [data-field]:is(
+    [type="date"],
+    [type="time"],
+    [type="datetime-local"],
+    [type="month"],
+    [type="week"]
+  ) {
+  color-scheme: light;
+}
+:where(.morph-frame, [data-morph-frame]) [data-field]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity var(--d2) var(--ease-fx);
+}
+:where(.morph-frame, [data-morph-frame]) [data-field]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-reorder] > [data-chip] {
+  gap: var(--s1);
+  padding-inline-start: var(--s1);
+  cursor: default;
+}
+:where(.morph-frame, [data-morph-frame]) [data-reorder] > [data-dragging="true"] {
+  background: var(--app-elev);
+  box-shadow: var(--el3);
+  position: relative;
+  z-index: 2;
+}
+:where(.morph-frame, [data-morph-frame]) [data-reorder] > [data-over="true"] {
+  background: var(--sec-soft);
+}
+:where(.morph-frame, [data-morph-frame]) [data-resizer][data-dragging="true"]::before {
+  opacity: 1;
+  background: var(--sec);
+  height: 64px;
+}
+:where(.morph-frame, [data-morph-frame]) [data-inner] > [data-resizer] {
+  display: none;
+  min-height: 0;
+}
+:where(.morph-frame, [data-morph-frame]) [data-inner][data-split="true"] > [data-resizer] {
+  display: block;
+}
+:where(.morph-frame, [data-morph-frame]) [data-inner][data-dragging="true"],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-resizing="true"] {
+  transition: none;
+}
+@media (max-width: 1100px) and (min-width: 721px) {
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-left="true"],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-left="wide"] {
+    --c-left: 0px;
+    --dest-left: 0px;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-right="true"] {
+    --c-right: var(--edge-w);
+    --dest-right: var(--edge-w);
+  }
+:where(.morph-frame, [data-morph-frame]) [data-frame] > [data-leftzone]:has([data-slot="left"]),
+:where(.morph-frame, [data-morph-frame]) [data-frame] > [data-edgezone] {
+    position: fixed;
+    top: var(--gap);
+    bottom: var(--gap);
+    left: calc(var(--dest-dock) + var(--dest-rooms));
+    right: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-frame] > [data-leftzone]:has([data-slot="left"]) {
+    z-index: 9;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-frame] > [data-edgezone] {
+    z-index: 8;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-left="true"]
+    > [data-leftzone]:has([data-slot="left"])
+    > [data-scrimhit],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-left="wide"]
+    > [data-leftzone]:has([data-slot="left"])
+    > [data-scrimhit],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-right="true"] > [data-edgezone] > [data-scrimhit] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-leftpanel][data-slot="left"] {
+    background: var(--frame);
+    box-shadow: var(--el3);
+    border-radius: 0 var(--r-pane) var(--r-pane) 0;
+  }
+}
+@media (max-width: 720px) {
+:where(.morph-frame, [data-morph-frame]) [data-frame] {
+    --fold-bar: 56px;
+    --hole-shift: 0px;
+    --dock-inner: 44px;
+    /* --fold-peek is the strip of scrim a folded sheet must leave tappable,
+       and --fold-sheet is the width that follows from it (ADR-0074, T-691).
+       min(100%,420px) had gone full-bleed below 420: measured at 390x844 the
+       panel was x=0 w=390 and the exposed scrim was 0px, so the tap the scrim
+       exists to receive landed on the sheet instead and the surface could not
+       be pushed back the way it came (ADR-0044). At 640 it still resolves to
+       420 with 220px of scrim beside it — nothing above 464 moves at all. */
+    --fold-peek: 44px;
+    --fold-sheet: min(100% - var(--fold-peek), 420px);
+    /* the notch and the home indicator are the window's real edges on a phone
+       (T-703). The bar grows by the bottom inset rather than being pushed up
+       by it, so the row the grid reserves and the bar's own height stay the
+       same number and the conversation never sits under the indicator. */
+    --fold-safe-b: env(safe-area-inset-bottom, 0px);
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) calc(
+        var(--fold-bar) + var(--fold-safe-b)
+      );
+    padding: calc(var(--gap) + env(safe-area-inset-top, 0px))
+      calc(var(--gap) + env(safe-area-inset-right, 0px)) 0
+      calc(var(--gap) + env(safe-area-inset-left, 0px));
+    gap: 0;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-frame],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-rooms="true"],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-left="true"],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-left="wide"],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-right="true"],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-pinned="true"] {
+    --c-dock: 0px;
+    --c-rooms: 0px;
+    --c-left: 0px;
+    --c-right: 0px;
+    --dest-dock: 0px;
+    --dest-rooms: 0px;
+    --dest-left: 0px;
+    --dest-right: 0px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+:where(.morph-frame, [data-morph-frame]) [data-slot="pane"] {
+    --dest-w: calc(100vw - var(--gap) * 2);
+  }
+:where(.morph-frame, [data-morph-frame]) [data-frame] [data-inner] {
+    grid-row: 1;
+    grid-column: 1;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-frame] [data-dockzone] {
+    grid-row: 2;
+    grid-column: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: calc(var(--fold-bar) + var(--fold-safe-b));
+    padding: 0 var(--s1) var(--fold-safe-b);
+    overflow: visible;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-dockzone] > div:first-child {
+    display: none !important;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-dockzone] [data-dockscroll] {
+    display: none !important;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-dockzone] [data-navgroup] {
+    flex-direction: row !important;
+    flex: 1 1 auto !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: none;
+    border-radius: 0;
+    justify-content: space-around;
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-dockzone] [data-navgroup]::-webkit-scrollbar {
+    display: none;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-dockzone] [data-ind] {
+    display: none;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-dockzone] [data-dockitem],
+:where(.morph-frame, [data-morph-frame]) [data-dockzone]:hover [data-dockitem],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-pinned="true"] [data-dockitem] {
+    width: var(--dock-inner);
+    grid-template-columns: var(--dock-inner);
+  }
+:where(.morph-frame, [data-morph-frame]) [data-dockitem] > span[data-lb] {
+    display: none !important;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-dockitem][data-on="true"] {
+    background: var(--sec-soft);
+    box-shadow: none;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-dockzone] > div {
+    flex-direction: row !important;
+    border-top: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-fold="shed"] {
+    display: none !important;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-frame] > [data-leftzone],
+:where(.morph-frame, [data-morph-frame]) [data-frame] > [data-leftzone]:has([data-slot="left"]),
+:where(.morph-frame, [data-morph-frame]) [data-frame] > [data-edgezone],
+:where(.morph-frame, [data-morph-frame]) [data-frame] [data-leftzone],
+:where(.morph-frame, [data-morph-frame]) [data-frame] [data-edgezone] {
+    position: fixed;
+    top: 0;
+    bottom: calc(var(--fold-bar) + var(--fold-safe-b));
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 8;
+    grid-column: 1;
+    grid-row: 1;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-frame] > [data-leftzone]:has([data-slot="left"]) {
+    z-index: 9;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-rooms="true"]
+    > [data-leftzone]:not(:has([data-slot="left"]))
+    > [data-scrimhit],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-left="true"]
+    > [data-leftzone]:has([data-slot="left"])
+    > [data-scrimhit],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-left="wide"]
+    > [data-leftzone]:has([data-slot="left"])
+    > [data-scrimhit],
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-right="true"] > [data-edgezone] > [data-scrimhit] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-leftpanel],
+:where(.morph-frame, [data-morph-frame]) [data-frame] [data-leftpanel][data-slot] {
+    width: var(--fold-sheet);
+    background: var(--frame);
+    box-shadow: var(--el3);
+  }
+:where(.morph-frame, [data-morph-frame]) [data-leftpanel] {
+    border-radius: 0 var(--r-pane) var(--r-pane) 0;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-inner][data-split="true"] {
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-inner] > [data-pane][data-second] {
+    display: none;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-osd] {
+    top: calc(56px + env(safe-area-inset-top, 0px));
+    bottom: auto;
+    border-radius: 0 0 var(--r-lg) var(--r-lg);
+    animation: shDrawerDownIn var(--d5) var(--ease-morph) both;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-panehead] [data-iconbtn],
+:where(.morph-frame, [data-morph-frame]) [data-panehead] [data-hb],
+:where(.morph-frame, [data-morph-frame]) [data-leftpanel] [data-iconbtn],
+:where(.morph-frame, [data-morph-frame]) [data-leftpanel] [data-btn],
+:where(.morph-frame, [data-morph-frame]) [data-searchcap],
+:where(.morph-frame, [data-morph-frame]) [data-searchcap] input,
+:where(.morph-frame, [data-morph-frame]) [data-searchcap] ~ button[data-iconbtn],
+:where(.morph-frame, [data-morph-frame]) [data-composermode] [data-iconbtn] {
+    min-width: 44px;
+    min-height: 44px;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-searchcap] {
+    height: 44px !important;
+    min-height: 44px !important;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-searchcap] ~ button[data-iconbtn] {
+    width: 44px !important;
+    height: 44px !important;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-threadrow] > button:first-child {
+    min-height: 44px;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-composer] {
+    max-width: 100% !important;
+    padding: var(--s1) var(--s2) !important;
+  }
+:where(.morph-frame, [data-morph-frame]) [data-osd][data-leaving="true"] {
+    animation: shDrawerDownOut var(--d4) var(--ease-morph) both;
+  }
+}
+:where(.morph-frame, [data-morph-frame]) [data-fill] {
+  min-width: 0;
+  flex: 1;
+}
+:where(.morph-frame, [data-morph-frame]) [data-push] {
+  margin-left: auto;
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="flat"] [data-turn="user"] {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--s5);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="flat"] [data-turn="user"] > [data-avatar] {
+  margin-top: var(--seam);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="flat"] [data-turn="user"] > [data-body] {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s5);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="flat"] [data-msgmeta] > [data-num] {
+  display: none;
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="flat"] [data-body] > div:first-child [data-num] {
+  font-family: var(--app-mono);
+  font-size: var(--t-caption);
+  color: var(--app-dim);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="flat"] [data-turn] > [data-avatar] {
+  background: color-mix(in oklab, var(--sec) 55%, var(--sec-ink));
+  color: var(--app-bg);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="flat"] [data-turn] [data-sendername] {
+  color: var(--sec-ink);
+}
+:where(.morph-frame, [data-morph-frame]) [data-frame][data-turns="flat"] [data-turn] [data-body] > [data-prose] {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
