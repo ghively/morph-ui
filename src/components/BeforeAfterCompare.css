@@ -72,14 +72,14 @@
   left: 50%;
   width: 2px;
   margin-left: -1px;
-  background: white;
+  background: var(--morph-handle);
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 }
 
 .before-after-compare-handle-button {
   width: 32px;
   height: 32px;
-  background: white;
+  background: var(--morph-handle);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -87,7 +87,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   position: relative;
   z-index: 2;
-  color: #333; /* Dark icon */
+  color: var(--morph-handle-ink);
 }
 
 .before-after-compare-handle-button svg {

@@ -38,7 +38,7 @@
 }
 
 [data-keys] kbd {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--app-mono);
   font-size: var(--t-meta);
   font-weight: 600;
   padding: 3px 7px;

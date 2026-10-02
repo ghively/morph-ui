@@ -23,27 +23,6 @@
   align-items: flex-start;
 }
 
-.initials-avatar {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--app-panel);
-  color: var(--app-text);
-  border-radius: 50%;
-  font-weight: 600;
-  flex-shrink: 0;
-}
-.initials-avatar-md {
-  width: 32px;
-  height: 32px;
-  font-size: var(--t-ctl);
-}
-.initials-avatar-sm {
-  width: 20px;
-  height: 20px;
-  font-size: var(--t-meta);
-}
-
 img.avatar {
   width: 32px;
   height: 32px;
@@ -255,7 +234,7 @@ img.avatar {
   display: flex;
   align-items: center;
 }
-[data-receipts] .initials-avatar {
+[data-receipts] [data-avatar] {
   margin-left: -4px;
   border: 1px solid var(--app-bg);
 }

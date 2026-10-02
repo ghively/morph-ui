@@ -19,7 +19,7 @@
   display: inline-block;
   transform-origin: center bottom;
   animation: text-ripple-wave var(--ripple-duration, 0.6s) var(--ease-morph) forwards;
-  animation-delay: calc(var(--char-index) * var(--ripple-stagger, 0.05s));
+  animation-delay: calc(var(--char-index, 0) * var(--ripple-stagger, 0.05s));
   will-change: transform, color;
 }
 

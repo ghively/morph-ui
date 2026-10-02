@@ -5,7 +5,7 @@
   pointer-events: none;
   z-index: 9999;
   background: var(--app-elev);
-  color: #fff;
+  color: var(--app-text);
   padding: var(--s2) var(--s3);
   border-radius: var(--r-md);
   font-family: var(--font-sans);

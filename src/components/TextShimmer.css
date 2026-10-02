@@ -3,9 +3,9 @@
   color: transparent;
   background-image: linear-gradient(
     var(--shimmer-angle, 60deg),
-    var(--shimmer-color) 20%,
-    var(--shimmer-highlight) 50%,
-    var(--shimmer-color) 80%
+    var(--shimmer-color, var(--app-dim)) 20%,
+    var(--shimmer-highlight, var(--app-text)) 50%,
+    var(--shimmer-color, var(--app-dim)) 80%
   );
   background-size: 200% auto;
   background-clip: text;

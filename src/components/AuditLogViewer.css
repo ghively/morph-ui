@@ -67,7 +67,7 @@
 
 [data-auditdetail] {
   opacity: 0.7;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--app-mono);
   font-size: var(--t-meta);
   overflow-wrap: anywhere;
 }

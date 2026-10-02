@@ -80,7 +80,7 @@
 .agent-activity-progress-bar {
   height: 100%;
   background: var(--app-blue);
-  transition: width var(--d3) var(--ease-morph);
+  transition: width var(--d3) var(--ease-fx);
 }
 
 .agent-activity-actions {

@@ -44,12 +44,12 @@
 
 /* Fanned state */
 .fan-hover-stack.is-fanned .fan-hover-stack-item {
-  transform: translateX(var(--spread-x)) translateY(var(--spread-y)) rotate(var(--spread-rotate));
+  transform: translateX(var(--spread-x, 0px)) translateY(var(--spread-y, 0px)) rotate(var(--spread-rotate, 0deg));
 }
 
 /* Active item lifts up slightly */
 .fan-hover-stack.is-fanned .fan-hover-stack-item.is-active {
-  transform: translateX(var(--spread-x)) translateY(calc(var(--spread-y) - 20px)) rotate(var(--spread-rotate)) scale(1.05);
+  transform: translateX(var(--spread-x, 0px)) translateY(calc(var(--spread-y, 0px) - 20px)) rotate(var(--spread-rotate, 0deg)) scale(1.05);
   box-shadow: 0 12px 24px var(--app-elev);
 }
 

@@ -106,7 +106,7 @@
 
 .mm-send-btn {
   background: var(--app-blue);
-  color: white;
+  color: var(--on-accent);
   border: none;
   border-radius: 50%;
   width: 32px;
@@ -236,7 +236,7 @@
 
 .mm-attachment-retry:hover {
   background-color: var(--color-error);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .mm-attachment-progress-bar {

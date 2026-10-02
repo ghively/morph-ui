@@ -21,7 +21,7 @@
 
 .magnetic-button[data-variant="primary"] {
   background: var(--app-blue);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .magnetic-button[data-variant="secondary"] {
@@ -30,7 +30,7 @@
 
 .magnetic-button[data-variant="danger"] {
   background: var(--color-error);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .magnetic-button:active:not(:disabled) {

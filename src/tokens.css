@@ -5,7 +5,7 @@
    (dark frame defaults). Hosts that want the light frame should override these
    on their own :root / wrapper — the components only read the custom
    properties, never hard-code colors.
-   ═════════════════════文════════════════════════════════════════════════════ */
+   ══════════════════════════════════════════════════════════════════════════ */
 
 :root {
   /* surfaces & ink */
@@ -326,4 +326,104 @@
   --pane-wash-b: rgba(0, 209, 216, 0.15);
   --pane-wash-a: rgba(80, 137, 236, 0.26);
   --app-gold: #ffcc3e;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Morph UI — component-scoped tokens (added 2026-10-02)
+
+   Literal colors that used to be hard-coded in component CSS. Named skins
+   (keyboard colorways/finishes, TextChromaReveal RGB layers, TextGlitch
+   channels, LaptopFrame hardware) stay literal on purpose — they ARE the
+   variant.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --morph-term-case: #111;
+  --morph-term-screen: #051505;
+  --morph-term-fg: #33ff33;
+  --morph-term-cmd: #fff;
+
+  --morph-key-chassis: #222;
+  --morph-key-cap: #333;
+  --morph-key-cap-shadow: #111;
+  --morph-key-top: #444;
+  --morph-key-top-low: #333;
+  --morph-key-top-border: #555;
+  --morph-key-top-active: #3a3a3a;
+  --morph-key-top-active-low: #2a2a2a;
+  --morph-key-ink: #eee;
+
+  --morph-tooltip-bg: rgba(20, 22, 26, 0.94);
+  --morph-tooltip-fg: #fff;
+  --morph-tooltip-border: rgba(255, 255, 255, 0.14);
+
+  --morph-handle: #fff;
+  --morph-handle-ink: #333;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Morph UI — alias re-resolution (added 2026-10-02)
+
+   Custom properties inherit their COMPUTED value, so an alias declared on
+   :root (e.g. --morph-fg: var(--app-text)) is frozen to :root's --app-text.
+   A host that themes a wrapper would get the new base tokens but stale
+   aliases. Redeclaring the alias layer on the frame makes it re-resolve
+   against whatever base values are in effect there. Zero specificity, so
+   any host rule still wins.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:where(.morph-frame, [data-morph-frame]) {
+  --app-surface-raised: var(--color-surface-raised);
+  --cpi-gray-400: var(--app-faint);
+  --cpi-gray-500: var(--app-dim);
+  --cpi-gray-600: var(--app-text);
+  --app-mono: ui-monospace, SFMono-Regular, "SF Mono", "JetBrains Mono", Menlo, var(--font-mono, "Courier New"), monospace;
+  --d1: calc(130ms * var(--d-scale));
+  --d2: calc(220ms * var(--d-scale));
+  --d3: calc(360ms * var(--d-scale));
+  --d5: calc(780ms * var(--d-scale));
+  --gut: var(--s6);
+  --el-raised: 0 4px 12px var(--app-elev);
+  --el-modal: 0 8px 32px var(--app-elev);
+  --el-float: 0 16px 32px var(--app-elev);
+  --ring-focus: 0 0 0 2px var(--sec-soft);
+  --d4: calc(540ms * var(--d-scale, 1));
+  --morph-fg: var(--app-text);
+  --morph-placeholder: var(--app-faint);
+  --morph-badge-fg: var(--app-text);
+  --morph-accent: var(--app-blue);
+  --morph-success: var(--color-success);
+  --morph-danger: var(--color-error);
+  --morph-warn: var(--color-warning);
+  --morph-info: var(--color-info-text);
+  --morph-card-bg: var(--app-panel);
+  --morph-menu-bg: var(--app-elev);
+  --morph-drawer-bg: var(--app-elev);
+  --morph-stack-ring: var(--app-bg);
+  --morph-hover: var(--app-hover);
+  --morph-border: var(--app-line);
+  --morph-radius-sm: var(--r-sm);
+  --morph-radius: var(--r-ctl);
+  --morph-radius-lg: var(--r-card);
+  --bloom-lg: 0 10px 26px var(--ai-glow);
+  --el5: 0 calc(var(--dp5) * 0.5px) calc(pow(var(--dp5) * 5, 0.7) * 1px) calc((var(--dp5) * -0.3 + pow(var(--dp5) * 0.1, 2)) * 1px) var(--el-ink);
+  --stagger-sm: calc(50ms * var(--d-scale));
+  --stagger-in: calc(30ms * var(--d-scale));
+  --stagger: calc(70ms * var(--d-scale));
+  --tk-tight: calc(-0.6px * var(--t-scale));
+  --bloom: 0 6px 18px var(--ai-glow);
+  --t-input-lg: calc(15.5px * var(--t-scale));
+  --el4: 0 calc(var(--dp4) * 0.5px) calc(pow(var(--dp4) * 5, 0.7) * 1px) calc((var(--dp4) * -0.3 + pow(var(--dp4) * 0.1, 2)) * 1px) var(--el-ink);
+  --r-xs: calc(4px * var(--r-scale));
+  --tk-caps: calc(0.6px * var(--t-scale));
+  --t-eyebrow: calc(10.5px * var(--t-scale));
+  --r-tile: var(--r-md);
+  --r-2xl: calc(var(--r-xl) * 1.5);
+  --h-head: calc(58px * var(--sp-scale));
+  --t-h1: calc(30px * var(--t-scale));
+  --d-lag-lg: calc(150ms * var(--d-scale));
+  --d-lag: calc(80ms * var(--d-scale));
+  --el3: 0 calc(var(--dp3) * 0.5px) calc(pow(var(--dp3) * 5, 0.7) * 1px) calc((var(--dp3) * -0.3 + pow(var(--dp3) * 0.1, 2)) * 1px) var(--el-ink);
+  --r-lg: calc(16px * var(--r-scale));
+  --r-lgi: calc(20px * var(--r-scale));
 }

@@ -13,9 +13,9 @@
   font-weight: 500;
   line-height: 1.4;
   white-space: normal;
-  color: #fff;
-  background: rgba(20, 22, 26, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--morph-tooltip-fg);
+  background: var(--morph-tooltip-bg);
+  border: 1px solid var(--morph-tooltip-border);
   border-radius: 6px;
   pointer-events: none;
   opacity: 0;
@@ -80,9 +80,9 @@
   padding: 6px 9px;
   font-size: 12px;
   line-height: 1.4;
-  color: #fff;
-  background: rgba(20, 22, 26, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--morph-tooltip-fg);
+  background: var(--morph-tooltip-bg);
+  border: 1px solid var(--morph-tooltip-border);
   border-radius: 6px;
   pointer-events: none;
   opacity: 0;

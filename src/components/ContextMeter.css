@@ -43,7 +43,7 @@
 [data-context-meter-fill] {
   height: 100%;
   border-radius: 4px;
-  transition: width var(--d3) var(--ease-spring), background-color var(--d3) var(--ease-fx);
+  transition: width var(--d3) var(--ease-fx), background-color var(--d3) var(--ease-fx);
   /* The base color */
   background: var(--app-blue);
 }

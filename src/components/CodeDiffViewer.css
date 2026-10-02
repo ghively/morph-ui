@@ -3,7 +3,7 @@
   border: 1px solid var(--app-line);
   border-radius: 8px;
   overflow: auto;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--app-mono);
   font-size: 13px;
   color: var(--app-text);
   display: flex;

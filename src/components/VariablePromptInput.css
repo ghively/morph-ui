@@ -13,7 +13,7 @@
 
 [data-templatetext] {
   font: inherit;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--app-mono);
   font-size: var(--t-ctl);
   line-height: 1.6;
   padding: 9px 11px;
@@ -39,7 +39,7 @@
 [data-varname] {
   font-size: var(--t-meta);
   font-weight: 700;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--app-mono);
   color: var(--morph-accent);
 }
 

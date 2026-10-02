@@ -128,7 +128,7 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background-color: white;
+  background-color: var(--knob);
   transition: transform var(--d2, 220ms) var(--ease-spring);
 }
 
