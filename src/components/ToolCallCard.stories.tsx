@@ -71,7 +71,7 @@ export const ExpandedWithResult = () => (
         ],
       }}
     />
-    <p style={{ fontSize: '0.8125rem', color: '#64748b', margin: 0 }}>
+    <p style={{ fontSize: '0.8125rem', color: 'var(--app-faint)', margin: 0 }}>
       Four args means the header shows three chips plus an overflow marker; the expanded
       panel carries the full JSON.
     </p>

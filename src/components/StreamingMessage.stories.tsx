@@ -29,7 +29,7 @@ export const Default = () => {
   return (
     <div style={frame}>
       <StreamingMessage chunks={script.slice(0, count)} done={done} />
-      <p style={{ marginTop: '1rem', fontSize: '0.8125rem', color: '#64748b' }}>
+      <p style={{ marginTop: '1rem', fontSize: '0.8125rem', color: 'var(--app-faint)' }}>
         {done ? 'Stream complete — the caret is gone.' : 'Streaming… a caret trails the text.'}
       </p>
     </div>

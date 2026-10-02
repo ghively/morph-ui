@@ -11,7 +11,7 @@ const frame: React.CSSProperties = {
 const noteStyle: React.CSSProperties = {
   marginTop: '1rem',
   fontSize: '0.8125rem',
-  color: '#64748b',
+  color: 'var(--app-faint)',
 };
 
 const models: ModelInfo[] = [

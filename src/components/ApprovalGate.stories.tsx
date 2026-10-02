@@ -10,7 +10,7 @@ const frame: React.CSSProperties = {
 const outcomeStyle: React.CSSProperties = {
   marginTop: '1rem',
   fontSize: '0.8125rem',
-  color: '#64748b',
+  color: 'var(--app-faint)',
 };
 
 export const Default = () => {

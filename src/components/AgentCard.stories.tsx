@@ -89,7 +89,7 @@ export const Focusable = () => {
       >
         {avatarImg('JL', '#be123c')}
       </AgentCard>
-      <p style={{ marginTop: '1rem', fontSize: '0.8125rem', color: '#64748b' }}>
+      <p style={{ marginTop: '1rem', fontSize: '0.8125rem', color: 'var(--app-faint)' }}>
         {focused ? `Focused: ${focused}` : 'Click or press Enter on the card — it is a button when onFocus is set.'}
       </p>
     </div>

@@ -35,7 +35,7 @@ export const FileList = () => {
           max={max}
         />
       ))}
-      <p style={{ fontSize: '0.8125rem', color: '#64748b', margin: 0 }}>
+      <p style={{ fontSize: '0.8125rem', color: 'var(--app-faint)', margin: 0 }}>
         A shared max keeps every bar on the same scale across the file list.
       </p>
     </div>

@@ -162,7 +162,7 @@ export const SubtleBurst = () => {
           <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.25rem', fontWeight: 600 }}>
             Task Completed
           </h3>
-          <p style={{ margin: '0 0 1.5rem 0', color: '#64748b', fontSize: '0.875rem' }}>
+          <p style={{ margin: '0 0 1.5rem 0', color: 'var(--app-faint)', fontSize: '0.875rem' }}>
             Lightweight particle burst (25 particles) for micro-interactions.
           </p>
           <button

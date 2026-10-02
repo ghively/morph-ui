@@ -1,20 +1,34 @@
 # Provenance & token contract
 
 Extracted from ChatUIMorph @ b3ca082 (2026-09-20). Files moved verbatim from
-`runtime/web/src/components/` and `runtime/web/test/`; the five components have
-zero ChatUIMorph app imports (verified: only `react` + relative CSS imports).
+`runtime/web/src/components/` and `runtime/web/test/`.
+
+Primitive layer added 2026-10-02: `src/primitives.css` is generated from
+ChatUIMorph `src/app.css` (main) — every rule whose selector references a
+`data-*` attribute a morph-ui component renders, scoped under
+`:where(.morph-frame, [data-morph-frame])`. `:root`/`body`/`html` rules and
+app-shell-only selectors were dropped.
 
 ## Token contract
 
-The 17 custom properties the components read are defined in `src/tokens.css`
-(dark-frame defaults, values identical to ChatUIMorph `src/app.css:root`):
+`src/tokens.css` is the source of truth. It has five layers:
 
---app-text --app-dim --app-faint --app-elev --app-hover --app-line
---app-blue --app-blue-strong --color-success --color-warning --color-error
---d-scale --d2 --d3 --ease-spring --ease-morph --ease-fx --ease-cycle
+1. **App** — surfaces, ink, accents, semantic colors, type, geometry, motion.
+2. **App-frame** — spacing/radii/type scale, elevation, scrim, series ramp, AI + rail accents.
+3. **`--morph-*` component namespace** — aliases onto layers 1–2.
+4. **Primitive-layer tokens** — what `primitives.css` reads (`--r-tile`, `--on-sec`, `--code-*`, `--el3..5`, `--loop-*`, …).
+5. **Component-scoped tokens** — formerly hard-coded literals (`--morph-term-*`, `--morph-key-*`, `--morph-tooltip-*`, `--morph-handle*`).
 
-Hosts override any of these on `:root` or a wrapper element; components never
-hard-code colors.
+Finally an **alias re-resolution** block redeclares every alias on
+`:where(.morph-frame, [data-morph-frame])` so theming a frame (not just `:root`)
+works.
+
+Per-instance runtime knobs set inline from TSX (`--morph-fill-pct`,
+`--morph-tree-depth`, `--spread-*`, `--char-index`, `--shimmer-*`, …) are not
+declared; their CSS uses carry fallbacks.
+
+Intentionally literal: named skins — keyboard colorways/finishes,
+TextChromaReveal RGB layers, TextGlitch channels, LaptopFrame hardware.
 
 ## Deferred to ChatUIMorph (not extracted)
 

@@ -37,7 +37,7 @@ export const Presets = () => {
               fontSize: '0.6875rem',
               letterSpacing: '0.08em',
               textTransform: 'uppercase',
-              color: '#64748b',
+              color: 'var(--app-faint)',
               marginBottom: '0.375rem',
             }}
           >

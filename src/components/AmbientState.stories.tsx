@@ -101,7 +101,7 @@ function StateCard({
             paddingTop: '1rem',
             borderTop: '1px solid rgba(255, 255, 255, 0.08)',
             fontSize: '0.75rem',
-            color: '#64748b',
+            color: 'var(--app-faint)',
           }}
         >
           <span>
