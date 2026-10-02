@@ -1,4 +1,7 @@
 import type { FormEvent, ReactNode } from 'react';
+import { HeroPanel } from './HeroPanel';
+import { FormField } from './FormField';
+import { AlertBanner } from './AlertBanner';
 import './CredentialSignInForm.css';
 
 export type ServerProbe = 'idle' | 'checking' | 'ok' | 'fail';
@@ -78,7 +81,7 @@ export function CredentialSignInForm(props: CredentialSignInFormProps) {
 
   return (
     <div className={className} style={{ maxWidth: 440 }}>
-      <HeroPanel title={title} description={description} />
+      <HeroPanel title={title} description={description} maxWidth={440} />
       <form
         data-card=""
         data-pad="roomy"
@@ -86,8 +89,8 @@ export function CredentialSignInForm(props: CredentialSignInFormProps) {
         aria-label="Sign in"
         onSubmit={handleSubmit}
       >
-        <FormField label={c.serverLabel} htmlFor="hs" hint={
-          <div data-meta="" data-probe={probe} aria-live="polite">
+        <FormField label={c.serverLabel} id="hs" probe={probe} invalid={probe === 'fail'} hint={
+          <>
             {probe === 'ok' && resolvedServer ? (
               <>Connecting to <span data-num="">{resolvedServer}</span></>
             ) : probe === 'checking' ? (
@@ -97,7 +100,7 @@ export function CredentialSignInForm(props: CredentialSignInFormProps) {
             ) : (
               c.serverIdle
             )}
-          </div>
+          </>
         }>
           <input
             id="hs"
@@ -113,7 +116,7 @@ export function CredentialSignInForm(props: CredentialSignInFormProps) {
 
         {passwordEnabled ? (
           <>
-            <FormField label={c.usernameLabel} htmlFor="user">
+            <FormField label={c.usernameLabel} id="user">
               <input
                 id="user"
                 data-field=""
@@ -123,7 +126,7 @@ export function CredentialSignInForm(props: CredentialSignInFormProps) {
                 required
               />
             </FormField>
-            <FormField label={c.passwordLabel} htmlFor="pw">
+            <FormField label={c.passwordLabel} id="pw">
               <input
                 id="pw"
                 data-field=""
@@ -174,43 +177,10 @@ export function CredentialSignInForm(props: CredentialSignInFormProps) {
 
         {error ? (
           <AlertBanner tone="danger" role="alert">
-            <span data-dot="" />
-            <div>{error}</div>
+            {error}
           </AlertBanner>
         ) : null}
       </form>
-    </div>
-  );
-}
-
-// Stubs to fulfill dependencies visually in isolation
-function HeroPanel({ title, description }: { title: ReactNode; description?: ReactNode }) {
-  return (
-    <div data-enter="" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--s6)", marginBottom: "calc(var(--s6) + var(--s2))" }}>
-      <h1 style={{ fontSize: "var(--t-hero)", fontWeight: 700, letterSpacing: "var(--tk-display)", textAlign: "center", margin: 0 }}>{title}</h1>
-      {description ? (
-        <div style={{ fontSize: "var(--t-title)", color: "var(--app-dim)", textAlign: "center", marginTop: "calc(-1 * var(--s2))" }}>
-          {description}
-        </div>
-      ) : null}
-    </div>
-  );
-}
-
-function FormField({ label, htmlFor, hint, children }: { label: string; htmlFor: string; hint?: ReactNode; children: ReactNode }) {
-  return (
-    <div data-formfield="">
-      <label htmlFor={htmlFor}>{label}</label>
-      {children}
-      {hint ? <div data-hint="">{hint}</div> : null}
-    </div>
-  );
-}
-
-function AlertBanner({ children, tone, role, style }: { children: ReactNode; tone: string; role?: string; style?: React.CSSProperties }) {
-  return (
-    <div data-alert="" data-tone={tone} role={role} style={style}>
-      {children}
     </div>
   );
 }

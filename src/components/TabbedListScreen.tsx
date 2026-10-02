@@ -1,5 +1,6 @@
 import type { ReactElement, ReactNode, KeyboardEvent } from 'react';
 import { useRef } from 'react';
+import { GlyphIcon } from './GlyphIcon';
 import './TabbedListScreen.css';
 
 export interface ScreenTab {
@@ -32,18 +33,6 @@ export interface TabbedListScreenProps {
   tabpanel?: boolean;
   children: ReactNode;
   className?: string;
-}
-
-function GlyphIcon({ name, size = 16 }: { name: string; size?: number }) {
-  if (name === 'search') {
-    return (
-      <svg width={size} height={size} viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <circle cx="7" cy="7" r="5" />
-        <line x1="10.5" y1="10.5" x2="15" y2="15" />
-      </svg>
-    );
-  }
-  return null;
 }
 
 export function TabbedListScreen({

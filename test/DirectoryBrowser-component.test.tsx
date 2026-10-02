@@ -18,13 +18,13 @@ describe('DirectoryBrowser', () => {
 
   it('shows suggested only switch on collections tab when path is active', () => {
     const { rerender } = render(<DirectoryBrowser tab="directory" onTabChange={() => {}} list={{ status: "done", entries: [], hasMore: false, error: null, degraded: false }} path={['1']} onAct={() => {}} onClose={() => {}} />);
-    expect(screen.queryByRole('checkbox')).toBeNull();
+    expect(screen.queryByRole('switch')).toBeNull();
 
     rerender(<DirectoryBrowser tab="collections" onTabChange={() => {}} list={{ status: "done", entries: [], hasMore: false, error: null, degraded: false }} path={[]} onAct={() => {}} onClose={() => {}} />);
-    expect(screen.queryByRole('checkbox')).toBeNull();
+    expect(screen.queryByRole('switch')).toBeNull();
 
     rerender(<DirectoryBrowser tab="collections" onTabChange={() => {}} list={{ status: "done", entries: [], hasMore: false, error: null, degraded: false }} path={['1']} onAct={() => {}} onClose={() => {}} />);
-    expect(screen.getByRole('checkbox')).toBeTruthy();
+    expect(screen.getByRole('switch', { name: 'Suggested only' })).toBeTruthy();
   });
 
   it('renders breadcrumbs', () => {

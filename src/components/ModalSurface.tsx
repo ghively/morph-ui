@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
+import { GlyphIcon } from './GlyphIcon';
 import './ModalSurface.css';
 
 export type ModalPlacement = 'bottom-sheet' | 'center' | 'top-drawer';
@@ -28,17 +29,6 @@ export interface ModalSurfaceProps {
   /** Escape closes. Default true. */
   dismissOnEscape?: boolean;
   className?: string;
-}
-
-function GlyphIcon({ name }: { name: string }) {
-  if (name === 'close') {
-    return (
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
-        <path d="M4 4l8 8M12 4l-8 8" />
-      </svg>
-    );
-  }
-  return null;
 }
 
 const FOCUSABLE_SELECTOR = "a[href],button:not([disabled]),input,textarea,select,[tabindex]:not([tabindex='-1'])";

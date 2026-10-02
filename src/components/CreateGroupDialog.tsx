@@ -1,4 +1,7 @@
-import type { FormEvent, ReactNode } from 'react';
+import type { FormEvent } from 'react';
+import { ModalSurface } from './ModalSurface';
+import { ToggleSwitch } from './ToggleSwitch';
+import { AlertBanner } from './AlertBanner';
 import './CreateGroupDialog.css';
 
 export interface CreateGroupValues {
@@ -102,7 +105,7 @@ export function CreateGroupDialog(props: CreateGroupDialogProps) {
   const title = isCollection ? c.collectionTitle : c.conversationTitle;
 
   return (
-    <ModalSurface label={title} title={title} width={520} onClose={onClose}>
+    <ModalSurface label={title} title={title} placement="center" width={520} onClose={onClose}>
       <form
         onSubmit={handleSubmit}
         style={{ padding: "0 var(--s6) var(--s6)", display: "flex", flexDirection: "column", gap: "var(--s4)", overflow: "auto" }}
@@ -194,9 +197,9 @@ export function CreateGroupDialog(props: CreateGroupDialogProps) {
           />
         </div>
         {error ? (
-          <div data-alert="" role="alert">
+          <AlertBanner tone="danger" role="alert">
             {error}
-          </div>
+          </AlertBanner>
         ) : null}
         <button
           type="submit"
@@ -211,25 +214,5 @@ export function CreateGroupDialog(props: CreateGroupDialogProps) {
         </button>
       </form>
     </ModalSurface>
-  );
-}
-
-function ModalSurface({ children, label, title, width, onClose }: { children: ReactNode; label: string; title: string; width: number; onClose: () => void }) {
-  return (
-    <div role="dialog" aria-label={label} title={title} style={{ width }}>
-      <button onClick={onClose} aria-label="Close" style={{display: 'none'}}></button>
-      {children}
-    </div>
-  );
-}
-
-function ToggleSwitch({ on, onChange, label }: { on: boolean; onChange: (v: boolean) => void; label: string }) {
-  return (
-    <input
-      type="checkbox"
-      checked={on}
-      onChange={(e) => onChange(e.target.checked)}
-      aria-label={label}
-    />
   );
 }

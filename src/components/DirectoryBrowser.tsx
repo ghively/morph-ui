@@ -1,4 +1,10 @@
 import type { FormEvent, ReactNode } from 'react';
+import { ModalSurface } from './ModalSurface';
+import { SegmentedControl } from './SegmentedControl';
+import { ToggleSwitch } from './ToggleSwitch';
+import { AlertBanner } from './AlertBanner';
+import { EmptyState } from './EmptyState';
+import { GlyphIcon } from './GlyphIcon';
 import './DirectoryBrowser.css';
 
 export type DirectoryTab = 'collections' | 'directory' | 'address';
@@ -90,11 +96,12 @@ export function DirectoryBrowser(props: DirectoryBrowserProps) {
   } = props;
 
   return (
-    <ModalSurface title="Browse rooms" width={640} height={620} onClose={onClose} className={className}>
+    <ModalSurface label="Browse rooms" title="Browse rooms" placement="center" width={640} height={620} onClose={onClose} className={className}>
       <div style={{ flex: "none", padding: "0 var(--s6) var(--s4)", display: "flex", alignItems: "center", gap: "var(--s4)", flexWrap: "wrap" }}>
-        <SegmentedControl
+        <SegmentedControl<DirectoryTab>
+          label="Room source"
           value={tab}
-          onChange={(v: string) => onTabChange(v as DirectoryTab)}
+          onChange={onTabChange}
           options={[
             { value: "collections", label: "Spaces" },
             { value: "directory", label: "Directory" },
@@ -107,6 +114,7 @@ export function DirectoryBrowser(props: DirectoryBrowserProps) {
             <ToggleSwitch
               on={suggestedOnly}
               onChange={(v: boolean) => onSuggestedOnlyChange?.(v)}
+              label="Suggested only"
             />
           </label>
         ) : null}
@@ -119,7 +127,7 @@ export function DirectoryBrowser(props: DirectoryBrowserProps) {
       {tab === "directory" ? (
         <div style={{ flex: "none", padding: "0 var(--s6) var(--s4)" }}>
           <div data-searchcap="" style={{ maxWidth: "none" }}>
-            <span aria-hidden="true" style={{width: 14, height: 14, display: 'inline-block'}}>&#128269;</span>
+            <GlyphIcon name="search" size={14} />
             <input
               value={query}
               onChange={(e) => onQueryChange?.(e.target.value)}
@@ -313,63 +321,5 @@ function JoinByAddressForm({ address }: { address: DirectoryAddressFormProps }) 
         <i data-spin="" aria-hidden="true" />
       </button>
     </form>
-  );
-}
-
-// Stubs for testing / isolation
-function ModalSurface({ children, title, width, height, onClose, className }: { children: ReactNode; title: string; width: number; height: number; onClose: () => void; className?: string }) {
-  return (
-    <div role="dialog" aria-label={title} style={{ width, height }} className={className}>
-      <button onClick={onClose} aria-label="Close" style={{display: 'none'}}></button>
-      {children}
-    </div>
-  );
-}
-
-function SegmentedControl({ value, onChange, options }: { value: string; onChange: (v: string) => void; options: { value: string; label: string }[] }) {
-  return (
-    <div role="radiogroup">
-      {options.map((o) => (
-        <label key={o.value}>
-          <input
-            type="radio"
-            role="radio"
-            name="dir-tab"
-            value={o.value}
-            checked={value === o.value}
-            onChange={() => onChange(o.value)}
-          />
-          {o.label}
-        </label>
-      ))}
-    </div>
-  );
-}
-
-function ToggleSwitch({ on, onChange, label }: { on: boolean; onChange: (v: boolean) => void; label?: string }) {
-  return (
-    <input
-      type="checkbox"
-      checked={on}
-      onChange={(e) => onChange(e.target.checked)}
-      aria-label={label}
-    />
-  );
-}
-
-function AlertBanner({ children, tone, role, style }: { children: ReactNode; tone: string; role?: string; style?: React.CSSProperties }) {
-  return (
-    <div data-alert="" data-tone={tone} role={role} style={style}>
-      {children}
-    </div>
-  );
-}
-
-function EmptyState({ title, children }: { title: string; children: ReactNode }) {
-  return (
-    <div>
-      <h2>{title}</h2>
-      <p>{children}</p>
-    </div>
   );
 }

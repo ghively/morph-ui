@@ -1,3 +1,4 @@
+import { InitialsAvatar } from './InitialsAvatar';
 import './TypingIndicator.css';
 
 export interface TypingParticipant {
@@ -13,16 +14,6 @@ export interface TypingIndicatorProps {
   agentSingularLabel?: string;
   pluralLabel?: string;
   className?: string;
-}
-
-function InitialsAvatar({ name, isAgent }: { name: string; isAgent?: boolean }) {
-  const initial = name ? name.charAt(0).toUpperCase() : '?';
-  // Use data-ring="" as required for the first participant
-  return (
-    <span className="typing-avatar" data-ring="" aria-hidden="true" style={{ background: isAgent ? 'var(--sec)' : 'var(--app-panel)', color: isAgent ? 'var(--on-accent)' : 'var(--app-text)' }}>
-      {initial}
-    </span>
-  );
 }
 
 export function TypingIndicator({
@@ -51,7 +42,7 @@ export function TypingIndicator({
             {first?.avatarUrl ? (
               <img src={first.avatarUrl} alt="" className="typing-avatar-img" data-ring="" />
             ) : (
-              <InitialsAvatar name={first?.name ?? ''} isAgent={first?.isAgent} />
+              <InitialsAvatar name={first?.name ?? ''} agent={first?.isAgent} working className="typing-avatar" />
             )}
             <div data-typing="">
               <i />
