@@ -1,6 +1,9 @@
-export { formatBytes } from "./MessageTimeline";
 import type { ReactNode } from 'react';
-import { formatBytes } from './MessageTimeline';
+import { formatBytes } from './messageFormat';
+export { formatBytes } from './messageFormat';
+import { EmptyState } from './EmptyState';
+import { CodeBlockCard } from './CodeBlockCard';
+import { GlyphIcon } from './GlyphIcon';
 import './AttachmentPreviewPanel.css';
 
 export interface PreviewCodeBlock { language: string; code: string; }
@@ -68,7 +71,7 @@ export function AttachmentPreviewPanel(props: AttachmentPreviewPanelProps) {
           {byline ? <div data-meta="">{byline}</div> : null}
         </div>
         <button data-iconbtn="" onClick={onClose} aria-label={closeLabel}>
-          <span aria-hidden="true" style={{width: 14, height: 14, display: 'inline-block'}}>&#10005;</span>
+          <GlyphIcon name="close" size={14} />
         </button>
       </div>
 
@@ -115,26 +118,6 @@ export function AttachmentPreviewPanel(props: AttachmentPreviewPanelProps) {
           </>
         )}
       </div>
-    </div>
-  );
-}
-
-function EmptyState({ title, children }: { title: string; children: ReactNode }) {
-  return (
-    <div>
-      <h2>{title}</h2>
-      <p>{children}</p>
-    </div>
-  );
-}
-
-function CodeBlockCard({ language, code }: { language: string; code: string }) {
-  return (
-    <div data-code="">
-      <div data-codehead="">
-        <span data-num="">{language}</span>
-      </div>
-      <pre>{code}</pre>
     </div>
   );
 }

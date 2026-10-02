@@ -4,7 +4,9 @@ import type { ReactNode } from 'react';
 import type { TimelineMessage, AccentSlot, MessageTileActions } from './MessageTimeline';
 import { MessageContent } from './MessageContent';
 import { ReactionBar } from './ReactionBar';
-import { formatTimeLabel } from './MessageTimeline';
+import { InitialsAvatar } from './InitialsAvatar';
+import { AlertBanner } from './AlertBanner';
+import { formatTimeLabel } from './messageFormat';
 
 export interface MessageTileProps {
   message: TimelineMessage;
@@ -22,31 +24,7 @@ export interface MessageTileProps {
 
 const DEFAULT_QUICK_REACTIONS = ['👍', '❤️', '😂', '🎉', '👀', '✅'];
 
-function InitialsAvatar({ name, size = 'md' }: { name: string; size?: 'sm' | 'md' }) {
-  const initial = name ? name.charAt(0).toUpperCase() : '?';
-  return (
-    <span className={`initials-avatar initials-avatar-${size}`} aria-hidden="true">
-      {initial}
-    </span>
-  );
-}
-
-// Minimal stub for AlertBanner, since it's mentioned as "delegate to AlertBanner" but
-// the user said we shouldn't edit files not named in this lane. If AlertBanner exists in library, we'd import it. 
-// Assuming it does not exist or we should mock it based on spec description (spec mentions systemAlert as property but doesn't say "implement AlertBanner"). 
-// Wait, "delegate to AlertBanner" - Let me check if AlertBanner exists. 
-// If it does not exist, I will render a stub. 
-
-// Since AlertBanner is not specified in this lane, I'll assume we can render a minimal version
-// matching `[data-system]` wrapping for now. If AlertBanner exists elsewhere, it would be imported. 
-// I will render the systemAlert properties in a standard way.
-function SystemAlertStub({ tone, lead, live }: { tone: string; lead: string; live?: boolean }) {
-  return (
-    <div data-alertbanner="" data-tone={tone} aria-live={live ? 'polite' : 'off'} style={{ padding: 'var(--s2) var(--s3)', background: 'var(--app-panel)', borderRadius: 'var(--r-md)' }}>
-      <span data-strong="">{lead}</span>
-    </div>
-  );
-}
+const ALERT_TONE = { ok: 'info', info: 'info', warning: 'warn', danger: 'danger' } as const;
 
 export const MessageTile = memo(function MessageTile({
   message,
@@ -95,7 +73,7 @@ export const MessageTile = memo(function MessageTile({
       return (
         <div data-turn="assistant" data-sec={accent} data-eventid={message.id} data-sender="" data-agent={message.isAgent ? "" : undefined} data-continuation={continuation ? "" : undefined} data-highlight={highlighted ? "" : undefined} data-msg="" tabIndex={0} aria-label={ariaLabel} className={className}>
           {continuation ? <span data-avatarspacer="" aria-hidden="true" /> : (
-            message.senderAvatarUrl ? <img src={message.senderAvatarUrl} alt="" className="avatar" /> : <InitialsAvatar name={message.senderName} />
+            message.senderAvatarUrl ? <img src={message.senderAvatarUrl} alt="" className="avatar" /> : <InitialsAvatar name={message.senderName} className="initials-avatar" />
           )}
           <div data-body="">
             {!continuation && (
@@ -144,7 +122,7 @@ export const MessageTile = memo(function MessageTile({
   if (message.kind === 'notice' && message.systemAlert) {
     return (
       <div data-eventid={message.id} data-system={message.kind} style={{ maxWidth: 780, width: '100%' }} className={className}>
-        <SystemAlertStub tone={message.systemAlert.tone} lead={message.systemAlert.lead} live={message.systemAlert.live} />
+        <AlertBanner tone={ALERT_TONE[message.systemAlert.tone]} lead={message.systemAlert.lead} live={message.systemAlert.live} role="status" ariaLive={message.systemAlert.live ? 'polite' : 'off'} />
       </div>
     );
   }
@@ -194,7 +172,7 @@ export const MessageTile = memo(function MessageTile({
       {message.readers && message.readers.length > 0 && (
         <span data-avatars="" data-receipts="" aria-label={`Seen by ${message.readers.map(r => r.name).join(', ')}`} title={`Seen by ${message.readers.map(r => r.name).join(', ')}`}>
           {message.readers.slice(0, 4).map(r => (
-            <InitialsAvatar key={r.id} name={r.name} size="sm" />
+            <InitialsAvatar key={r.id} name={r.name} size="sm" className="initials-avatar" />
           ))}
         </span>
       )}
@@ -354,7 +332,7 @@ export const MessageTile = memo(function MessageTile({
       className={className}
     >
       {continuation ? <span data-avatarspacer="" aria-hidden="true" /> : (
-        message.senderAvatarUrl ? <img src={message.senderAvatarUrl} alt="" className="avatar" /> : <InitialsAvatar name={message.senderName} />
+        message.senderAvatarUrl ? <img src={message.senderAvatarUrl} alt="" className="avatar" /> : <InitialsAvatar name={message.senderName} className="initials-avatar" />
       )}
       <div data-body="">
         {!continuation && (
