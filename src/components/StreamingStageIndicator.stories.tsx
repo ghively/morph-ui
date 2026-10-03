@@ -18,4 +18,4 @@ export const Live = () => {
   return <StreamingStageIndicator stage={FLOW[i]} />;
 };
 
-export const Settled = () => <StreamingStageIndicator streaming={false} />;
+export const Settled = () => <StreamingStageIndicator streaming={false} doneLabel="Answered · 4 sources" />;

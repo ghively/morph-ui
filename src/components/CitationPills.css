@@ -1,45 +1,16 @@
-[data-citations] {
-  display: inline-flex;
-  gap: var(--s1);
-  vertical-align: baseline;
-}
-
-[data-cite] {
-  font: inherit;
-  font-size: var(--t-num);
-  font-weight: 700;
-  line-height: 1;
-  min-width: 19px;
-  height: 19px;
-  padding: 0 5px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-  border: 1px solid var(--morph-border);
-  background: var(--morph-badge-bg);
-  color: inherit;
-  cursor: pointer;
-  vertical-align: 2px;
-  transition: background-color var(--d2) var(--ease-fx),
-    border-color var(--d2) var(--ease-fx),
-    color var(--d2) var(--ease-fx),
-    box-shadow var(--d2) var(--ease-fx),
-    opacity var(--d2) var(--ease-fx);
-}
-
-[data-cite]:hover {
-  border-color: var(--morph-accent);
-  color: var(--morph-accent);
-}
-
-[data-cite]:focus-visible {
-  outline: 2px solid var(--morph-accent);
-  outline-offset: 1px;
-}
-
-[data-cite][data-active] {
-  background: var(--morph-accent);
-  border-color: var(--morph-accent);
-  color: var(--on-accent);
-}
+/* host-primitive reset */
+:where(.citations) [data-status], :where(.citations)[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where(.citations) [data-state], :where(.citations)[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where(.citations) [data-state]::before, :where(.citations)[data-state]::before { content: none; }
+:where(.citations) [data-empty], :where(.citations)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+.citations { --c: var(--morph-accent); display: inline-flex; align-items: baseline; vertical-align: super; margin: 0 1px; font-family: var(--app-mono); font-size: 10.5px; line-height: 1; color: var(--app-faint); }
+.citations::before { content: '['; } .citations::after { content: ']'; }
+.citations-ref { all: unset; cursor: pointer; padding: 0 1px; color: var(--app-dim); font-weight: 700; border-radius: 2px; transition: color var(--d2) var(--ease-fx); }
+.citations-ref:not(:last-child)::after { content: ','; font-weight: 400; color: var(--app-faint); }
+.citations-n { text-decoration: underline transparent 1px; text-underline-offset: 2px; transition: text-decoration-color var(--d2) var(--ease-fx); }
+.citations-ref:hover { color: var(--c); }
+.citations-ref:hover .citations-n { text-decoration-color: currentColor; }
+.citations-ref:focus-visible { outline: 1px solid var(--c); outline-offset: 1px; }
+.citations-ref[data-active] { color: var(--c); }
+.citations-ref[data-active] .citations-n { text-decoration-color: currentColor; text-shadow: 0 0 6px color-mix(in srgb, var(--c) 60%, transparent); }
+@media (prefers-reduced-motion: reduce) { .citations-ref, .citations-n { transition: none; } }

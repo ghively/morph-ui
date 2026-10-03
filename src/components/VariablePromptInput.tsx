@@ -1,93 +1,38 @@
-import { useMemo, useState } from 'react';
 import './VariablePromptInput.css';
+import { useVarPrompt, type VariablePromptInputProps } from './ragAnswer.shared';
 
-export interface VariablePromptInputProps {
-  id: string;
-  label?: string;
-  /** Template with {{variable}} slots. Editing the template re-derives the fields. */
-  template: string;
-  onTemplateChange?: (next: string) => void;
-  values?: Record<string, string>;
-  onValuesChange?: (next: Record<string, string>) => void;
-  onRun?: (filled: string, values: Record<string, string>) => void;
-  runLabel?: string;
-  readOnlyTemplate?: boolean;
-  className?: string;
-}
-
-const SLOT = /\{\{\s*([a-zA-Z0-9_.-]+)\s*\}\}/g;
-
-function slotsOf(template: string): string[] {
-  const found: string[] = [];
-  let m: RegExpExecArray | null;
-  SLOT.lastIndex = 0;
-  while ((m = SLOT.exec(template)) !== null) {
-    if (!found.includes(m[1]!)) found.push(m[1]!);
-  }
-  return found;
-}
-
-function fill(template: string, values: Record<string, string>): string {
-  return template.replace(SLOT, (_whole, name: string) => values[name] ?? `{{${name}}}`);
-}
-
-/** Prompt composer: {{variables}} in the template become fill-in fields with live preview. */
-export function VariablePromptInput({
-  id,
-  label = 'Prompt',
-  template,
-  onTemplateChange,
-  values,
-  onValuesChange,
-  onRun,
-  runLabel = 'Run',
-  readOnlyTemplate,
-  className = '',
-}: VariablePromptInputProps) {
-  const [innerValues, setInnerValues] = useState<Record<string, string>>({});
-  const live = values ?? innerValues;
-  const setLive = onValuesChange ?? setInnerValues;
-
-  const slots = useMemo(() => slotsOf(template), [template]);
-  const preview = useMemo(() => fill(template, live), [template, live]);
-
+export function VariablePromptInput(props: VariablePromptInputProps) {
+  const v = useVarPrompt(props);
   return (
-    <div className={className} data-varprompt="">
-      <label htmlFor={`${id}-template`}>{label}</label>
-      <textarea
-        id={`${id}-template`}
-        data-templatetext=""
-        value={template}
-        readOnly={readOnlyTemplate || !onTemplateChange}
-        onChange={onTemplateChange ? (e) => onTemplateChange(e.target.value) : undefined}
-        rows={4}
-        spellCheck={false}
-      />
-      {slots.length > 0 && (
-        <div data-varfields="" role="group" aria-label="Prompt variables">
-          {slots.map((name) => (
-            <label key={name} data-varfield="">
-              <span data-varname="">{name}</span>
-              <input
-                value={live[name] ?? ''}
-                onChange={(e) => setLive({ ...live, [name]: e.target.value })}
-                placeholder={`Enter ${name}…`}
-                aria-label={`Value for ${name}`}
-              />
-            </label>
-          ))}
+    <div className={'var-prompt ' + (props.className || '')} data-varprompt="">
+      <label htmlFor={v.textarea.id} className="var-prompt-label">{v.label}</label>
+      <textarea {...v.textarea} className="var-prompt-tpl" data-templatetext="" />
+      {v.slots.length > 0 && (
+        <div className="var-prompt-fields" role="group" aria-label="Prompt variables">
+          {v.slots.map(n => {
+            const ok = !v.missing.includes(n);
+            return (
+              <label key={n} className="var-prompt-field" data-filled={ok ? '' : undefined}>
+                <span className="var-prompt-name">{n}</span>
+                <input value={v.live[n] ?? ''} onChange={e => v.set(n, e.target.value)} placeholder="—" aria-label={'Value for ' + n} />
+                <span className="var-prompt-st" aria-hidden="true">{ok ? 'set' : 'empty'}</span>
+              </label>
+            );
+          })}
         </div>
       )}
-      <div data-varpreview="" aria-label="Filled prompt preview">
-        {preview}
+      <div className="var-prompt-preview">
+        <span className="var-prompt-p" aria-hidden="true">$</span>
+        <p className="var-prompt-text" data-varpreview="">{v.segs.map(s => s.slot ? <mark key={s.key} data-filled={s.filled ? '' : undefined}>{s.filled ? s.text : '{{' + s.text + '}}'}</mark> : <span key={s.key}>{s.text}</span>)}</p>
       </div>
-      {onRun && (
-        <div data-varactions="">
-          <button type="button" data-varrun="" onClick={() => onRun(preview, live)}>
-            {runLabel}
-          </button>
+      {v.hasRun && (
+        <div className="var-prompt-actions">
+          <span className="var-prompt-hint">{v.missing.length ? v.missing.length + ' unfilled' : 'ready'}</span>
+          <button type="button" className="var-prompt-run" disabled={!v.canRun} onClick={v.run}>{v.runLabel} <span aria-hidden="true">↵</span></button>
         </div>
       )}
     </div>
   );
 }
+
+export type { VariablePromptInputProps } from './ragAnswer.shared';

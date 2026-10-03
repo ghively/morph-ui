@@ -1,22 +1,15 @@
 import './GroundingBadge.css';
+import { useGrounding, cv, type GroundingBadgeProps } from './ragAnswer.shared';
 
-export type GroundingVerdict = 'grounded' | 'partial' | 'ungrounded';
-
-export interface GroundingBadgeProps {
-  verdict: GroundingVerdict;
-  /** e.g. "4 of 5 claims cited". Rendered next to the verdict. */
-  detail?: string;
-  className?: string;
-}
-
-/** Per-answer grounding verdict. Ungrounded answers are never subtle. */
-export function GroundingBadge({ verdict, detail, className = '' }: GroundingBadgeProps) {
-  const label = verdict === 'grounded' ? 'Grounded' : verdict === 'partial' ? 'Partially grounded' : 'Ungrounded';
+export function GroundingBadge(props: GroundingBadgeProps) {
+  const g = useGrounding(props);
   return (
-    <span className={className} data-grounding="" data-verdict={verdict} role="status">
-      <span data-groundingdot="" aria-hidden="true" />
-      {label}
-      {detail && <span data-groundingdetail="">· {detail}</span>}
+    <span className={'grounding ' + (props.className || '')} data-grounding="" data-verdict={props.verdict} role="status" aria-label={g.aria} style={cv(g.color)}>
+      <span className="grounding-tag" aria-hidden="true">{g.label.toUpperCase().replace(/ /g, '_')}</span>
+      {g.has && <span className="grounding-ticks" aria-hidden="true">{Array.from({ length: g.total }, (_, i) => <i key={i} data-on={i < g.cited ? '' : undefined} />)}</span>}
+      {g.detail && <span className="grounding-detail" aria-hidden="true">{g.detail}</span>}
     </span>
   );
 }
+
+export type { GroundingVerdict, GroundingBadgeProps } from './ragAnswer.shared';
