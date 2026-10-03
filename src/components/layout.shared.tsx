@@ -1,6 +1,6 @@
 /** Shared hooks + helpers for the LAYOUT_NAV components (polish batch, 2026-10). Not exported from the package index. */
 import { useState, useRef, useEffect, useMemo, useCallback, useInsertionEffect } from 'react';
-import type { ReactNode, CSSProperties, PointerEvent as ReactPointerEvent, KeyboardEvent } from 'react';
+import type { ReactNode, CSSProperties, PointerEvent as ReactPointerEvent } from 'react';
 
 /* ── shared bits ─────────────────────────────────────────────────────────── */
 export const cv = (c: string) => ({ ['--c' as string]: c }) as CSSProperties;
@@ -71,7 +71,7 @@ export function isSafeTokenValue(value: string): boolean {
   const urlMatches = value.match(/url\((['"]?)(.*?)\1\)/g);
   if (urlMatches) {
     for (const match of urlMatches) {
-      const matchRes = match.match(/url\\((['"]?)(.*?)\\1\\)/); const url = matchRes ? matchRes[2] : "";
+      const url = match.match(/url\((['"]?)(.*?)\1\)/)![2]!;
       if (!url.startsWith('data:image/') && !url.startsWith('/')) return false;
       if (url.startsWith('//')) return false;
     }
@@ -138,7 +138,7 @@ export function useDrawer(open: boolean, dismissOnEscape: boolean, onClose: () =
   }, [open]);
   useEffect(() => {
     if (!open || !dismissOnEscape) return;
-    const onKey = (e: KeyboardEvent) => {
+    const onKey = (e: globalThis.KeyboardEvent) => {
       if (e.key === 'Escape') { e.stopPropagation(); onClose(); }
       else if (e.key === 'Tab' && panelRef.current) {
         const items = Array.from(panelRef.current.querySelectorAll<HTMLElement>("a[href],button:not([disabled]),input,textarea,select,[tabindex]:not([tabindex='-1'])")).filter(x => x.offsetParent !== null);
@@ -148,8 +148,8 @@ export function useDrawer(open: boolean, dismissOnEscape: boolean, onClose: () =
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       }
     };
-    document.addEventListener('keydown', onKey as any, true);
-    return () => document.removeEventListener('keydown', onKey as any, true);
+    document.addEventListener('keydown', onKey, true);
+    return () => document.removeEventListener('keydown', onKey, true);
   }, [open, dismissOnEscape, onClose]);
   return { panelRef };
 }
@@ -200,12 +200,12 @@ export function useModalSurface(dismissOnEscape: boolean, onClose: () => void) {
   }, []);
   useEffect(() => {
     if (!dismissOnEscape) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { e.stopPropagation(); onClose(); } };
-    document.addEventListener("keydown", onKey as any, true);
-    return () => document.removeEventListener("keydown", onKey as any, true);
+    const onKey = (e: globalThis.KeyboardEvent) => { if (e.key === 'Escape') { e.stopPropagation(); onClose(); } };
+    document.addEventListener("keydown", onKey, true);
+    return () => document.removeEventListener("keydown", onKey, true);
   }, [dismissOnEscape, onClose]);
   useEffect(() => {
-    const onTabKey = (e: KeyboardEvent) => {
+    const onTabKey = (e: globalThis.KeyboardEvent) => {
       if (e.key !== 'Tab' || !panelRef.current) return;
       const focusable = Array.from(panelRef.current.querySelectorAll<HTMLElement>("a[href],button:not([disabled]),input,textarea,select,[tabindex]:not([tabindex='-1'])")).filter(x => x.offsetParent !== null);
       if (focusable.length === 0) return;
@@ -213,8 +213,8 @@ export function useModalSurface(dismissOnEscape: boolean, onClose: () => void) {
       if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
       else { if (document.activeElement === last) { e.preventDefault(); first.focus(); } }
     };
-    document.addEventListener('keydown', onTabKey as any);
-    return () => document.removeEventListener('keydown', onTabKey as any);
+    document.addEventListener('keydown', onTabKey);
+    return () => document.removeEventListener('keydown', onTabKey);
   }, []);
   return { panelRef };
 }
@@ -270,7 +270,7 @@ export function usePersistedState<T>(key: string, initial: T): [T, (v: T) => voi
     try { const item = window.localStorage.getItem(key); return item === null ? initial : JSON.parse(item) as T; } catch { return initial; }
   });
   const setValue = useCallback((value: T) => {
-    try { window.localStorage.setItem(key, JSON.stringify(value)); } catch {}
+    try { window.localStorage.setItem(key, JSON.stringify(value)); } catch { /* storage unavailable */ }
     setState(value);
   }, [key]);
   return [state, setValue];
