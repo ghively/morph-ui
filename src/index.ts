@@ -143,6 +143,7 @@ export * from "./components/ToastStack";
 export * from "./components/AlertBanner";
 export * from "./components/HeroPanel";
 export * from "./components/StatusRowList";
+export * from "./components/MorphRoot";
 export * from "./components/AppFrame";
 export * from "./components/NavigationRail";
 export * from "./components/SidePanel";
