@@ -1,57 +1,19 @@
-[data-pop][data-menu] {
-  background: var(--app-elev);
-  border-radius: var(--r-pane);
-  box-shadow: var(--el2);
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
+/* legacy unscoped fallback — AttachmentPreviewPanel, SidePanel, DirectoryBrowser… still lean on it; frame primitives supersede */
+:where([data-strong]) { font-weight: 600; overflow: hidden; text-overflow: ellipsis; }
 
-[data-mentioneyebrow] {
-  color: var(--app-faint);
-  font-size: var(--t-meta);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-[data-mentionitem] {
-  display: flex;
-  align-items: center;
-  gap: var(--s2);
-  padding: 6px var(--s2);
-  border-radius: var(--r-md);
-  border: none;
-  background: transparent;
-  color: var(--app-text);
-  font-family: inherit;
-  font-size: var(--t-ctl);
-  cursor: pointer;
-  text-align: left;
-  white-space: nowrap;
-}
-
-[data-mentionitem][aria-selected="true"],
-[data-mentionitem]:hover {
-  background: var(--app-hover);
-}
-
-[data-strong] {
-  font-weight: 600;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-[data-tag][data-solid] {
-  background: var(--app-blue-soft);
-  color: var(--app-blue);
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: var(--t-meta);
-  font-weight: 600;
-}
-
-[data-mentionnum] {
-  font-family: var(--app-mono);
-  font-size: var(--t-meta);
-}
+.mention { position: absolute; left: var(--s5); bottom: calc(100% + 6px); z-index: 5; width: 320px; max-width: calc(100% - 2 * var(--s5)); max-height: 296px; overflow-y: auto; scrollbar-width: thin;
+  display: flex; flex-direction: column; gap: 2px; padding: var(--s2); border-radius: var(--r-lg, 16px); border: 1px solid var(--app-line);
+  background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); box-shadow: var(--glass-edge), var(--glass-shadow);
+  transform-origin: bottom left; animation: mention-in var(--d2) var(--ease-out, var(--ease-emph)); }
+.mention-eyebrow { margin: var(--s1) var(--s2); color: var(--app-faint); font-size: var(--t-eyebrow, var(--t-meta)); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tk-caps, .05em); }
+.mention-item { position: relative; flex: none; display: flex; align-items: center; gap: var(--s2); padding: 6px var(--s2); border: 0; border-radius: var(--r-md); background: none;
+  color: var(--app-text); font: inherit; font-size: var(--t-ctl); text-align: left; white-space: nowrap; cursor: pointer; }
+.mention-item:hover { background: var(--app-hover); }
+.mention-item[aria-selected="true"] { background: var(--sec-soft); box-shadow: inset 2px 0 0 var(--sec); }
+.mention-avatar { width: 24px; height: 24px; flex: none; display: inline-grid; place-items: center; border-radius: 50%; font-size: 10px; font-weight: 600; background: color-mix(in srgb, var(--sec) 22%, var(--app-panel)); }
+.mention-avatar[data-avatar=""] { border-radius: var(--r-xs, 4px); }
+.mention-name { min-width: 0; font-weight: 600; overflow: hidden; text-overflow: ellipsis; }
+.mention-tag { flex: none; padding: 1px 6px; border-radius: var(--r-pill, 999px); background: color-mix(in srgb, var(--state-live) 18%, transparent); color: var(--ai-ink, var(--state-live)); font-size: var(--t-num); font-weight: 600; }
+.mention-id { margin-left: auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; color: var(--app-faint); font-family: var(--app-mono); font-size: var(--t-num); }
+@keyframes mention-in { from { opacity: 0; transform: translateY(4px) scale(.98); } }
+@media (prefers-reduced-motion: reduce) { .mention { animation: none; } }
