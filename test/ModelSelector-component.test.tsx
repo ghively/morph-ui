@@ -35,7 +35,7 @@ describe('ModelSelector', () => {
     expect(screen.getByText('Llama 3 70B')).toBeTruthy();
     
     // Check disabled state
-    const llama = document.querySelector('#model-3');
+    const llama = document.querySelector('[data-model-selector-item][data-disabled="true"]');
     expect(llama?.getAttribute('data-disabled')).toBe('true');
   });
 
@@ -62,7 +62,7 @@ describe('ModelSelector', () => {
     
     let trigger = screen.getByRole('button');
     fireEvent.click(trigger);
-    expect(screen.queryByPlaceholderText('Search models...')).toBeNull();
+    expect(document.querySelector('[data-model-selector-search]')).toBeNull();
 
     unmount(); // Unmount instead of rerender for this test
     
@@ -76,6 +76,6 @@ describe('ModelSelector', () => {
     render(<ModelSelector models={manyModels} onSelect={() => {}} />);
     trigger = screen.getByRole('button');
     fireEvent.click(trigger);
-    expect(screen.getByPlaceholderText('Search models...')).toBeTruthy();
+    expect(document.querySelector('[data-model-selector-search]')).toBeTruthy();
   });
 });

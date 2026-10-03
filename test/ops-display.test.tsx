@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { useState } from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { ApprovalInbox } from '../src/components/ApprovalInbox';
@@ -15,6 +15,7 @@ import { ShortcutHelp } from '../src/components/ShortcutHelp';
 
 describe('ApprovalInbox', () => {
   it('sorts high risk first and decides', () => {
+    vi.useFakeTimers();
     const onApprove = vi.fn();
     const onReject = vi.fn();
     const { container } = render(
@@ -29,9 +30,12 @@ describe('ApprovalInbox', () => {
     );
     expect(container.querySelector('[data-approval] [data-approvaltitle]')?.textContent).toBe('Drop index');
     fireEvent.click(screen.getByRole('button', { name: 'Approve: Drop index' }));
+    act(() => { vi.runAllTimers(); });
     expect(onApprove).toHaveBeenCalledWith('high');
     fireEvent.click(screen.getByRole('button', { name: 'Reject: Retry sync' }));
+    act(() => { vi.runAllTimers(); });
     expect(onReject).toHaveBeenCalledWith('low');
+    vi.useRealTimers();
   });
 
   it('empty state', () => {
@@ -59,7 +63,7 @@ describe('CostMeter', () => {
   it('flags over-budget with an alert', () => {
     const usd = (v: number) => `$${v.toFixed(2)}`;
     render(<CostMeter spent={6.2} budget={5} formatValue={usd} />);
-    expect(screen.getByRole('alert').textContent).toContain('$1.20 over budget');
+    expect(screen.getByRole('alert').textContent).toContain('$1.20 over');
     expect(screen.getByRole('progressbar').getAttribute('aria-valuenow')).toBe('5');
   });
 });

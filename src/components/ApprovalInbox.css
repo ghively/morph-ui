@@ -1,110 +1,29 @@
-[data-approvals] {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--s2);
-  font: inherit;
-}
-
-[data-approvals][data-empty] {
-  padding: 18px 14px;
-  text-align: center;
-  font-size: var(--t-body);
-  opacity: 0.7;
-  border: 1px dashed var(--morph-border);
-  border-radius: var(--morph-radius-lg);
-}
-
-[data-approval] {
-  display: flex;
-  gap: var(--s4);
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 12px 14px;
-  border: 1px solid var(--morph-border);
-  border-left-width: 3px;
-  border-radius: 10px;
-  background: var(--morph-card-bg);
-  box-shadow: var(--el-raised);
-}
-
-[data-approval][data-risk='low'] {
-  border-left-color: var(--morph-success);
-}
-
-[data-approval][data-risk='medium'] {
-  border-left-color: var(--morph-warn);
-}
-
-[data-approval][data-risk='high'] {
-  border-left-color: var(--morph-danger);
-}
-
-[data-approvalmain] {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  min-width: 0;
-}
-
-[data-approvaltitle] {
-  font-size: var(--t-title);
-  font-weight: 650;
-}
-
-[data-approvaldetail] {
-  font-size: var(--t-ctl);
-  opacity: 0.8;
-  line-height: 1.5;
-}
-
-[data-approvalmeta] {
-  display: flex;
-  gap: var(--s3);
-  font-size: var(--t-meta);
-  opacity: 0.65;
-  flex-wrap: wrap;
-}
-
-[data-riskflag] {
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-size: 10.5px;
-}
-
-[data-approval][data-risk='high'] [data-riskflag] {
-  color: var(--morph-danger);
-  opacity: 1;
-}
-
-[data-approvalactions] {
-  display: flex;
-  gap: 6px;
-  flex: none;
-}
-
-[data-approveok],
-[data-approvereject] {
-  font: inherit;
-  font-size: var(--t-ctl);
-  font-weight: 650;
-  height: 30px;
-  padding: 0 12px;
-  border-radius: 7px;
-  cursor: pointer;
-}
-
-[data-approveok] {
-  border: none;
-  background: var(--morph-success);
-  color: var(--on-accent);
-}
-
-[data-approvereject] {
-  border: 1px solid var(--morph-border);
-  background: transparent;
-  color: inherit;
-}
+/* host-primitive reset */
+:where(.approval-inbox) [data-status], :where(.approval-inbox)[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where(.approval-inbox) [data-state], :where(.approval-inbox)[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where(.approval-inbox) [data-state]::before, :where(.approval-inbox)[data-state]::before { content: none; }
+:where(.approval-inbox) [data-empty], :where(.approval-inbox)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+.approval-inbox { color: var(--app-text); font-family: var(--font-sans); border-radius: 10px; border: 1px solid var(--app-line); background: var(--app-panel); overflow: hidden; }
+.approval-inbox-head { display: flex; align-items: center; gap: 12px; padding: 9px 12px; font-size: 12px; border-bottom: 1px solid var(--app-line); background: color-mix(in srgb, var(--app-text) 2.5%, transparent); }
+.approval-inbox-head b { flex: 1; font-size: 13px; font-weight: 600; }
+.approval-inbox-head span { display: inline-flex; align-items: center; gap: 5px; color: var(--app-dim); font-variant-numeric: tabular-nums; text-transform: capitalize; }
+.approval-inbox-head i { width: 6px; height: 6px; border-radius: 50%; background: var(--c); }
+.approval-inbox-list { list-style: none; margin: 0; padding: 0; }
+.approval-inbox-row { display: flex; align-items: center; gap: 10px; padding: 8px 12px; font-size: inherit; transition: opacity var(--d2), background var(--d2); }
+.approval-inbox-row + .approval-inbox-row { border-top: 1px solid var(--app-line); }
+.approval-inbox-row:hover { background: color-mix(in srgb, var(--app-text) 3%, transparent); }
+.approval-inbox-row[data-leaving] { opacity: 0; }
+.approval-inbox-row[data-leaving="ok"] { background: color-mix(in srgb, var(--state-ok) 12%, transparent); } .approval-inbox-row[data-leaving="no"] { background: color-mix(in srgb, var(--state-error) 10%, transparent); }
+.approval-inbox-flag { flex: none; width: 3px; height: 26px; border-radius: 2px; background: var(--c); box-shadow: 0 0 6px var(--c); }
+.approval-inbox-main { flex: 1; min-width: 0; display: grid; }
+.approval-inbox-title { font-size: 13px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.approval-inbox-meta { display: flex; gap: 8px; font-size: 11.5px; color: var(--app-faint); white-space: nowrap; overflow: hidden; }
+.approval-inbox-meta span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.approval-inbox-meta span + span::before { content: '· '; }
+.approval-inbox-actions { display: flex; gap: 4px; }
+.approval-inbox-actions button { all: unset; cursor: pointer; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 6px; font-size: 13px; color: var(--app-dim); border: 1px solid var(--app-line); transition: background var(--d1), color var(--d1), border-color var(--d1); }
+.approval-inbox [data-approvereject]:hover { color: var(--state-error); border-color: color-mix(in srgb, var(--state-error) 45%, transparent); }
+.approval-inbox [data-approveok]:hover { color: var(--on-accent, #000); background: var(--state-ok); border-color: var(--state-ok); }
+.approval-inbox-actions button:focus-visible { outline: 2px solid color-mix(in srgb, var(--app-blue) 60%, transparent); outline-offset: 1px; }
+.approval-inbox-empty { padding: 18px; text-align: center; font-size: 12.5px; color: var(--app-faint); }
+@media (prefers-reduced-motion: reduce) { .approval-inbox-row { transition: none; } }

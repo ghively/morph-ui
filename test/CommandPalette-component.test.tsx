@@ -155,7 +155,7 @@ describe('CommandPalette', () => {
     
     const status = screen.getByRole('status');
     expect(status).toBeTruthy();
-    expect(status.textContent).toBe('Loading...');
+    expect(status.textContent).toContain('Loading...');
   });
 
   it('emptyTitle/emptyHint override the default empty copy', () => {

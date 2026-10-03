@@ -15,8 +15,8 @@ describe('DiffStatPill', () => {
   });
 
   it('renders filename if provided', () => {
-    render(<DiffStatPill added={10} removed={5} fileName="src/index.ts" />);
-    expect(screen.getByText('src/index.ts')).toBeTruthy();
+    const { container } = render(<DiffStatPill added={10} removed={5} fileName="src/index.ts" />);
+    expect(container.querySelector('[data-diff-stat-filename]')?.textContent).toBe('src/index.ts');
   });
 
   it('scales bars correctly', () => {

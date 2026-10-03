@@ -1,92 +1,32 @@
-import { useState, useMemo } from 'react';
 import './ToolCallCard.css';
+import { useToolCall, JsonView, cv, type ToolCallProps } from './agentOps.shared';
 
-export interface ToolCallCardProps {
-  toolName: string;
-  args: Record<string, unknown>;
-  status: 'pending' | 'running' | 'succeeded' | 'failed';
-  duration?: number; // in milliseconds
-  result?: unknown;
-  error?: string;
-  defaultExpanded?: boolean;
-}
-
-export function ToolCallCard({
-  toolName,
-  args,
-  status,
-  duration,
-  result,
-  error,
-  defaultExpanded = false,
-}: ToolCallCardProps) {
-  const [expanded, setExpanded] = useState(defaultExpanded);
-
-  const argChips = useMemo(() => {
-    return Object.entries(args).slice(0, 3).map(([key, value]) => {
-      let displayValue = String(value);
-      if (typeof value === 'object') {
-        displayValue = '{...}';
-      } else if (displayValue.length > 20) {
-        displayValue = displayValue.substring(0, 20) + '...';
-      }
-      return { key, displayValue };
-    });
-  }, [args]);
-  
-  const hasMoreArgs = Object.keys(args).length > 3;
-
-  const rawJson = useMemo(() => {
-    const data: Record<string, unknown> = { args };
-    if (result !== undefined) data.result = result;
-    if (error !== undefined) data.error = error;
-    return JSON.stringify(data, null, 2);
-  }, [args, result, error]);
-
-  const toggleExpanded = () => {
-    setExpanded(!expanded);
-  };
-
+export function ToolCallCard(props: ToolCallProps) {
+  const t = useToolCall(props);
+  const { toolName, status, error, className = '' } = props;
   return (
-    <div data-tool-call-card="" data-status={status}>
-      <div data-tool-call-header="" onClick={toggleExpanded} role="button" tabIndex={0} onKeyDown={(e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleExpanded(); }}}>
-        <div data-tool-call-indicator="">
-          {status === 'pending' && <div data-tool-call-dot="" className="is-pending" />}
-          {status === 'running' && <div data-tool-call-dot="" className="is-running" />}
-          {status === 'succeeded' && <div data-tool-call-dot="" className="is-succeeded" />}
-          {status === 'failed' && <div data-tool-call-dot="" className="is-failed" />}
-        </div>
-        
-        <div data-tool-call-title="">{toolName}</div>
-        
-        <div data-tool-call-args-summary="">
-          {argChips.map((chip) => (
-            <span key={chip.key} data-tool-call-chip="">
-              <span className="chip-key">{chip.key}:</span> <span className="chip-value">{chip.displayValue}</span>
-            </span>
-          ))}
-          {hasMoreArgs && <span data-tool-call-chip="">...</span>}
-        </div>
-        
-        <div data-tool-call-meta="">
-          {duration !== undefined && <span data-tool-call-duration="">{duration}ms</span>}
-          <span data-tool-call-chevron="" className={expanded ? 'is-expanded' : ''}>▼</span>
-        </div>
+    <div className={'tool-call ' + className} data-tool-call-card="" data-status={status} data-open={t.open ? '' : undefined} style={cv(t.color)}>
+      <div className="tool-call-head" data-tool-call-header="" {...t.head}>
+        <span className="tool-call-ind" data-tool-call-indicator="" aria-label={t.label}>
+          {status === 'running' ? <i className="tool-call-spin" /> : <b>{status === 'succeeded' ? '✓' : status === 'failed' ? '✕' : ''}</b>}
+        </span>
+        <span className="tool-call-name" data-tool-call-title="">{toolName}</span>
+        <span className="tool-call-args" data-tool-call-args-summary="">
+          {t.chips.map(c => <span key={c.key} className="tool-call-chip" data-tool-call-chip=""><em>{c.key}</em>{c.value}</span>)}
+          {t.more > 0 && <span className="tool-call-chip" data-tool-call-chip="">{'+' + t.more}</span>}
+        </span>
+        <span className="tool-call-meta" data-tool-call-meta="">
+          {t.dur && <span data-tool-call-duration="">{t.dur}</span>}
+          <span className="tool-call-chev" data-tool-call-chevron="" aria-hidden="true" />
+        </span>
+        {status === 'running' && <span className="tool-call-beam" aria-hidden="true" />}
       </div>
-      
-      {status === 'failed' && error && !expanded && (
-          <div data-tool-call-error-excerpt="">
-              {error.length > 80 ? error.substring(0, 80) + '...' : error}
-          </div>
-      )}
-
-      {expanded && (
-        <div data-tool-call-details="">
-          <pre data-tool-call-raw-json="">
-            {rawJson}
-          </pre>
-        </div>
-      )}
+      {status === 'failed' && error && !t.open && <div className="tool-call-err" data-tool-call-error-excerpt="">{error.length > 96 ? error.slice(0, 95) + '…' : error}</div>}
+      <div className="tool-call-body" aria-hidden={!t.open}>
+        <div className="tool-call-in">{t.open && <div data-tool-call-details=""><JsonView text={t.json} className="tool-call-json" /></div>}</div>
+      </div>
     </div>
   );
 }
+
+export type { ToolCallProps as ToolCallCardProps } from './agentOps.shared';

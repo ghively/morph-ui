@@ -1,53 +1,17 @@
-[data-diff-stat-pill] {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-sans);
-  font-size: 11px;
-}
-
-[data-diff-stat-filename] {
-  color: var(--app-text);
-  font-family: var(--app-mono);
-  max-width: 150px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-[data-diff-stat-numbers] {
-  display: flex;
-  gap: 4px;
-  font-family: var(--app-mono);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-
-[data-diff-stat-num="added"] {
-  color: var(--color-success);
-}
-
-[data-diff-stat-num="removed"] {
-  color: var(--color-error);
-}
-
-[data-diff-stat-bar-container] {
-  display: flex;
-  width: 40px; /* Fixed width for the bar area */
-  height: 6px;
-  background: var(--color-surface-raised);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-[data-diff-stat-bar] {
-  height: 100%;
-}
-
-[data-diff-stat-bar="added"] {
-  background: var(--color-success);
-}
-
-[data-diff-stat-bar="removed"] {
-  background: var(--color-error);
-}
+/* host-primitive reset */
+:where(.diff-stat) [data-status], :where(.diff-stat)[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where(.diff-stat) [data-state], :where(.diff-stat)[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where(.diff-stat) [data-state]::before, :where(.diff-stat)[data-state]::before { content: none; }
+:where(.diff-stat) [data-empty], :where(.diff-stat)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+.diff-stat { display: flex; align-items: center; gap: 10px; padding: 6px 12px; border-radius: 999px; font-family: var(--font-sans); font-size: 12.5px; color: var(--app-text); border: 1px solid var(--app-line); background: var(--glass-bg); box-shadow: var(--glass-edge); transition: border-color var(--d2), box-shadow var(--d2); }
+.diff-stat:hover { border-color: color-mix(in srgb, var(--state-ok) 30%, var(--app-line)); box-shadow: var(--glass-edge), 0 0 16px -8px var(--state-ok); }
+.diff-stat-file { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: rtl; text-align: left; font-family: var(--app-mono); font-size: 12px; font-weight: 600; }
+.diff-stat-file span { font-weight: 400; color: var(--app-faint); }
+.diff-stat-num { display: flex; gap: 6px; font-family: var(--app-mono); font-size: 11.5px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.diff-stat [data-diff-stat-num="added"] { color: var(--state-ok); } .diff-stat [data-diff-stat-num="removed"] { color: var(--state-error); }
+.diff-stat-bar { flex: none; display: flex; gap: 2px; width: 72px; height: 6px; border-radius: 999px; overflow: hidden; background: color-mix(in srgb, var(--app-text) 7%, transparent); }
+.diff-stat:not(:has(.diff-stat-file)) .diff-stat-bar { flex: 1; width: auto; min-width: 72px; }
+.diff-stat-bar i { height: 100%; transition: width var(--d3) var(--ease-emph); }
+.diff-stat-bar [data-diff-stat-bar="added"] { background: var(--state-ok); box-shadow: 0 0 6px var(--state-ok); border-radius: 999px 0 0 999px; }
+.diff-stat-bar [data-diff-stat-bar="removed"] { background: var(--state-error); box-shadow: 0 0 6px var(--state-error); }
+.diff-stat-bar i:only-child { border-radius: 999px; }

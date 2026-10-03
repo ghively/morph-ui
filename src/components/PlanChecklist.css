@@ -1,128 +1,25 @@
-[data-plan] {
-  font: inherit;
-  border: 1px solid var(--morph-border);
-  border-radius: var(--morph-radius-lg);
-  overflow: hidden;
-}
-
-[data-planhead] {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 14px;
-  background: var(--morph-thead-bg);
-  font-size: var(--t-small);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-[data-planprogress] {
-  font-variant-numeric: tabular-nums;
-}
-
-[data-planlist] {
-  list-style: none;
-  margin: 0;
-  padding: 6px;
-  display: flex;
-  flex-direction: column;
-}
-
-[data-planstep] {
-  display: flex;
-  gap: var(--s3);
-  padding: 8px 10px;
-  border-radius: 8px;
-  align-items: flex-start;
-}
-
-[data-planstep][data-state='active'] {
-  background: rgba(108, 156, 240, 0.08);
-}
-
-[data-planmarker] {
-  flex: none;
-  width: 20px;
-  height: 20px;
-  margin-top: 1px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  font-size: var(--t-small);
-  font-weight: 800;
-}
-
-[data-planstep][data-state='done'] [data-planmarker] {
-  background: rgba(26, 155, 94, 0.16);
-  color: var(--morph-success);
-}
-
-[data-planstep][data-state='active'] [data-planmarker] {
-  background: rgba(108, 156, 240, 0.16);
-  color: var(--morph-accent);
-}
-
-[data-planstep][data-state='blocked'] [data-planmarker] {
-  background: rgba(214, 60, 60, 0.16);
-  color: var(--morph-danger);
-}
-
-[data-planstep][data-state='todo'] [data-planmarker] {
-  border: 1.5px solid var(--morph-border-strong);
-}
-
-[data-planpulse] {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: currentColor;
-  animation: morph-plan-pulse 1s ease-in-out infinite;
-}
-
-[data-plantodo] {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
-  opacity: 0.4;
-}
-
-[data-plantext] {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  min-width: 0;
-}
-
-[data-planlabel] {
-  font-size: var(--t-title);
-  font-weight: 600;
-}
-
-[data-planstep][data-state='done'] [data-planlabel] {
-  opacity: 0.75;
-}
-
-[data-plandetail] {
-  font-size: var(--t-small);
-  opacity: 0.7;
-}
-
-@keyframes morph-plan-pulse {
-  0%,
-  100% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [data-planpulse] {
-    animation: none;
-    opacity: 1;
-  }
-}
+/* host-primitive reset */
+:where(.plan-checklist) [data-status], :where(.plan-checklist)[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where(.plan-checklist) [data-state], :where(.plan-checklist)[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where(.plan-checklist) [data-state]::before, :where(.plan-checklist)[data-state]::before { content: none; }
+:where(.plan-checklist) [data-empty], :where(.plan-checklist)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+.plan-checklist { display: grid; gap: 10px; padding: 12px 14px; color: var(--app-text); font-family: var(--font-sans); border-radius: 10px; border: 1px solid var(--app-line); background: var(--app-panel); }
+.plan-checklist-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.plan-checklist-head b { font-size: 13.5px; font-weight: 600; } .plan-checklist-head span { font-family: var(--app-mono); font-size: 12px; color: var(--app-dim); font-variant-numeric: tabular-nums; }
+.plan-checklist-seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 3px; }
+.plan-checklist-seg i { height: 4px; border-radius: 2px; background: color-mix(in srgb, var(--app-text) 10%, transparent); }
+.plan-checklist-seg i[data-state="done"], .plan-checklist-seg i[data-state="blocked"] { background: var(--c); }
+.plan-checklist-seg i[data-state="active"] { background: linear-gradient(90deg, var(--c) 0 50%, color-mix(in srgb, var(--c) 25%, transparent) 50%); background-size: 200% 100%; animation: plan-checklist-fill 1.6s var(--ease-fx) infinite; box-shadow: 0 0 6px -1px var(--c); }
+.plan-checklist-list { list-style: none; margin: 0; padding: 0; display: grid; }
+.plan-checklist-step { display: flex; align-items: center; gap: 10px; padding: 7px 0; font-size: inherit; }
+.plan-checklist-step + .plan-checklist-step { border-top: 1px solid var(--app-line); }
+.plan-checklist-num { flex: none; width: 20px; height: 20px; display: grid; place-items: center; border-radius: 6px; font-family: var(--app-mono); font-size: 10.5px; font-weight: 600; color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); }
+.plan-checklist-step[data-state="done"] .plan-checklist-num { color: var(--on-accent, #000); background: var(--c); }
+.plan-checklist-text { flex: 1; min-width: 0; display: grid; }
+.plan-checklist-text [data-planlabel] { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.plan-checklist-step[data-state="todo"] [data-planlabel] { color: var(--app-faint); }
+.plan-checklist-detail { font-size: 11.5px; color: var(--app-faint); }
+.plan-checklist-tag { font-size: 10.5px; font-weight: 600; letter-spacing: .03em; color: var(--c); }
+.plan-checklist-step[data-state="todo"] .plan-checklist-tag { color: var(--app-faint); font-weight: 400; }
+@keyframes plan-checklist-fill { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@media (prefers-reduced-motion: reduce) { .plan-checklist-seg i { animation: none !important; } }
