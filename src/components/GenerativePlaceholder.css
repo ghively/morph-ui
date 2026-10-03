@@ -1,76 +1,26 @@
-.gen-placeholder {
-  width: 100%;
-  position: relative;
-  overflow: hidden;
+/* GenerativePlaceholder — AGENT_DATA polish (2026-10-02). Construct: dashed wireframes solidify in sequence while a scan beam passes.
+   Reads only theme tokens + the --state-* / --glass-* layer in tokens.css. */
+.gen-placeholder { position: relative; width: 100%; overflow: hidden; border-radius: var(--r-card, 14px); }
+.gen-placeholder-surface { padding: 16px; border-radius: var(--r-card, 14px); border: 1px dashed color-mix(in srgb, var(--app-text) 16%, transparent); background: repeating-linear-gradient(0deg, transparent 0 15px, color-mix(in srgb, var(--app-text) 3%, transparent) 15px 16px), repeating-linear-gradient(90deg, transparent 0 15px, color-mix(in srgb, var(--app-text) 3%, transparent) 15px 16px); }
+.gen-placeholder-b {
+  display: block; flex: none; max-width: 100%; box-sizing: border-box; border-radius: 4px;
+  border: 1px dashed color-mix(in srgb, var(--app-text) 20%, transparent); background: transparent;
+  animation: gen-placeholder-build 2.8s var(--ease-emph, ease) infinite; animation-delay: calc(var(--i) * 70ms);
 }
+.gen-placeholder-b.is-circ { border-radius: 50%; }
+.gen-placeholder-b.is-pill { border-radius: 999px; }
+.gen-placeholder-b.is-bub { border-radius: 12px 12px 12px 3px; }
+.gen-placeholder-b.is-me { border-radius: 12px 12px 3px 12px; }
+.gen-placeholder-b.is-bar { border-radius: 3px 3px 0 0; }
+.gen-placeholder-b.is-axis { animation: none; border: 0; background: color-mix(in srgb, var(--app-text) 18%, transparent); }
+.gen-placeholder-beam { position: absolute; left: 0; right: 0; top: 0; height: 36px; pointer-events: none; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--state-live) 14%, transparent) 70%, color-mix(in srgb, var(--state-live) 70%, transparent) 98%, transparent); mix-blend-mode: screen; animation: gen-placeholder-scan 2.8s cubic-bezier(.5, 0, .5, 1) infinite; }
+.gen-placeholder-beam::after { content: ''; position: absolute; left: 0; right: 0; bottom: 1px; height: 1px; background: var(--state-live); box-shadow: 0 0 10px 1px var(--state-live); }
 
-.gen-shimmer-wrapper {
-  position: relative;
-  /* One coordinated animation across the placeholder per spec */
+@keyframes gen-placeholder-build {
+  0%, 12% { border-color: color-mix(in srgb, var(--app-text) 20%, transparent); background: transparent; }
+  40%, 70% { border-style: solid; border-color: color-mix(in srgb, var(--state-live) 45%, transparent); background: color-mix(in srgb, var(--state-live) 12%, transparent); box-shadow: 0 0 10px -2px color-mix(in srgb, var(--state-live) 40%, transparent); }
+  100% { border-color: color-mix(in srgb, var(--app-text) 20%, transparent); background: transparent; }
 }
-
-.gen-shimmer-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  transform: translateX(-100%);
-  background-image: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0,
-    rgba(255, 255, 255, 0.05) 20%,
-    rgba(255, 255, 255, 0.1) 60%,
-    rgba(255, 255, 255, 0)
-  );
-  animation: shimmer 2s infinite;
-  pointer-events: none;
-}
-
-.gen-line {
-  height: 12px;
-  background: var(--app-line);
-  border-radius: 6px;
-  margin-bottom: 8px;
-}
-
-.gen-card {
-  display: flex;
-  gap: 16px;
-  padding: 16px;
-  background: var(--app-elev);
-  border-radius: 12px;
-  border: 1px solid var(--app-line);
-}
-
-.gen-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--app-line);
-  flex-shrink: 0;
-}
-
-.gen-card .gen-lines {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-@keyframes shimmer {
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .gen-shimmer-wrapper::after {
-    animation: none;
-    background-image: none;
-  }
-  .gen-line, .gen-avatar {
-    opacity: 0.5;
-  }
-}
+@keyframes gen-placeholder-scan { from { transform: translateY(-40px); } to { transform: translateY(calc(var(--scan-h, 260px))); } }
+.gen-placeholder-text .gen-placeholder-beam, .gen-placeholder-conversation .gen-placeholder-beam { --scan-h: 200px; }
+@media (prefers-reduced-motion: reduce) { .gen-placeholder-b, .gen-placeholder-beam { animation: none; } .gen-placeholder-beam { display: none; } }

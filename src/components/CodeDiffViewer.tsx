@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import './CodeDiffViewer.css';
 
 export interface DiffLine {
@@ -11,8 +11,12 @@ export interface DiffHunk {
   oldLines: number;
   newStart: number;
   newLines: number;
+  /** Context text after the @@ range (usually the enclosing function). */
+  header?: string;
   lines: DiffLine[];
 }
+
+export type CodeDiffView = 'unified' | 'split';
 
 export interface CodeDiffViewerProps {
   diff?: string;
@@ -20,124 +24,132 @@ export interface CodeDiffViewerProps {
   fileName?: string;
   wrap?: boolean;
   maxHeight?: string | number;
+  /** Initial layout; the header toggle switches it. Defaults to split. */
+  view?: CodeDiffView;
+  /** Hide the unified/split toggle. */
+  hideViewToggle?: boolean;
+  className?: string;
 }
 
-function parseUnifiedDiff(rawDiff: string): DiffHunk[] {
-  const lines = rawDiff.split(/\r?\n/);
+interface NumberedLine extends DiffLine { o?: number; n?: number }
+
+export function parseUnifiedDiff(raw: string): DiffHunk[] {
   const hunks: DiffHunk[] = [];
-  let currentHunk: DiffHunk | null = null;
-  
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    
-    if (line.startsWith('@@ ')) {
-      // @@ -oldStart,oldLines +newStart,newLines @@
-      const match = line.match(/^@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/);
-      if (match) {
-        currentHunk = {
-          oldStart: parseInt(match[1], 10),
-          oldLines: match[2] ? parseInt(match[2], 10) : 1,
-          newStart: parseInt(match[3], 10),
-          newLines: match[4] ? parseInt(match[4], 10) : 1,
-          lines: []
-        };
-        hunks.push(currentHunk);
-      }
+  let cur: DiffHunk | null = null;
+  for (const line of raw.split(/\r?\n/)) {
+    const m = line.match(/^@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@ ?(.*)$/);
+    if (m) {
+      cur = { oldStart: +m[1], oldLines: m[2] ? +m[2] : 1, newStart: +m[3], newLines: m[4] ? +m[4] : 1, header: m[5] || undefined, lines: [] };
+      hunks.push(cur);
       continue;
     }
-    
-    if (currentHunk) {
-      if (line.startsWith('+')) {
-        currentHunk.lines.push({ type: 'add', text: line.substring(1) });
-      } else if (line.startsWith('-')) {
-        currentHunk.lines.push({ type: 'del', text: line.substring(1) });
-      } else if (line.startsWith(' ')) {
-        currentHunk.lines.push({ type: 'ctx', text: line.substring(1) });
-      } else if (line.startsWith('\\')) {
-        currentHunk.lines.push({ type: 'meta', text: line });
-      } else {
-        // Stop parsing if we hit a non-hunk line after starting a hunk
-        currentHunk = null;
-      }
-    }
+    if (!cur) continue;
+    if (line.startsWith('+')) cur.lines.push({ type: 'add', text: line.slice(1) });
+    else if (line.startsWith('-')) cur.lines.push({ type: 'del', text: line.slice(1) });
+    else if (line.startsWith(' ')) cur.lines.push({ type: 'ctx', text: line.slice(1) });
+    else if (line.startsWith('\\')) cur.lines.push({ type: 'meta', text: line });
+    else if (line !== '') cur = null;
   }
-  
-  if (hunks.length === 0) {
-    throw new Error("Invalid diff format");
-  }
-  
+  if (!hunks.length) throw new Error('Invalid diff format');
   return hunks;
 }
 
-export function CodeDiffViewer({ diff, hunks: propHunks, fileName, wrap = false, maxHeight }: CodeDiffViewerProps) {
-  const { parsedHunks, error } = useMemo(() => {
-    if (propHunks) {
-      return { parsedHunks: propHunks, error: null };
-    }
-    if (diff) {
-      try {
-        return { parsedHunks: parseUnifiedDiff(diff), error: null };
-      } catch (err) {
-        return { parsedHunks: null, error: err instanceof Error ? err.message : String(err) };
-      }
-    }
-    return { parsedHunks: null, error: "No diff provided" };
+/** Pair del/add runs into side-by-side rows. */
+function toSplit(lines: NumberedLine[]) {
+  const rows: { l?: NumberedLine; r?: NumberedLine }[] = [];
+  for (let i = 0; i < lines.length;) {
+    const l = lines[i];
+    if (l.type === 'ctx' || l.type === 'meta') { rows.push({ l, r: l }); i++; continue; }
+    const dels: NumberedLine[] = [], adds: NumberedLine[] = [];
+    while (lines[i]?.type === 'del') dels.push(lines[i++]);
+    while (lines[i]?.type === 'add') adds.push(lines[i++]);
+    for (let k = 0; k < Math.max(dels.length, adds.length); k++) rows.push({ l: dels[k], r: adds[k] });
+  }
+  return rows;
+}
+
+const MARK = { add: '+', del: '-', ctx: ' ', meta: '' };
+
+export function CodeDiffViewer({ diff, hunks: propHunks, fileName, wrap = false, maxHeight, view: initialView = 'split', hideViewToggle = false, className = '' }: CodeDiffViewerProps) {
+  const [view, setView] = useState<CodeDiffView>(initialView);
+  const { hunks, error, add, del } = useMemo(() => {
+    let parsed: DiffHunk[] | null = null, err: string | null = null;
+    try { parsed = propHunks || (diff ? parseUnifiedDiff(diff) : null); if (!parsed) err = 'No diff provided'; }
+    catch (e) { err = e instanceof Error ? e.message : String(e); }
+    let a = 0, d = 0;
+    const numbered = (parsed || []).map(h => {
+      let o = h.oldStart, n = h.newStart;
+      return {
+        ...h,
+        lines: h.lines.map((l): NumberedLine => {
+          if (l.type === 'add') { a++; return { ...l, n: n++ }; }
+          if (l.type === 'del') { d++; return { ...l, o: o++ }; }
+          if (l.type === 'ctx') return { ...l, o: o++, n: n++ };
+          return l;
+        }),
+      };
+    });
+    return { hunks: numbered, error: err, add: a, del: d };
   }, [diff, propHunks]);
 
-  if (error || !parsedHunks) {
-    return (
-      <div className="cdv-container cdv-error" style={{ maxHeight }}>
-        {fileName && <div className="cdv-header">{fileName}</div>}
-        <div className="cdv-error-message">Error parsing diff: {error}</div>
-      </div>
-    );
-  }
+  const slash = fileName ? fileName.lastIndexOf('/') : -1;
+  const dir = fileName && slash >= 0 ? fileName.slice(0, slash + 1) : '';
+  const base = fileName ? fileName.slice(slash + 1) : '';
 
   return (
-    <div className="cdv-container" style={{ maxHeight }}>
-      {fileName && <div className="cdv-header">{fileName}</div>}
-      <div className={`cdv-content ${wrap ? 'cdv-wrap' : ''}`}>
-        {parsedHunks.map((hunk, hunkIdx) => {
-          let oldLineNum = hunk.oldStart;
-          let newLineNum = hunk.newStart;
-
-          return (
-            <div key={`hunk-${hunkIdx}`} className="cdv-hunk">
-              <div className="cdv-hunk-header">
-                @@ -{hunk.oldStart},{hunk.oldLines} +{hunk.newStart},{hunk.newLines} @@
+    <div className={`cdv-container ${error ? 'cdv-error is-error' : ''} ${className}`.trim()}>
+      {(fileName || !error) && (
+        <div className="cdv-head">
+          <span className="cdv-path">{dir && <span className="cdv-dir">{dir}</span>}<b className="cdv-header">{base || 'diff'}</b></span>
+          {!error && <span className="cdv-stat"><em className="a">+{add}</em><em className="d">−{del}</em></span>}
+          {!error && !hideViewToggle && (
+            <span className="cdv-seg" role="radiogroup" aria-label="Diff layout">
+              {(['unified', 'split'] as const).map(v => (
+                <button key={v} type="button" role="radio" aria-checked={view === v} className={view === v ? 'is-on' : ''} onClick={() => setView(v)}>{v}</button>
+              ))}
+            </span>
+          )}
+        </div>
+      )}
+      {error ? (
+        <div className="cdv-err cdv-error-message">Error parsing diff: {error}</div>
+      ) : (
+        <div className="cdv-scroll" style={{ maxHeight }}>
+          {hunks.map((h, hi) => (
+            <div key={hi} className="cdv-hunk">
+              <div className="cdv-hh cdv-hunk-header">
+                <span>@@ -{h.oldStart},{h.oldLines} +{h.newStart},{h.newLines} @@</span>
+                {h.header && <em>{h.header}</em>}
               </div>
-              <table className="cdv-table">
-                <tbody>
-                  {hunk.lines.map((line, lineIdx) => {
-                    let oldDisplay = '';
-                    let newDisplay = '';
-                    
-                    if (line.type === 'ctx') {
-                      oldDisplay = String(oldLineNum++);
-                      newDisplay = String(newLineNum++);
-                    } else if (line.type === 'add') {
-                      newDisplay = String(newLineNum++);
-                    } else if (line.type === 'del') {
-                      oldDisplay = String(oldLineNum++);
-                    }
-                    
-                    return (
-                      <tr key={`line-${hunkIdx}-${lineIdx}`} className={`cdv-row cdv-row-${line.type}`}>
-                        <td className="cdv-line-num" data-testid="old-line-num">{oldDisplay}</td>
-                        <td className="cdv-line-num" data-testid="new-line-num">{newDisplay}</td>
-                        <td className="cdv-line-marker">
-                          {line.type === 'add' ? '+' : line.type === 'del' ? '-' : line.type === 'ctx' ? ' ' : ''}
-                        </td>
-                        <td className="cdv-line-text">{line.text}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+              {view === 'unified' ? (
+                <div className={`cdv-grid is-uni ${wrap ? 'is-wrap cdv-wrap' : ''}`}>
+                  {h.lines.map((l, li) => (
+                    <div key={li} className={`cdv-ln cdv-row cdv-row-${l.type} is-${l.type}`}>
+                      <span className="cdv-n cdv-line-num">{l.o ?? ''}</span>
+                      <span className="cdv-n cdv-line-num">{l.n ?? ''}</span>
+                      <span className="cdv-mk">{MARK[l.type]}</span>
+                      <code>{l.text || ' '}</code>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className={`cdv-grid is-split ${wrap ? 'is-wrap cdv-wrap' : ''}`}>
+                  {toSplit(h.lines).map((r, ri) => (
+                    <div key={ri} className="cdv-pair">
+                      <div className={`cdv-ln ${r.l ? `cdv-row-${r.l.type} is-${r.l.type}` : 'is-void'}`}>
+                        <span className="cdv-n">{r.l?.o ?? ''}</span><span className="cdv-mk">{r.l ? MARK[r.l.type] : ''}</span><code>{r.l?.text ?? ''}</code>
+                      </div>
+                      <div className={`cdv-ln ${r.r ? `cdv-row-${r.r.type} is-${r.r.type}` : 'is-void'}`}>
+                        <span className="cdv-n">{r.r?.n ?? ''}</span><span className="cdv-mk">{r.r ? MARK[r.r.type] : ''}</span><code>{r.r?.text ?? ''}</code>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-          );
-        })}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

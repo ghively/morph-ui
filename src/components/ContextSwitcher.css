@@ -1,79 +1,33 @@
-.context-switcher {
-  position: relative;
-  display: inline-block;
-  font-family: inherit;
+/* ContextSwitcher — AGENT_DATA polish (2026-10-02). Glass dropdown: two-line trigger with a color-coded initial tile; keyboard-navigable glass menu.
+   Reads only theme tokens + the --state-* / --glass-* layer in tokens.css. */
+.context-switcher { position: relative; display: inline-block; font-size: var(--t-body, 13px); color: var(--app-text); }
+.context-switcher-trig {
+  all: unset; box-sizing: border-box; display: flex; align-items: center; gap: 10px; min-width: 200px; padding: 6px 10px 6px 6px; cursor: pointer;
+  border-radius: 12px; border: 1px solid var(--app-line); background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-edge), 0 6px 18px -10px rgba(0, 0, 0, .6);
+  transition: border-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx), background var(--d2) var(--ease-fx);
 }
-
-.context-switcher-trigger {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--app-elev);
-  border: 1px solid var(--app-line);
-  border-radius: 8px;
-  padding: 6px 12px;
-  color: var(--app-text);
-  cursor: pointer;
-  font-size: 13px;
-  transition: background-color var(--d2) var(--ease-fx), border-color var(--d2) var(--ease-fx), color var(--d2) var(--ease-fx);
-}
-
-.context-switcher-trigger:hover,
-.context-switcher-trigger[aria-expanded="true"] {
-  background: var(--app-hover);
-  border-color: var(--app-faint);
-}
+.context-switcher-trig:hover { border-color: color-mix(in srgb, var(--ai) 35%, var(--app-line)); }
+.context-switcher-trig:focus-visible, .context-switcher.is-open .context-switcher-trig { border-color: color-mix(in srgb, var(--ai) 55%, transparent); box-shadow: var(--glass-edge), 0 0 0 3px color-mix(in srgb, var(--ai) 16%, transparent), 0 6px 22px -8px color-mix(in srgb, var(--ai) 45%, transparent); }
+.context-switcher-tile { --tc: var(--ai); flex: none; width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; font-size: 13px; font-weight: 700; color: var(--tc); background: color-mix(in srgb, var(--tc) 16%, transparent); border: 1px solid color-mix(in srgb, var(--tc) 35%, transparent); box-shadow: 0 0 14px -6px var(--tc); }
+.context-switcher-tile.is-sm { width: 26px; height: 26px; border-radius: 8px; font-size: 12px; }
+.context-switcher-tt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.context-switcher-k { font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--app-faint); }
+.context-switcher-v { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.context-switcher-d { font-size: 11.5px; color: var(--app-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.context-switcher-ud { flex: none; width: 16px; height: 16px; fill: none; stroke: var(--app-faint); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 .context-switcher-menu {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  min-width: 160px;
-  margin: 0;
-  padding: 4px;
-  list-style: none;
-  background: var(--app-elev);
-  border: 1px solid var(--app-line);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  z-index: 100;
-  animation: slide-up var(--d2) var(--ease-spring);
+  position: absolute; z-index: 100; top: calc(100% + 6px); left: 0; min-width: 100%; width: 260px; padding: 5px;
+  border-radius: 14px; border: 1px solid var(--app-line); background: color-mix(in srgb, var(--app-elev) 92%, transparent);
+  backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%);
+  box-shadow: var(--glass-edge), 0 24px 48px -16px rgba(0, 0, 0, .7);
+  transform-origin: top left; opacity: 0; visibility: hidden; transform: translateY(-4px) scale(.97);
+  transition: opacity var(--d2) var(--ease-fx), transform var(--d2) var(--ease-emph), visibility 0s linear var(--d2);
 }
-
-.context-switcher-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  color: var(--app-dim);
-  font-size: 13px;
-  transition: background-color var(--d2) var(--ease-fx);
-}
-
-.context-switcher-item:hover,
-.context-switcher-item:focus {
-  background: var(--app-hover);
-  color: var(--app-text);
-  outline: none;
-}
-
-.context-switcher-item.selected {
-  color: var(--app-text);
-}
-
-.check-icon {
-  color: var(--app-blue);
-}
-
-@keyframes slide-up {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .context-switcher-menu {
-    animation: none;
-  }
-}
+.context-switcher.is-open .context-switcher-menu { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+.context-switcher-it { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border-radius: 10px; cursor: pointer; color: var(--app-dim); transition: background var(--d1) var(--ease-fx), color var(--d1) var(--ease-fx); }
+.context-switcher-it.is-hi { background: color-mix(in srgb, var(--app-text) 7%, transparent); color: var(--app-text); }
+.context-switcher-it.is-sel { color: var(--app-text); }
+.context-switcher-check { flex: none; width: 16px; height: 16px; fill: none; stroke: var(--ai); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 4px color-mix(in srgb, var(--ai) 60%, transparent)); }

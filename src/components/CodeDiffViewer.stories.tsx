@@ -1,8 +1,6 @@
-import { CodeDiffViewer } from "./CodeDiffViewer";
-import type { DiffHunk } from "./CodeDiffViewer";
+import { CodeDiffViewer, type DiffHunk } from './CodeDiffViewer';
 
 const unifiedDiff = `diff --git a/src/gateway/retry.ts b/src/gateway/retry.ts
-index 3f1a2b4..9c7e021 100644
 --- a/src/gateway/retry.ts
 +++ b/src/gateway/retry.ts
 @@ -12,8 +12,10 @@ export async function withRetry<T>(
@@ -17,33 +15,46 @@ index 3f1a2b4..9c7e021 100644
        attempt += 1;
      }
    }
+@@ -41,4 +43,4 @@ export function isRetryable(err: unknown) {
+   if (!(err instanceof HttpError)) return false;
+-  return err.status >= 500;
++  return err.status >= 500 || err.status === 429;
+ }
 `;
 
 const hunks: DiffHunk[] = [
   {
-    oldStart: 4,
-    oldLines: 4,
-    newStart: 4,
-    newLines: 5,
+    oldStart: 4, oldLines: 3, newStart: 4, newLines: 4, header: 'export const config',
     lines: [
-      { type: "meta", text: "@@ -4,4 +4,5 @@ export const config" },
-      { type: "ctx", text: "export const config = {" },
-      { type: "del", text: "  timeoutMs: 30_000," },
-      { type: "add", text: "  timeoutMs: 120_000," },
-      { type: "add", text: "  keepAlive: true," },
-      { type: "ctx", text: "};" },
+      { type: 'ctx', text: 'export const config = {' },
+      { type: 'del', text: '  timeoutMs: 30_000,' },
+      { type: 'add', text: '  timeoutMs: 120_000,' },
+      { type: 'add', text: '  keepAlive: true,' },
+      { type: 'ctx', text: '};' },
     ],
   },
 ];
 
 export const Default = () => (
-  <div style={{ padding: "2rem", maxWidth: 760 }}>
+  <div style={{ maxWidth: 820 }}>
     <CodeDiffViewer diff={unifiedDiff} fileName="src/gateway/retry.ts" />
   </div>
 );
 
+export const Unified = () => (
+  <div style={{ maxWidth: 820 }}>
+    <CodeDiffViewer diff={unifiedDiff} fileName="src/gateway/retry.ts" view="unified" />
+  </div>
+);
+
 export const FromHunks = () => (
-  <div style={{ padding: "2rem", maxWidth: 760 }}>
+  <div style={{ maxWidth: 820 }}>
     <CodeDiffViewer hunks={hunks} fileName="src/config.ts" wrap maxHeight={220} />
+  </div>
+);
+
+export const ParseError = () => (
+  <div style={{ maxWidth: 820 }}>
+    <CodeDiffViewer diff="not a diff" fileName="src/broken.ts" />
   </div>
 );

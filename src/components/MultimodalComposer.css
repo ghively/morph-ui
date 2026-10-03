@@ -1,255 +1,55 @@
-.mm-composer {
-  background: var(--app-elev);
-  border: 1px solid var(--app-line);
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  transition: background-color var(--d3) var(--ease-fx), border-color var(--d3) var(--ease-fx), color var(--d3) var(--ease-fx), box-shadow var(--d3) var(--ease-fx);
-  position: relative;
-  overflow: hidden;
-}
+/* MultimodalComposer — AGENT_DATA polish batch 2 (2026-10-03). Glass capsule: one rounded bar, glowing focus ring, pop-in send, attachment chips with type tiles.
+   Reads only theme tokens + the --state-* / --glass-* layer in tokens.css. */
+.mm-composer { --c: var(--state-live); position: relative; display: flex; flex-direction: column; color: var(--app-text);
+  border-radius: 24px; border: 1px solid var(--app-line); background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-edge), var(--glass-shadow);
+  transition: border-color var(--d2) var(--ease-fx), box-shadow var(--d3) var(--ease-fx), border-radius var(--d3) var(--ease-emph); }
+.mm-composer:has(.mm-tray) { border-radius: 20px; }
+.mm-composer.with-header { border-top-left-radius: 8px; border-top-right-radius: 8px; }
+.mm-composer.is-focus, .mm-composer.is-voice { border-color: color-mix(in srgb, var(--c) 55%, transparent); box-shadow: var(--glass-edge), 0 0 0 4px color-mix(in srgb, var(--c) 12%, transparent), 0 0 32px -8px color-mix(in srgb, var(--c) 50%, transparent), var(--glass-shadow); }
+.mm-composer.is-disabled { opacity: .55; }
+.mm-composer svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-.mm-composer.focused {
-  border-color: var(--app-faint);
-  box-shadow: 0 0 0 1px var(--app-faint);
-}
+.mm-row { display: flex; align-items: flex-end; gap: 6px; padding: 6px; }
+.mm-icon { all: unset; flex: none; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; cursor: pointer; color: var(--app-dim); transition: color var(--d2), background var(--d2), box-shadow var(--d2); }
+.mm-icon:hover:not(:disabled) { color: var(--app-text); background: color-mix(in srgb, var(--app-text) 8%, transparent); }
+.mm-icon:focus-visible, .mm-send:focus-visible, .mm-mini:focus-visible { outline: 2px solid var(--c); outline-offset: 1px; }
+.mm-icon:disabled { cursor: not-allowed; }
+.mm-icon.is-on { color: var(--app-bg); background: var(--c); box-shadow: 0 0 16px -2px var(--c); }
+.mm-ta { all: unset; flex: 1; min-width: 0; box-sizing: border-box; padding: 8px 4px; min-height: 36px; max-height: 200px; overflow-y: auto; white-space: pre-wrap; word-break: break-word; font-size: var(--t-input, 15px); line-height: 1.35; color: var(--app-text); }
+.mm-ta::placeholder { color: var(--app-faint); }
+.mm-send { all: unset; flex: none; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; cursor: pointer; color: var(--app-bg); background: var(--c);
+  box-shadow: 0 0 0 0 transparent, 0 0 18px -2px color-mix(in srgb, var(--c) 70%, transparent); animation: mm-pop var(--d3) var(--ease-morph); transition: transform var(--d1), box-shadow var(--d2); }
+.mm-send:hover { box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 20%, transparent), 0 0 24px 0 color-mix(in srgb, var(--c) 70%, transparent); }
+.mm-send:active { transform: scale(.94); }
+.mm-send svg { stroke-width: 2.4; }
 
-.mm-composer.dragging {
-  border-color: var(--app-blue);
-  background: var(--app-hover);
-}
+.mm-voice { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 6px; font-size: 13px; color: var(--app-dim); }
+.mm-wave { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 3px; height: 22px; overflow: hidden; }
+.mm-wave i { width: 3px; height: 100%; border-radius: 2px; background: var(--c); box-shadow: 0 0 6px color-mix(in srgb, var(--c) 60%, transparent); transform: scaleY(.2); animation: mm-wave .9s ease-in-out infinite; }
 
-.mm-attachments {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 12px 12px 0;
-  animation: slide-down var(--d2) var(--ease-spring);
-}
+.mm-tray { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 8px 0; }
+.mm-att { position: relative; overflow: hidden; display: flex; align-items: center; gap: 8px; max-width: 220px; padding: 5px 4px 5px 5px; border-radius: 12px; border: 1px solid var(--app-line); background: color-mix(in srgb, var(--app-text) 4%, transparent); animation: mm-in var(--d3) var(--ease-morph); }
+.mm-att.is-failed { border-color: color-mix(in srgb, var(--state-error) 45%, transparent); background: color-mix(in srgb, var(--state-error) 8%, transparent); }
+.mm-thumb { flex: none; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 8px; font-size: 8.5px; font-weight: 700; letter-spacing: .04em; font-family: var(--app-mono); }
+.mm-thumb.k-img { color: var(--state-delegate); background: color-mix(in srgb, var(--state-delegate) 16%, transparent); }
+.mm-thumb.k-code { color: var(--state-think); background: color-mix(in srgb, var(--state-think) 18%, transparent); }
+.mm-thumb.k-doc { color: var(--state-wait); background: color-mix(in srgb, var(--state-wait) 16%, transparent); }
+.mm-meta { min-width: 0; display: flex; flex-direction: column; line-height: 1.25; }
+.mm-name { font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mm-sub { font-size: 10.5px; color: var(--app-faint); font-variant-numeric: tabular-nums; }
+.mm-att.is-failed .mm-sub { color: var(--color-error-text); }
+.mm-att.is-done .mm-sub { color: var(--state-ok); }
+.mm-mini { all: unset; flex: none; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; cursor: pointer; color: var(--app-faint); transition: color var(--d2), background var(--d2); }
+.mm-mini svg { width: 13px; height: 13px; }
+.mm-mini:hover { color: var(--app-text); background: color-mix(in srgb, var(--app-text) 10%, transparent); }
+.mm-prog { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: color-mix(in srgb, var(--app-text) 8%, transparent); }
+.mm-prog i { display: block; height: 100%; background: var(--c); box-shadow: 0 0 8px var(--c); transition: width var(--d3) var(--ease-fx); }
 
-.mm-attachment-item {
-  background: var(--app-line);
-  padding: 4px 8px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: var(--app-text);
-  justify-content: space-between;
-}
+.mm-drop { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; border-radius: inherit; font-size: 13px; font-weight: 600; color: var(--c);
+  background: color-mix(in srgb, var(--app-bg) 70%, transparent); border: 1.5px dashed var(--c); box-shadow: inset 0 0 30px color-mix(in srgb, var(--c) 25%, transparent); backdrop-filter: blur(4px); }
 
-.mm-attachment-remove {
-  background: none;
-  border: none;
-  color: var(--app-dim);
-  cursor: pointer;
-  padding: 0;
-  font-size: 14px;
-  line-height: 1;
-}
-
-.mm-attachment-remove:hover {
-  color: var(--app-text);
-}
-
-.mm-input-row {
-  display: flex;
-  align-items: flex-end;
-  padding: 12px;
-  gap: 12px;
-  min-height: 48px;
-}
-
-.mm-textarea {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: var(--app-text);
-  font-family: inherit;
-  font-size: 14px;
-  resize: none;
-  padding: 0;
-  margin: 0;
-  outline: none;
-  line-height: 1.5;
-  max-height: 200px;
-  min-height: 21px;
-}
-
-.mm-textarea::placeholder {
-  color: var(--app-dim);
-}
-
-.mm-icon-btn {
-  background: transparent;
-  border: none;
-  color: var(--app-dim);
-  cursor: pointer;
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: color var(--d2) var(--ease-fx), background-color var(--d2) var(--ease-fx);
-}
-
-.mm-icon-btn:hover {
-  color: var(--app-text);
-  background: var(--app-line);
-}
-
-.mm-voice-btn.active {
-  color: var(--color-error);
-  animation: pulse-red 2s infinite;
-}
-
-.mm-send-btn {
-  background: var(--app-blue);
-  color: var(--on-accent);
-  border: none;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform var(--d2) var(--ease-spring);
-}
-
-.mm-send-btn:hover {
-  transform: scale(1.05);
-}
-
-.mm-send-btn:active {
-  transform: scale(0.95);
-}
-
-.mm-voice-container {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  justify-content: center;
-  animation: fade-in var(--d2) var(--ease-fx);
-}
-
-.mm-voice-text {
-  color: var(--app-blue);
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.mm-drop-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(33, 150, 243, 0.1);
-  backdrop-filter: blur(2px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--app-blue);
-  font-weight: 500;
-  z-index: 10;
-  pointer-events: none;
-}
-
-@keyframes slide-down {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes pulse-red {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.4); }
-  70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(244, 67, 54, 0); }
-  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 67, 54, 0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .mm-composer, .mm-send-btn {
-    transition: none;
-  }
-  .mm-attachments, .mm-voice-container {
-    animation: none;
-  }
-  .mm-voice-btn.active {
-    animation: none;
-  }
-}
-
-/* Attachment states */
-.mm-attachment-item {
-  flex-direction: row;
-  position: relative;
-  overflow: hidden;
-}
-
-.mm-attachment-item.uploading {
-  opacity: 0.8;
-}
-
-.mm-attachment-item.failed {
-  border: 1px solid var(--color-error);
-  background-color: color-mix(in srgb, var(--color-error) 10%, transparent);
-}
-
-.mm-attachment-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.mm-attachment-progress {
-  font-size: 11px;
-  color: var(--app-dim);
-}
-
-.mm-attachment-error {
-  font-size: 11px;
-  color: var(--color-error);
-}
-
-.mm-attachment-actions {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.mm-attachment-retry {
-  background: transparent;
-  border: 1px solid var(--color-error);
-  color: var(--color-error);
-  border-radius: 4px;
-  padding: 2px 6px;
-  font-size: 11px;
-  cursor: pointer;
-}
-
-.mm-attachment-retry:hover {
-  background-color: var(--color-error);
-  color: var(--on-accent);
-}
-
-.mm-attachment-progress-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  width: 100%;
-  background-color: var(--app-line);
-}
-
-.mm-attachment-progress-fill {
-  height: 100%;
-  background-color: var(--app-blue);
-  transition: width 0.2s linear;
-}
+@keyframes mm-pop { from { transform: scale(.6); opacity: 0; } }
+@keyframes mm-in { from { transform: translateY(4px) scale(.96); opacity: 0; } }
+@keyframes mm-wave { 0%, 100% { transform: scaleY(.2); } 50% { transform: scaleY(1); } }
+@media (prefers-reduced-motion: reduce) { .mm-composer * { animation: none !important; } }

@@ -15,7 +15,7 @@ export const Default = () => {
   const [active, setActive] = useState(false);
   return (
     <div style={{ padding: "3rem", position: "relative", minHeight: 360 }}>
-      <button ref={sourceRef} type="button" onClick={() => setActive((value) => !value)}>
+      <button ref={sourceRef} type="button" onClick={() => setActive((value) => !value)} style={{ marginBottom: 16, padding: "8px 14px", borderRadius: 10, border: "1px solid var(--app-line)", background: "color-mix(in srgb, var(--app-text) 6%, transparent)", color: "var(--app-text)", font: "inherit", cursor: "pointer" }}>
         {active ? "Close panel" : "Open panel"}
       </button>
       <PanelDestinationTransition
