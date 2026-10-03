@@ -732,7 +732,7 @@ export function usePosterCard(p: PosterCardProps) {
     unplayed: !played && it?.unplayed ? it.unplayed : 0,
     sub: it ? subtitleFor(it) : '',
     res: mediaBadges(it).find(b => b.key === 'res')?.label,
-    style: { ...style, ...(p.width != null ? { width: p.width } : {}) },
+    style: { ...style, ...(p.width != null ? { width: p.width } : {}) } as CSSProperties,
     open: () => { if (it) p.onOpen?.(it); },
     play: () => { if (it) p.onPlay?.(it); },
     togglePlayed: () => { if (!it) return; const v = !played; setPlayed(v); p.onPlayedChange?.(v, it); },
