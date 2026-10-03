@@ -94,8 +94,9 @@ const RANGE: Record<string, 'DV' | 'HDR10' | 'HDR10+' | 'HLG' | 'SDR'> = {
   SDR: 'SDR',
 };
 
-export function fromJellyfin(d: Record<string, unknown>, o: JellyfinOpts): MediaItem {
-  const s = o.server, k = o.apiKey, w = (t: string) => o.maxWidth?.[t as ArtType] ?? MAXW[t];
+export function fromJellyfin(d: Record<string, unknown>, o: JellyfinOpts | string, apiKey?: string): MediaItem {
+  const opts: JellyfinOpts = typeof o === 'string' ? { server: o, apiKey } : o;
+  const s = opts.server, k = opts.apiKey, w = (t: string) => opts.maxWidth?.[t as ArtType] ?? MAXW[t];
   const url = (id: string, t: string, tag?: string, i?: number) => jellyfinImageUrl(s, id, t, tag, i, w(t), k);
   const tags = (d.ImageTags as Record<string, string> | undefined) || {};
   const bh = (d.ImageBlurHashes as Record<string, Record<string, string>> | undefined) || {};
@@ -113,8 +114,9 @@ export function fromJellyfin(d: Record<string, unknown>, o: JellyfinOpts): Media
   const rawSources = d.MediaSources as Array<{ MediaStreams?: Array<Record<string, unknown>>; Container?: string; Bitrate?: number }> | undefined;
   const rawStreams = (d.MediaStreams as Array<Record<string, unknown>> | undefined) || rawSources?.[0]?.MediaStreams || [];
   const v = rawStreams.find(x => x.Type === 'Video');
+  const rangeVal = (v?.VideoRangeType as string) || (v?.VideoRange as string) || '';
   const streams: MediaStreams = {
-    video: v ? { codec: v.Codec as string | undefined, width: v.Width as number | undefined, height: v.Height as number | undefined, range: RANGE[(v.VideoRangeType as string) || ''] || (v.VideoRange === 'HDR' ? 'HDR10' : 'SDR') } : undefined,
+    video: v ? { codec: v.Codec as string | undefined, width: v.Width as number | undefined, height: v.Height as number | undefined, range: RANGE[rangeVal] || (v.VideoRange === 'HDR' ? 'HDR10' : 'SDR') } : undefined,
     audio: rawStreams.filter(x => x.Type === 'Audio').map(a => ({ codec: a.Codec as string | undefined, channels: a.Channels as number | undefined, atmos: /atmos/i.test((String(a.Profile || '')) + (String(a.DisplayTitle || ''))), lang: a.Language as string | undefined })),
     subs: rawStreams.filter(x => x.Type === 'Subtitle').map(x => String(x.Language || x.DisplayTitle || '?').toUpperCase()),
     container: (d.Container as string | undefined) || rawSources?.[0]?.Container,
@@ -148,7 +150,12 @@ export function fromJellyfin(d: Record<string, unknown>, o: JellyfinOpts): Media
     art,
     blurhash: blur,
     played: ud.Played as boolean | undefined,
-    progress: ud.PlayedPercentage != null ? Number(ud.PlayedPercentage) / 100 : undefined,
+    progress:
+      ud.PlayedPercentage != null
+        ? Number(ud.PlayedPercentage) / 100
+        : ud.PlaybackPositionTicks && d.RunTimeTicks
+        ? Number(ud.PlaybackPositionTicks) / Number(d.RunTimeTicks)
+        : undefined,
     unplayed: ud.UnplayedItemCount as number | undefined,
     favorite: ud.IsFavorite as boolean | undefined,
     childCount: d.ChildCount as number | undefined,
@@ -157,8 +164,8 @@ export function fromJellyfin(d: Record<string, unknown>, o: JellyfinOpts): Media
     seriesTitle: d.SeriesName as string | undefined,
     streams,
     people,
-    themeSong: o.themeSongs?.[0] ? stream('Audio', o.themeSongs[0]) : undefined,
-    themeVideo: o.themeVideos?.[0] ? stream('Videos', o.themeVideos[0]) : undefined,
+    themeSong: opts.themeSongs?.[0] ? stream('Audio', opts.themeSongs[0]) : undefined,
+    themeVideo: opts.themeVideos?.[0] ? stream('Videos', opts.themeVideos[0]) : undefined,
   };
 }
 
@@ -792,7 +799,11 @@ export function useLibrary(p: LibraryGridProps) {
     if (!target) return;
     const card = el.querySelector('[data-letter="' + target + '"]') as HTMLElement | null;
     if (card) {
-      el.scrollTo({ top: card.offsetTop - 6, behavior: 'smooth' });
+      if (typeof el.scrollTo === 'function') {
+        el.scrollTo({ top: card.offsetTop - 6, behavior: 'smooth' });
+      } else {
+        el.scrollTop = card.offsetTop - 6;
+      }
       setActive(target);
       (card.querySelector('[data-card-open]') as HTMLElement | null)?.focus({ preventScroll: true });
     }

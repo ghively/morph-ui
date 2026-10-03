@@ -90,3 +90,59 @@ Shared logic lives in `src/components/ragAnswer.shared.tsx` (hooks + helpers, no
 | VariablePromptInput | 9b · Ruled form | Run disabled until all slots filled; filled vs missing marks in preview |
 
 Files to push: `src/components/ragAnswer.shared.tsx`, `src/components/{CitationPills,SourceCardList,RetrievalInspector,GroundingBadge,StreamingStageIndicator,ContextAttributionList,AnswerFeedback,FollowUpChips,VariablePromptInput}.{tsx,css}`, `src/components/{GroundingBadge,StreamingStageIndicator}.stories.tsx`, `test/rag-answer-polish.test.tsx`. Candidates stay in `explore/rag-answer/`.
+
+## MEDIA_LIBRARY (shipped, lane A / glass across the board)
+
+Shared primitives live in `src/components/mediaLibrary.shared.tsx` + `mediaLibrary.shared.css` (not exported from the index directly — helpers are re-exported via the individual components). CSS pattern: every component roots under `.ml` which resets the theme vars, sets `--c` as the local accent, and derives tints with `color-mix()`. `:where()` primitives keep specificity at zero so hosts can override freely.
+
+**Rules kept from HANDOFF spec:**
+- `item` accepts `MediaItem`; adapters (`fromJellyfin`) produce it from raw server responses. `<Art>` is used for all artwork with fallback chains.
+- Accent resolution order: `item.accent → blurhash average → CSS custom property cascade`.
+- `MediaTheme` wraps the player shell; theme audio is muted by default.
+- No `data-status` / `data-state` / `data-empty` on component elements (only on sub-elements like queue rows). No `scrollIntoView`, no emoji.
+
+### Browse group (8 components)
+
+| Component | Notes |
+|---|---|
+| MediaArtwork | `<Art>` wrapper with blurhash placeholder + accent extraction via `useAccent` |
+| PosterCard | `onPlayedChange(v, item)` + `onFavoriteChange(v, item)`; poster → landscape shape toggle |
+| MediaShelf | Horizontal scroll shelf with keyboard roving; shows `<PosterCard>` grid |
+| MediaHero | Full-bleed hero with accent-derived gradient overlay |
+| EpisodeList | Season tabs with `{ id, name, episodes }` shape; nextUp auto-derived from first unplayed ep |
+| CastStrip | Horizontal scroll strip of cast members |
+| MediaInfoBadges | Resolution / HDR / audio codec badges |
+| LibraryGrid | Virtualised grid; alpha-index strip shown automatically when `sort === 'title'` |
+
+### Playback group (4 components)
+
+| Component | Notes |
+|---|---|
+| PlayerScrubber | Chapter markers, skip-segment callback, `jellyfinTrickplay` helper exported |
+| TrackPicker | Audio / subtitle / quality tabs; `tracksFromItem(item)` helper exported; `TrackSelection` is index-based |
+| NowPlayingBar | Mini-player bar with progress |
+| AlbumTrackList | Disc-grouped track list with play state |
+
+### Server group (8 components)
+
+| Component | Notes |
+|---|---|
+| CollectionTile | Library tile with item count badge |
+| ActiveSessions | Live session list with transcoding/direct-play chips; `Session` type exported |
+| LibraryScanStatus | Scan progress with per-library status chips |
+| ArtworkPicker | Image picker with drag-and-drop upload |
+| IdentifyMatch | Search + match flow for metadata identification |
+| ProfilePicker | User/profile switcher grid |
+| RequestCard | Media request card with status badge; `ReqStatus` / `MediaRequest` types exported |
+| LiveTvGuide | Time-grid EPG; `Channel` / `Program` types exported |
+
+### Acquire group (4 components)
+
+| Component | Notes |
+|---|---|
+| ArrItemStatus | Sonarr/Radarr item status with season/episode breakdown; `ArrSeason` / `EpState` / `MovieState` types exported |
+| DownloadQueue | Download queue with per-row `data-queue-state` (not `data-state`); `fmtB` / `QueueItem` / `QState` exported |
+| ReleaseCalendar | Monthly calendar of upcoming releases; `CalItem` / `CalState` exported |
+| IndexerHealth | Indexer health dashboard with RSS/search/interactive test chips; `Service` / `Health` exported |
+
+Files shipped: `src/components/mediaLibrary.shared.{tsx,css}`, `src/components/__fixtures__/mediaLibrary.ts`, `src/components/{MediaArtwork,PosterCard,MediaShelf,MediaHero,EpisodeList,CastStrip,MediaInfoBadges,LibraryGrid,PlayerScrubber,TrackPicker,NowPlayingBar,AlbumTrackList,CollectionTile,ActiveSessions,LibraryScanStatus,ArtworkPicker,IdentifyMatch,ProfilePicker,RequestCard,LiveTvGuide,ArrItemStatus,DownloadQueue,ReleaseCalendar,IndexerHealth}.{tsx,css,stories.tsx}`, `test/media-library.test.tsx`. Reference files deleted from `media-library/`.
