@@ -1,0 +1,27 @@
+.ihA { --c: var(--morph-accent); display: flex; flex-direction: column; gap: 6px; padding: 12px; container-type: inline-size; }
+.ihA-head { display: flex; align-items: center; gap: 12px; padding: 4px 6px 8px; }
+.ihA-orb { flex: none; width: 14px; height: 14px; border-radius: 50%; background: var(--k); box-shadow: 0 0 0 5px color-mix(in srgb, var(--k) 18%, transparent), 0 0 18px var(--k); animation: ml-pulse 2.4s ease-in-out infinite; }
+.ihA-ht { display: flex; flex-direction: column; gap: 1px; }
+.ihA-group { display: flex; flex-direction: column; gap: 2px; }
+.ihA-gl { padding: 6px 10px 0; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--app-faint); }
+.ihA-group .ml-list { padding: 0; }
+.ihA-row { display: flex; align-items: center; gap: 12px; padding: 8px 10px; }
+.ihA-row > .ihA-main { flex: 1; }
+.ihA-row > .ihA-dot, .ihA-row > .ihA-lat, .ihA-row > .ihA-cnt, .ihA-row > button { flex: none; }
+@container (max-width: 620px) { .ihA-cnt { display: none; } }
+@container (max-width: 440px) { .ihA-lat { display: none; } }
+.ihA-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--k); box-shadow: 0 0 8px var(--k); }
+.ihA-row[data-health="error"] .ihA-dot { animation: ml-pulse 1s ease-in-out infinite; }
+.ihA-main { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.ihA-name { all: unset; cursor: pointer; font-size: 13px; font-weight: 650; }
+.ihA-name:hover { color: var(--k); }
+.ihA-name:focus-visible { outline: 2px solid var(--c); outline-offset: 2px; border-radius: 3px; }
+.ihA-msg { font-size: 11.5px; color: var(--app-faint); }
+.ihA-msg[data-st="warn"] { color: var(--state-warn); }
+.ihA-msg[data-st="error"] { color: var(--state-error); }
+.ihA-lat { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--app-dim); min-width: 112px; justify-content: flex-end; }
+.ihA-spark { display: inline-flex; align-items: flex-end; gap: 2px; height: 18px; width: 52px; }
+.ihA-spark i { flex: 1; border-radius: 2px; background: var(--k); opacity: .8; box-shadow: 0 0 4px -1px var(--k); }
+.ihA-spark i[data-zero] { background: var(--state-error); opacity: .5; height: 3px !important; }
+.ihA-cnt { display: flex; flex-direction: column; align-items: flex-end; font-size: 10.5px; color: var(--app-faint); min-width: 92px; }
+.ihA-cnt b { font-size: 13px; color: var(--app-text); }
