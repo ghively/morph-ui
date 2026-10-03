@@ -1,112 +1,33 @@
-import { useEffect, useRef, useState } from 'react';
 import './MultiSelect.css';
-
-export interface MultiSelectOption {
-  value: string;
-  label: string;
-}
-
-export interface MultiSelectProps {
-  id: string;
-  label?: string;
-  options: MultiSelectOption[];
-  values: string[];
-  onChange: (next: string[]) => void;
-  placeholder?: string;
-  disabled?: boolean;
-  className?: string;
-}
+import { useMultiSelect, Match, type MultiSelectProps } from './forms.shared';
 
 /** Chip-style multi picker with typeahead, per-chip remove, and clear-all. */
-export function MultiSelect({
-  id,
-  label,
-  options,
-  values,
-  onChange,
-  placeholder = 'Add…',
-  disabled,
-  className = '',
-}: MultiSelectProps) {
-  const [query, setQuery] = useState('');
-  const [open, setOpen] = useState(false);
-  const wrapRef = useRef<HTMLDivElement>(null);
-
-  const selected = new Set(values);
-  const filtered = options.filter((o) => !selected.has(o.value) && o.label.toLowerCase().includes(query.toLowerCase()));
-
-  useEffect(() => {
-    if (!open) return;
-    const onDoc = (e: MouseEvent) => {
-      if (!wrapRef.current?.contains(e.target as Node)) setOpen(false);
-    };
-    document.addEventListener('mousedown', onDoc);
-    return () => document.removeEventListener('mousedown', onDoc);
-  }, [open ]);
-
-  const add = (v: string) => {
-    onChange([...values, v]);
-    setQuery('');
-  };
-  const remove = (v: string) => onChange(values.filter((x) => x !== v));
-  const labelOf = (v: string) => options.find((o) => o.value === v)?.label ?? v;
-
+export function MultiSelect(props: MultiSelectProps) {
+  const m = useMultiSelect(props);
+  const { id, label, values, onChange, placeholder = 'Add…', disabled, className = '' } = props;
   return (
-    <div className={className} data-multiselect="" ref={wrapRef}>
+    <div className={className} data-multiselect="" ref={m.wrapRef}>
       {label && <label htmlFor={id}>{label}</label>}
-      <div data-msbox="" data-open={open ? '' : undefined} onClick={() => !disabled && setOpen(true)}>
-        {values.map((v) => (
+      <div data-msbox="" data-open={m.open ? '' : undefined} data-disabled={disabled ? '' : undefined} onClick={m.openBox}>
+        {values.map(v => (
           <span key={v} data-mschip="">
-            {labelOf(v)}
-            <button type="button" aria-label={`Remove ${labelOf(v)}`} disabled={disabled} onClick={(e) => { e.stopPropagation(); remove(v); }}>
-              ×
-            </button>
+            {m.labelOf(v)}
+            <button type="button" aria-label={'Remove ' + m.labelOf(v)} disabled={disabled} onClick={e => { e.stopPropagation(); m.remove(v); }}>×</button>
           </span>
         ))}
-        <input
-          id={id}
-          value={query}
-          disabled={disabled}
-          placeholder={values.length === 0 ? placeholder : ''}
-          aria-expanded={open}
-          aria-label={typeof label === 'string' ? `${label} search` : 'Search options'}
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setOpen(true);
-          }}
-          onFocus={() => setOpen(true)}
-          onKeyDown={(e) => {
-            if (e.key === 'Backspace' && query === '' && values.length > 0) {
-              remove(values[values.length - 1]!);
-            } else if (e.key === 'Escape') {
-              setOpen(false);
-            } else if (e.key === 'Enter' && filtered[0]) {
-              e.preventDefault();
-              add(filtered[0].value);
-            }
-          }}
-        />
-        {values.length > 0 && !disabled && (
-          <button type="button" data-msclear="" onClick={(e) => { e.stopPropagation(); onChange([]); }}>
-            Clear all
-          </button>
-        )}
+        <input id={id} ref={m.inputRef} value={m.query} disabled={disabled} placeholder={values.length === 0 ? placeholder : ''} autoComplete="off"
+          role="combobox" aria-expanded={m.open} aria-controls={m.listId} aria-autocomplete="list" aria-activedescendant={m.activeId}
+          aria-label={typeof label === 'string' ? label + ' search' : 'Search options'}
+          onChange={e => m.setQuery(e.target.value)} onFocus={() => m.setOpen(true)} onKeyDown={m.onKeyDown} />
+        {values.length > 0 && !disabled && <button type="button" data-msclear="" onClick={e => { e.stopPropagation(); onChange([]); }}>Clear all</button>}
       </div>
-      {open && (
-        <ul data-mslist="" role="listbox" aria-label={typeof label === 'string' ? label : 'Options'}>
-          {filtered.length === 0 && <li data-msempty="">{query ? 'No matches.' : 'All options selected.'}</li>}
-          {filtered.map((o) => (
-            <li
-              key={o.value}
-              role="option"
-              aria-selected="false"
-              data-msoption=""
-              onMouseDown={(e) => {
-                e.preventDefault();
-                add(o.value);
-              }}
-            >
-              {o.label}
+      {m.open && (
+        <ul data-mslist="" id={m.listId} ref={m.listRef} role="listbox" aria-label={typeof label === 'string' ? label : 'Options'} aria-multiselectable="true">
+          {m.filtered.length === 0 && <li data-msempty="">{m.query ? 'No matches.' : 'All options selected.'}</li>}
+          {m.filtered.map((o, i) => (
+            <li key={o.value} id={m.optId(i)} role="option" aria-selected="false" data-msoption="" data-active={i === m.active ? '' : undefined}
+              onMouseDown={e => { e.preventDefault(); m.add(o.value); }} onMouseEnter={() => m.setActive(i)}>
+              <Match text={o.label} query={m.query} />
             </li>
           ))}
         </ul>
@@ -114,3 +35,5 @@ export function MultiSelect({
     </div>
   );
 }
+
+export type { MultiSelectOption, MultiSelectProps } from './forms.shared';
