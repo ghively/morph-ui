@@ -70,7 +70,7 @@ const defaultData: HeatmapDataPoint[] = generateDailyData(
 
 export const Default = () => (
   <div style={{ padding: '2rem' }}>
-    <AgentActivityHeatmap data={defaultData} />
+    <AgentActivityHeatmap data={defaultData} title="Agent activity" />
   </div>
 );
 

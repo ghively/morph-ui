@@ -1,70 +1,65 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, type KeyboardEvent, type CSSProperties } from 'react';
 import './ContextSwitcher.css';
+
+export type ContextOption = string | { value: string; label?: string; description?: string; meta?: string };
 
 export interface ContextSwitcherProps {
   current: string;
-  options: string[];
+  options: ContextOption[];
   onChange?: (value: string) => void;
+  /** Eyebrow above the current value. */
+  label?: string;
 }
 
-export function ContextSwitcher({ current, options, onChange }: ContextSwitcherProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+const norm = (opts: ContextOption[]) => opts.map(o => (typeof o === 'string' ? { value: o, label: o } : { ...o, label: o.label || o.value }));
+
+export function ContextSwitcher({ current, options, onChange, label = 'Context' }: ContextSwitcherProps) {
+  const opts = norm(options);
+  const curIdx = Math.max(0, opts.findIndex(o => o.value === current));
+  const cur = opts[curIdx];
+  const [open, setOpen] = useState(false);
+  const [hi, setHi] = useState(curIdx);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    const away = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false); };
+    document.addEventListener('mousedown', away);
+    return () => document.removeEventListener('mousedown', away);
   }, []);
 
-  return (
-    <div className="context-switcher" ref={containerRef}>
-      <button 
-        className="context-switcher-trigger" 
-        onClick={() => setIsOpen(!isOpen)}
-        aria-haspopup="listbox"
-        aria-expanded={isOpen}
-      >
-        <span className="context-switcher-label">{current}</span>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>
-      </button>
+  const choose = (i: number) => { onChange?.(opts[i].value); setOpen(false); };
+  const onKey = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') { setOpen(false); return; }
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!open) { setOpen(true); setHi(curIdx); return; }
+      setHi(h => (h + (e.key === 'ArrowDown' ? 1 : -1) + opts.length) % opts.length);
+    }
+    if ((e.key === 'Enter' || e.key === ' ') && open) { e.preventDefault(); choose(hi); }
+  };
+  const tone = (i: number) => ({ ['--tc' as string]: `var(--series-${(i % 6) + 1})` } as CSSProperties);
 
-      {isOpen && (
-        <ul className="context-switcher-menu" role="listbox">
-          {options.map(option => (
-            <li 
-              key={option}
-              role="option"
-              aria-selected={option === current}
-              className={`context-switcher-item ${option === current ? 'selected' : ''}`}
-              onClick={() => {
-                onChange?.(option);
-                setIsOpen(false);
-              }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  onChange?.(option);
-                  setIsOpen(false);
-                }
-              }}
-              tabIndex={0}
-            >
-              {option}
-              {option === current && (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="check-icon">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
+  return (
+    <div className={`context-switcher ${open ? 'is-open' : ''}`} ref={ref} onKeyDown={onKey}>
+      <button type="button" className="context-switcher-trig" aria-haspopup="listbox" aria-expanded={open} onClick={() => { setHi(curIdx); setOpen(!open); }}>
+        <span className="context-switcher-tile" style={tone(curIdx)}>{cur?.label.charAt(0)}</span>
+        <span className="context-switcher-tt"><span className="context-switcher-k">{label}</span><span className="context-switcher-v">{cur?.label}</span></span>
+        <svg className="context-switcher-ud" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 10l4-4 4 4M8 14l4 4 4-4" /></svg>
+      </button>
+      <div className="context-switcher-menu" role="listbox" aria-hidden={!open}>
+        {opts.map((o, i) => (
+          <div key={o.value} role="option" aria-selected={i === curIdx}
+            className={`context-switcher-it ${i === hi ? 'is-hi' : ''} ${i === curIdx ? 'is-sel' : ''}`}
+            onMouseEnter={() => setHi(i)} onClick={() => choose(i)}>
+            <span className="context-switcher-tile is-sm" style={tone(i)}>{o.label.charAt(0)}</span>
+            <span className="context-switcher-tt">
+              <span className="context-switcher-v">{o.label}</span>
+              {o.description && <span className="context-switcher-d">{o.description}</span>}
+            </span>
+            {i === curIdx && <svg className="context-switcher-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 12.5l4.2 4.2L18.5 8" /></svg>}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

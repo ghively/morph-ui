@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ArchiveCollection } from "./ArchiveCollection";
 import type { ArchiveEntry } from "./ArchiveCollection";
 
@@ -42,3 +43,14 @@ export const Empty = () => (
     <ArchiveCollection entries={[]} emptyMessage="No archived entries match this filter." />
   </div>
 );
+
+export const WithSelectionAndFilter = () => {
+  const [selected, setSelected] = useState("adr-013");
+  const [q, setQ] = useState("");
+  return (
+    <div style={{ padding: "2rem", maxWidth: 680, display: "grid", gap: 12 }}>
+      <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Filter by title, summary or tag" style={{ padding: "8px 12px", borderRadius: 10, border: "1px solid var(--app-line)", background: "transparent", color: "var(--app-text)" }} />
+      <ArchiveCollection entries={entries} filter={q} selectedId={selected} onSelectEntry={setSelected} emptyMessage="No archived entries match this filter." />
+    </div>
+  );
+};

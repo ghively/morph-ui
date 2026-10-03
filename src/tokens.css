@@ -427,3 +427,30 @@
   --r-lg: calc(16px * var(--r-scale));
   --r-lgi: calc(20px * var(--r-scale));
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Morph UI — agent state + glass surface layer (AGENT_DATA polish, 2026-10-02)
+
+   One meaning → one token, so every agent surface (presence, capsules,
+   placeholders, switchers…) colours the same state the same way in every
+   theme. Declared on :root AND the frame so the aliases re-resolve against a
+   themed wrapper (see alias re-resolution above).
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root,
+:where(.morph-frame, [data-morph-frame]) {
+  --state-ready: var(--color-success);
+  --state-live: var(--ai);
+  --state-think: var(--sec);
+  --state-tool: var(--color-warning);
+  --state-delegate: var(--app-cyan-ink);
+  --state-wait: var(--app-gold-ink);
+  --state-ok: var(--color-success);
+  --state-warn: var(--color-warning);
+  --state-error: var(--color-error);
+  --state-idle: var(--app-faint);
+  --glass-bg: color-mix(in srgb, var(--app-elev) 90%, transparent);
+  --glass-blur: blur(14px) saturate(140%);
+  --glass-edge: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  --glass-shadow: 0 12px 30px -16px rgba(0, 0, 0, 0.6);
+}

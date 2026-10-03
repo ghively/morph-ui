@@ -1,4 +1,4 @@
-import { useMemo, type KeyboardEvent } from 'react';
+import { useMemo, type KeyboardEvent, type CSSProperties } from 'react';
 import './ArchiveCollection.css';
 
 export interface ArchiveEntry {
@@ -15,101 +15,81 @@ export interface ArchiveCollectionProps {
   filter?: string;
   onSelectEntry?: (id: string) => void;
   emptyMessage?: string;
+  /** Highlights the matching entry. */
+  selectedId?: string;
+  className?: string;
 }
 
-export function ArchiveCollection({
-  entries,
-  groupBy = 'month',
-  filter = '',
-  onSelectEntry,
-  emptyMessage = 'No entries found',
-}: ArchiveCollectionProps) {
-  
-  const filteredEntries = useMemo(() => {
-    if (!filter.trim()) return entries;
-    const lowerFilter = filter.toLowerCase();
-    
-    return entries.filter(entry => {
-      if (entry.title.toLowerCase().includes(lowerFilter)) return true;
-      if (entry.summary && entry.summary.toLowerCase().includes(lowerFilter)) return true;
-      if (entry.tags && entry.tags.some(tag => tag.toLowerCase().includes(lowerFilter))) return true;
-      return false;
-    });
-  }, [entries, filter]);
+const tagTone = (t: string) => `var(--series-${(Array.from(t).reduce((a, c) => a + c.charCodeAt(0), 0) % 6) + 1})`;
 
-  const groupedEntries = useMemo(() => {
-    if (groupBy === 'none') {
-      return { 'All': filteredEntries };
+export function ArchiveCollection({ entries, groupBy = 'month', filter = '', onSelectEntry, emptyMessage = 'No entries found', selectedId, className = '' }: ArchiveCollectionProps) {
+  const groups = useMemo(() => {
+    const q = filter.trim().toLowerCase();
+    const list = q
+      ? entries.filter(e => e.title.toLowerCase().includes(q) || e.summary?.toLowerCase().includes(q) || e.tags?.some(t => t.toLowerCase().includes(q)))
+      : entries;
+    const out: { key: string; label: string; items: ArchiveEntry[] }[] = [];
+    for (const e of list) {
+      const d = new Date(e.date);
+      const key = groupBy === 'none' ? 'all' : `${d.getFullYear()}-${d.getMonth()}`;
+      let g = out.find(x => x.key === key);
+      if (!g) { g = { key, label: groupBy === 'none' ? 'All' : d.toLocaleDateString(undefined, { month: 'long', year: 'numeric' }), items: [] }; out.push(g); }
+      g.items.push(e);
     }
+    return out;
+  }, [entries, groupBy, filter]);
 
-    const groups: Record<string, ArchiveEntry[]> = {};
-    for (const entry of filteredEntries) {
-      const dateObj = new Date(entry.date);
-      // Format: "Month Year" e.g., "September 2026"
-      const monthYear = dateObj.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
-      if (!groups[monthYear]) {
-        groups[monthYear] = [];
-      }
-      groups[monthYear].push(entry);
-    }
-    return groups;
-  }, [filteredEntries, groupBy]);
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>, id: string) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      onSelectEntry?.(id);
-    }
+  const activate = (id: string) => (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelectEntry?.(id); }
   };
 
-  if (filteredEntries.length === 0) {
+  if (!groups.length) {
     return (
-      <div data-archive-collection="" data-testid="archive-collection">
-        <div data-archive-empty="">{emptyMessage}</div>
+      <div className={`archive-collection ${className}`.trim()} data-archive-collection="" data-testid="archive-collection">
+        <div className="archive-empty" data-archive-empty="">{emptyMessage}</div>
       </div>
     );
   }
 
   return (
-    <div data-archive-collection="" data-testid="archive-collection">
-      {Object.entries(groupedEntries).map(([group, groupEntries]) => (
-        <div key={group} data-archive-group="">
-          {groupBy === 'month' && (
-            <div data-archive-group-header="">
-              {group}
-            </div>
-          )}
-          {groupEntries.map(entry => (
-            <div
-              key={entry.id}
-              data-archive-entry=""
-              role="button"
-              tabIndex={0}
-              onClick={() => onSelectEntry?.(entry.id)}
-              onKeyDown={(e) => handleKeyDown(e, entry.id)}
-              data-testid={`archive-entry-${entry.id}`}
-            >
-              <div data-archive-entry-date="">
-                {new Date(entry.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
-              </div>
-              <div data-archive-entry-content="">
-                <div data-archive-entry-title="">{entry.title}</div>
-                {entry.summary && (
-                  <p data-archive-entry-summary="">{entry.summary}</p>
-                )}
-                {entry.tags && entry.tags.length > 0 && (
-                  <div data-archive-entry-tags="">
-                    {entry.tags.map(tag => (
-                      <span key={tag} data-archive-entry-tag="">
-                        {tag}
-                      </span>
-                    ))}
+    <div className={`archive-collection ${className}`.trim()} data-archive-collection="" data-testid="archive-collection">
+      {groups.map(g => (
+        <section key={g.key} className="archive-group" data-archive-group="">
+          {groupBy === 'month' && <div className="archive-gh" data-archive-group-header="">{g.label}<span>{g.items.length}</span></div>}
+          <div className="archive-rail">
+            {g.items.map(e => {
+              const d = new Date(e.date);
+              return (
+                <div
+                  key={e.id}
+                  className={`archive-entry ${selectedId === e.id ? 'is-sel' : ''}`}
+                  data-archive-entry=""
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={selectedId != null ? selectedId === e.id : undefined}
+                  data-testid={`archive-entry-${e.id}`}
+                  onClick={() => onSelectEntry?.(e.id)}
+                  onKeyDown={activate(e.id)}
+                >
+                  <div className="archive-date" data-archive-entry-date="">
+                    <b>{d.getDate()}</b>
+                    <span>{d.toLocaleDateString(undefined, { weekday: 'short' })}</span>
                   </div>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
+                  <span className="archive-node" aria-hidden="true" />
+                  <div className="archive-card" data-archive-entry-content="">
+                    <div className="archive-title" data-archive-entry-title="">{e.title}</div>
+                    {e.summary && <p className="archive-sum" data-archive-entry-summary="">{e.summary}</p>}
+                    {e.tags && e.tags.length > 0 && (
+                      <div className="archive-tags" data-archive-entry-tags="">
+                        {e.tags.map(t => <span key={t} data-archive-entry-tag="" style={{ ['--tc' as string]: tagTone(t) } as CSSProperties}>{t}</span>)}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
       ))}
     </div>
   );

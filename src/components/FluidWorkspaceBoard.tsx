@@ -16,6 +16,18 @@ export interface FluidWorkspaceBoardProps {
   density?: 'compact' | 'comfortable';
 }
 
+/** position:fixed resolves against the nearest transformed/filtered ancestor, not the viewport. */
+function fixedOrigin(el: HTMLElement | null) {
+  for (let n = el?.parentElement; n && n !== document.documentElement; n = n.parentElement) {
+    const cs = getComputedStyle(n);
+    if (cs.transform !== 'none' || cs.filter !== 'none' || cs.perspective !== 'none' || (cs.backdropFilter && cs.backdropFilter !== 'none') || /paint|layout|strict|content/.test(cs.contain || '') || /transform|filter/.test(cs.willChange || '')) {
+      const r = n.getBoundingClientRect();
+      return { x: r.left - n.scrollLeft, y: r.top - n.scrollTop };
+    }
+  }
+  return { x: 0, y: 0 };
+}
+
 function getRects(container: HTMLElement) {
   const rects = new Map<string, DOMRect>();
   Array.from(container.children).forEach((child) => {
@@ -42,6 +54,8 @@ export function FluidWorkspaceBoard({
   const [draggedId, setDraggedId] = useState<string | null>(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [dragPos, setDragPos] = useState({ x: 0, y: 0 });
+  const [origin, setOrigin] = useState({ x: 0, y: 0 });
+  const [dragSize, setDragSize] = useState({ w: 0, h: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
 
   // FLIP animation states
@@ -166,6 +180,8 @@ export function FluidWorkspaceBoard({
     const rect = target.getBoundingClientRect();
     
     setDraggedId(id);
+    setOrigin(fixedOrigin(containerRef.current));
+    setDragSize({ w: rect.width, h: rect.height });
     setDragOffset({
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
@@ -290,8 +306,10 @@ export function FluidWorkspaceBoard({
           if (el) {
             style = {
                position: 'fixed',
-               left: dragPos.x - dragOffset.x,
-               top: dragPos.y - dragOffset.y,
+               left: dragPos.x - dragOffset.x - origin.x,
+               top: dragPos.y - dragOffset.y - origin.y,
+               width: dragSize.w || undefined,
+               height: dragSize.h || undefined,
                margin: 0,
                zIndex: 100,
                pointerEvents: 'none' // let mouse pass through so pointerMove hits underlying items, wait, pointerCapture handles events!
