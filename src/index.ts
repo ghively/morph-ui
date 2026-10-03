@@ -232,3 +232,7 @@ export * from "./components/EpisodeList";
 export * from "./components/CastStrip";
 export * from "./components/MediaInfoBadges";
 export * from "./components/LibraryGrid";
+export * from "./components/PlayerScrubber";
+export * from "./components/TrackPicker";
+export * from "./components/NowPlayingBar";
+export * from "./components/AlbumTrackList";
