@@ -1,0 +1,19 @@
+.lsA { --c: var(--morph-accent); display: flex; flex-direction: column; gap: 6px; padding: 10px; }
+.lsA-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 2px 6px 4px; }
+.lsA-libs { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; padding: 0 4px 4px; }
+.lsA-lib { display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; transition: border-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx); }
+.lsA-lib[data-busy] { border-color: color-mix(in srgb, var(--state-live) 45%, transparent); box-shadow: var(--glass-edge), 0 0 18px -8px var(--state-live); }
+.lsA-ln { font-size: 13px; font-weight: 700; }
+.lsA-lc { font-size: 11px; color: var(--app-faint); }
+.lsA-lb { height: 3px; margin-top: 4px; --k: var(--state-live); }
+.lsA-lb > i { --k: var(--state-live); }
+.lsA-row { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 9px 10px; }
+.lsA-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--k); box-shadow: 0 0 8px var(--k); }
+.lsA-row[data-task-state="Running"] .lsA-dot { animation: ml-pulse 1.4s ease-in-out infinite; }
+.lsA-row[data-task-state="Idle"] .lsA-dot { box-shadow: none; }
+.lsA-main { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.lsA-name { font-size: 13px; font-weight: 650; }
+.lsA-run { display: grid; grid-template-columns: minmax(0, 1fr) 34px; gap: 8px; align-items: center; font-size: 11px; color: var(--app-dim); text-align: right; }
+.lsA-run .ml-bar { height: 4px; }
+.lsA-sub { font-size: 11.5px; color: var(--app-faint); }
+.lsA-sub[data-err] { color: var(--state-error); }
