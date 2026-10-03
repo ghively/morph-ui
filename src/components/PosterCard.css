@@ -1,0 +1,28 @@
+.pcA { position: relative; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.pcA-frame { position: relative; border-radius: 12px; transition: transform var(--d3) var(--ease-emph), box-shadow var(--d3) var(--ease-emph); box-shadow: 0 0 0 1px var(--app-line), var(--glass-shadow); }
+.pcA-frame:hover, .pcA-frame:focus-within { transform: translateY(-3px); box-shadow: 0 0 0 1px color-mix(in srgb, var(--c) 55%, transparent), 0 14px 32px -14px color-mix(in srgb, var(--c) 70%, transparent), 0 0 22px -6px color-mix(in srgb, var(--c) 45%, transparent); }
+.pcA[data-selected] .pcA-frame { box-shadow: 0 0 0 2px var(--c), 0 0 24px -6px var(--c); }
+.pcA-open { all: unset; display: block; width: 100%; cursor: pointer; border-radius: 12px; }
+.pcA-open:focus-visible { outline: 2px solid var(--c); outline-offset: 3px; }
+.pcA-art { border-radius: 12px; }
+.pcA-art::before { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; box-shadow: inset 0 1px 0 rgba(255,255,255,.12), inset 0 0 40px rgba(0,0,0,.35); pointer-events: none; }
+.pcA[data-played] .pcA-art .mlArt-img { filter: saturate(.55) brightness(.8); }
+.pcA-play { all: unset; box-sizing: border-box; cursor: pointer; position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; display: grid; place-items: center; border-radius: 50%; color: var(--on-accent); background: var(--c); box-shadow: 0 0 0 6px color-mix(in srgb, var(--c) 22%, transparent), 0 0 24px var(--c); font-size: 14px; padding-left: 3px; opacity: 0; transform: scale(.85); transition: opacity var(--d2) var(--ease-fx), transform var(--d3) var(--ease-emph); z-index: 2; }
+.pcA-frame:hover .pcA-play, .pcA-play:focus-visible { opacity: 1; transform: none; }
+.pcA-play:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.pcA-corner { position: absolute; top: 8px; right: 8px; display: flex; gap: 6px; z-index: 2; }
+.pcA-count, .pcA-tick, .pcA-fav { box-sizing: border-box; min-width: 24px; height: 24px; padding: 0 7px; display: grid; place-items: center; border-radius: 999px; font-size: 11.5px; font-weight: 700; font-variant-numeric: tabular-nums; background: color-mix(in srgb, #000 55%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: #fff; border: 1px solid rgba(255,255,255,.14); }
+.pcA-count { color: var(--on-accent); background: var(--c); border-color: var(--c); box-shadow: 0 0 10px -2px var(--c); }
+.pcA-tick, .pcA-fav { all: unset; box-sizing: border-box; cursor: pointer; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; font-size: 12px; color: rgba(255,255,255,.85); background: color-mix(in srgb, #000 55%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.14); opacity: 0; transition: opacity var(--d2) var(--ease-fx), background-color var(--d2) var(--ease-fx), color var(--d2) var(--ease-fx); }
+.pcA-tick[data-on] { opacity: 1; color: var(--on-accent); background: var(--c); border-color: var(--c); }
+.pcA-fav { position: absolute; left: 8px; top: 8px; z-index: 2; }
+.pcA-fav[data-on] { opacity: 1; color: var(--state-warn); }
+.pcA-frame:hover .pcA-tick, .pcA-frame:hover .pcA-fav, .pcA-tick:focus-visible, .pcA-fav:focus-visible { opacity: 1; }
+.pcA-tick:focus-visible, .pcA-fav:focus-visible { outline: 2px solid var(--c); outline-offset: 1px; }
+@media (hover: none) { .pcA-tick, .pcA-fav, .pcA-play { opacity: 1; transform: none; } }
+.pcA-prog { position: absolute; left: 10px; right: 10px; bottom: 9px; height: 4px; border-radius: 999px; background: rgba(0,0,0,.55); overflow: hidden; z-index: 2; }
+.pcA-prog i { display: block; height: 100%; border-radius: inherit; background: var(--c); box-shadow: 0 0 8px var(--c); }
+.pcA-cap { display: flex; flex-direction: column; gap: 2px; min-width: 0; padding: 0 2px; }
+.pcA-title { font-size: 13px; font-weight: 650; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pcA-sub { font-size: 11.5px; color: var(--app-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.pcA-frame:hover + .pcA-cap .pcA-title { color: var(--c); }

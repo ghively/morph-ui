@@ -208,3 +208,27 @@ export * from "./components/GaugeChart";
 export * from "./components/FunnelChart";
 export * from "./components/ShortcutHelp";
 export * from "./components/TabbedListScreen";
+
+// Media library
+export {
+  type MediaItem,
+  type ArtType,
+  type ItemSource,
+  type Person,
+  type MediaStreams,
+  fromJellyfin,
+  jellyfinImageUrl,
+  Art,
+  type ArtProps,
+  useAccent,
+  MediaTheme,
+  type MediaThemeValue,
+} from "./components/mediaLibrary.shared";
+export * from "./components/MediaArtwork";
+export * from "./components/PosterCard";
+export * from "./components/MediaShelf";
+export * from "./components/MediaHero";
+export * from "./components/EpisodeList";
+export * from "./components/CastStrip";
+export * from "./components/MediaInfoBadges";
+export * from "./components/LibraryGrid";
