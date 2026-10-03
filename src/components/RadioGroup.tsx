@@ -1,54 +1,19 @@
-import type { ReactNode } from 'react';
 import './RadioGroup.css';
-
-export interface RadioOption {
-  value: string;
-  label: ReactNode;
-  hint?: ReactNode;
-  disabled?: boolean;
-}
-
-export interface RadioGroupProps {
-  name: string;
-  options: RadioOption[];
-  value: string;
-  onChange: (next: string) => void;
-  label?: ReactNode;
-  orientation?: 'vertical' | 'horizontal';
-  disabled?: boolean;
-  className?: string;
-}
+import type { RadioGroupProps } from './forms.shared';
 
 /** Fieldset + native radios. One of the options must read as the label for the group. */
-export function RadioGroup({
-  name,
-  options,
-  value,
-  onChange,
-  label,
-  orientation = 'vertical',
-  disabled,
-  className = '',
-}: RadioGroupProps) {
+export function RadioGroup({ name, options, value, onChange, label, orientation = 'vertical', disabled, className = '' }: RadioGroupProps) {
   return (
     <fieldset className={className} data-radiogroup="" data-orientation={orientation} disabled={disabled}>
       {label && <legend>{label}</legend>}
-      {options.map((opt) => {
-        const id = `${name}-${opt.value}`;
+      {options.map(o => {
+        const id = name + '-' + o.value, off = o.disabled || disabled;
         return (
-          <span key={opt.value} data-radio="" data-disabled={opt.disabled || disabled ? '' : undefined}>
-            <input
-              id={id}
-              type="radio"
-              name={name}
-              value={opt.value}
-              checked={value === opt.value}
-              disabled={opt.disabled || disabled}
-              onChange={() => onChange(opt.value)}
-            />
+          <span key={o.value} data-radio="" data-disabled={off ? '' : undefined}>
+            <input id={id} type="radio" name={name} value={o.value} checked={value === o.value} disabled={off} onChange={() => onChange(o.value)} />
             <label htmlFor={id}>
-              <span data-radiolabel="">{opt.label}</span>
-              {opt.hint && <span data-radiohint="">{opt.hint}</span>}
+              <span data-radiolabel="">{o.label}</span>
+              {o.hint && <span data-radiohint="">{o.hint}</span>}
             </label>
           </span>
         );
@@ -56,3 +21,5 @@ export function RadioGroup({
     </fieldset>
   );
 }
+
+export type { RadioOption, RadioGroupProps } from './forms.shared';

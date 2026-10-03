@@ -1,39 +1,18 @@
-import type { TextareaHTMLAttributes, ReactNode } from 'react';
 import './TextArea.css';
-
-export interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  id: string;
-  label?: ReactNode;
-  error?: ReactNode;
-  hint?: ReactNode;
-}
+import { fieldIds, FieldNotes, type TextAreaProps } from './forms.shared';
 
 /** Multi-line text input; same label / hint / error wiring as TextField. */
 export function TextArea({ id, label, error, hint, disabled, className = '', rows = 3, ...rest }: TextAreaProps) {
-  const hintId = hint ? `${id}-hint` : undefined;
-  const errorId = error ? `${id}-error` : undefined;
-  const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined;
+  const ids = fieldIds(id, hint, error);
+  const len = typeof rest.value === 'string' ? rest.value.length : undefined;
   return (
-    <div className={className} data-textarea="" data-invalid={error ? '' : undefined} data-disabled={disabled ? '' : undefined}>
+    <div className={className} data-textarea="" {...ids.root} data-disabled={disabled ? '' : undefined}>
       {label && <label htmlFor={id}>{label}</label>}
-      <textarea
-        id={id}
-        rows={rows}
-        disabled={disabled}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={describedBy}
-        {...rest}
-      />
-      {hint && !error && (
-        <div data-hint="" id={hintId}>
-          {hint}
-        </div>
-      )}
-      {error && (
-        <div data-error="" id={errorId} role="alert">
-          {error}
-        </div>
-      )}
+      <textarea id={id} rows={rows} disabled={disabled} aria-invalid={ids.invalid} aria-describedby={ids.describedBy} {...rest} />
+      {rest.maxLength != null && len != null && <span data-textareacount="" data-full={len >= rest.maxLength ? '' : undefined} aria-hidden="true">{len + ' / ' + rest.maxLength}</span>}
+      <FieldNotes ids={ids} hint={hint} error={error} />
     </div>
   );
 }
+
+export type { TextAreaProps } from './forms.shared';

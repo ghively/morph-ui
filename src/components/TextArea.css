@@ -1,13 +1,5 @@
 @import './TextField.css';
 
-[data-textarea] {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font: inherit;
-}
-
-[data-textarea] > label {
-  font-size: 13px;
-  font-weight: 600;
-}
+[data-textarea] { position: relative; }
+[data-textareacount] { align-self: flex-end; margin-top: -2px; font-size: var(--t-meta); font-variant-numeric: tabular-nums; color: var(--app-faint); }
+[data-textareacount][data-full] { color: var(--morph-warn); }

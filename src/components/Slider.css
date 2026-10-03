@@ -1,89 +1,18 @@
-[data-slider] {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s1);
-  font: inherit;
-  min-width: 0;
-}
-
-[data-sliderhead] {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: var(--s3);
-  font-size: var(--t-body);
-  font-weight: 600;
-}
-
-[data-slideroutput] {
-  font-variant-numeric: tabular-nums;
-  font-weight: 700;
-  color: var(--morph-accent);
-}
-
-[data-slidertrack] {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 22px;
-  background: transparent;
-  cursor: pointer;
-  margin: 0;
-  transition: background-color var(--d2) var(--ease-fx),
-    border-color var(--d2) var(--ease-fx),
-    color var(--d2) var(--ease-fx),
-    box-shadow var(--d2) var(--ease-fx),
-    opacity var(--d2) var(--ease-fx);
-}
-
-[data-slidertrack]::-webkit-slider-runnable-track {
-  height: 6px;
-  border-radius: 999px;
-  background: linear-gradient(
-    to right,
-    var(--morph-accent) 0%,
-    var(--morph-accent) var(--morph-fill-pct, 50%),
-    var(--morph-track) var(--morph-fill-pct, 50%)
-  );
-}
-
-[data-slidertrack]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  margin-top: -5px;
-  border-radius: 50%;
-  background: var(--on-accent);
-  border: 2px solid var(--morph-accent);
-}
-
-[data-slidertrack]::-moz-range-track {
-  height: 6px;
-  border-radius: 999px;
-  background: var(--morph-track);
-}
-
-[data-slidertrack]::-moz-range-progress {
-  height: 6px;
-  border-radius: 999px;
-  background: var(--morph-accent);
-}
-
-[data-slidertrack]::-moz-range-thumb {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--on-accent);
-  border: 2px solid var(--morph-accent);
-}
-
-[data-slidertrack]:focus-visible {
-  outline: 2px solid var(--morph-accent);
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-[data-slidertrack]:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+[data-slider] { --c: var(--morph-accent); display: flex; flex-direction: column; gap: var(--s1); min-width: 0; font: inherit; }
+[data-sliderhead] { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); font-size: var(--t-body); font-weight: 600; }
+[data-slideroutput] { padding: 1px 7px; border-radius: 6px; font-family: var(--app-mono); font-variant-numeric: tabular-nums; font-weight: 700; color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); }
+[data-sliderscale] { display: flex; justify-content: space-between; font-family: var(--app-mono); font-size: var(--t-meta); font-variant-numeric: tabular-nums; color: var(--app-faint); }
+[data-slidertrack] { -webkit-appearance: none; appearance: none; width: 100%; height: 22px; margin: 0; background: transparent; cursor: pointer; }
+[data-slidertrack]::-webkit-slider-runnable-track { height: 6px; border-radius: 999px; background: linear-gradient(to right, var(--c) var(--morph-fill-pct, 50%), var(--morph-track) var(--morph-fill-pct, 50%)); }
+[data-slidertrack]::-moz-range-track { height: 6px; border-radius: 999px; background: var(--morph-track); }
+[data-slidertrack]::-moz-range-progress { height: 6px; border-radius: 999px; background: var(--c); }
+[data-slidertrack]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; margin-top: -5px; border-radius: 50%; background: var(--on-accent); border: 2px solid var(--c); box-shadow: 0 0 0 0 color-mix(in srgb, var(--c) 25%, transparent); transition: box-shadow var(--d2) var(--ease-fx), transform var(--d1) var(--ease-fx); }
+[data-slidertrack]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--on-accent); border: 2px solid var(--c); }
+[data-slidertrack]:hover:not(:disabled)::-webkit-slider-thumb { box-shadow: 0 0 0 5px color-mix(in srgb, var(--c) 18%, transparent); }
+[data-slidertrack]:active:not(:disabled)::-webkit-slider-thumb { transform: scale(1.12); }
+[data-slidertrack]:focus-visible { outline: none; }
+[data-slidertrack]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 40%, transparent); }
+[data-slidertrack]:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 40%, transparent); }
+[data-slider][data-disabled] { opacity: .5; }
+[data-slidertrack]:disabled { cursor: not-allowed; }
+@media (prefers-reduced-motion: reduce) { [data-slidertrack]::-webkit-slider-thumb { transition: none; } }

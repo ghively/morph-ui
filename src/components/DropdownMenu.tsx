@@ -1,92 +1,26 @@
-import { useEffect, useRef, useState } from 'react';
-import type { ReactNode } from 'react';
+import { cloneElement, isValidElement, Fragment, type ReactElement } from 'react';
 import './DropdownMenu.css';
-
-export interface MenuItem {
-  id: string;
-  label: ReactNode;
-  hint?: string;
-  danger?: boolean;
-  disabled?: boolean;
-}
-
-export interface MenuSection {
-  title?: string;
-  items: MenuItem[];
-}
-
-export interface DropdownMenuProps {
-  /** Trigger element (usually a Button). */
-  trigger: ReactNode;
-  sections: MenuSection[];
-  onPick?: (id: string) => void;
-  /** Checkbox-style toggle items; omitted ids render as plain actions. */
-  checkedIds?: string[];
-  onToggle?: (id: string, next: boolean) => void;
-  label?: string;
-  align?: 'left' | 'right';
-  className?: string;
-}
+import { useMenu, type DropdownMenuProps } from './forms.shared';
 
 /** Anchored menu: actions, sections, and checkbox items. Closes on select / outside / Escape. */
-export function DropdownMenu({ trigger, sections, onPick, checkedIds, onToggle, label = 'Menu', align = 'left', className = '' }: DropdownMenuProps) {
-  const [open, setOpen] = useState(false);
-  const wrapRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    const onDoc = (e: MouseEvent) => {
-      if (!wrapRef.current?.contains(e.target as Node)) setOpen(false);
-    };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
-    };
-    document.addEventListener('mousedown', onDoc);
-    document.addEventListener('keydown', onKey);
-    return () => {
-      document.removeEventListener('mousedown', onDoc);
-      document.removeEventListener('keydown', onKey);
-    };
-  }, [open ]);
-
-  const fire = (item: MenuItem) => {
-    if (item.disabled) return;
-    if (checkedIds && onToggle) {
-      onToggle(item.id, !checkedIds.includes(item.id));
-    } else {
-      onPick?.(item.id);
-      setOpen(false);
-    }
-  };
-
+export function DropdownMenu(props: DropdownMenuProps) {
+  const m = useMenu(props);
+  const { trigger, sections, checkedIds, label = 'Menu', align = 'left', className = '' } = props;
+  const trig = isValidElement(trigger) && trigger.type !== Fragment ? cloneElement(trigger as ReactElement<Record<string, unknown>>, { 'aria-haspopup': 'menu', 'aria-expanded': m.open }) : trigger;
   return (
-    <div className={className} data-dropdown="" ref={wrapRef}>
-      <span data-dropdowntrigger="" onClick={() => setOpen((o) => !o)}>
-        {trigger}
-      </span>
-      {open && (
-        <div data-menupop="" data-align={align} role="menu" aria-label={label}>
+    <div className={className} data-dropdown="" data-open={m.open ? '' : undefined} ref={m.wrapRef}>
+      <span data-dropdowntrigger="" ref={m.trigRef} onClick={m.toggle} onKeyDown={m.onTriggerKey}>{trig}</span>
+      {m.open && (
+        <div data-menupop="" data-align={align} role="menu" aria-label={label} ref={m.popRef} onKeyDown={m.onKeyDown}>
           {sections.map((sec, si) => (
-            <div key={si} data-menusection="">
-              {sec.title && <div data-menutitle="">{sec.title}</div>}
-              {sec.items.map((item) => {
-                const checked = checkedIds?.includes(item.id);
+            <div key={si} data-menusection="" role="group" aria-label={sec.title}>
+              {sec.title && <div data-menutitle="" aria-hidden="true">{sec.title}</div>}
+              {sec.items.map(item => {
+                const checked = m.isChecked(item.id);
                 return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    role={checkedIds ? 'menuitemcheckbox' : 'menuitem'}
-                    aria-checked={checkedIds ? !!checked : undefined}
-                    data-menuitem=""
-                    data-danger={item.danger ? '' : undefined}
-                    disabled={item.disabled}
-                    onClick={() => fire(item)}
-                  >
-                    {checkedIds && (
-                      <span data-menucheck="" aria-hidden="true">
-                        {checked ? '✓' : ''}
-                      </span>
-                    )}
+                  <button key={item.id} type="button" role={checkedIds ? 'menuitemcheckbox' : 'menuitem'} aria-checked={checkedIds ? checked : undefined} tabIndex={-1}
+                    data-menuitem="" data-danger={item.danger ? '' : undefined} disabled={item.disabled} onClick={() => m.fire(item)}>
+                    {checkedIds && <span data-menucheck="" data-on={checked ? '' : undefined} aria-hidden="true">{checked ? '✓' : ''}</span>}
                     <span data-menulabel="">{item.label}</span>
                     {item.hint && <span data-menuhint="">{item.hint}</span>}
                   </button>
@@ -99,3 +33,5 @@ export function DropdownMenu({ trigger, sections, onPick, checkedIds, onToggle, 
     </div>
   );
 }
+
+export type { MenuItem, MenuSection, DropdownMenuProps } from './forms.shared';
