@@ -29,14 +29,14 @@ describe('ToolCallCard', () => {
     render(<ToolCallCard {...defaultProps} />);
     
     // Initially hidden
-    expect(screen.queryByText(/"query": "test"/)).toBeNull();
+    expect(document.querySelector('[data-tool-call-raw-json]')).toBeNull();
     
     // Click header
     const header = document.querySelector('[data-tool-call-header]');
     if (header) fireEvent.click(header);
     
     // Should be visible now
-    expect(screen.getByText(/"query": "test"/)).toBeTruthy();
+    expect(document.querySelector('[data-tool-call-raw-json]')?.textContent).toContain('"query": "test"');
   });
 
   it('shows error excerpt when failed', () => {

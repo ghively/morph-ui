@@ -1,74 +1,26 @@
-import type { ReactNode } from 'react';
 import './AgentCard.css';
+import { cardInteractive, initials, cv, AGENT_C, AGENT_LABEL, type AgentCardProps } from './agentOps.shared';
 
-export type AgentStatus = 'offline' | 'idle' | 'busy' | 'working';
-
-export interface AgentCardProps {
-  name: string;
-  role?: string;
-  children?: ReactNode; // avatar slot
-  status: AgentStatus;
-  capabilities?: string[];
-  lastActive?: string;
-  onFocus?: () => void;
-}
-
-export function AgentCard({
-  name,
-  role,
-  children,
-  status,
-  capabilities,
-  lastActive,
-  onFocus,
-}: AgentCardProps) {
-  
+export function AgentCard({ name, role, children, status, capabilities, lastActive, onFocus, className = '' }: AgentCardProps) {
   return (
-    <div 
-      data-agent-card="" 
-      tabIndex={onFocus ? 0 : undefined}
-      role={onFocus ? "button" : undefined}
-      onClick={onFocus}
-      onKeyDown={(e) => {
-        if (onFocus && (e.key === 'Enter' || e.key === ' ')) {
-          e.preventDefault();
-          onFocus();
-        }
-      }}
-    >
-      <div data-agent-card-header="">
-        {children && (
-          <div data-agent-card-avatar="">
-            {children}
-          </div>
-        )}
-        
-        <div data-agent-card-identity="">
-          <div data-agent-card-name="">{name}</div>
-          {role && <div data-agent-card-role="">{role}</div>}
+    <div className={'agent-card ' + className} data-agent-card="" data-status={status} style={cv(AGENT_C[status])} {...cardInteractive(onFocus)}>
+      <div className="agent-card-header" data-agent-card-header="">
+        <div className="agent-card-av" data-agent-card-avatar="">
+          <span className="agent-card-ring" aria-hidden="true" />
+          <span className="agent-card-face">{children ?? initials(name)}</span>
+        </div>
+        <div className="agent-card-id" data-agent-card-identity="">
+          <div className="agent-card-name" data-agent-card-name="">{name}</div>
+          {role && <div className="agent-card-role" data-agent-card-role="">{role}</div>}
         </div>
       </div>
-      
-      <div data-agent-card-status-row="">
-        <div data-agent-card-status="" data-status={status}>
-          <div data-agent-card-status-dot="" />
-          <span>{status.charAt(0).toUpperCase() + status.slice(1)}</span>
-        </div>
-        
-        {lastActive && (
-          <div data-agent-card-last-active="">
-            Active {lastActive}
-          </div>
-        )}
+      <div className="agent-card-row" data-agent-card-status-row="">
+        <div className="agent-card-st" data-agent-card-status="" data-status={status}><i data-agent-card-status-dot="" /><span>{AGENT_LABEL[status]}</span></div>
+        {lastActive && <div className="agent-card-last" data-agent-card-last-active="">{'Active ' + lastActive}</div>}
       </div>
-
-      {capabilities && capabilities.length > 0 && (
-        <div data-agent-card-capabilities="">
-          {capabilities.map(cap => (
-            <span key={cap} data-agent-card-cap="">{cap}</span>
-          ))}
-        </div>
-      )}
+      {capabilities && capabilities.length > 0 && <div className="agent-card-caps" data-agent-card-capabilities="">{capabilities.map(c => <span key={c} data-agent-card-cap="">{c}</span>)}</div>}
     </div>
   );
 }
+
+export type { AgentStatus, AgentCardProps } from './agentOps.shared';

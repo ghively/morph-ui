@@ -13,7 +13,7 @@ describe('ApprovalGate', () => {
   it('renders correctly with high risk', () => {
     const { container } = render(<ApprovalGate {...defaultProps} onResolve={() => {}} />);
     expect(screen.getByText('Deploy to Production')).toBeTruthy();
-    expect(screen.getByText('HIGH RISK')).toBeTruthy();
+    expect(screen.getByText('High risk')).toBeTruthy();
     expect(screen.getByText('kubectl apply -f deployment.yaml')).toBeTruthy();
     
     const gate = container.querySelector('[data-approval-gate]');
@@ -22,10 +22,10 @@ describe('ApprovalGate', () => {
 
   it('shows comment field only for medium/high risk', () => {
     const { rerender } = render(<ApprovalGate {...defaultProps} riskLevel="low" onResolve={() => {}} />);
-    expect(screen.queryByPlaceholderText('Optional comment...')).toBeNull();
+    expect(screen.queryByLabelText('Comment')).toBeNull();
 
     rerender(<ApprovalGate {...defaultProps} riskLevel="medium" onResolve={() => {}} />);
-    expect(screen.getByPlaceholderText('Optional comment...')).toBeTruthy();
+    expect(screen.getByLabelText('Comment')).toBeTruthy();
   });
 
   it('calls onResolve on approve/deny and locks further actions', () => {
@@ -33,7 +33,7 @@ describe('ApprovalGate', () => {
     render(<ApprovalGate {...defaultProps} onResolve={onResolve} />);
     
     // Add comment
-    const input = screen.getByPlaceholderText('Optional comment...');
+    const input = screen.getByLabelText('Comment');
     fireEvent.change(input, { target: { value: 'Looks good' } });
 
     // Approve
@@ -42,13 +42,9 @@ describe('ApprovalGate', () => {
 
     expect(onResolve).toHaveBeenCalledWith(true, 'Looks good');
     
-    // Check locked state
-    expect(approveBtn.hasAttribute('disabled')).toBeTruthy();
-    const denyBtn = screen.getByText('Deny');
-    expect(denyBtn.hasAttribute('disabled')).toBeTruthy();
-    
-    // Ensure onResolve not called again
-    fireEvent.click(denyBtn);
-    expect(onResolve).toHaveBeenCalledTimes(1);
+    // Check resolved state shows outcome and removes action buttons
+    expect(screen.getByRole('status').textContent).toContain('Approved');
+    expect(screen.queryByText('Approve')).toBeNull();
+    expect(screen.queryByText('Deny')).toBeNull();
   });
 });

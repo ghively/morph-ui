@@ -1,45 +1,25 @@
 import './AuditLogViewer.css';
+import { cv, AUDIT_C, AUDIT_LABEL, type AuditLogViewerProps } from './agentOps.shared';
 
-export type AuditLevel = 'info' | 'action' | 'warning' | 'denied';
-
-export interface AuditEvent {
-  id: string;
-  time: string;
-  actor: string;
-  event: string;
-  detail?: string;
-  level?: AuditLevel;
-}
-
-export interface AuditLogViewerProps {
-  events: AuditEvent[];
-  emptyText?: string;
-  className?: string;
-}
-
-/** Immutable-looking trail: who did what, when. Newest first. */
 export function AuditLogViewer({ events, emptyText = 'No events recorded.', className = '' }: AuditLogViewerProps) {
-  if (events.length === 0) {
-    return (
-      <div className={className} data-audit="" data-empty="">
-        {emptyText}
-      </div>
-    );
-  }
+  if (events.length === 0) return <div className={'audit-log audit-log-empty ' + className} data-audit="" data-empty="">{emptyText}</div>;
   return (
-    <ol className={className} data-audit="">
-      {events.map((e) => (
-        <li key={e.id} data-auditevent="" data-level={e.level ?? 'info'}>
-          <span data-audittime="">{e.time}</span>
-          <span data-auditmarker="" aria-hidden="true" />
-          <span data-auditbody="">
-            <span data-auditline="">
-              <strong>{e.actor}</strong> · {e.event}
+    <ol className={'audit-log ' + className} data-audit="">
+      {events.map(e => {
+        const lv = e.level ?? 'info';
+        return (
+          <li key={e.id} className="audit-log-ev" data-auditevent="" data-level={lv} style={cv(AUDIT_C[lv])}>
+            <span className="audit-log-time" data-audittime="">{e.time}</span>
+            <span className="audit-log-mk" data-auditmarker="" aria-hidden="true" />
+            <span className="audit-log-body" data-auditbody="">
+              <span className="audit-log-line" data-auditline=""><strong>{e.actor}</strong>{' ' + e.event}{lv !== 'info' && <span className="audit-log-lv">{AUDIT_LABEL[lv].toLowerCase()}</span>}</span>
+              {e.detail && <span className="audit-log-detail" data-auditdetail="">{e.detail}</span>}
             </span>
-            {e.detail && <span data-auditdetail="">{e.detail}</span>}
-          </span>
-        </li>
-      ))}
+          </li>
+        );
+      })}
     </ol>
   );
 }
+
+export type { AuditLevel, AuditEvent, AuditLogViewerProps } from './agentOps.shared';
