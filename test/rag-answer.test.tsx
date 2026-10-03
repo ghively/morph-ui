@@ -38,7 +38,7 @@ describe('SourceCardList', () => {
     const onSelect = vi.fn();
     const { container } = render(<SourceCardList sources={SOURCES} activeId="s1" onSelect={onSelect} />);
     expect(container.querySelector('[data-sourcecard][data-active]')).toBeTruthy();
-    expect(screen.getByText('90%')).toBeTruthy();
+    expect(screen.getByLabelText('Relevance 90 percent')).toBeTruthy();
     fireEvent.click(screen.getByText('Review'));
     expect(onSelect).toHaveBeenCalledWith('s2');
   });
@@ -63,7 +63,7 @@ describe('RetrievalInspector', () => {
     const titles = Array.from(container.querySelectorAll('[data-chunktitle]')).map((el) => el.textContent);
     expect(titles).toEqual(['Policy', 'Old note']);
     expect(container.querySelector('[data-chunk][data-below]')).toBeTruthy();
-    expect(screen.getByText('below 0.70 threshold')).toBeTruthy();
+    expect(screen.getByText(/threshold 0\.70/)).toBeTruthy();
   });
 });
 
@@ -71,7 +71,7 @@ describe('GroundingBadge', () => {
   it('announces verdict via status role', () => {
     render(<GroundingBadge verdict="partial" detail="3 of 5 cited" />);
     const badge = screen.getByRole('status');
-    expect(badge.textContent).toContain('Partially grounded');
+    expect(badge.getAttribute('aria-label')).toContain('Partially grounded');
     expect(badge.textContent).toContain('3 of 5 cited');
     expect(badge.getAttribute('data-verdict')).toBe('partial');
   });
@@ -80,10 +80,10 @@ describe('GroundingBadge', () => {
 describe('StreamingStageIndicator', () => {
   it('marks past/current/todo stages', () => {
     const { container } = render(<StreamingStageIndicator stage="reading" />);
-    const stages = container.querySelectorAll('[data-stage]');
-    expect(stages[0]?.getAttribute('data-state')).toBe('done');
-    expect(stages[1]?.getAttribute('data-state')).toBe('active');
-    expect(stages[2]?.getAttribute('data-state')).toBe('todo');
+    const stages = container.querySelectorAll('[data-s]');
+    expect(stages[0]?.getAttribute('data-s')).toBe('done');
+    expect(stages[1]?.getAttribute('data-s')).toBe('active');
+    expect(stages[2]?.getAttribute('data-s')).toBe('todo');
     expect(container.querySelector('[role="status"]')?.getAttribute('aria-label')).toContain('Reading');
   });
 
@@ -96,7 +96,7 @@ describe('StreamingStageIndicator', () => {
 describe('ContextAttributionList', () => {
   it('totals tokens and scales the budget bar', () => {
     render(<ContextAttributionList budget={100000} entries={[{ source: 'Tickets', tokens: 25000 }]} />);
-    expect(screen.getByText(/25,000 tokens of 100,000/)).toBeTruthy();
+    expect(screen.getAllByText('25k').length).toBeGreaterThan(0);
     expect(screen.getByRole('progressbar', { name: 'Context window usage' }).getAttribute('aria-valuenow')).toBe('25000');
   });
 });
@@ -105,19 +105,19 @@ describe('AnswerFeedback', () => {
   it('submits praise in one click path', () => {
     const onSubmit = vi.fn();
     render(<AnswerFeedback onSubmit={onSubmit} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Good answer' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Send praise' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Helpful' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Send' }));
     expect(onSubmit).toHaveBeenCalledWith({ rating: 'up', reasons: [], correction: '' });
-    expect(screen.getByRole('status').textContent).toMatch(/improves future answers/);
+    expect(screen.getByRole('status').textContent).toContain('FEEDBACK_LOGGED');
   });
 
   it('collects reasons + correction on thumbs-down', () => {
     const onSubmit = vi.fn();
     render(<AnswerFeedback onSubmit={onSubmit} />);
-    fireEvent.click(screen.getByRole('button', { name: 'Bad answer' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Stale source' }));
-    fireEvent.change(screen.getByPlaceholderText('Optional correction…'), { target: { value: 'Use the March policy.' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Send report' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Not helpful' }));
+    fireEvent.click(screen.getByText('Stale source'));
+    fireEvent.change(screen.getByPlaceholderText('What should it have said? (optional)'), { target: { value: 'Use the March policy.' } });
+    fireEvent.click(screen.getByRole('button', { name: /Report/ }));
     expect(onSubmit).toHaveBeenCalledWith({
       rating: 'down',
       reasons: ['Stale source'],

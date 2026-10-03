@@ -1,42 +1,13 @@
-[data-grounding] {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: var(--t-ctl);
-  font-weight: 650;
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid;
-  white-space: nowrap;
-}
-
-[data-groundingdot] {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: currentColor;
-  flex: none;
-}
-
-[data-grounding][data-verdict='grounded'] {
-  color: var(--morph-success);
-  border-color: rgba(26, 155, 94, 0.4);
-  background: rgba(26, 155, 94, 0.12);
-}
-
-[data-grounding][data-verdict='partial'] {
-  color: var(--morph-warn);
-  border-color: rgba(224, 140, 32, 0.45);
-  background: rgba(224, 140, 32, 0.12);
-}
-
-[data-grounding][data-verdict='ungrounded'] {
-  color: var(--morph-danger);
-  border-color: rgba(214, 60, 60, 0.45);
-  background: rgba(214, 60, 60, 0.12);
-}
-
-[data-groundingdetail] {
-  font-weight: 500;
-  opacity: 0.85;
-}
+/* host-primitive reset */
+:where(.grounding) [data-status], :where(.grounding)[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where(.grounding) [data-state], :where(.grounding)[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where(.grounding) [data-state]::before, :where(.grounding)[data-state]::before { content: none; }
+:where(.grounding) [data-empty], :where(.grounding)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+.grounding { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-sans); font-size: 12px; white-space: nowrap; color: var(--app-text); }
+.grounding-tag { font-family: var(--app-mono); font-size: 11px; font-weight: 700; letter-spacing: .08em; color: var(--c); padding: 2px 0; }
+.grounding-tag::before { content: '[ '; } .grounding-tag::after { content: ' ]'; }
+.grounding[data-verdict='ungrounded'] .grounding-tag { padding: 2px 6px; color: var(--on-accent); background: var(--c); border-radius: 3px; }
+.grounding-ticks { display: inline-flex; gap: 2px; }
+.grounding-ticks i { width: 3px; height: 12px; border-radius: 1px; background: color-mix(in srgb, var(--c) 22%, transparent); }
+.grounding-ticks i[data-on] { background: var(--c); }
+.grounding-detail { color: var(--app-dim); }

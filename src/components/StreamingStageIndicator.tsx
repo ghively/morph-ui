@@ -1,46 +1,26 @@
+import { Fragment } from 'react';
 import './StreamingStageIndicator.css';
+import { useStages, STAGE_C, cv, type StreamingStageIndicatorProps } from './ragAnswer.shared';
 
-export type RagStage = 'searching' | 'reading' | 'drafting';
-
-export interface StreamingStageIndicatorProps {
-  /** Current stage. Omit (with streaming=false) for the settled state. */
-  stage?: RagStage;
-  streaming?: boolean;
-  /** Stage labels, in order. Defaults to Searching → Reading → Drafting. */
-  stages?: [string, string, string];
-  className?: string;
-}
-
-const ORDER: RagStage[] = ['searching', 'reading', 'drafting'];
-
-/** "Searching… → Reading… → Drafting…" stepper shown while a RAG answer streams. */
-export function StreamingStageIndicator({ stage, streaming = true, stages = ['Searching', 'Reading', 'Drafting'], className = '' }: StreamingStageIndicatorProps) {
-  if (!streaming) return null;
-  const current = stage ? ORDER.indexOf(stage) : 0;
+export function StreamingStageIndicator(props: StreamingStageIndicatorProps) {
+  const s = useStages(props);
+  if (s.hidden) return null;
   return (
-    <div className={className} data-stages="" role="status" aria-label={`Working: ${stages[Math.max(0, current)]}…`}>
-      {ORDER.map((key, i) => {
-        const state = i < current ? 'done' : i === current ? 'active' : 'todo';
-        return (
-          <span key={key} data-stage="" data-state={state}>
-            <span data-stagedot="" aria-hidden="true">
-              {state === 'done' ? (
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M1.5 5.5l2.5 2.5 4.5-5.5" />
-                </svg>
-              ) : (
-                <span data-stagepulse="" />
-              )}
-            </span>
-            {stages[i]}
-            {i < ORDER.length - 1 && (
-              <span data-stagearrow="" aria-hidden="true">
-                →
-              </span>
-            )}
+    <div className={'rag-stages ' + (props.className || '')} data-stages="" role="status" aria-live="polite" aria-label={s.aria}>
+      {s.settled ? (
+        <span className="rag-stages-step" data-s="done" style={cv(STAGE_C.done)} aria-hidden="true"><span className="rag-stages-ok">[ OK ]</span><span className="rag-stages-label">{s.doneLabel}</span></span>
+      ) : s.items.map((it, i) => (
+        <Fragment key={it.key}>
+          <span className="rag-stages-step" data-s={it.state} style={cv(STAGE_C[it.state])} aria-hidden="true">
+            <span className="rag-stages-mark">{it.state === 'done' ? '✓' : it.n}</span>
+            <span className="rag-stages-label">{it.label}</span>
+            {it.state === 'active' && <span className="rag-stages-cursor" />}
           </span>
-        );
-      })}
+          {i < s.items.length - 1 && <span className="rag-stages-rule" data-done={it.state === 'done' ? '' : undefined} aria-hidden="true" />}
+        </Fragment>
+      ))}
     </div>
   );
 }
+
+export type { RagStage, StreamingStageIndicatorProps } from './ragAnswer.shared';
