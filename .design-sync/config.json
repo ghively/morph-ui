@@ -1,0 +1,25 @@
+{
+  "projectId": "a695bfc9-fe5c-4d59-9160-a0d859f71410",
+  "pkg": "@ghively/morph-ui",
+  "globalName": "MorphUI",
+  "shape": "package",
+  "cssEntry": "dist/morph-ui.css",
+  "buildCmd": "pnpm build",
+  "libOverrides": {
+    "source-kit.mjs": "regroup components by the README component table (package shape defaults to one flat general group)"
+  },
+  "provider": {
+    "component": "MorphRoot",
+    "props": {
+      "padding": 16
+    }
+  },
+  "componentSrcMap": {
+    "Checkbox": null,
+    "RadioGroup": null
+  },
+  "guidelinesGlob": [
+    "docs/extraction.md",
+    "docs/POLISH.md"
+  ]
+}
