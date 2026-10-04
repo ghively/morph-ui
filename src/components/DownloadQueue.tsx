@@ -1,3 +1,4 @@
+import './mediaLibrary.shared.css';
 import './DownloadQueue.css';
 import type { CSSProperties } from 'react';
 
