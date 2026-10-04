@@ -181,7 +181,7 @@ export function OrbitalCarousel({
           })}
         </div>
       </div>
-      <div className="orbital-carousel-fallback">
+      <div className="orbital-carousel-fallback" tabIndex={0}>
          {images.map((img, i) => (
            <img 
               key={img.id} 

@@ -135,17 +135,17 @@ export function StatusRowList({
       className={className}
     >
       {rows.map(row => (
-        <RowItem key={row.id} row={row} semantics={semantics} />
+        <RowItem key={row.id} row={row} semantics={semantics} inList={containerRole === 'list'} />
       ))}
       {footer}
     </div>
   );
 }
 
-function RowItem({ row, semantics }: { row: StatusRow; semantics: StatusRowListProps['semantics'] }) {
+function RowItem({ row, semantics, inList }: { row: StatusRow; semantics: StatusRowListProps['semantics']; inList: boolean }) {
   const isListbox = semantics === 'listbox';
-  const isList = semantics === 'list';
-  const role = isListbox ? 'option' : isList ? 'listitem' : undefined;
+  // listitem only inside a role="list" container, which needs a label (see `label`).
+  const role = isListbox ? 'option' : inList ? 'listitem' : undefined;
 
   const hasRowSelect = !!row.onSelect;
   const hasActions = !!row.actions && row.actions.length > 0;

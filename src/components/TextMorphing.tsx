@@ -43,6 +43,8 @@ export function TextMorphing({
       data-text-morphing=""
       data-morphing={isMorphing ? '' : undefined}
       className={className}
+      // A span/div can't carry a name; headings and other named roles can.
+      role={Component === 'span' || Component === 'div' ? 'img' : undefined}
       aria-label={text}
     >
       <span className="text-morphing-sizer" aria-hidden="true">

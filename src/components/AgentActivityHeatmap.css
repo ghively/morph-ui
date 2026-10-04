@@ -29,3 +29,5 @@
 .agent-activity-heatmap-foot .agent-activity-heatmap-cell { cursor: default; width: 12px; }
 .agent-activity-heatmap-sp { flex: 1; }
 .agent-activity-heatmap-empty { padding: var(--s8) var(--s4); text-align: center; font-size: var(--t-small); color: var(--app-faint); border: 1px dashed var(--app-line); border-radius: var(--r-md); }
+
+.agent-activity-heatmap-week { display: contents; }

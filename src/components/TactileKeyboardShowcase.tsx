@@ -84,7 +84,7 @@ function TactileKey({
       onPointerDown={() => onDown(id)}
       onPointerUp={() => onUp(id)}
       onPointerLeave={() => onUp(id)}
-      aria-label={label}
+      aria-label={label || (id === 'space' ? 'Space' : id)}
     >
       <div className="keycap-top">
         <span className="keycap-label">{label}</span>

@@ -16,7 +16,7 @@ export function RetrievalInspector(props: RetrievalInspectorProps) {
           <ol className="retrieval-list" onKeyDown={r.onKeyDown}>
             {r.rows.map((c, i) => (
               <Fragment key={c.id}>
-                {c.below && (i === 0 || !r.rows[i - 1]!.below) && <li className="retrieval-cut" role="presentation"><span>threshold {r.thFmt}</span></li>}
+                {c.below && (i === 0 || !r.rows[i - 1]!.below) && <li className="retrieval-cut"><span>threshold {r.thFmt}</span></li>}
                 <li className="retrieval-row" data-chunk="" data-below={c.below ? '' : undefined} data-open={c.open ? '' : undefined}>
                   <button {...c.btn} className="retrieval-sumrow" data-chunkbtn="" onClick={c.toggle}>
                     <span className="retrieval-rank">{c.rank}</span>

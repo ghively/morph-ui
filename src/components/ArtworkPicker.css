@@ -22,3 +22,4 @@
 .apA-grid[data-shape="landscape"] .apA-up .apA-frame, .apA-grid[data-shape="logo"] .apA-up .apA-frame, .apA-grid[data-shape="banner"] .apA-up .apA-frame { aspect-ratio: 16 / 9; }
 .apA-up:hover .apA-frame { color: var(--c); border-color: var(--c); }
 .apA-foot { display: flex; align-items: center; gap: var(--s2); padding-top: var(--s2); border-top: 1px solid var(--app-line); }
+.apA-options { display: contents; }

@@ -9,7 +9,7 @@ export function Tabs({ tabs, activeId, onTabChange, children, label = 'Sections'
       <div ref={listRef} role="tablist" aria-label={label} data-tablist="">
         {tabs.map((tab) => {
           const selected = tab.id === activeId;
-          return <button key={tab.id} type="button" role="tab" data-tabid={tab.id} data-selected={selected ? '' : undefined} aria-selected={selected} aria-controls={`tabpanel-${tab.id}`} id={`tab-${tab.id}`} tabIndex={selected ? 0 : -1} disabled={tab.disabled} onClick={() => onTabChange(tab.id)} onKeyDown={(e) => onKeyDown(e, tab.id)}><span>{tab.label}</span>{tab.badge !== undefined && <span data-tabbadge="">{tab.badge}</span>}</button>;
+          return <button key={tab.id} type="button" role="tab" data-tabid={tab.id} data-selected={selected ? '' : undefined} aria-selected={selected} aria-controls={children && selected ? `tabpanel-${tab.id}` : undefined} id={`tab-${tab.id}`} tabIndex={selected ? 0 : -1} disabled={tab.disabled} onClick={() => onTabChange(tab.id)} onKeyDown={(e) => onKeyDown(e, tab.id)}><span>{tab.label}</span>{tab.badge !== undefined && <span data-tabbadge="">{tab.badge}</span>}</button>;
         })}
       </div>
       {children && <div role="tabpanel" id={`tabpanel-${activeId}`} aria-labelledby={`tab-${activeId}`} data-tabpanel="" tabIndex={0}>{children}</div>}

@@ -105,7 +105,7 @@ export function ThreadList({
                   {(thread.highlight || 0) > 0 ? (
                     <span data-count="" data-tone="danger" aria-label={`${thread.highlight} mentions`}>@{thread.highlight}</span>
                   ) : (thread.unread || 0) > 0 ? (
-                    <span data-threaddot="" data-live="" aria-label="Unread replies" style={{ width: 7, height: 7, marginRight: 8 }} />
+                    <span data-threaddot="" data-live="" role="img" aria-label="Unread replies" style={{ width: 7, height: 7, marginRight: 8 }} />
                   ) : null}
 
                   {onPromote && (

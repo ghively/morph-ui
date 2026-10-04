@@ -83,7 +83,11 @@ export function AgentActivityHeatmap({ data, metrics = DEFAULT_METRICS, onCellSe
         <div className="agent-activity-heatmap-scroll">
           <div className="agent-activity-heatmap-grid" role="grid" aria-label="Activity heatmap" ref={gridRef}
             style={{ gridTemplateColumns: `repeat(${m.cols}, 14px)` }} onMouseLeave={() => setHov(null)}>
-            {m.cells.map(c => (
+            {/* A grid needs rows: one per week column. display: contents keeps the cells
+                placed by the parent CSS grid. */}
+            {Array.from({ length: m.cols }, (_, k) => (
+              <div key={k} role="row" className="agent-activity-heatmap-week">
+            {m.cells.filter(c => Math.floor(c.pos / 7) === k).map(c => (
               <div
                 key={c.date}
                 role="gridcell"
@@ -99,6 +103,8 @@ export function AgentActivityHeatmap({ data, metrics = DEFAULT_METRICS, onCellSe
                 onClick={() => { setSelected(c.i); setFocus(c.i); onCellSelect?.(c.date, metric, c.count); }}
                 onKeyDown={e => onKey(e, c.i)}
               ><i /></div>
+            ))}
+              </div>
             ))}
             {m.colTotals.map((t, k) => (
               <span key={k} aria-hidden="true" className={`agent-activity-heatmap-bar ${shown && Math.floor(shown.pos / 7) === k ? 'is-on' : ''}`}
