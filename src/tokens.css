@@ -56,7 +56,7 @@
   /* typography */
   --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
   --font-mono: "Courier New", Courier, monospace;
-  --app-mono: ui-monospace, SFMono-Regular, "SF Mono", "JetBrains Mono", Menlo, var(--font-mono, "Courier New"), monospace;
+  --app-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, var(--font-mono, "Courier New"), monospace;
   --t-ctl: 12.5px;
   --t-meta: 11.5px;
 
@@ -377,7 +377,7 @@
   --cpi-gray-400: var(--app-faint);
   --cpi-gray-500: var(--app-dim);
   --cpi-gray-600: var(--app-text);
-  --app-mono: ui-monospace, SFMono-Regular, "SF Mono", "JetBrains Mono", Menlo, var(--font-mono, "Courier New"), monospace;
+  --app-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, var(--font-mono, "Courier New"), monospace;
   --d1: calc(130ms * var(--d-scale));
   --d2: calc(220ms * var(--d-scale));
   --d3: calc(360ms * var(--d-scale));
