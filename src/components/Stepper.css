@@ -101,7 +101,7 @@
   min-width: 12px;
 }
 
-[data-step][data-state='done'] + [data-step] [data-stepconnector],
-[data-step]:has(+ [data-step][data-state='done']) [data-stepconnector] {
+/* A step's connector links it to the next step: complete only when both ends are done. */
+[data-step][data-state='done']:has(+ [data-step][data-state='done']) [data-stepconnector] {
   background: var(--morph-success);
 }

@@ -11,7 +11,13 @@ export const fmtMs = (ms?: number) => {
   if (ms < 60000) { const s = (ms / 1000).toFixed(1); return (s.endsWith('.0') ? s.slice(0, -2) : s) + 's'; }
   return Math.floor(ms / 60000) + 'm ' + Math.round((ms % 60000) / 1000) + 's';
 };
-export const initials = (name: string) => name.split(/[\s\-_.]+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+/** Up to two initials. Parenthetical/bracketed asides ("Priya (Support lead)") are dropped and
+ *  tokens are split on any non-letter/number, so punctuation never becomes an initial. */
+export const initials = (name: string) => {
+  const words = (s: string) => s.split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+  const core = words(name.replace(/\([^)]*\)|\[[^\]]*\]|\{[^}]*\}/g, ' '));
+  return (core.length ? core : words(name)).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+};
 export const blocks = (v: number, of: number, n = 10) => { const k = of <= 0 ? 0 : Math.round(Math.min(1, Math.max(0, v / of)) * n); return '█'.repeat(k) + '░'.repeat(n - k); };
 const reduced = () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 const uid = () => 'm' + Math.random().toString(36).slice(2, 8);

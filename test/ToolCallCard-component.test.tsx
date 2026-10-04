@@ -50,4 +50,13 @@ describe('ToolCallCard', () => {
     );
     expect(screen.getByText('Network timeout after 30s')).toBeTruthy();
   });
+
+  it('marks the "+N" overflow chip so it can stay visible', () => {
+    const { container } = render(
+      <ToolCallCard {...defaultProps} args={{ a: 1, b: 2, c: 3, d: 4, e: 5 }} />
+    );
+    const more = container.querySelector('[data-tool-call-more]');
+    expect(more?.textContent).toBe('+2');
+    expect(more?.hasAttribute('data-tool-call-chip')).toBe(true);
+  });
 });

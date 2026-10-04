@@ -13,7 +13,7 @@ export function ToolCallCard(props: ToolCallProps) {
         <span className="tool-call-name" data-tool-call-title="">{toolName}</span>
         <span className="tool-call-args" data-tool-call-args-summary="">
           {t.chips.map(c => <span key={c.key} className="tool-call-chip" data-tool-call-chip=""><em>{c.key}</em>{c.value}</span>)}
-          {t.more > 0 && <span className="tool-call-chip" data-tool-call-chip="">{'+' + t.more}</span>}
+          {t.more > 0 && <span className="tool-call-chip" data-tool-call-chip="" data-tool-call-more="" title={t.more + ' more argument' + (t.more === 1 ? '' : 's')}>{'+' + t.more}</span>}
         </span>
         <span className="tool-call-meta" data-tool-call-meta="">
           {t.dur && <span data-tool-call-duration="">{t.dur}</span>}

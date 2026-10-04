@@ -63,6 +63,8 @@ export function AgentTopologyView({
   const lastDrawTimeRef = useRef<number>(0);
   
   const [layout, setLayout] = useState<Map<string, Position>>(new Map());
+  // CSS-pixel size of the container; drives the canvas backing store.
+  const [size, setSize] = useState<{ w: number; h: number }>({ w: 0, h: 0 });
 
   // Determine reduced motion
   useEffect(() => {
@@ -135,7 +137,7 @@ export function AgentTopologyView({
     // Actually, setting ctx.fillStyle = 'var(--app-blue)' works in modern browsers if the canvas element inherits it!
     // But JSDOM might not support it. We'll use getComputedStyle.
     if (!containerRef.current) return fallback;
-    const val = getComputedStyle(containerRef.current).getPropertyValue(name.replace('var(', '').replace(')', ''));
+    const val = getComputedStyle(containerRef.current).getPropertyValue(name.replace('var(', '').replace(')', '')).trim();
     return val || fallback;
   };
 
@@ -168,14 +170,15 @@ export function AgentTopologyView({
         timeRef.current += dt * 0.02; // dash offset drift
       }
 
-      const w = canvas.width;
-      const h = canvas.height;
-      
       const dpr = window.devicePixelRatio || 1;
-      
-      ctx.clearRect(0, 0, w / dpr, h / dpr);
+      const w = canvas.width / dpr;
+      const h = canvas.height / dpr;
+
+      // Reset the transform every frame so the dpr scale never accumulates.
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
       ctx.save();
-      ctx.translate((w / dpr) / 2, (h / dpr) / 2); // Center
+      ctx.translate(w / 2, h / 2); // Center
 
       // Draw edges
       ctx.lineWidth = 2;
@@ -253,12 +256,22 @@ export function AgentTopologyView({
 
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
     lastDrawTimeRef.current = 0;
-    
-    if (!paused && isVisible && !reducedMotion && !document.hidden) {
-      rafRef.current = requestAnimationFrame(draw);
-    } else {
-      draw(performance.now());
+
+    // Size the backing store here (not in the ResizeObserver) so resizing and
+    // drawing happen in the same pass — assigning canvas.width clears it.
+    if (size.w > 0 && size.h > 0) {
+      const dpr = window.devicePixelRatio || 1;
+      const bw = Math.round(size.w * dpr);
+      const bh = Math.round(size.h * dpr);
+      if (canvas.width !== bw) canvas.width = bw;
+      if (canvas.height !== bh) canvas.height = bh;
     }
+
+    // Always paint a static frame synchronously; the rAF loop (when allowed)
+    // only animates the dash drift on top of it. Paused / reduced-motion /
+    // hidden views keep this frame.
+    rafRef.current = null;
+    draw(performance.now());
 
     return () => {
       if (rafRef.current) {
@@ -266,34 +279,29 @@ export function AgentTopologyView({
         rafRef.current = null;
       }
     };
-  }, [nodes, edges, layout, paused, isVisible, reducedMotion, useFallback, selectedId]);
+  }, [nodes, edges, layout, size, paused, isVisible, reducedMotion, useFallback, selectedId]);
 
-  // Resize handling
+  // Resize handling: one observer for the component's lifetime. It only
+  // records the size; the draw effect resizes the canvas and repaints.
   useEffect(() => {
-    if (!containerRef.current || !canvasRef.current) return;
+    const el = containerRef.current;
+    if (!el || useFallback) return;
+    const update = (width: number, height: number) => {
+      const w = Math.round(width);
+      const h = Math.round(height);
+      setSize((prev) => (prev.w === w && prev.h === h ? prev : { w, h }));
+    };
+    const rect = el.getBoundingClientRect();
+    update(rect.width, rect.height);
+    if (typeof ResizeObserver === 'undefined') return;
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
-        if (canvasRef.current) {
-          const dpr = window.devicePixelRatio || 1;
-          const { width, height } = entry.contentRect;
-          canvasRef.current.width = width * dpr;
-          canvasRef.current.height = height * dpr;
-          const ctx = canvasRef.current.getContext('2d');
-          if (ctx) {
-            ctx.scale(dpr, dpr);
-          }
-          if (rafRef.current === null && !useFallback) {
-             // force a redraw on resize when static
-             // setting layout to itself won't trigger re-draw, so we can just let React handle it if we want, or we call draw directly.
-             // Best is to trigger a state update
-             setLayout(new Map(layout));
-          }
-        }
+        update(entry.contentRect.width, entry.contentRect.height);
       }
     });
-    observer.observe(containerRef.current);
+    observer.observe(el);
     return () => observer.disconnect();
-  }, [useFallback, layout]);
+  }, [useFallback]);
 
   // Click handling
   const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {

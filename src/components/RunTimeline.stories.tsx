@@ -8,6 +8,9 @@ const frame: React.CSSProperties = {
 
 const base = new Date('2026-09-20T23:40:00Z').getTime();
 const at = (offsetSeconds: number) => new Date(base + offsetSeconds * 1000).toISOString();
+// Fixed "now" relative to the same base so the running step's live duration is
+// deterministic (27s into `pnpm test`) instead of depending on the wall clock.
+const now = at(72);
 
 const steps: RunTimelineStep[] = [
   {
@@ -49,13 +52,13 @@ const steps: RunTimelineStep[] = [
 
 export const Default = () => (
   <div style={frame}>
-    <RunTimeline steps={steps} />
+    <RunTimeline steps={steps} now={now} />
   </div>
 );
 
 export const Dense = () => (
   <div style={frame}>
-    <RunTimeline steps={steps} dense />
+    <RunTimeline steps={steps} now={now} dense />
   </div>
 );
 

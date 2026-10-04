@@ -9,6 +9,11 @@
   padding-bottom: var(--s1);
 }
 
+[data-lineplot] {
+  position: relative;
+  height: 100%;
+}
+
 [data-linearea] svg {
   display: block;
   width: 100%;
@@ -26,9 +31,13 @@
 }
 
 [data-linedot] {
-  fill: var(--morph-accent);
-  stroke: var(--morph-card-bg);
-  stroke-width: 1.5;
+  position: absolute;
+  width: var(--s2);
+  height: var(--s2);
+  border-radius: var(--r-pill);
+  background: var(--morph-accent);
+  box-shadow: 0 0 0 1.5px var(--morph-card-bg);
+  transform: translate(-50%, -50%);
 }
 
 [data-lineempty] {

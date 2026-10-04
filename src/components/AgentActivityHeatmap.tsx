@@ -82,7 +82,7 @@ export function AgentActivityHeatmap({ data, metrics = DEFAULT_METRICS, onCellSe
       {m.cells.length === 0 ? <div className="agent-activity-heatmap-empty">No activity recorded yet</div> : (
         <div className="agent-activity-heatmap-scroll">
           <div className="agent-activity-heatmap-grid" role="grid" aria-label="Activity heatmap" ref={gridRef}
-            style={{ gridTemplateColumns: `repeat(${m.cols}, 14px)` }} onMouseLeave={() => setHov(null)}>
+            style={{ gridTemplateColumns: `repeat(${m.cols}, minmax(14px, 28px))` }} onMouseLeave={() => setHov(null)}>
             {/* A grid needs rows: one per week column. display: contents keeps the cells
                 placed by the parent CSS grid. */}
             {Array.from({ length: m.cols }, (_, k) => (

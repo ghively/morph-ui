@@ -16,9 +16,11 @@
 .tool-call-spin { width: 12px; height: 12px; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--c) 25%, transparent); border-top-color: var(--c); animation: tool-call-rot .8s linear infinite; }
 .tool-call-name { font-family: var(--app-mono); font-size: var(--t-body); font-weight: 600; white-space: nowrap; }
 .tool-call[data-status="failed"] .tool-call-name { color: var(--c); }
-.tool-call-args { flex: 1; min-width: 0; display: flex; gap: var(--s1h); overflow: hidden; mask-image: linear-gradient(90deg, #000 85%, transparent); -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); }
-.tool-call-chip { flex: none; display: inline-flex; gap: var(--s1h); padding: var(--s0) var(--s2); border-radius: var(--r-pill); font-family: var(--app-mono); font-size: var(--t-num); color: var(--app-text); background: color-mix(in srgb, var(--app-text) 6%, transparent); white-space: nowrap; }
-.tool-call-chip em { font-style: normal; color: var(--app-faint); }
+/* Value chips shrink and ellipsize; the "+N" overflow marker never shrinks, so it always stays visible (no fade mask over it). */
+.tool-call-args { flex: 1; min-width: 0; display: flex; gap: var(--s1h); overflow: hidden; }
+.tool-call-chip { flex: 0 1 auto; min-width: 0; display: block; overflow: hidden; text-overflow: ellipsis; padding: var(--s0) var(--s2); border-radius: var(--r-pill); font-family: var(--app-mono); font-size: var(--t-num); color: var(--app-text); background: color-mix(in srgb, var(--app-text) 6%, transparent); white-space: nowrap; }
+.tool-call-chip[data-tool-call-more] { flex: none; color: var(--app-dim); }
+.tool-call-chip em { font-style: normal; color: var(--app-faint); margin-inline-end: var(--s1h); }
 .tool-call-meta { display: flex; align-items: center; gap: var(--s3); font-size: var(--t-meta); color: var(--app-dim); font-variant-numeric: tabular-nums; }
 .tool-call-chev { width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform var(--d2) var(--ease-emph); }
 .tool-call[data-open] .tool-call-chev { transform: translateY(1px) rotate(-135deg); }
