@@ -1,11 +1,11 @@
 .dqA { --c: var(--morph-accent); display: flex; flex-direction: column; gap: var(--s1); padding: var(--s3); }
 .dqA-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3); padding: var(--s0) var(--s1h) var(--s1h); }
 .dqA-rate { display: inline-flex; gap: var(--s3); font-size: var(--t-meta); color: var(--app-faint); }
-.dqA-rate b { color: var(--state-live); font-weight: 700; text-shadow: 0 0 10px color-mix(in srgb, var(--state-live) 50%, transparent); }
+.dqA-rate b { color: color-mix(in srgb, var(--state-live) 60%, var(--app-text)); font-weight: 700; text-shadow: 0 0 10px color-mix(in srgb, var(--state-live) 50%, transparent); }
 .dqA-row { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; gap: var(--s4); padding: var(--s3) var(--s2); }
 .dqA-client { width: 32px; height: 32px; display: grid; place-items: center; border-radius: var(--r-sm); font-size: var(--t-xs); font-weight: 800; color: var(--app-text); background: color-mix(in srgb, var(--app-text) 7%, transparent); border: 1px solid var(--app-line); }
-.dqA-client[data-proto="usenet"] { color: var(--state-wait); }
-.dqA-client[data-proto="torrent"] { color: var(--state-live); }
+.dqA-client[data-proto="usenet"] { color: color-mix(in srgb, var(--state-wait) 60%, var(--app-text)); }
+.dqA-client[data-proto="torrent"] { color: color-mix(in srgb, var(--state-live) 60%, var(--app-text)); }
 .dqA-main { min-width: 0; display: flex; flex-direction: column; gap: var(--s1); }
 .dqA-name { font-size: var(--t-body); font-weight: 650; }
 .dqA-rel { font-family: var(--app-mono); font-size: var(--t-eyebrow); color: var(--app-faint); }

@@ -89,7 +89,7 @@
 
 [data-stephint] {
   font-size: var(--t-meta);
-  opacity: 0.65;
+  color: var(--app-faint);
   white-space: nowrap;
 }
 

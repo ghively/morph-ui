@@ -1,6 +1,10 @@
 import type { ReactNode } from "react";
 import "../src/tokens.css";
 import "../src/frame.css";
+// The [data-btn]/[data-chip]/[data-row]... attribute layer. The library bundle
+// ships it in styles.css; without it here, primitive-built components rendered
+// unstyled in the catalog and its screenshots.
+import "../src/primitives.css";
 import "./frame.css";
 
 /**

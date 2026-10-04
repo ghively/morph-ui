@@ -46,7 +46,7 @@
 :where(.ml-pill) { all: unset; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: var(--s1h); height: 30px; padding: 0 var(--s4); border-radius: var(--r-pill); font-size: var(--t-small); font-weight: 600; color: var(--app-text); background: color-mix(in srgb, var(--app-text) 7%, transparent); border: 1px solid var(--app-line); transition: background-color var(--d2) var(--ease-fx), border-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx), color var(--d2) var(--ease-fx); white-space: nowrap; }
 :where(.ml-pill:hover:not(:disabled)) { background: color-mix(in srgb, var(--app-text) 12%, transparent); }
 :where(.ml-pill[data-tone="accent"]), :where(.ml-pill[aria-pressed="true"]), :where(.ml-pill[aria-selected="true"]) { color: var(--on-accent); background: var(--c, var(--morph-accent)); border-color: var(--c, var(--morph-accent)); box-shadow: 0 0 14px -4px var(--c, var(--morph-accent)); }
-:where(.ml-pill[data-tone="danger"]) { color: var(--state-error); border-color: color-mix(in srgb, var(--state-error) 45%, transparent); }
+:where(.ml-pill[data-tone="danger"]) { color: color-mix(in srgb, var(--state-error) 60%, var(--app-text)); border-color: color-mix(in srgb, var(--state-error) 45%, transparent); }
 :where(.ml-pill[data-tone="danger"]:hover) { color: #000; background: var(--state-error); }
 :where(.ml-pill[data-size="sm"]) { height: 24px; padding: 0 var(--s3); font-size: var(--t-num); }
 :where(.ml-pill:disabled) { opacity: .4; cursor: default; }
