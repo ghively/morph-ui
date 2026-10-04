@@ -30,7 +30,6 @@
 - `Button`, `TextField` and `Select` forward native attributes (`onClick`, `type`, `value`, `onChange`, `placeholder`), even though their `.d.ts` lists only the custom props.
 - A raw input inside `FormField` must carry `data-field`, or it renders unstyled. Prefer `TextField`.
 - `ModalSurface`: pass `height="auto"` for content-sized dialogs.
-- Checkbox and RadioGroup are not in this bundle yet. Use `ToggleSwitch` or `SegmentedControl` instead.
 
 **Where the truth lives:** `styles.css` and its `@import` closure (`_ds_bundle.css` holds all tokens and component CSS). Each component has `components/<group>/<Name>/<Name>.d.ts` (props) and `<Name>.prompt.md` (usage).
 

@@ -23,13 +23,9 @@
 - ConfettiCannon renders nothing until `fire()` runs, so the preview fires staggered bursts on mount and the capture is timing-dependent.
 - The capture runs about 0.5–1s after `networkidle`, so long CSS animations are caught mid-flight. TextRipple, TextWordFlip, TextFlip, TextMorphing and TextGlitch are legible in every frame and are accepted as-is.
 
-## Temporarily excluded components
+## Checkbox / RadioGroup collision (fixed 2026-10-04)
 
-- **Checkbox and RadioGroup** are excluded with `cfg.componentSrcMap: {Checkbox: null, RadioGroup: null}` because of a real library CSS bug. `src/primitives.css` defines frame-scoped `[data-checkbox]` (~L2028, a fixed 16x16 tick-box) and `[data-radio]` (~L1706, L1999-2025, a radio-card with a `::before` circle and `width:100%`) primitives. The Checkbox and RadioGroup wrappers emit those same attributes. Inside a Morph frame this has two effects:
-  - The Checkbox label wraps one word per line.
-  - RadioGroup gets a phantom second circle and `orientation="horizontal"` stacks.
-
-  Their preview files stay in `previews/`. Remove the `componentSrcMap` entries once the library renames one side of the collision (for example `data-checkbox-field` / `data-radioopt`).
+- `src/primitives.css` used to carry ChatUIMorph's own `[data-checkbox]` / `[data-radio]` rules (custom button controls), which restyled the Checkbox and RadioGroup wrappers (labels wrapped per word, phantom radio dot, horizontal stacking). Those 18 selectors were removed; `test/primitives-collisions.test.ts` guards it. Both components are back in the sync. If primitives.css is ever regenerated, keep those selectors out.
 
 ## Library API inconsistencies found while grading (src, not fixable in previews)
 
@@ -59,7 +55,6 @@
 
 ## Re-sync risks
 
-- **Excluded Checkbox and RadioGroup:** re-add them after the library fixes the `[data-checkbox]` / `[data-radio]` primitives.css collision. Delete their `componentSrcMap: null` entries, rebuild, recapture and regrade the existing `previews/Checkbox.tsx` / `RadioGroup.tsx`, and drop the "not in this bundle" line from `conventions.md`.
 - **Previews are ported from Ladle stories** (`src/components/*.stories.tsx`) and import components by relative path (`../../src/components/X`). They drift silently when stories or props change. The grades follow the preview `.tsx`, not the story, so a renamed or removed prop shows up only as a compile failure (`! preview build failed`, which drops the card to the floor) or a broken capture.
 - **Preview workarounds tied to library bugs** (Tooltip node `content`, the AgentTopologyView `nodes` re-pass, the open-on-mount clicks for BloomSheet/DropdownMenu, the transformed wrappers for fixed overlays): once the library fixes these, the workarounds may become unnecessary or start to misrender. Recheck those sheets.
 - **JetBrains Mono `[FONT_MISSING]`** is a mid-stack fallback in `--app-mono` (ui-monospace / SF Mono come first). This is **PENDING the user's decision**: ship the font via `extraFonts`, accept the substitute (record that here), or use `runtimeFontPrefixes`. Don't resolve it without the user.

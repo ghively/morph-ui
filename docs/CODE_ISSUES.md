@@ -51,6 +51,10 @@ Last verified 2026-10-02: all 174 `*.stories.tsx` modules load, and every story 
 - [x] **Duplicate public export of `formatBytes`.** Both re-exports now resolve to the single binding in `messageFormat.ts`, so `export *` can't become ambiguous.
 - [ ] **`MessageContent.tsx` has its own private `formatBytes`** (`toFixed(1)`, no PB). Left alone because changing the rounding could break `MessageContent-component.test.tsx` ("2 KB"). Consider switching it to `messageFormat` after checking that test.
 
+- [x] **Checkbox / RadioGroup restyled by generated primitives (2026-10-04).**
+  - `primitives.css` imported ChatUIMorph's own `[data-checkbox]` / `[data-radio]` control styles because the generator copies any rule naming an attribute a component renders. Inside a frame the Checkbox label wrapped one word per line, RadioGroup drew a phantom second dot, and `orientation="horizontal"` stacked.
+  - **Fix:** removed the 18 offending selectors (the components own those attributes). `test/primitives-collisions.test.ts` fails if they come back. Also gave the checkbox a `--r-xs` corner so it no longer reads as a radio.
+
 ## P2 — Theme contract
 
 - [x] **Hard-coded colors moved to tokens** (new "component-scoped tokens" block in `tokens.css`):

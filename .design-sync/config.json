@@ -14,10 +14,6 @@
       "padding": 16
     }
   },
-  "componentSrcMap": {
-    "Checkbox": null,
-    "RadioGroup": null
-  },
   "guidelinesGlob": [
     "docs/extraction.md",
     "docs/POLISH.md"
