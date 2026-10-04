@@ -28,7 +28,7 @@ export default defineConfig({
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'], viewport: { width: 1000, height: 760 }, deviceScaleFactor: 1 } }],
   webServer: {
-    command: `pnpm exec ladle preview --port ${PORT}`,
+    command: `pnpm exec ladle preview --host 127.0.0.1 --port ${PORT}`,
     url: `http://127.0.0.1:${PORT}`,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
