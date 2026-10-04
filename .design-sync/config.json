@@ -6,7 +6,8 @@
   "cssEntry": "dist/morph-ui.css",
   "buildCmd": "pnpm build",
   "libOverrides": {
-    "source-kit.mjs": "regroup components by the README component table (package shape defaults to one flat general group)"
+    "source-kit.mjs": "regroup components by the README component table (package shape defaults to one flat general group)",
+    "dts.mjs": "emit referenced in-package types (MediaItem, SelectOption...) as a prelude and qualify bare React type names"
   },
   "provider": {
     "component": "MorphRoot",
@@ -46,5 +47,11 @@
       "primaryStory": "Danger"
     }
   },
-  "readmeHeader": ".design-sync/conventions.md"
+  "readmeHeader": ".design-sync/conventions.md",
+  "dtsPropsFor": {
+    "Button": "  children: React.ReactNode;\n  variant?: \"primary\" | \"secondary\" | \"ghost\" | \"danger\";\n  size?: \"sm\" | \"md\" | \"lg\";\n  /** Shows a spinner, announces busy state, and blocks clicks. */\n  loading?: boolean;\n  type?: \"button\" | \"submit\" | \"reset\";\n  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;\n  title?: string;\n  className?: string;\n  style?: React.CSSProperties;\n  disabled?: boolean;\n  name?: string;\n  required?: boolean;\n  autoFocus?: boolean;\n  'aria-label'?: string;\n  /** Plus any other native attribute of the underlying element (forwarded). */",
+    "TextField": "  /** Optional; generated when omitted. */\n  id?: string;\n  /** Visible label. Omit only when `aria-label` is given instead. */\n  label?: React.ReactNode;\n  value?: string;\n  defaultValue?: string;\n  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;\n  type?: \"text\" | \"email\" | \"password\" | \"search\" | \"url\" | \"tel\" | \"number\" | \"date\" | \"time\";\n  placeholder?: string;\n  /** Error text; sets invalid styling, `aria-invalid`, and announces via `role=\"alert\"`. */\n  error?: React.ReactNode;\n  hint?: React.ReactNode;\n  readOnly?: boolean;\n  className?: string;\n  style?: React.CSSProperties;\n  disabled?: boolean;\n  name?: string;\n  required?: boolean;\n  autoFocus?: boolean;\n  'aria-label'?: string;\n  /** Plus any other native attribute of the underlying element (forwarded). */",
+    "TextArea": "  /** Optional; generated when omitted. */\n  id?: string;\n  label?: React.ReactNode;\n  value?: string;\n  defaultValue?: string;\n  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;\n  placeholder?: string;\n  rows?: number;\n  error?: React.ReactNode;\n  hint?: React.ReactNode;\n  readOnly?: boolean;\n  className?: string;\n  style?: React.CSSProperties;\n  disabled?: boolean;\n  name?: string;\n  required?: boolean;\n  autoFocus?: boolean;\n  'aria-label'?: string;\n  /** Plus any other native attribute of the underlying element (forwarded). */",
+    "Select": "  /** Optional; generated when omitted. */\n  id?: string;\n  label?: React.ReactNode;\n  options: { value: string; label: string; disabled?: boolean }[];\n  value?: string;\n  defaultValue?: string;\n  onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;\n  /** Shown as the disabled first option when no value is set. */\n  placeholder?: string;\n  error?: React.ReactNode;\n  hint?: React.ReactNode;\n  className?: string;\n  style?: React.CSSProperties;\n  disabled?: boolean;\n  name?: string;\n  required?: boolean;\n  autoFocus?: boolean;\n  'aria-label'?: string;\n  /** Plus any other native attribute of the underlying element (forwarded). */"
+  }
 }

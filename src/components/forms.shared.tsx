@@ -51,6 +51,11 @@ export const Chevron = (p: Record<string, string>) => (
 );
 
 /* ── field wiring (TextField · TextArea · Select) ────────────────────────── */
+/** The caller's id, or a stable generated one so label/hint/error wiring always works. */
+export function useFieldId(id?: string) {
+  const auto = useId();
+  return id ?? 'f' + auto.replace(/:/g, '');
+}
 export function fieldIds(id: string, hint?: ReactNode, error?: ReactNode) {
   const hintId = hint ? id + '-hint' : undefined, errorId = error ? id + '-error' : undefined;
   return { hintId, errorId, describedBy: [hintId, errorId].filter(Boolean).join(' ') || undefined, invalid: error ? true : undefined, root: { 'data-invalid': error ? '' : undefined } };
@@ -367,7 +372,7 @@ export function useSearch({ value, onChange, onSubmit, debounceMs = 0 }: SearchF
 
 /* ── 13 · SegmentedControl ───────────────────────────────────────────────── */
 export interface SegmentedControlOption<T extends string> { value: T; label: string }
-export interface SegmentedControlProps<T extends string> {
+export interface SegmentedControlProps<T extends string = string> {
   value: T;
   options: SegmentedControlOption<T>[];
   onChange: (next: T) => void;
@@ -392,7 +397,8 @@ export function useSegmented<T extends string>({ value, options, onChange }: Seg
 /* ── 14 · Select ─────────────────────────────────────────────────────────── */
 export interface SelectOption { value: string; label: string; disabled?: boolean }
 export interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'children'> {
-  id: string;
+  /** Optional; a stable id is generated when omitted. */
+  id?: string;
   label?: ReactNode;
   options: SelectOption[];
   /** Shown as the disabled first option when no value is set. */
@@ -418,7 +424,8 @@ export const pctOf = (v: number, min: number, max: number) => max === min ? 0 : 
 
 /* ── 16 · TextArea ───────────────────────────────────────────────────────── */
 export interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  id: string;
+  /** Optional; a stable id is generated when omitted. */
+  id?: string;
   label?: ReactNode;
   error?: ReactNode;
   hint?: ReactNode;
@@ -426,7 +433,8 @@ export interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElemen
 
 /* ── 17 · TextField ──────────────────────────────────────────────────────── */
 export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'children' | 'size'> {
-  id: string;
+  /** Optional; a stable id is generated when omitted. */
+  id?: string;
   /** Visible label. Omit only when `aria-label` is given instead. */
   label?: ReactNode;
   /** Error text; sets invalid styling, `aria-invalid`, and announces via `role="alert"`. */

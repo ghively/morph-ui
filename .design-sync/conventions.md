@@ -25,9 +25,9 @@
 **Motion and effects components are for marketing and hero accents only**, never for core app chrome. Those are `AuroraGlowCard`, `LiquidNavMenu`, `LiquidRippleImage`, `PrismOrb`, `PulseOrb`, `MorphingBlobBackground` and the `Text*` effects (`TextShimmer`, `TextGlitch`, `TextScribble`, …).
 
 **Prop quirks:**
-- `ToggleSwitch` is controlled through `on` + `onChange(next)` + `label`. There is no `checked`.
-- `TextField`, `Select` and `FormField` **require `id`**. `Select` takes `options: {value, label, disabled?}[]`.
-- `Button`, `TextField` and `Select` forward native attributes (`onClick`, `type`, `value`, `onChange`, `placeholder`), even though their `.d.ts` lists only the custom props.
+- `ToggleSwitch` is controlled through `on` (or its alias `checked`) + `onChange(next)` + `label`.
+- `FormField` requires `id`; `TextField`, `TextArea` and `Select` generate one when omitted. `Select` takes `options: {value, label, disabled?}[]`.
+- `Button`, `TextField`, `TextArea` and `Select` forward native attributes; their `.d.ts` lists the common ones (`onClick`, `type`, `value`, `onChange`, `placeholder`).
 - A raw input inside `FormField` must carry `data-field`, or it renders unstyled. Prefer `TextField`.
 - `ModalSurface`: pass `height="auto"` for content-sized dialogs.
 

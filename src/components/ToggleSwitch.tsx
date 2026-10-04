@@ -1,7 +1,9 @@
 import './ToggleSwitch.css';
 
 export interface ToggleSwitchProps {
-  on: boolean;
+  /** Current state. `checked` is accepted as an alias for parity with Checkbox. */
+  on?: boolean;
+  checked?: boolean;
   onChange: (next: boolean) => void;
   /** Accessible name — required; the switch renders no visible text. */
   label: string;
@@ -9,7 +11,8 @@ export interface ToggleSwitchProps {
   className?: string;
 }
 
-export function ToggleSwitch({ on, onChange, label, disabled, className = '' }: ToggleSwitchProps) {
+export function ToggleSwitch({ on: onProp, checked, onChange, label, disabled, className = '' }: ToggleSwitchProps) {
+  const on = onProp ?? checked ?? false;
   return (
     <button
       type="button"

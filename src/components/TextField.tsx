@@ -1,11 +1,12 @@
 import './TextField.css';
-import { fieldIds, FieldNotes, type TextFieldProps } from './forms.shared';
+import { fieldIds, useFieldId, FieldNotes, type TextFieldProps } from './forms.shared';
 
 /**
  * Standard single-line text input with label / hint / error wiring.
  * For full probe states use FormField directly.
  */
-export function TextField({ id, label, error, hint, disabled, className = '', ...rest }: TextFieldProps) {
+export function TextField({ id: idProp, label, error, hint, disabled, className = '', ...rest }: TextFieldProps) {
+  const id = useFieldId(idProp);
   const ids = fieldIds(id, hint, error);
   return (
     <div className={className} data-textfield="" {...ids.root} data-disabled={disabled ? '' : undefined}>
