@@ -24,7 +24,7 @@
 .run-timeline-step[data-status="pending"] .run-timeline-label { color: var(--app-faint); }
 .run-timeline-step[data-status="failed"] .run-timeline-label { color: var(--c); }
 .run-timeline-dur { font-family: var(--app-mono); font-size: var(--t-num); color: var(--app-faint); font-variant-numeric: tabular-nums; }
-.run-timeline-step[data-status="running"] .run-timeline-dur { color: var(--c); }
+.run-timeline-step[data-status="running"] .run-timeline-dur { color: color-mix(in srgb, var(--c) 60%, var(--app-text)); }
 .run-timeline-detail { display: flex; gap: var(--s2); margin-top: var(--s0); font-size: var(--t-small); color: var(--app-dim); }
 .run-timeline-detail span { font-family: var(--app-mono); font-size: var(--t-num); color: var(--app-faint); }
 .run-timeline-step[data-status="failed"] .run-timeline-detail { color: var(--c); }

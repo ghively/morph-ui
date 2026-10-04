@@ -56,7 +56,7 @@
 :where(.ml-icon[aria-pressed="true"]) { color: var(--c); text-shadow: 0 0 8px var(--c); }
 :where(.ml-icon[data-tone="accent"]) { width: 40px; height: 40px; font-size: var(--t-lead); color: var(--on-accent); background: var(--c); box-shadow: 0 0 18px -3px var(--c); }
 :where(.ml-icon:disabled) { opacity: .35; cursor: default; }
-:where(.ml-chip) { display: inline-flex; align-items: center; gap: var(--s1h); height: 20px; padding: 0 var(--s2); border-radius: var(--r-pill); font-size: var(--t-eyebrow); font-weight: 700; letter-spacing: .03em; white-space: nowrap; color: var(--k, var(--app-dim)); background: color-mix(in srgb, var(--k, var(--app-text)) 12%, transparent); border: 1px solid color-mix(in srgb, var(--k, var(--app-text)) 30%, transparent); }
+:where(.ml-chip) { display: inline-flex; align-items: center; gap: var(--s1h); height: 20px; padding: 0 var(--s2); border-radius: var(--r-pill); font-size: var(--t-eyebrow); font-weight: 700; letter-spacing: .03em; white-space: nowrap; color: color-mix(in srgb, var(--k, var(--app-dim)) 60%, var(--app-text)); background: color-mix(in srgb, var(--k, var(--app-text)) 12%, transparent); border: 1px solid color-mix(in srgb, var(--k, var(--app-text)) 30%, transparent); }
 :where(.ml-chip[data-mldot]::before) { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--k, var(--app-dim)); box-shadow: 0 0 6px var(--k, transparent); }
 :where(.ml-chip[data-mllive]::before) { animation: ml-pulse 1.6s ease-in-out infinite; }
 @keyframes ml-pulse { 50% { opacity: .35; } }
@@ -82,4 +82,4 @@
 :where(.ml-tabs > button) { all: unset; cursor: pointer; flex: none; height: 26px; padding: 0 var(--s4); border-radius: var(--r-pill); font-size: var(--t-small); font-weight: 600; color: var(--app-dim); display: inline-flex; align-items: center; gap: var(--s1h); transition: color var(--d2) var(--ease-fx), background-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx); }
 :where(.ml-tabs > button[aria-selected="true"]), :where(.ml-tabs > button[aria-pressed="true"]) { color: var(--on-accent); background: var(--c); box-shadow: 0 0 12px -4px var(--c); }
 :where(.ml-tabs > button:focus-visible) { outline: 2px solid var(--c); outline-offset: 1px; }
-:where(.ml-tabs > button small) { font-size: var(--t-xs); opacity: .7; }
+:where(.ml-tabs > button small) { font-size: var(--t-xs); opacity: .85; }

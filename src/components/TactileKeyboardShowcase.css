@@ -27,8 +27,8 @@
   --tk-base-bg: #d0d0ce;
   --tk-base-text: #333;
   --tk-mod-bg: #8a8d91;
-  --tk-mod-text: #fff;
-  --tk-accent-bg: #d44d4d;
+  --tk-mod-text: #1b1c1f;
+  --tk-accent-bg: #c23b3b;
 }
 
 .colorway-retro {
@@ -36,8 +36,8 @@
   --tk-base-bg: #e5dfd3;
   --tk-base-text: #594d45;
   --tk-mod-bg: #a19a8d;
-  --tk-mod-text: #fff;
-  --tk-accent-bg: #c96b52;
+  --tk-mod-text: #2a251d;
+  --tk-accent-bg: #a9503a;
 }
 
 .colorway-cyber {

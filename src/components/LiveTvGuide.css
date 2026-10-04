@@ -7,18 +7,19 @@
 .tvA-line { display: contents; }
 .tvA-ch { position: sticky; left: 0; z-index: 3; display: grid; grid-template-columns: 32px 28px minmax(0, 1fr); align-items: center; gap: var(--s2); height: 58px; padding: 0 var(--s3); box-sizing: border-box; background: color-mix(in srgb, var(--app-elev) 96%, transparent); border-right: 1px solid var(--app-line); border-bottom: 1px solid var(--app-line); }
 .tvA-num { font-size: var(--t-num); color: var(--app-faint); }
-.tvA-mono { width: 28px; height: 28px; display: grid; place-items: center; border-radius: var(--r-sm); font-size: var(--t-eyebrow); font-weight: 800; color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); }
+.tvA-mono { width: 28px; height: 28px; display: grid; place-items: center; border-radius: var(--r-sm); font-size: var(--t-eyebrow); font-weight: 800; color: color-mix(in srgb, var(--c) 45%, var(--app-text)); background: color-mix(in srgb, var(--c) 14%, transparent); border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); }
 .tvA-logo { width: 28px; height: 28px; object-fit: contain; }
 .tvA-name { font-size: var(--t-small); font-weight: 650; }
 .tvA-row { position: relative; height: 58px; border-bottom: 1px solid var(--app-line); }
 .tvA-prog { all: unset; box-sizing: border-box; cursor: pointer; position: absolute; top: 5px; bottom: 5px; display: flex; flex-direction: column; justify-content: center; gap: var(--s0); padding: 0 var(--s3); overflow: hidden; border-radius: var(--r-sm); background: color-mix(in srgb, var(--k) 9%, color-mix(in srgb, var(--app-text) 4%, transparent)); border: 1px solid color-mix(in srgb, var(--k) 22%, transparent); box-shadow: inset 3px 0 0 -1px var(--k); transition: background-color var(--d2) var(--ease-fx), border-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx); }
 .tvA-prog:hover { background: color-mix(in srgb, var(--k) 18%, transparent); }
 .tvA-prog[data-now] { border-color: color-mix(in srgb, var(--k) 55%, transparent); box-shadow: inset 3px 0 0 -1px var(--k), 0 0 16px -8px var(--k); }
-.tvA-prog[data-past] { opacity: .45; }
+.tvA-prog[data-past] { filter: saturate(.35); }
+.tvA-prog[data-past] .tvA-pt { color: var(--app-dim); }
 .tvA-prog[aria-pressed="true"] { background: color-mix(in srgb, var(--k) 26%, transparent); border-color: var(--k); }
 .tvA-prog:focus-visible { outline: 2px solid var(--k); outline-offset: 1px; }
 .tvA-pt { font-size: var(--t-ctl); font-weight: 650; display: flex; align-items: center; gap: var(--s1h); }
-.tvA-ps { font-size: var(--t-eyebrow); color: var(--app-faint); }
+.tvA-ps { font-size: var(--t-eyebrow); color: var(--app-dim); }
 .tvA-pp { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: color-mix(in srgb, var(--k) 20%, transparent); }
 .tvA-pp i { display: block; height: 100%; background: var(--k); box-shadow: 0 0 6px var(--k); }
 .tvA-flags { position: absolute; top: 5px; right: 6px; display: flex; gap: var(--s1); }

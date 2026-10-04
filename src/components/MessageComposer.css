@@ -11,7 +11,7 @@
   align-items: center;
   gap: var(--s1h);
   background: var(--app-blue-soft);
-  color: var(--app-blue);
+  color: color-mix(in srgb, var(--app-blue) 60%, var(--app-text));
   padding: var(--s1) var(--s2);
   border-radius: var(--r-md);
   font-size: var(--t-meta);

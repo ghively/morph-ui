@@ -13,6 +13,6 @@
 .audit-log-ev[data-level="denied"] .audit-log-mk { border-radius: var(--r-2xs); transform: rotate(45deg) scale(.85); }
 .audit-log-body { display: grid; gap: var(--s0); min-width: 0; }
 .audit-log-line { font-size: var(--t-body); color: var(--app-dim); } .audit-log-line strong { color: var(--app-text); font-weight: 600; }
-.audit-log-lv { margin-left: var(--s2); padding: 1px var(--s1h); border-radius: var(--r-pill); font-size: var(--t-eyebrow); font-weight: 600; color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); }
+.audit-log-lv { margin-left: var(--s2); padding: 1px var(--s1h); border-radius: var(--r-pill); font-size: var(--t-eyebrow); font-weight: 600; color: color-mix(in srgb, var(--c) 60%, var(--app-text)); background: color-mix(in srgb, var(--c) 12%, transparent); }
 .audit-log-detail { font-family: var(--app-mono); font-size: var(--t-meta); color: var(--app-faint); overflow-wrap: anywhere; }
 .audit-log-empty { padding: var(--s6); text-align: center; font-size: var(--t-ctl); color: var(--app-faint); border-style: dashed; background: none; box-shadow: none; backdrop-filter: none; }

@@ -53,6 +53,6 @@
 [data-treemeta] {
   flex: none;
   font-size: var(--t-meta);
-  opacity: 0.6;
+  color: var(--app-faint);
   font-variant-numeric: tabular-nums;
 }

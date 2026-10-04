@@ -58,7 +58,6 @@
 
 [data-threadrow][data-on="true"][data-threadlink] > button[data-state] [data-threadmeta] {
   color: var(--app-blue);
-  opacity: 0.8;
 }
 
 [data-threadmeta] {

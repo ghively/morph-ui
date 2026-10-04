@@ -19,7 +19,7 @@ const buttonStyle: React.CSSProperties = {
   fontSize: '0.8125rem',
   fontWeight: 600,
   color: '#ffffff',
-  backgroundColor: '#6366f1',
+  backgroundColor: 'var(--app-blue-strong)',
   border: 'none',
   borderRadius: '8px',
   cursor: 'pointer',

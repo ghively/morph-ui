@@ -33,7 +33,7 @@
 .mm-att.is-failed { border-color: color-mix(in srgb, var(--state-error) 45%, transparent); background: color-mix(in srgb, var(--state-error) 8%, transparent); }
 .mm-thumb { flex: none; width: 30px; height: 30px; display: grid; place-items: center; border-radius: var(--r-sm); font-size: var(--t-2xs); font-weight: 700; letter-spacing: .04em; font-family: var(--app-mono); }
 .mm-thumb.k-img { color: var(--state-delegate); background: color-mix(in srgb, var(--state-delegate) 16%, transparent); }
-.mm-thumb.k-code { color: var(--state-think); background: color-mix(in srgb, var(--state-think) 18%, transparent); }
+.mm-thumb.k-code { color: color-mix(in srgb, var(--state-think) 60%, var(--app-text)); background: color-mix(in srgb, var(--state-think) 18%, transparent); }
 .mm-thumb.k-doc { color: var(--state-wait); background: color-mix(in srgb, var(--state-wait) 16%, transparent); }
 .mm-meta { min-width: 0; display: flex; flex-direction: column; line-height: 1.25; }
 .mm-name { font-size: var(--t-small); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

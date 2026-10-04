@@ -7,8 +7,8 @@
 .cdv-dir { color: var(--app-faint); } .cdv-path b { font-weight: 600; }
 .cdv-stat { display: flex; gap: var(--s2); font-family: var(--app-mono); font-size: var(--t-meta); font-weight: 600; }
 .cdv-stat em { font-style: normal; padding: 1px var(--s1h); border-radius: var(--r-sm); }
-.cdv-stat .a { color: var(--add); background: color-mix(in srgb, var(--add) 14%, transparent); }
-.cdv-stat .d { color: var(--del); background: color-mix(in srgb, var(--del) 14%, transparent); }
+.cdv-stat .a { color: color-mix(in srgb, var(--add) 60%, var(--app-text)); background: color-mix(in srgb, var(--add) 14%, transparent); }
+.cdv-stat .d { color: color-mix(in srgb, var(--del) 60%, var(--app-text)); background: color-mix(in srgb, var(--del) 14%, transparent); }
 .cdv-seg { display: flex; padding: var(--s0); gap: var(--s0); border-radius: var(--r-sm); background: color-mix(in srgb, var(--app-text) 5%, transparent); border: 1px solid var(--app-line); }
 .cdv-seg button { all: unset; cursor: pointer; padding: var(--s1) var(--s3); border-radius: var(--r-sm); font-size: var(--t-meta); font-weight: 600; text-transform: capitalize; color: var(--app-faint); transition: color var(--d2), background var(--d2), box-shadow var(--d2); }
 .cdv-seg button:hover { color: var(--app-text); }
@@ -24,13 +24,13 @@
 .cdv-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 .cdv-pair > .cdv-ln + .cdv-ln { border-left: 1px solid var(--app-line); }
 .cdv-ln { display: flex; min-width: 0; }
-.cdv-n { flex: none; width: 40px; padding: 0 var(--s2); text-align: right; color: var(--app-faint); opacity: .75; user-select: none; font-variant-numeric: tabular-nums; }
+.cdv-n { flex: none; width: 40px; padding: 0 var(--s2); text-align: right; color: var(--app-faint); user-select: none; font-variant-numeric: tabular-nums; }
 .cdv-ln code { flex: 1; min-width: 0; padding: 0 var(--s4h) 0 var(--s1h); white-space: pre; overflow: hidden; text-overflow: ellipsis; font: inherit; color: var(--code-ink, var(--app-text)); }
 .cdv-grid.is-uni .cdv-ln code { overflow: visible; }
 .cdv-grid.is-wrap .cdv-ln code { white-space: pre-wrap; word-break: break-word; }
 .cdv-ln.is-add { background: color-mix(in srgb, var(--add) 11%, transparent); box-shadow: inset 2px 0 0 var(--add); }
 .cdv-ln.is-del { background: color-mix(in srgb, var(--del) 11%, transparent); box-shadow: inset 2px 0 0 var(--del); }
-.cdv-ln.is-add .cdv-n { color: var(--add); opacity: 1; } .cdv-ln.is-del .cdv-n { color: var(--del); opacity: 1; }
+.cdv-ln.is-add .cdv-n { color: color-mix(in srgb, var(--add) 60%, var(--app-text)); } .cdv-ln.is-del .cdv-n { color: color-mix(in srgb, var(--del) 60%, var(--app-text)); }
 .cdv-ln.is-void { background: repeating-linear-gradient(135deg, transparent 0 5px, color-mix(in srgb, var(--app-text) 4%, transparent) 5px 6px); }
 .cdv-ln.is-meta code { color: var(--app-faint); font-style: italic; }
 .cdv-err { padding: var(--s4h); font-size: var(--t-ctl); color: var(--color-error-text); background: color-mix(in srgb, var(--state-error) 8%, transparent); }

@@ -19,7 +19,7 @@
 .plan-checklist-text [data-planlabel] { font-size: var(--t-body); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .plan-checklist-step[data-state="todo"] [data-planlabel] { color: var(--app-faint); }
 .plan-checklist-detail { font-size: var(--t-meta); color: var(--app-faint); }
-.plan-checklist-tag { font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .03em; color: var(--c); }
+.plan-checklist-tag { font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .03em; color: color-mix(in srgb, var(--c) 60%, var(--app-text)); }
 .plan-checklist-step[data-state="todo"] .plan-checklist-tag { color: var(--app-faint); font-weight: 400; }
 @keyframes plan-checklist-fill { from { background-position: 100% 0; } to { background-position: 0 0; } }
 @media (prefers-reduced-motion: reduce) { .plan-checklist-seg i { animation: none !important; } }
