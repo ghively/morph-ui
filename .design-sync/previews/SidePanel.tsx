@@ -11,7 +11,7 @@ const ROOMS = [
 
 export const Default = () => {
   return (
-    <div style={{ width: 300, height: '100vh', background: 'var(--app-panel)' }}>
+    <div style={{ position: 'relative', width: 300, height: 560, background: 'var(--app-panel)', borderRadius: 'var(--r-pane)', overflow: 'hidden' }}>
       <SidePanel
         open={true}
         slot="drawer"

@@ -18,9 +18,12 @@ export const Default = () => (
       label="Homeserver"
       probe="fail"
       invalid
-      hint={<>Couldn't reach <span data-num="">exmaple.co</span> — check the address.</>}
+      hint="Your Matrix server address."
     >
-      <input id="homeserver-bad" data-field="" defaultValue="exmaple.co" aria-invalid="true" />
+      <input id="homeserver-bad" data-field="" defaultValue="exmaple.co" aria-invalid="true" aria-describedby="homeserver-bad-error" />
+      <div id="homeserver-bad-error" data-error="" role="alert">
+        Couldn't reach <span data-num="">exmaple.co</span> — check the address.
+      </div>
     </FormField>
   </div>
 );

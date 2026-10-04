@@ -26,7 +26,7 @@ function TopologyContainer({
     >
       <div
         style={{
-          padding: '1.25rem 1.5rem',
+          padding: '0.875rem 1.25rem',
           borderBottom: '1px solid rgba(150, 175, 255, 0.12)',
           display: 'flex',
           justifyContent: 'space-between',
@@ -198,7 +198,7 @@ const pipelineEdges: TopologyEdge[] = [
 export const Default = () => {
   const nodes = useSettledNodes(defaultNodes);
   return (
-  <div style={{ padding: '2rem' }}>
+  <div>
     <TopologyContainer
       title="Agent Execution Topology"
       subtitle="Single supervisor agent coordinating tools, vector embeddings, and user sessions"
@@ -206,7 +206,7 @@ export const Default = () => {
       <AgentTopologyView
         nodes={nodes}
         edges={defaultEdges}
-        maxHeight={540}
+        maxHeight={520}
       />
     </TopologyContainer>
   </div>
@@ -220,7 +220,7 @@ export const InteractiveSelection = () => {
   const selectedNode = defaultNodes.find((n) => n.id === selectedId);
 
   return (
-    <div style={{ padding: '2rem' }}>
+    <div>
       <TopologyContainer
         title="Interactive Node Inspector"
         subtitle="Click any node in the topology canvas to inspect metadata and connectivity"
@@ -230,11 +230,11 @@ export const InteractiveSelection = () => {
           edges={defaultEdges}
           selectedId={selectedId}
           onNodeClick={setSelectedId}
-          maxHeight={540}
+          maxHeight={515}
         />
         <div
           style={{
-            padding: '1rem 1.5rem',
+            padding: '0.5rem 1.25rem',
             borderTop: '1px solid rgba(150, 175, 255, 0.12)',
             backgroundColor: 'rgba(150, 175, 255, 0.04)',
             display: 'flex',
@@ -376,7 +376,7 @@ export const InteractiveSelection = () => {
 export const MultiAgentSwarm = () => {
   const nodes = useSettledNodes(swarmNodes);
   return (
-  <div style={{ padding: '2rem' }}>
+  <div>
     <TopologyContainer
       title="Collaborative Multi-Agent Swarm"
       subtitle="Distributed circle layout featuring orchestrator, coder, tester, and error alerts"
@@ -384,7 +384,7 @@ export const MultiAgentSwarm = () => {
       <AgentTopologyView
         nodes={nodes}
         edges={swarmEdges}
-        maxHeight={540}
+        maxHeight={520}
       />
     </TopologyContainer>
   </div>
@@ -402,7 +402,7 @@ export const PausedAnimation = () => {
   }, []);
 
   return (
-    <div style={{ padding: '2rem' }}>
+    <div>
       <TopologyContainer
         title="Paused Animation (Reduced Motion)"
         subtitle="Static line-dash drift rendering for reduced motion preferences or low-power snapshots"
@@ -432,7 +432,7 @@ export const PausedAnimation = () => {
           nodes={nodes}
           edges={defaultEdges}
           paused={paused}
-          maxHeight={540}
+          maxHeight={520}
         />
       </TopologyContainer>
     </div>
@@ -442,7 +442,7 @@ export const PausedAnimation = () => {
 export const CompactPipeline = () => {
   const nodes = useSettledNodes(pipelineNodes);
   return (
-  <div style={{ padding: '2rem' }}>
+  <div>
     <TopologyContainer
       title="Compact Ingress Pipeline"
       subtitle="Condensed 320px height layout displaying linear ingestion and validation stage"

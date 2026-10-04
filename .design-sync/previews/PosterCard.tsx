@@ -13,7 +13,7 @@ export const Default = () => {
     onFavoriteChange: (v: boolean, it: MediaItem) => setMsg('> ' + (v ? 'favorite ' : 'unfavorite ') + it.title),
   };
   return (
-    <div style={{ display: 'grid', gap: 14 }}>
+    <div style={{ display: 'grid', gap: 14, maxWidth: 680 }}>
       {cap('Portrait · resume / watched / unplayed count / no art')}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 12 }}>
         <PosterCard item={BBB} {...on} />

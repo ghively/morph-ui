@@ -56,13 +56,15 @@ export const ManualMorph = () => {
   return (
     <div style={frame}>
       <TextMorphing text={labels[index]} as="h1" className="morph-headline" />
-      <button
-        type="button"
-        onClick={() => setIndex((value) => (value + 1) % labels.length)}
-        style={buttonStyle}
-      >
-        Morph to next label
-      </button>
+      <div>
+        <button
+          type="button"
+          onClick={() => setIndex((value) => (value + 1) % labels.length)}
+          style={buttonStyle}
+        >
+          Morph to next label
+        </button>
+      </div>
     </div>
   );
 };

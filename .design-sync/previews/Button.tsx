@@ -21,6 +21,13 @@ export const Sizes = () => (
 export const Loading = () => {
   const [loading, setLoading] = useState(false);
   return (
+    <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+    <Button variant="primary" loading>
+      Saving
+    </Button>
+    <Button variant="secondary" loading>
+      Publishing
+    </Button>
     <Button
       variant="primary"
       loading={loading}
@@ -31,6 +38,7 @@ export const Loading = () => {
     >
       {loading ? 'Saving' : 'Save changes'}
     </Button>
+    </div>
   );
 };
 

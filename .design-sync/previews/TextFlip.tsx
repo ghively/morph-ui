@@ -1,28 +1,18 @@
 import { useEffect, useState } from 'react';
 import { TextFlip } from '../../src/components/TextFlip';
+import { Button } from '../../src/components/Button';
 
 const frame: React.CSSProperties = {
-  padding: '3rem 2rem',
-  fontFamily: 'system-ui, -apple-system, sans-serif',
-  color: '#f8fafc',
-  background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-  borderRadius: '16px',
+  padding: 'var(--s7) var(--s6)',
+  color: 'var(--app-text)',
+  background: 'var(--app-panel)',
+  borderRadius: 'var(--r-pane)',
   maxWidth: '640px',
-  margin: '2rem auto',
-  border: '1px solid #334155',
+  margin: 'var(--s6) auto',
+  border: '1px solid var(--app-line)',
 };
 
-const buttonStyle: React.CSSProperties = {
-  marginTop: '1.75rem',
-  padding: '0.5rem 1rem',
-  fontSize: '0.8125rem',
-  fontWeight: 600,
-  color: '#0f172a',
-  backgroundColor: '#38bdf8',
-  border: 'none',
-  borderRadius: '8px',
-  cursor: 'pointer',
-};
+const actions: React.CSSProperties = { marginTop: 'var(--s5)' };
 
 const statuses = ['Queued', 'Running', 'Verifying', 'Deployed'];
 
@@ -41,7 +31,7 @@ export const Default = () => {
       <h2 style={{ margin: 0, fontSize: '1.75rem', fontWeight: 700 }}>
         Status: <TextFlip text={statuses[index]} />
       </h2>
-      <p style={{ margin: '1rem 0 0 0', color: '#94a3b8', fontSize: '0.875rem' }}>
+      <p style={{ margin: '1rem 0 0 0', color: 'var(--app-dim)', fontSize: 'var(--t-body)' }}>
         Vertical flip fires whenever the text prop changes.
       </p>
     </div>
@@ -60,17 +50,15 @@ export const Horizontal = () => {
           direction="horizontal"
           className="metric-value"
         />
-        <span style={{ fontSize: '1rem', color: '#94a3b8', marginLeft: '0.5rem' }}>
+        <span style={{ fontSize: 'var(--t-body)', color: 'var(--app-dim)', marginLeft: 'var(--s2)' }}>
           tokens/s
         </span>
       </h2>
-      <button
-        type="button"
-        onClick={() => setIndex((value) => (value + 1) % values.length)}
-        style={buttonStyle}
-      >
-        Next value
-      </button>
+      <div style={actions}>
+        <Button size="sm" onClick={() => setIndex((value) => (value + 1) % values.length)}>
+          Next value
+        </Button>
+      </div>
     </div>
   );
 };
@@ -81,14 +69,14 @@ export const HeadingTag = () => {
 
   return (
     <div style={frame}>
-      <TextFlip text={headlines[index]} as="h1" />
-      <button
-        type="button"
-        onClick={() => setIndex((value) => (value + 1) % headlines.length)}
-        style={buttonStyle}
-      >
-        Flip headline
-      </button>
+      <div style={{ fontSize: 'var(--t-h2)', fontWeight: 700, lineHeight: 1.2 }}>
+        <TextFlip text={headlines[index]} as="h1" />
+      </div>
+      <div style={actions}>
+        <Button size="sm" onClick={() => setIndex((value) => (value + 1) % headlines.length)}>
+          Flip headline
+        </Button>
+      </div>
     </div>
   );
 };

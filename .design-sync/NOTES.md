@@ -61,3 +61,21 @@
 - **`conventions.md`** names real tokens and props. Re-validate it against each fresh build, especially the `ToggleSwitch` `on`, the required `id`s and the claim that native attributes are forwarded. The emitted `.d.ts` currently drops inherited HTML attributes.
 - `source-kit.mjs` fork: diff it against the bundled `lib/source-kit.mjs` on every re-sync. Grouping follows the README component table, so a component missing from that table lands in a default group.
 - **Partially verified:** 129 unscoped components were checked only by the render check (37 show the floor card). Only 79 have graded authored previews.
+
+## Preview authoring gotchas (2026-10-04 regrade)
+
+- Capture is viewport-only (900x700 minus padding); taller previews are silently clipped at the bottom. Cap preview size (AgentTopologyView maxHeight ~515-520, PosterCard maxWidth 680).
+- FormField: `primitives.css` hides `[data-formfield]:has([aria-invalid="true"]) > [data-hint]`, so an invalid field's message must be a `[data-error]` child.
+- SidePanel's `[data-leftpanel]` is absolutely positioned; the preview host must be `position: relative`.
+- Interaction-only states (Button `loading` on click) never capture; render the state statically next to the interactive control.
+- TextMorphing renders inline (wrap neighbours in a block); TextWordFlip needs `line-height: 1.2` on the host line.
+- Before blaming a library change for a visual flaw, diff the sheet against a pre-change baseline (`cp -r ds-bundle/_screenshots .design-sync/.cache/baseline` before the change).
+
+## Library fixes made from regrade findings (2026-10-04)
+
+- HeroPanel.css was entirely unscoped: its `[data-mark]`, `[data-enter]`, `[data-empty]`… rules leaked into every component (black tiled brand marks in AppFrame/PaneHeader/NavigationRail, MessageComposer's offline dot stacked). Now scoped under `.hero-panel`.
+- ModalSurface `placement="center"` no longer borrows the bottom sheet's `data-sheet` (square bottom) and gets padding.
+- Tooltip body gets `width: max-content` (was wrapping word by word).
+- `--color-success-*` / `--color-error-*` are translucent on the dark frame with light inks, matching warning/info.
+- BarChart bars sit in a shared-height track, so they share the axis baseline; values ride on top of each bar.
+
