@@ -13,6 +13,8 @@ const BLOCKING = new Set(['serious', 'critical']);
 for (const story of loadStories()) {
   test(`a11y: ${story.id}`, async ({ page }) => {
     await prepareStory(page, story.id);
+    // axe schedules its own work on timers, so let the page clock run again.
+    await page.clock.resume();
     const { violations } = await new AxeBuilder({ page })
       .include('[data-ladle-frame]')
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'])
