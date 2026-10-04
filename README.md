@@ -48,6 +48,10 @@ import "@ghively/morph-ui/styles.css";
 
 Override base tokens (`--app-text`, `--app-bg`, `--app-blue`, `--color-*`, `--r-*`, `--ease-*`, …) on `:root` **or on the `.morph-frame` element itself**. Alias tokens (`--morph-fg`, `--morph-card-bg`, `--bloom`, …) are re-resolved at every frame boundary, so a themed frame picks up its own base values. See `src/tokens.css` for the full list.
 
+### Tone vocabulary
+
+Every tone-taking prop accepts the same `Tone`: `neutral | info | success | warn | danger` (exported from the package, with `toTone()` to normalize). Older spellings (`ok`, `good`, `warning`, `bad`, `error`, `default`) still work and map onto it.
+
 ## Development
 
 pnpm. Gates: `pnpm build && pnpm test && pnpm lint && pnpm typecheck` — all four must pass before anything lands on main.

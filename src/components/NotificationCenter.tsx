@@ -1,6 +1,7 @@
 import './NotificationCenter.css';
+import { toTone, type ToneInput } from '../tone';
 
-export type NotificationTone = 'info' | 'success' | 'warn' | 'danger';
+export type NotificationTone = ToneInput;
 
 export interface Notification {
   id: string;
@@ -45,7 +46,7 @@ export function NotificationCenter({
       {notifications.length === 0 && <div data-notificationsempty="">{emptyText}</div>}
       <ul data-notificationlist="">
         {notifications.map((n) => (
-          <li key={n.id} data-notification="" data-tone={n.tone ?? 'info'} data-read={n.read ? '' : undefined}>
+          <li key={n.id} data-notification="" data-tone={((t) => (t === 'neutral' ? 'info' : t))(toTone(n.tone, 'info'))} data-read={n.read ? '' : undefined}>
             <button type="button" data-notificationbtn="" onClick={() => onOpen?.(n.id)} aria-label={`${n.title}${n.read ? '' : ' (unread)'}`}>
               <span data-notificationdot="" aria-hidden="true" />
               <span data-notificationtext="">

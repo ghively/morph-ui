@@ -17,6 +17,12 @@
   color: var(--color-warning);
 }
 
+[data-alert][data-tone="success"] {
+  background-color: var(--color-success-bg);
+  border-color: var(--color-success-border);
+  color: var(--color-success-text);
+}
+
 [data-alert][data-tone="danger"] {
   background-color: var(--color-error-bg);
   border-color: var(--color-error-border);

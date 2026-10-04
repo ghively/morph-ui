@@ -1,7 +1,8 @@
 import type { ReactElement, ReactNode, KeyboardEvent } from 'react';
 import './StatusRowList.css';
+import { statusHook, type ToneInput } from '../tone';
 
-export type StatusTone = 'ok' | 'warn' | 'danger';
+export type StatusTone = ToneInput;
 
 export interface StatusRowBadge {
   id: string;
@@ -200,7 +201,7 @@ function RowItem({ row, semantics }: { row: StatusRow; semantics: StatusRowListP
             key={b.id} 
             data-statustag="" 
             data-solid={b.solid ? "" : undefined} 
-            data-tone={b.tone}
+            data-tone={statusHook(b.tone)}
             title={b.title}
           >
             {b.label}
@@ -208,7 +209,7 @@ function RowItem({ row, semantics }: { row: StatusRow; semantics: StatusRowListP
         ))}
         {row.inlineStatus && (
           <span style={{ display: "flex", alignItems: "center", gap: "var(--s1)", color: "var(--app-dim)", fontSize: "var(--t-meta)", fontWeight: "normal" }}>
-            <span data-statusdot="" data-tone={row.inlineStatus.tone} data-live={row.inlineStatus.live ? "" : undefined} style={{ width: 6, height: 6 }} />
+            <span data-statusdot="" data-tone={statusHook(row.inlineStatus.tone)} data-live={row.inlineStatus.live ? "" : undefined} style={{ width: 6, height: 6 }} />
             {row.inlineStatus.text}
           </span>
         )}
@@ -247,7 +248,7 @@ function RowItem({ row, semantics }: { row: StatusRow; semantics: StatusRowListP
       {...additionalProps}
     >
       {row.dot !== false && row.dot !== undefined && (
-        <span data-statusdot="" data-tone={row.tone} data-live={row.live ? "" : undefined} />
+        <span data-statusdot="" data-tone={statusHook(row.tone)} data-live={row.live ? "" : undefined} />
       )}
       
       {row.leading}
@@ -296,7 +297,7 @@ function RowItem({ row, semantics }: { row: StatusRow; semantics: StatusRowListP
         <span 
           data-statustag="" 
           data-solid={row.trailingTag.solid ? "" : undefined} 
-          data-tone={row.trailingTag.tone}
+          data-tone={statusHook(row.trailingTag.tone)}
           title={row.trailingTag.title}
         >
           {row.trailingTag.label}

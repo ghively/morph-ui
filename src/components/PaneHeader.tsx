@@ -1,8 +1,9 @@
 import type { ReactNode, ReactElement } from 'react';
+import { statusHook, type ToneInput } from '../tone';
 import './PaneHeader.css';
 
 export interface PaneHeaderStatus {
-  tone: 'ok' | 'warn' | 'danger';
+  tone: ToneInput;
   label: string;
   detail?: string;
   indicator?: ReactNode;
@@ -70,7 +71,7 @@ export function PaneHeader({
         <div 
           data-headmeta="" 
           data-hidenarrow="" 
-          data-tone={status.tone} 
+          data-tone={statusHook(status.tone)} 
           role="status" 
           aria-live="polite" 
           aria-label={`Status: ${status.label}`} 

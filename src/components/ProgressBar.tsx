@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 import './ProgressBar.css';
+import { toTone, type ToneInput } from '../tone';
 
-export type ProgressTone = 'default' | 'success' | 'warn' | 'danger';
+export type ProgressTone = ToneInput;
 
 export interface ProgressBarProps {
   /** 0–100 (values outside are clamped). Omit for indeterminate. */
@@ -19,7 +20,7 @@ export function ProgressBar({ value, label, tone = 'default', className = '' }: 
       {label && <div data-progresslabel="">{label}</div>}
       <div
         data-progress=""
-        data-tone={tone}
+        data-tone={((t) => (t === 'neutral' || t === 'info' ? 'default' : t))(toTone(tone))}
         data-indeterminate={clamped === undefined ? '' : undefined}
         role="progressbar"
         aria-valuemin={0}

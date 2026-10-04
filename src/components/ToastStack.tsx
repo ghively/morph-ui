@@ -1,8 +1,9 @@
 import { createContext, useContext, useState, useRef, useCallback } from 'react';
 import type { ReactElement, ReactNode } from 'react';
 import './ToastStack.css';
+import { statusHook, type ToneInput } from '../tone';
 
-export type ToastTone = 'danger' | 'ok';
+export type ToastTone = ToneInput;
 
 export interface ToastItem {
   id: number;
@@ -76,7 +77,7 @@ export function ToastStack({ toasts, label = 'Notifications', className = '' }: 
       className={className}
     >
       {toasts.map(t => (
-        <div key={t.id} data-osditem="" data-tone={t.tone}>
+        <div key={t.id} data-osditem="" data-tone={statusHook(t.tone)}>
           <span data-dot="" />
           {t.text}
           {t.note && (

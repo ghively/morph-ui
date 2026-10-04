@@ -24,6 +24,8 @@
 
 **Motion and effects components are for marketing and hero accents only**, never for core app chrome. Those are `AuroraGlowCard`, `LiquidNavMenu`, `LiquidRippleImage`, `PrismOrb`, `PulseOrb`, `MorphingBlobBackground` and the `Text*` effects (`TextShimmer`, `TextGlitch`, `TextScribble`, …).
 
+**One tone vocabulary:** every `tone` / `deltaTone` / status-tone prop (Badge, AlertBanner, ProgressBar, NotificationCenter, toasts, StatusRowList, PaneHeader, DetailsPanel, KpiCard) takes `neutral | info | success | warn | danger`. Use those names; aliases (`ok`, `good`, `warning`, `bad`, `error`) are accepted but normalize to them.
+
 **Prop quirks:**
 - `ToggleSwitch` is controlled through `on` (or its alias `checked`) + `onChange(next)` + `label`.
 - `FormField` requires `id`; `TextField`, `TextArea` and `Select` generate one when omitted. `Select` takes `options: {value, label, disabled?}[]`.

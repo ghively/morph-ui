@@ -3,8 +3,8 @@ import './GaugeChart.css';
 export interface GaugeChartProps {
   /** 0–100 fill. */
   value: number;
-  /** Zones color the arc: [upTo, tone]. Defaults to a single accent arc. */
-  zones?: { upTo: number; tone: 'good' | 'ok' | 'bad' }[];
+  /** Zones color the arc: [upTo, tone]. Defaults to a single accent arc. Here `ok` means the amber middle zone; prefer the shared names success / warn / danger. */
+  zones?: { upTo: number; tone: 'good' | 'ok' | 'bad' | 'success' | 'warn' | 'danger' }[];
   label?: string;
   centerLabel?: string;
   className?: string;
@@ -12,6 +12,9 @@ export interface GaugeChartProps {
 
 const TONE_COLOR: Record<string, string> = {
   good: 'var(--morph-success)',
+  success: 'var(--morph-success)',
+  warn: 'var(--morph-warn)',
+  danger: 'var(--morph-danger)',
   ok: 'var(--morph-warn)',
   bad: 'var(--morph-danger)',
 };

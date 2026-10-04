@@ -1,7 +1,8 @@
 import type { ReactNode, CSSProperties } from 'react';
+import { toTone, type ToneInput } from '../tone';
 import './AlertBanner.css';
 
-export type AlertTone = 'info' | 'warn' | 'danger';
+export type AlertTone = ToneInput;
 
 export interface AlertBannerProps {
   tone?: AlertTone;
@@ -49,6 +50,7 @@ export function AlertBanner({
   className = '',
   style,
 }: AlertBannerProps) {
+  const alertTone = toTone(tone, 'info');
   // If role === 'status' and ariaLive is not provided, default to 'polite'
   let effectiveAriaLive = ariaLive;
   if (!effectiveAriaLive && role === 'status') {
@@ -58,7 +60,7 @@ export function AlertBanner({
   return (
     <div
       data-alert=""
-      data-tone={tone === 'info' ? undefined : tone}
+      data-tone={alertTone === 'info' || alertTone === 'neutral' ? undefined : alertTone}
       role={role}
       aria-live={effectiveAriaLive}
       data-enter={animateIn ? "" : undefined}

@@ -24,7 +24,7 @@ export interface MessageTileProps {
 
 const DEFAULT_QUICK_REACTIONS = ['👍', '❤️', '😂', '🎉', '👀', '✅'];
 
-const ALERT_TONE = { ok: 'info', info: 'info', warning: 'warn', danger: 'danger' } as const;
+const ALERT_TONE = { ok: 'success', info: 'info', warning: 'warn', danger: 'danger' } as const;
 
 export const MessageTile = memo(function MessageTile({
   message,
