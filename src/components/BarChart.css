@@ -8,8 +8,6 @@
   display: flex;
   align-items: stretch;
   gap: var(--s3);
-  border-bottom: 1px solid var(--morph-border);
-  padding-bottom: 0;
 }
 
 [data-barcol] {
@@ -18,20 +16,36 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  gap: var(--s1h);
 }
 
-[data-barvalue] {
-  font-size: var(--t-meta);
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
+/* Headroom on top keeps the tallest bar's value label inside the chart. */
+[data-bartrack] {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-top: var(--s6);
+  border-bottom: 1px solid var(--morph-border);
 }
 
 [data-bar] {
+  position: relative;
   width: min(44px, 70%);
   border-radius: var(--r-xs) var(--r-xs) 0 0;
   min-height: 2px;
+}
+
+[data-barvalue] {
+  position: absolute;
+  bottom: calc(100% + var(--s1));
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: var(--t-meta);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 
 [data-barlabel] {
@@ -41,7 +55,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
-  padding-bottom: var(--s1h);
+  padding-top: var(--s1h);
 }
 
 [data-barempty] {

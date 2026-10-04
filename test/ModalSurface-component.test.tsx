@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { ModalSurface } from '../src/components/ModalSurface';
 
@@ -180,5 +180,14 @@ describe('ModalSurface', () => {
     } else {
       delete (HTMLElement.prototype as unknown as Record<string, unknown>).offsetParent;
     }
+  });
+});
+
+describe('ModalSurface center placement', () => {
+  it('renders a full pane, not a bottom sheet', () => {
+    render(<ModalSurface label="Center" onClose={() => {}} placement="center"><p>Body</p></ModalSurface>);
+    const panel = screen.getByRole('dialog');
+    expect(panel.hasAttribute('data-sheet')).toBe(false);
+    expect(panel.hasAttribute('data-pane')).toBe(true);
   });
 });

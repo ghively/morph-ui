@@ -55,6 +55,10 @@ Last verified 2026-10-02: all 174 `*.stories.tsx` modules load, and every story 
   - `primitives.css` imported ChatUIMorph's own `[data-checkbox]` / `[data-radio]` control styles because the generator copies any rule naming an attribute a component renders. Inside a frame the Checkbox label wrapped one word per line, RadioGroup drew a phantom second dot, and `orientation="horizontal"` stacked.
   - **Fix:** removed the 18 offending selectors (the components own those attributes). `test/primitives-collisions.test.ts` fails if they come back. Also gave the checkbox a `--r-xs` corner so it no longer reads as a radio.
 
+- [x] **Leaky / mis-built component styles found by the Claude Design regrade (2026-10-04).**
+  - `HeroPanel.css` was unscoped, so its `[data-mark]` / `[data-enter]` rules broke brand marks app-wide and stacked the composer's offline banner. Scoped under `.hero-panel`.
+  - ModalSurface `center` placement rendered as a bottom sheet (square bottom, no padding); Tooltip wrapped word by word; BarChart bars didn't share a baseline; success/error backgrounds were opaque light pastels on the dark frame. All fixed (see `.design-sync/NOTES.md`).
+
 ## P2 — Theme contract
 
 - [x] **Hard-coded colors moved to tokens** (new "component-scoped tokens" block in `tokens.css`):

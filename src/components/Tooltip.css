@@ -76,6 +76,7 @@
 [data-tipbody] {
   position: absolute;
   z-index: 60;
+  width: max-content;
   max-width: 240px;
   padding: var(--s1h) var(--s3);
   font-size: var(--t-small);

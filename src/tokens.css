@@ -27,12 +27,14 @@
   --color-success: #1a9b5e;
   --color-warning: #e08c20;
   --color-error: #d63c3c;
-  --color-success-bg: #e3faf0;
-  --color-success-border: #8fe3c0;
-  --color-success-text: #0a7a45;
-  --color-error-bg: #fde8e8;
-  --color-error-border: #f2b3b3;
-  --color-error-text: #c43a3a;
+  /* Translucent on the dark frame, like warning/info below; inks are the light
+     ok/danger tones so text keeps contrast on navy. */
+  --color-success-bg: rgba(26, 155, 94, 0.16);
+  --color-success-border: rgba(26, 155, 94, 0.4);
+  --color-success-text: #5aeab0;
+  --color-error-bg: rgba(214, 60, 60, 0.16);
+  --color-error-border: rgba(214, 60, 60, 0.42);
+  --color-error-text: #f08080;
   --color-warning-bg: rgba(224, 140, 32, 0.16);
   --color-warning-border: rgba(224, 140, 32, 0.4);
   --color-info-bg: rgba(31, 111, 230, 0.16);
