@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
+import { useState, useEffect, useRef, useImperativeHandle, useCallback, forwardRef } from 'react';
 import './TerminalEmulator.css';
 
 export interface TerminalLine {
@@ -40,36 +40,37 @@ export const TerminalEmulator = forwardRef<TerminalEmulatorRef, TerminalEmulator
     return () => mediaQuery.removeEventListener('change', handler);
   }, []);
 
-  const processQueue = async () => {
+  // Latest settings for the async typing loop, which outlives any one render.
+  const settings = useRef({ reducedMotion, typingSpeed });
+  settings.current = { reducedMotion, typingSpeed };
+  // Bumped by clear(): a typing loop from an older generation stops writing.
+  const generation = useRef(0);
+
+  const processQueue = useCallback(async () => {
     if (isProcessingRef.current || queueRef.current.length === 0) return;
-    
+
     isProcessingRef.current = true;
+    const gen = generation.current;
     const item = queueRef.current[0]!;
-    
-    if (reducedMotion) {
-      setLines(prev => [...prev, { id: crypto.randomUUID(), text: item.text, isCommand: item.isCommand }]);
-      queueRef.current.shift();
-      item.resolve();
-      isProcessingRef.current = false;
-      processQueue();
-      return;
+
+    if (!settings.current.reducedMotion) {
+      const id = crypto.randomUUID();
+      setTypingLine({ id, text: item.text, current: '', isCommand: item.isCommand });
+      for (let i = 0; i <= item.text.length; i++) {
+        await new Promise(r => setTimeout(r, settings.current.typingSpeed));
+        if (gen !== generation.current) return;
+        setTypingLine(prev => prev ? { ...prev, current: item.text.slice(0, i) } : null);
+      }
+      setTypingLine(null);
     }
+    if (gen !== generation.current) return;
 
-    const id = crypto.randomUUID();
-    setTypingLine({ id, text: item.text, current: '', isCommand: item.isCommand });
-
-    for (let i = 0; i <= item.text.length; i++) {
-      await new Promise(r => setTimeout(r, typingSpeed));
-      setTypingLine(prev => prev ? { ...prev, current: item.text.slice(0, i) } : null);
-    }
-
-    setLines(prev => [...prev, { id, text: item.text, isCommand: item.isCommand }]);
-    setTypingLine(null);
+    setLines(prev => [...prev, { id: crypto.randomUUID(), text: item.text, isCommand: item.isCommand }]);
     queueRef.current.shift();
     item.resolve();
     isProcessingRef.current = false;
     processQueue();
-  };
+  }, []);
 
   useImperativeHandle(ref, () => ({
     writeLine: (text: string, isCommand = false) => {
@@ -79,12 +80,13 @@ export const TerminalEmulator = forwardRef<TerminalEmulatorRef, TerminalEmulator
       });
     },
     clear: () => {
+      generation.current++;
       setLines([]);
       setTypingLine(null);
       queueRef.current = [];
       isProcessingRef.current = false;
     }
-  }), [reducedMotion, typingSpeed, processQueue]); // Dependencies needed if speed changes
+  }), [processQueue]);
 
   useEffect(() => {
     if (containerRef.current) {

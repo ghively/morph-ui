@@ -63,9 +63,12 @@ export function usePalette(p: PaletteProps) {
   const listRef = useRef<HTMLDivElement>(null);
   const listId = useRef(uid()).current;
   const close = () => { onRequestClose?.(); if (!controlled) setOpenState(false); };
+  // Reset only when the palette opens, using the props as they are at that moment.
+  const atOpen = useRef({ initialQuery, qProp });
+  atOpen.current = { initialQuery, qProp };
   useEffect(() => {
     if (!isOpen) return;
-    if (qProp === undefined) setQState(initialQuery);
+    if (atOpen.current.qProp === undefined) setQState(atOpen.current.initialQuery);
     setSel(0);
     const t = setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 0);
     return () => clearTimeout(t);
@@ -198,12 +201,18 @@ export function useModelSelector({ models, selectedId, onSelect, defaultOpen = f
     const h = (e: MouseEvent) => { if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false); };
     document.addEventListener('mousedown', h); return () => document.removeEventListener('mousedown', h);
   }, [open]);
+  // Seed the highlight and focus only when the menu opens, from the props at that moment.
+  const atOpen = useRef({ models, selectedId, showSearch });
+  atOpen.current = { models, selectedId, showSearch };
   useEffect(() => {
     if (!open) return;
+    const { models: ms, selectedId: sel, showSearch: search } = atOpen.current;
     setQ('');
-    const i = models.findIndex(m => m.id === selectedId);
-    setActive(i >= 0 ? i : models.findIndex(m => m.enabled));
-    if (showSearch) setTimeout(() => searchRef.current?.focus({ preventScroll: true }), 0);
+    const i = ms.findIndex(m => m.id === sel);
+    setActive(i >= 0 ? i : ms.findIndex(m => m.enabled));
+    if (!search) return;
+    const t = setTimeout(() => searchRef.current?.focus({ preventScroll: true }), 0);
+    return () => clearTimeout(t);
   }, [open]);
   useEffect(() => {
     const list = listRef.current, el = list?.querySelector<HTMLElement>('[data-index="' + active + '"]');

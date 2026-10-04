@@ -1,4 +1,4 @@
-import { useState, useEffect, type ReactNode } from 'react';
+import { useState, useEffect, useRef, useCallback, type ReactNode } from 'react';
 import './CardDeckReveal.css';
 
 export interface CardDeckRevealProps {
@@ -20,30 +20,31 @@ export function CardDeckReveal({
     setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   }, []);
 
-  useEffect(() => {
-    if (!autoAdvanceInterval) return;
+  // The drop-away animation timer; cleared on unmount so it never sets state on a dead component.
+  const dropTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  useEffect(() => () => clearTimeout(dropTimer.current), []);
 
-    const timer = setInterval(() => {
-      handleNext();
-    }, autoAdvanceInterval);
-
-    return () => clearInterval(timer);
-  }, [autoAdvanceInterval, currentIndex, cards.length, reducedMotion]);
-
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (cards.length <= 1) return;
-    
+
     if (reducedMotion) {
       setCurrentIndex((prev) => (prev + 1) % cards.length);
       return;
     }
 
     setAnimatingOut(true);
-    setTimeout(() => {
+    clearTimeout(dropTimer.current);
+    dropTimer.current = setTimeout(() => {
       setCurrentIndex((prev) => (prev + 1) % cards.length);
       setAnimatingOut(false);
     }, 500); // Wait for the drop away animation
-  };
+  }, [cards.length, reducedMotion]);
+
+  useEffect(() => {
+    if (!autoAdvanceInterval) return;
+    const timer = setInterval(handleNext, autoAdvanceInterval);
+    return () => clearInterval(timer);
+  }, [autoAdvanceInterval, currentIndex, handleNext]);
 
   if (!cards || cards.length === 0) return null;
 
