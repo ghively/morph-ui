@@ -26,7 +26,12 @@ export const Sizes = () => (
 export const Loading = () => {
   const [loading, setLoading] = useState(false);
   return (
-    <Button
+    <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+      {/* Static loading instances, so the spinner state is visible without interaction. */}
+      <Button variant="primary" loading>Saving</Button>
+      <Button variant="secondary" loading>Syncing</Button>
+      {/* Interactive: click to run a 1.5s save. */}
+      <Button
       variant="primary"
       loading={loading}
       onClick={() => {
@@ -35,7 +40,8 @@ export const Loading = () => {
       }}
     >
       {loading ? 'Saving' : 'Save changes'}
-    </Button>
+      </Button>
+    </div>
   );
 };
 

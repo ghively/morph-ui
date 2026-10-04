@@ -1,4 +1,5 @@
-[data-slider] { --c: var(--morph-accent); display: flex; flex-direction: column; gap: var(--s1); min-width: 0; font: inherit; }
+/* primitives.css styles [data-slider] as the range input itself (22px tall); here it is the wrapper. */
+[data-slider] { --c: var(--morph-accent); height: auto; cursor: auto; display: flex; flex-direction: column; gap: var(--s1); min-width: 0; font: inherit; }
 [data-sliderhead] { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); font-size: var(--t-body); font-weight: 600; }
 [data-slideroutput] { padding: 1px var(--s2); border-radius: var(--r-sm); font-family: var(--app-mono); font-variant-numeric: tabular-nums; font-weight: 700; color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); }
 [data-sliderscale] { display: flex; justify-content: space-between; font-family: var(--app-mono); font-size: var(--t-meta); font-variant-numeric: tabular-nums; color: var(--app-faint); }

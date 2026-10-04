@@ -137,6 +137,15 @@
   color: var(--app-dim);
 }
 
+[data-empty-state][data-notelistempty] {
+  padding: var(--s7) var(--s4);
+  text-align: center;
+}
+
+[data-notelistempty] [data-empty-body] {
+  font-size: var(--t-ctl);
+}
+
 [data-empty-title] {
   font-weight: 600;
   font-size: var(--t-lead);

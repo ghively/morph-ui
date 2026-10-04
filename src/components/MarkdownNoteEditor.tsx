@@ -33,6 +33,9 @@ export interface MarkdownNoteEditorProps {
   /** Empty-list copy. */
   emptyTitle?: string;
   emptyHint?: ReactNode;
+  /** Copy for the list column when there are no notes at all. */
+  listEmptyTitle?: string;            // default 'No notes yet'
+  listEmptyHint?: ReactNode;          // default 'Notes you save will show up here.'
   /** Status line copy. Defaults: 'Unsaved changes' / 'Saved'. */
   dirtyLabel?: string;
   savedLabel?: string;
@@ -56,6 +59,8 @@ export function MarkdownNoteEditor({
   renderPreview,
   emptyTitle = 'Pick a note',
   emptyHint = 'Or start a new one.',
+  listEmptyTitle = 'No notes yet',
+  listEmptyHint = 'Notes you save will show up here.',
   dirtyLabel = 'Unsaved changes',
   savedLabel = 'Saved',
   writeLabel = 'Write',
@@ -123,6 +128,12 @@ export function MarkdownNoteEditor({
             );
           })}
         </div>
+        {notes.length === 0 ? (
+          <div data-empty-state="" data-notelistempty="">
+            <div data-empty-title="">{listEmptyTitle}</div>
+            <div data-empty-body="">{listEmptyHint}</div>
+          </div>
+        ) : null}
       </div>
 
       {/* Editor Column */}

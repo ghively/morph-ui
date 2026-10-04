@@ -1,8 +1,6 @@
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
+/* Layout comes from the host primitives ([data-panehead], [data-card], …), which
+   frame.css already holds to reduced motion. Nothing here animates, so this sheet
+   declares no global rules. */
+.attachment-preview [data-previewimg] { display: block; max-width: 100%; border-radius: var(--r-card); background: color-mix(in srgb, var(--app-text) 5%, transparent); }
+.attachment-preview [data-previewph] { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--s2); min-height: 160px; padding: var(--s5);
+  border: 1px dashed var(--app-line); border-radius: var(--r-card); background: color-mix(in srgb, var(--app-text) 4%, transparent); color: var(--app-faint); }

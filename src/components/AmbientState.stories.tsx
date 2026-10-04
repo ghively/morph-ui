@@ -32,18 +32,17 @@ function StateCard({
         maxWidth: '520px',
         minHeight: '280px',
         margin: '0 auto',
-        backgroundColor: '#090d16',
-        borderRadius: '16px',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
-        boxShadow: '0 20px 40px -15px rgba(0, 0, 0, 0.6)',
+        backgroundColor: 'var(--app-panel)',
+        borderRadius: 'var(--r-xl)',
+        border: '1px solid var(--app-line)',
+        boxShadow: 'var(--el2)',
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        padding: '1.75rem',
+        padding: 'var(--s6)',
         boxSizing: 'border-box',
-        color: '#f8fafc',
-        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        color: 'var(--app-text)',
       }}
     >
       <AmbientState state={state} intensity={intensity} paused={paused} />
@@ -59,34 +58,35 @@ function StateCard({
         >
           <span
             style={{
-              fontSize: '0.75rem',
-              fontWeight: 600,
+              fontSize: 'var(--t-eyebrow)',
+              fontWeight: 700,
               letterSpacing: '0.08em',
               textTransform: 'uppercase',
-              color: '#94a3b8',
+              color: 'var(--app-dim)',
             }}
           >
             Ambient Engine
           </span>
           <span
             style={{
-              fontSize: '0.7rem',
-              fontWeight: 600,
-              padding: '0.2rem 0.6rem',
-              borderRadius: '999px',
-              backgroundColor: 'rgba(255, 255, 255, 0.06)',
-              color: badgeColor,
-              border: `1px solid ${badgeColor}40`,
+              fontSize: 'var(--t-meta)',
+              fontWeight: 700,
+              padding: 'var(--s0) var(--s2)',
+              borderRadius: 'var(--r-pill)',
+              // Opaque panel behind the badge so its ink holds contrast over any glow.
+              backgroundColor: `color-mix(in srgb, ${badgeColor} 18%, var(--app-panel))`,
+              color: `color-mix(in srgb, ${badgeColor} 55%, var(--app-text))`,
+              border: `1px solid color-mix(in srgb, ${badgeColor} 45%, transparent)`,
             }}
           >
             {badge}
           </span>
         </div>
 
-        <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.25rem', fontWeight: 600, color: '#ffffff' }}>
+        <h3 style={{ margin: '0 0 var(--s2) 0', fontSize: 'var(--t-h3)', fontWeight: 600, color: 'var(--app-text)' }}>
           {title}
         </h3>
-        <p style={{ margin: 0, fontSize: '0.875rem', color: '#cbd5e1', lineHeight: 1.5 }}>
+        <p style={{ margin: 0, fontSize: 'var(--t-lead)', color: 'var(--app-dim)', lineHeight: 1.5 }}>
           {description}
         </p>
       </div>
@@ -99,19 +99,19 @@ function StateCard({
             justifyContent: 'space-between',
             alignItems: 'center',
             paddingTop: '1rem',
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-            fontSize: '0.75rem',
-            color: 'var(--app-faint)',
+            borderTop: '1px solid var(--app-line)',
+            fontSize: 'var(--t-meta)',
+            color: 'var(--app-dim)',
           }}
         >
           <span>
-            State: <strong style={{ color: '#e2e8f0' }}>{state}</strong>
+            State: <strong style={{ color: 'var(--app-text)' }}>{state}</strong>
           </span>
           <span>
-            Intensity: <strong style={{ color: '#e2e8f0' }}>{intensity}</strong>
+            Intensity: <strong style={{ color: 'var(--app-text)' }}>{intensity}</strong>
           </span>
           <span>
-            Motion: <strong style={{ color: paused ? '#f87171' : '#4ade80' }}>{paused ? 'Paused' : 'Active'}</strong>
+            Motion: <strong style={{ color: paused ? 'var(--danger-ink)' : 'var(--ok-ink)' }}>{paused ? 'Paused' : 'Active'}</strong>
           </span>
         </div>
       </div>
@@ -126,7 +126,7 @@ export const Default = () => (
       title="Agent Idle & Ready"
       description="Calm azure radiance indicating the autonomous system is in standby, awaiting user interaction or background trigger."
       badge="Standby"
-      badgeColor="#38bdf8"
+      badgeColor="var(--state-idle)"
     />
   </div>
 );
@@ -138,7 +138,7 @@ export const Thinking = () => (
       title="Autonomous Reasoning"
       description="Active purple dynamic aura with oscillating radius and figure-eight motion signifying deep multi-step execution."
       badge="Thinking"
-      badgeColor="#a855f7"
+      badgeColor="var(--state-think)"
     />
   </div>
 );
@@ -150,7 +150,7 @@ export const Speaking = () => (
       title="Synthesizing Speech"
       description="Rhythmic teal-green radial pulse synchronized to conversational cadence (~1Hz) indicating real-time voice streaming."
       badge="Speaking"
-      badgeColor="#34d399"
+      badgeColor="var(--state-live)"
     />
   </div>
 );
@@ -162,7 +162,7 @@ export const ErrorState = () => (
       title="Exception Detected"
       description="Static danger-red ambient tint alerting users to an unexpected failure, network timeout, or policy violation."
       badge="Error"
-      badgeColor="#f87171"
+      badgeColor="var(--state-error)"
     />
   </div>
 );
@@ -175,7 +175,7 @@ export const SubtleIntensity = () => (
       title="Subtle Intensity"
       description="Low-contrast alpha scale (0.3) designed for content-heavy views, dense dashboards, and unobtrusive ambient feedback."
       badge="Subtle"
-      badgeColor="#94a3b8"
+      badgeColor="var(--app-faint)"
     />
   </div>
 );
@@ -188,7 +188,7 @@ export const PausedAnimation = () => (
       title="Paused / Reduced Motion"
       description="Renders a static single-frame radial snapshot without a requestAnimationFrame loop, respecting reduced-motion accessibility."
       badge="Paused"
-      badgeColor="#fbbf24"
+      badgeColor="var(--state-warn)"
     />
   </div>
 );
@@ -199,10 +199,10 @@ export const InteractiveConsole = () => {
   const [paused, setPaused] = useState(false);
 
   const stateColors: Record<AmbientStateStatus, string> = {
-    idle: '#38bdf8',
-    thinking: '#a855f7',
-    speaking: '#34d399',
-    error: '#f87171',
+    idle: 'var(--state-idle)',
+    thinking: 'var(--state-think)',
+    speaking: 'var(--state-live)',
+    error: 'var(--state-error)',
   };
 
   return (
@@ -220,8 +220,8 @@ export const InteractiveConsole = () => {
           <div>
             <div
               style={{
-                fontSize: '0.7rem',
-                color: '#94a3b8',
+                fontSize: 'var(--t-eyebrow)',
+                color: 'var(--app-dim)',
                 marginBottom: '0.4rem',
                 textTransform: 'uppercase',
                 letterSpacing: '0.05em',
@@ -237,12 +237,12 @@ export const InteractiveConsole = () => {
                   onClick={() => setState(s)}
                   style={{
                     padding: '0.35rem 0.75rem',
-                    fontSize: '0.75rem',
+                    fontSize: 'var(--t-meta)',
                     fontWeight: 600,
                     borderRadius: '6px',
-                    border: state === s ? `1px solid ${stateColors[s]}` : '1px solid rgba(255, 255, 255, 0.15)',
-                    backgroundColor: state === s ? `${stateColors[s]}22` : 'rgba(255, 255, 255, 0.05)',
-                    color: state === s ? stateColors[s] : '#94a3b8',
+                    border: state === s ? `1px solid ${stateColors[s]}` : '1px solid var(--app-line)',
+                    backgroundColor: state === s ? `color-mix(in srgb, ${stateColors[s]} 16%, var(--app-panel))` : 'var(--app-hover)',
+                    color: state === s ? `color-mix(in srgb, ${stateColors[s]} 55%, var(--app-text))` : 'var(--app-dim)',
                     cursor: 'pointer',
                     textTransform: 'capitalize',
                   }}
@@ -259,11 +259,11 @@ export const InteractiveConsole = () => {
               onClick={() => setIntensity((i) => (i === 'normal' ? 'subtle' : 'normal'))}
               style={{
                 padding: '0.35rem 0.75rem',
-                fontSize: '0.75rem',
-                borderRadius: '6px',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                color: '#cbd5e1',
+                fontSize: 'var(--t-meta)',
+                borderRadius: 'var(--r-sm)',
+                border: '1px solid var(--app-line)',
+                backgroundColor: 'var(--app-hover)',
+                color: 'var(--app-text)',
                 cursor: 'pointer',
               }}
             >
@@ -274,11 +274,11 @@ export const InteractiveConsole = () => {
               onClick={() => setPaused((p) => !p)}
               style={{
                 padding: '0.35rem 0.75rem',
-                fontSize: '0.75rem',
-                borderRadius: '6px',
-                border: paused ? '1px solid #fbbf24' : '1px solid rgba(255, 255, 255, 0.15)',
-                backgroundColor: paused ? 'rgba(251, 191, 36, 0.15)' : 'rgba(255, 255, 255, 0.05)',
-                color: paused ? '#fbbf24' : '#cbd5e1',
+                fontSize: 'var(--t-meta)',
+                borderRadius: 'var(--r-sm)',
+                border: paused ? '1px solid var(--warn-line)' : '1px solid var(--app-line)',
+                backgroundColor: paused ? 'var(--warn-soft)' : 'var(--app-hover)',
+                color: paused ? 'var(--warn-ink)' : 'var(--app-text)',
                 cursor: 'pointer',
               }}
             >

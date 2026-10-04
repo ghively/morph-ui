@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { ReactNode } from 'react';
 import { formatBytes } from './messageFormat';
 export { formatBytes } from './messageFormat';
@@ -16,6 +17,33 @@ export interface MediaPreview {
   mimeType?: string;
   size?: number;
   downloadable?: boolean;
+}
+
+const MIME_BY_EXT: Record<string, string> = {
+  png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', gif: 'image/gif', webp: 'image/webp', avif: 'image/avif', svg: 'image/svg+xml', bmp: 'image/bmp', heic: 'image/heic',
+  mp4: 'video/mp4', webm: 'video/webm', mov: 'video/quicktime', mkv: 'video/x-matroska',
+  mp3: 'audio/mpeg', wav: 'audio/wav', ogg: 'audio/ogg', m4a: 'audio/mp4', flac: 'audio/flac', opus: 'audio/opus',
+  pdf: 'application/pdf', zip: 'application/zip', json: 'application/json', txt: 'text/plain', md: 'text/markdown', csv: 'text/csv', html: 'text/html',
+};
+
+/** Best-effort MIME type from a file name's extension; null when unknown. */
+export function inferMimeType(name: string | null | undefined): string | null {
+  const m = /\.([a-z0-9]+)$/i.exec(name ?? '');
+  return m ? MIME_BY_EXT[m[1].toLowerCase()] ?? null : null;
+}
+
+/** Image that swaps to a quiet placeholder when it fails, instead of the UA broken-image icon + alt text. */
+function PreviewImage({ url, name }: { url: string; name: string }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <div data-previewph="" role="img" aria-label={`${name} (preview unavailable)`}>
+        <GlyphIcon name="file" size={20} />
+        <span data-meta="">Preview unavailable</span>
+      </div>
+    );
+  }
+  return <img data-previewimg="" src={url} alt={name} onError={() => setFailed(true)} />;
 }
 
 export interface AttachmentPreviewPanelProps {
@@ -58,7 +86,7 @@ export function AttachmentPreviewPanel(props: AttachmentPreviewPanelProps) {
       style={{ display: "flex", flexDirection: "column", height: "100%" }}
       role="region"
       aria-label={label}
-      className={className}
+      className={['attachment-preview', className].filter(Boolean).join(' ')}
     >
       <div data-panehead="">
         <div data-tile="" style={{ width: 26, height: 26 }}>
@@ -84,7 +112,7 @@ export function AttachmentPreviewPanel(props: AttachmentPreviewPanelProps) {
           <>
             {attachment?.kind === 'image' ? (
               attachment.url ? (
-                <img src={attachment.url} alt={attachment.name} style={{ maxWidth: "100%", borderRadius: "var(--r-card)" }} />
+                <PreviewImage key={attachment.url} url={attachment.url} name={attachment.name} />
               ) : (
                 <span data-meta="">{attachment.error ?? "Loading…"}</span>
               )
@@ -98,7 +126,7 @@ export function AttachmentPreviewPanel(props: AttachmentPreviewPanelProps) {
               <div data-card="">
                 <div data-strong="">{attachment.name}</div>
                 <div data-meta="">
-                  {attachment.mimeType ?? "unknown type"} · {formatBytes(attachment.size)}
+                  {[attachment.mimeType ?? inferMimeType(attachment.name) ?? "unknown type", formatBytes(attachment.size)].filter(Boolean).join(" · ")}
                 </div>
                 {attachment.downloadable ? (
                   <button data-btn="fill" data-state="" style={{ marginTop: "var(--s3)" }} onClick={onDownload}>

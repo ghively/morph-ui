@@ -30,5 +30,5 @@ export const Default = () => {
 };
 
 export const Error = () => (
-  <Select id="rag-dept-err" label="Department" options={DEPARTMENTS} value="" onChange={() => {}} error="Pick a department to continue." />
+  <Select id="rag-dept-err" label="Department" options={DEPARTMENTS} placeholder="Choose a department…" value="" onChange={() => {}} error="Pick a department to continue." />
 );

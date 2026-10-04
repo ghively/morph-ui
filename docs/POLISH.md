@@ -165,3 +165,40 @@ Files shipped: `src/components/mediaLibrary.shared.{tsx,css}`, `src/components/_
   - ApprovalInbox risk flags and ThreadList dots are `role="img"`.
   - The TactileKeyboardShowcase space bar is named "Space".
 - **Scrollable regions** (BloomSheet, ColorArchiveScroll, OrbitalCarousel fallback, PerspectiveMarquee rows) are keyboard-focusable.
+
+## Catalog review pass (2026-10-04)
+
+Every story screenshot was reviewed with realistic data, and the fixes are now locked in by the visual baselines. These were the systemic findings:
+
+- **Missing primitives layer.** The Ladle catalog never loaded `primitives.css`, so every component built on primitives rendered unstyled in the catalog. The catalog now loads it, as `styles.css` does.
+- **Primitive name collisions.** `[data-tip]` (Tooltip) and `[data-slider]` (Slider) are wrapper hooks here, but the primitives layer styles those names as the bubble and the range input. Each is now reset in its own component stylesheet.
+- **Missing shared CSS import.** IndexerHealth, DownloadQueue and LibraryScanStatus used `.ml-*` classes without importing `mediaLibrary.shared`.
+- **Global CSS leak.** Six Features stylesheets shipped a global reduced-motion `*` rule. It has been removed, since `frame.css` already scopes reduced motion.
+
+There were about 60 component-level fixes. They are grouped below; see the commit log for details.
+
+- **Text effects**
+  - LineFillText fits its viewBox to the text.
+  - SplitFlapDisplay halves now split a single glyph.
+  - TextPath gains an optional `fit` prop.
+  - TextChromaReveal, TextRipple and TextWordFlip now inherit type and sit on the baseline.
+- **Data views**
+  - AgentTopologyView paints immediately and fits its rings to the canvas.
+  - LineChart dots stay round.
+  - Stepper connectors are fixed, and the DonutChart legend sits beside its chart.
+  - The ToolCallCard `+N` chip is visible.
+  - `initials()` ignores parenthetical text.
+- **Media**
+  - ParticleImage draws a static frame under reduced motion.
+  - The backdrop components isolate their parent.
+  - SwipeDeck and CardDeckReveal stack their cards correctly.
+  - KeyboardShowcase has a correct ISO layout.
+  - LiveTvGuide uses one channel-width value throughout.
+  - LibraryGrid's select is styled.
+- **Features and forms**
+  - AttachmentPreviewPanel infers the MIME type and shows an image-error state.
+  - SandboxedContentFrame has a visible surface.
+  - SasVerificationPanel layout is fixed.
+  - StatusRowList link titles render as links.
+  - New optional props: MorphWizard `validationMessage`, PricingTierCard `toggleLabel`, and MarkdownNoteEditor `listEmptyTitle` / `listEmptyHint`.
+- **Stories.** Stories that showed nothing, or contradicted themselves, now demonstrate their component: MentionAutocomplete, MessageTimeline, SkeletonWrapper, Button loading, Select error, NavigationRail, RunTimeline and CodeDiffViewer.

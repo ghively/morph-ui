@@ -45,7 +45,7 @@ export const AgentRows: Story = () => (
 
 export const AdminModeration: Story = () => (
   <div style={{ padding: '20px', maxWidth: 600 }}>
-    <CollapsibleSection title="Moderation" meta="2 users">
+    <CollapsibleSection title="Moderation" meta="2 users" defaultOpen>
       <StatusRowList 
         rows={[
           {

@@ -26,7 +26,14 @@
 
 [data-reactions] > [data-chip] > [data-num] {
   font-size: var(--t-num);
-  opacity: 0.8;
+  font-weight: 600;
+  color: var(--app-dim);
+}
+
+/* On the active chip the count sits on the --sec tint: mix the accent toward ink
+   (no opacity) so it keeps contrast instead of fading into the fill. */
+[data-reactions] > [data-chip][data-on="true"] > [data-num] {
+  color: color-mix(in srgb, var(--sec) 45%, var(--app-text));
 }
 
 @media (prefers-reduced-motion: reduce) {

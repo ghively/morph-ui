@@ -77,6 +77,18 @@ describe('MarkdownNoteEditor', () => {
     expect(queryByLabelText('Note body (Markdown)')).toBeNull();
   });
 
+  it('empty notes list shows a list empty state, populated list does not', () => {
+    const { getByText, queryByText, rerender } = render(
+      <MarkdownNoteEditor notes={[]} activeId={null} onSelect={() => {}} draft={null} onDraftChange={() => {}} dirty={false} onSave={() => {}} listEmptyTitle="Nothing saved" />
+    );
+    expect(getByText('Nothing saved')).toBeTruthy();
+    expect(getByText('Notes you save will show up here.')).toBeTruthy();
+    rerender(
+      <MarkdownNoteEditor notes={defaultNotes} activeId={null} onSelect={() => {}} draft={null} onDraftChange={() => {}} dirty={false} onSave={() => {}} listEmptyTitle="Nothing saved" />
+    );
+    expect(queryByText('Nothing saved')).toBeNull();
+  });
+
   it('title/body changes call onDraftChange', () => {
     const onDraftChange = vi.fn();
     const draft = { id: '1', title: 'T', body: 'B' };

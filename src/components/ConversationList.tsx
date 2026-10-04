@@ -173,8 +173,9 @@ export function ConversationList({
                     <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flex: 1, textAlign: "left" }}>
                       {conv.prefix}{conv.name.replace(/^#/, "")}
                       {conv.encrypted && (
-                        <span aria-label="encrypted" style={{ marginLeft: 6, color: "var(--app-rail-faint)" }}>
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <span aria-label="encrypted" data-convlock="" style={{ display: "inline-flex", alignItems: "center", verticalAlign: "-1px", marginLeft: 6, color: "var(--app-rail-faint)" }}>
+                          {/* Inline: frame.css makes bare <svg> display:block, which pushed the lock onto its own line. */}
+                          <svg width="10" height="10" style={{ display: "inline-block" }} aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                           </svg>

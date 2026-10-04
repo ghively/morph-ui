@@ -52,7 +52,7 @@
 .pricing-content {
   background: var(--app-bg);
   border-radius: calc(var(--r-md, 12px) - 1px);
-  padding: var(--s3, 10px) var(--s6) var(--s6);
+  padding: var(--s6);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -65,8 +65,9 @@
 .pricing-title {
   color: var(--app-text);
   font-family: var(--font-sans);
-  font-size: 1.25rem;
+  font-size: var(--t-h3);
   font-weight: 600;
+  line-height: 1.25;
   margin: 0 0 var(--s2) 0;
 }
 
@@ -101,14 +102,40 @@
 }
 
 .pricing-toggle {
+  position: relative;
   display: flex;
   align-items: center;
+  gap: var(--s3);
   cursor: pointer;
   margin-bottom: var(--s5);
 }
 
+/* Visually hidden, still focusable and announced (display:none dropped it from the tab order). */
 .pricing-toggle input {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pricing-toggle-slider {
+  flex: none;
+}
+
+.pricing-toggle-label {
+  color: var(--app-dim);
+  font-size: var(--t-ctl);
+}
+
+.pricing-toggle input:checked ~ .pricing-toggle-label {
+  color: var(--app-text);
+}
+
+.pricing-toggle input:focus-visible + .pricing-toggle-slider {
+  outline: 2px solid var(--app-blue);
+  outline-offset: 2px;
 }
 
 .pricing-toggle-slider {
@@ -190,5 +217,11 @@
   
   [data-pricing-tier-card]:hover {
     transform: none;
+  }
+
+  .pricing-toggle-slider,
+  .pricing-toggle-slider::before,
+  .pricing-cta {
+    transition: none;
   }
 }

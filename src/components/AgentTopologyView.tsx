@@ -43,6 +43,17 @@ interface Position {
   y: number;
 }
 
+
+/** The rings use fixed radii; shrink them (never grow) so every node and its
+ *  label fits a canvas of w x h. Node size and type stay constant. */
+function fitScale(layout: Map<string, Position>, w: number, h: number): number {
+  let mx = 0, my = 0;
+  layout.forEach(p => { mx = Math.max(mx, Math.abs(p.x)); my = Math.max(my, Math.abs(p.y)); });
+  const sx = mx ? (w / 2 - 56) / mx : 1;
+  const sy = my ? (h / 2 - 36) / my : 1;
+  return Math.max(0.2, Math.min(1, sx, sy));
+}
+
 export function AgentTopologyView({
   nodes,
   edges,
@@ -179,12 +190,14 @@ export function AgentTopologyView({
       ctx.clearRect(0, 0, w, h);
       ctx.save();
       ctx.translate(w / 2, h / 2); // Center
+      const k = fitScale(layout, w, h);
+      const at = (id: string) => { const p = layout.get(id); return p && { x: p.x * k, y: p.y * k }; };
 
       // Draw edges
       ctx.lineWidth = 2;
       edges.forEach(edge => {
-        const fromPos = layout.get(edge.from);
-        const toPos = layout.get(edge.to);
+        const fromPos = at(edge.from);
+        const toPos = at(edge.to);
         if (fromPos && toPos) {
           ctx.beginPath();
           ctx.moveTo(fromPos.x, fromPos.y);
@@ -204,7 +217,7 @@ export function AgentTopologyView({
 
       // Draw nodes
       nodes.forEach(node => {
-        const pos = layout.get(node.id);
+        const pos = at(node.id);
         if (!pos) return;
 
         // Node circle
@@ -310,15 +323,16 @@ export function AgentTopologyView({
     if (!canvas) return;
     
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
+    const k = fitScale(layout, rect.width, rect.height);
+    const x = (e.clientX - rect.left - rect.width / 2) / k;
+    const y = (e.clientY - rect.top - rect.height / 2) / k;
 
     for (const node of nodes) {
       const pos = layout.get(node.id);
       if (pos) {
         const dx = pos.x - x;
         const dy = pos.y - y;
-        if (Math.sqrt(dx*dx + dy*dy) < 20) {
+        if (Math.sqrt(dx*dx + dy*dy) < 20 / k) {
           onNodeClick(node.id);
           break;
         }

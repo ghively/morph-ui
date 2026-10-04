@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import { AttachmentPreviewPanel } from '../src/components/AttachmentPreviewPanel';
+import { AttachmentPreviewPanel, inferMimeType } from '../src/components/AttachmentPreviewPanel';
 import { formatBytes } from '../src/components/MessageTimeline';
 
 describe('AttachmentPreviewPanel', () => {
@@ -137,5 +137,46 @@ describe('AttachmentPreviewPanel', () => {
     expect(formatBytes(1024)).toBe('1 KB');
     expect(formatBytes(1048576)).toBe('1 MB');
     expect(formatBytes(undefined)).toBe('');
+  });
+});
+
+describe('AttachmentPreviewPanel type inference and image errors', () => {
+  it('infers the type from the file extension when mimeType is missing', () => {
+    render(
+      <AttachmentPreviewPanel
+        title="Img"
+        onClose={() => {}}
+        attachment={{ kind: 'image', name: 'example.png', url: null, size: 1024 }}
+      />
+    );
+    expect(screen.getByText('image/png · 1 KB')).toBeTruthy();
+    expect(screen.queryByText(/unknown type/)).toBeNull();
+  });
+
+  it('keeps "unknown type" for unrecognised extensions and drops an empty size', () => {
+    render(
+      <AttachmentPreviewPanel title="F" onClose={() => {}} attachment={{ kind: 'file', name: 'blob.xyz', url: null }} />
+    );
+    expect(screen.getByText('unknown type')).toBeTruthy();
+  });
+
+  it('inferMimeType maps common extensions case-insensitively', () => {
+    expect(inferMimeType('a.PNG')).toBe('image/png');
+    expect(inferMimeType('clip.mp4')).toBe('video/mp4');
+    expect(inferMimeType('noext')).toBeNull();
+  });
+
+  it('swaps a failed image for a placeholder instead of the broken-image icon', () => {
+    render(
+      <AttachmentPreviewPanel
+        title="Img"
+        onClose={() => {}}
+        attachment={{ kind: 'image', name: 'a.png', url: 'http://img.com/a.png' }}
+      />
+    );
+    fireEvent.error(screen.getByRole('img'));
+    expect(document.querySelector('img')).toBeNull();
+    expect(screen.getByRole('img', { name: 'a.png (preview unavailable)' })).toBeTruthy();
+    expect(screen.getByText('Preview unavailable')).toBeTruthy();
   });
 });

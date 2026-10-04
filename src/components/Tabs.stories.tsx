@@ -8,7 +8,7 @@ const TABS = [
 ];
 
 const PANELS: Record<string, string> = {
-  overview: ' blended KPI summary across every department.',
+  overview: 'Blended KPI summary across every department.',
   sources: '12 connected sources, 10 fresh.',
   activity: 'Index runs, query log, and agent actions.',
 };

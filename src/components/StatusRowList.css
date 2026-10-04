@@ -50,6 +50,48 @@
   cursor: pointer;
 }
 
+/* A clickable title is a <button data-linkish>: strip the host button chrome
+   (frame.css gives bare buttons a field background + border) so it reads as a link. */
+button[data-strong][data-linkish] {
+  appearance: none;
+  align-self: flex-start;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-xs);
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: 600;
+  color: var(--app-text);
+  text-align: left;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition: color var(--d1) var(--ease-fx), text-decoration-color var(--d1) var(--ease-fx);
+}
+
+button[data-strong][data-linkish][data-lead="true"] {
+  font-size: var(--t-lead);
+}
+
+button[data-strong][data-linkish]:hover {
+  color: var(--app-blue);
+  text-decoration-color: currentColor;
+}
+
+button[data-strong][data-linkish]:focus-visible {
+  outline: 2px solid var(--app-blue);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button[data-strong][data-linkish] { transition: none; }
+}
+
 [data-strong] {
   font-weight: 600;
   color: var(--app-text);
