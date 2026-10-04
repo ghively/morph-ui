@@ -45,6 +45,9 @@
     "ConfirmDialog": {
       "cardMode": "single",
       "primaryStory": "Danger"
+    },
+    "TextFlip": {
+      "cardMode": "column"
     }
   },
   "readmeHeader": ".design-sync/conventions.md",
