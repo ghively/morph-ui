@@ -24,15 +24,17 @@
   --app-blue-strong: #1f6fe6;
 
   /* semantic */
-  --color-success: #1a9b5e;
+  --color-success: #27c07a;
   --color-warning: #e08c20;
-  --color-error: #d63c3c;
-  --color-success-bg: #e3faf0;
-  --color-success-border: #8fe3c0;
-  --color-success-text: #0a7a45;
-  --color-error-bg: #fde8e8;
-  --color-error-border: #f2b3b3;
-  --color-error-text: #c43a3a;
+  --color-error: #f27373;
+  /* Translucent on the dark frame, like warning/info below; inks are the light
+     ok/danger tones so text keeps contrast on navy. */
+  --color-success-bg: rgba(26, 155, 94, 0.16);
+  --color-success-border: rgba(26, 155, 94, 0.4);
+  --color-success-text: #5aeab0;
+  --color-error-bg: rgba(214, 60, 60, 0.16);
+  --color-error-border: rgba(214, 60, 60, 0.42);
+  --color-error-text: #f08080;
   --color-warning-bg: rgba(224, 140, 32, 0.16);
   --color-warning-border: rgba(224, 140, 32, 0.4);
   --color-info-bg: rgba(31, 111, 230, 0.16);
@@ -56,7 +58,7 @@
   /* typography */
   --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
   --font-mono: "Courier New", Courier, monospace;
-  --app-mono: ui-monospace, SFMono-Regular, "SF Mono", "JetBrains Mono", Menlo, var(--font-mono, "Courier New"), monospace;
+  --app-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, var(--font-mono, "Courier New"), monospace;
   --t-ctl: 12.5px;
   --t-meta: 11.5px;
 
@@ -115,6 +117,23 @@
   --t-lead: 14px;
   --t-title: 13.5px;
   --t-hero: 36px;
+
+  /* scale completion (2026-10): every literal size in component CSS snaps to
+     one of these steps. stylelint (.stylelintrc.json) enforces it. */
+  --t-2xs: 9px;
+  --t-xs: 10px;
+  --t-h4: 16px;
+  --t-h3: 20px;
+  --t-h2: 24px;
+  --r-2xs: 2px;
+  --s0: 2px;
+  --s1h: 6px;
+  --s4h: 14px;
+  --s7: 24px;
+  --s8: 32px;
+  --s9: 40px;
+  --s10: 48px;
+  --s11: 64px;
   --tk-snug: -0.2px;
   --tk-wide: 0.3px;
   --tk-display: -1.1px;
@@ -136,7 +155,11 @@
   --scrim: rgba(6, 8, 32, 0.52);
   --scrim-soft: rgba(6, 8, 32, 0.34);
   --hi: rgba(255, 255, 255, 0.26);
-  --on-accent: #ffffff;
+  /* Ink on a solid accent fill. The dark frame's accents (blue, green, red,
+     amber) are light enough to read as text on navy, which means white on
+     them fails WCAG AA (2.3-3.6:1); the frame's own ground clears 5:1 on all
+     of them. */
+  --on-accent: var(--app-bg);
   --danger-ink: #f08080;
 
   /* Categorical series ramp for charts. The wave components carried their own
@@ -377,7 +400,7 @@
   --cpi-gray-400: var(--app-faint);
   --cpi-gray-500: var(--app-dim);
   --cpi-gray-600: var(--app-text);
-  --app-mono: ui-monospace, SFMono-Regular, "SF Mono", "JetBrains Mono", Menlo, var(--font-mono, "Courier New"), monospace;
+  --app-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, var(--font-mono, "Courier New"), monospace;
   --d1: calc(130ms * var(--d-scale));
   --d2: calc(220ms * var(--d-scale));
   --d3: calc(360ms * var(--d-scale));
@@ -387,6 +410,7 @@
   --el-modal: 0 8px 32px var(--app-elev);
   --el-float: 0 16px 32px var(--app-elev);
   --ring-focus: 0 0 0 2px var(--sec-soft);
+  --on-accent: var(--app-bg);
   --d4: calc(540ms * var(--d-scale, 1));
   --morph-fg: var(--app-text);
   --morph-placeholder: var(--app-faint);

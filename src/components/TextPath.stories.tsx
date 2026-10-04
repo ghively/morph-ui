@@ -8,7 +8,7 @@ export const Default = () => (
 
 export const Circle = () => (
   <div style={{ padding: "2rem" }}>
-    <TextPath text="ORBITING · ORBITING · " path="circle" repeat={3} duration="14s" />
+    <TextPath text="ORBITING ·" path="circle" repeat={5} duration="14s" />
   </div>
 );
 

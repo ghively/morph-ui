@@ -7,7 +7,8 @@ export function ModalSurface({ label, onClose, children, placement = 'bottom-she
   const { panelRef } = useModalSurface(dismissOnEscape, onClose);
   let scrimAlign = 'flex-end', panelAttrs: Record<string, string> = { "data-pane": "" }, scrimZIndex = 80, scrimSoft = false, panelMarginTop = undefined, panelPadding = undefined;
   if (placement === 'bottom-sheet') { scrimAlign = 'flex-end'; panelAttrs = { "data-sheet": "", "data-drawer": "up", "data-pane": "" }; panelPadding = "20px 20px calc(var(--gap) + 6px)"; }
-  else if (placement === 'center') { scrimAlign = 'center'; panelAttrs = { "data-sheet": "", "data-drawer": "up", "data-pane": "" }; }
+  // Centered dialogs are a full rounded pane, not a sheet: no squared-off bottom edge.
+  else if (placement === 'center') { scrimAlign = 'center'; panelAttrs = { "data-drawer": "up", "data-pane": "" }; panelPadding = "var(--s6)"; }
   else if (placement === 'top-drawer') { scrimAlign = 'flex-start'; panelAttrs = { "data-sheet": "", "data-drawer": "down", "data-drawerpanel": "", "data-pane": "" }; scrimZIndex = 75; scrimSoft = true; panelMarginTop = "var(--gap)"; }
   return (
     <div className="modal-surface-scrim" data-scrim="" data-soft={scrimSoft} style={{ alignItems: scrimAlign, zIndex: scrimZIndex }} onClick={() => dismissOnScrimClick && onClose()}>

@@ -212,12 +212,15 @@ export const WithoutNotch = () => (
   </div>
 );
 
+// The bezel keeps a 9 / 19.5 phone aspect, so height grows with width: at the
+// 760px catalog canvas anything wider than the 300px default runs off the
+// bottom. The custom width here is a compact 260px handset instead.
 export const CustomWidth = () => (
   <div style={{ padding: "2rem" }}>
-    <DeviceFrame width={400}>
+    <DeviceFrame width={260}>
       <MockMobileContent
-        title="Expanded Viewport"
-        subtitle="Wide 400px phablet screen form factor"
+        title="Compact Viewport"
+        subtitle="Narrow 260px handset form factor"
       >
         <div
           style={{

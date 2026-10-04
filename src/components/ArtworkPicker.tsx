@@ -100,7 +100,7 @@ export function ArtworkPicker(p: ArtworkPickerProps) {
           </label>
         </div>
       </header>
-      <div className="apA-grid" data-shape={sh} role="listbox" aria-label="Candidates">
+      <div className="apA-grid" data-shape={sh} role="group" aria-label={type + ' artwork'}>
         <div className="apA-cell" data-current="">
           <div className="apA-frame">
             <Art item={p.item} type={type} fallback={[]} shape={sh} alt="Current" empty={<span className="apA-none">No {type.toLowerCase()} yet</span>} />
@@ -109,6 +109,9 @@ export function ArtworkPicker(p: ArtworkPickerProps) {
             <b>Current</b>
           </span>
         </div>
+        {/* Only the candidates are options; the current image and Upload sit beside them.
+            display: contents keeps every cell placed by .apA-grid. */}
+        <div role="listbox" aria-label="Candidates" className="apA-options">
         {shown.map(i => (
           <button
             key={i.url}
@@ -137,6 +140,7 @@ export function ArtworkPicker(p: ArtworkPickerProps) {
             </span>
           </button>
         ))}
+        </div>
         {p.onUpload && (
           <button type="button" className="apA-cell apA-up" onClick={() => p.onUpload!(type)}>
             <div className="apA-frame">

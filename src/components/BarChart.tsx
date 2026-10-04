@@ -32,11 +32,15 @@ export function BarChart({ data, height = 180, formatValue = (v) => String(v), l
       <div data-bararea="" style={{ height }} role="img" aria-label={`${label}. ${summary}`}>
         {data.map((d, i) => (
           <div key={d.label} data-barcol="">
-            <span data-barvalue="">{formatValue(d.value)}</span>
-            <span
-              data-bar=""
-              style={{ height: `${Math.max(2, (d.value / max) * 100)}%`, background: PALETTE[i % PALETTE.length] }}
-            />
+            {/* The track is the same height in every column, so bar heights share one baseline. */}
+            <div data-bartrack="">
+              <div
+                data-bar=""
+                style={{ height: `${Math.max(2, (d.value / max) * 100)}%`, background: PALETTE[i % PALETTE.length] }}
+              >
+                <span data-barvalue="">{formatValue(d.value)}</span>
+              </div>
+            </div>
             <span data-barlabel="">{d.label}</span>
           </div>
         ))}

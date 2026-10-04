@@ -1,8 +1,11 @@
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
+/* Built on the host primitives ([data-card], [data-eyebrow], [data-btn]); this sheet
+   only lays the panel out. Nothing animates, so no motion rules are needed — and
+   none are global. */
+:where(.sas-panel) p { margin: 0; font: inherit; }
+.sas-panel { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s3); max-width: 560px; }
+.sas-panel > [data-meta] { color: var(--app-dim); line-height: 1.5; }
+.sas-panel [data-sasemoji] { display: flex; flex-wrap: wrap; gap: var(--s3); margin: var(--s1) 0; }
+.sas-panel [data-sasglyph] { display: flex; flex-direction: column; align-items: center; gap: var(--s1); min-width: 64px; padding: var(--s3) var(--s2);
+  border-radius: var(--r-md); background: color-mix(in srgb, var(--app-text) 5%, transparent); }
+.sas-panel [data-sassymbol] { font-size: var(--t-hero); line-height: 1; }
+.sas-panel [data-sasactions] { display: flex; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s1); }

@@ -1,8 +1,9 @@
 import './TextArea.css';
-import { fieldIds, FieldNotes, type TextAreaProps } from './forms.shared';
+import { fieldIds, useFieldId, FieldNotes, type TextAreaProps } from './forms.shared';
 
 /** Multi-line text input; same label / hint / error wiring as TextField. */
-export function TextArea({ id, label, error, hint, disabled, className = '', rows = 3, ...rest }: TextAreaProps) {
+export function TextArea({ id: idProp, label, error, hint, disabled, className = '', rows = 3, ...rest }: TextAreaProps) {
+  const id = useFieldId(idProp);
   const ids = fieldIds(id, hint, error);
   const len = typeof rest.value === 'string' ? rest.value.length : undefined;
   return (

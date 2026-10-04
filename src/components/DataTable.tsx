@@ -15,7 +15,7 @@ export interface DataColumn<TRow> {
   render?: (row: TRow) => ReactNode;
 }
 
-export interface DataTableProps<TRow> {
+export interface DataTableProps<TRow = Record<string, unknown>> {
   columns: DataColumn<TRow>[];
   rows: TRow[];
   rowKey: (row: TRow, index: number) => string;

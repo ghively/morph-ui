@@ -146,3 +146,59 @@ Shared primitives live in `src/components/mediaLibrary.shared.tsx` + `mediaLibra
 | IndexerHealth | Indexer health dashboard with RSS/search/interactive test chips; `Service` / `Health` exported |
 
 Files shipped: `src/components/mediaLibrary.shared.{tsx,css}`, `src/components/__fixtures__/mediaLibrary.ts`, `src/components/{MediaArtwork,PosterCard,MediaShelf,MediaHero,EpisodeList,CastStrip,MediaInfoBadges,LibraryGrid,PlayerScrubber,TrackPicker,NowPlayingBar,AlbumTrackList,CollectionTile,ActiveSessions,LibraryScanStatus,ArtworkPicker,IdentifyMatch,ProfilePicker,RequestCard,LiveTvGuide,ArrItemStatus,DownloadQueue,ReleaseCalendar,IndexerHealth}.{tsx,css,stories.tsx}`, `test/media-library.test.tsx`. Reference files deleted from `media-library/`.
+
+## Accessibility pass (axe, 2026-10-04)
+
+`pnpm test:a11y` runs axe (WCAG 2.1 A/AA + best-practice) on every story; serious and critical violations fail. The first run failed 114 of 397 stories. All of them now pass.
+
+- **Contrast (92 stories).** Unstyled form controls in `frame.css` were light-on-light. `--color-success`/`--color-error` were lifted to `#27c07a`/`#f27373`. `--on-accent` is now the frame ground (dark ink on bright fills). Accent-coloured small text mixes 60/40 toward ink. "Past" states desaturate instead of dropping opacity.
+- **ARIA structure.**
+  - AgentActivityHeatmap gridcells are grouped into week rows (`display: contents`).
+  - LiveTvGuide rows sit in a `table`.
+  - ArtworkPicker's listbox holds only options.
+  - StatusRowList rows are `listitem` only inside a labelled list.
+  - Tabs set `aria-controls` only when a panel exists.
+  - FileDropzone's file input is no longer nested in its `role="button"`.
+  - RetrievalInspector's threshold marker is a real list item.
+- **Names.**
+  - TextFlip, TextMorphing and TextBlurReveal take `role="img"` when rendered as a span or div (headings keep their role).
+  - ApprovalInbox risk flags and ThreadList dots are `role="img"`.
+  - The TactileKeyboardShowcase space bar is named "Space".
+- **Scrollable regions** (BloomSheet, ColorArchiveScroll, OrbitalCarousel fallback, PerspectiveMarquee rows) are keyboard-focusable.
+
+## Catalog review pass (2026-10-04)
+
+Every story screenshot was reviewed with realistic data, and the fixes are now locked in by the visual baselines. These were the systemic findings:
+
+- **Missing primitives layer.** The Ladle catalog never loaded `primitives.css`, so every component built on primitives rendered unstyled in the catalog. The catalog now loads it, as `styles.css` does.
+- **Primitive name collisions.** `[data-tip]` (Tooltip) and `[data-slider]` (Slider) are wrapper hooks here, but the primitives layer styles those names as the bubble and the range input. Each is now reset in its own component stylesheet.
+- **Missing shared CSS import.** IndexerHealth, DownloadQueue and LibraryScanStatus used `.ml-*` classes without importing `mediaLibrary.shared`.
+- **Global CSS leak.** Six Features stylesheets shipped a global reduced-motion `*` rule. It has been removed, since `frame.css` already scopes reduced motion.
+
+There were about 60 component-level fixes. They are grouped below; see the commit log for details.
+
+- **Text effects**
+  - LineFillText fits its viewBox to the text.
+  - SplitFlapDisplay halves now split a single glyph.
+  - TextPath gains an optional `fit` prop.
+  - TextChromaReveal, TextRipple and TextWordFlip now inherit type and sit on the baseline.
+- **Data views**
+  - AgentTopologyView paints immediately and fits its rings to the canvas.
+  - LineChart dots stay round.
+  - Stepper connectors are fixed, and the DonutChart legend sits beside its chart.
+  - The ToolCallCard `+N` chip is visible.
+  - `initials()` ignores parenthetical text.
+- **Media**
+  - ParticleImage draws a static frame under reduced motion.
+  - The backdrop components isolate their parent.
+  - SwipeDeck and CardDeckReveal stack their cards correctly.
+  - KeyboardShowcase has a correct ISO layout.
+  - LiveTvGuide uses one channel-width value throughout.
+  - LibraryGrid's select is styled.
+- **Features and forms**
+  - AttachmentPreviewPanel infers the MIME type and shows an image-error state.
+  - SandboxedContentFrame has a visible surface.
+  - SasVerificationPanel layout is fixed.
+  - StatusRowList link titles render as links.
+  - New optional props: MorphWizard `validationMessage`, PricingTierCard `toggleLabel`, and MarkdownNoteEditor `listEmptyTitle` / `listEmptyHint`.
+- **Stories.** Stories that showed nothing, or contradicted themselves, now demonstrate their component: MentionAutocomplete, MessageTimeline, SkeletonWrapper, Button loading, Select error, NavigationRail, RunTimeline and CodeDiffViewer.

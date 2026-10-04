@@ -1,4 +1,5 @@
 import type { ReactNode, ReactElement } from 'react';
+import { statusHook, type ToneInput } from '../tone';
 import './DetailsPanel.css';
 
 export interface ProfileBadge { id: string; label: string; solid?: boolean; }
@@ -8,7 +9,7 @@ export interface ProfileCardProps {
   identifier?: ReactNode;
   description?: ReactNode;
   avatar?: ReactNode;
-  status?: { text: ReactNode; tone?: 'ok' | 'warn' | 'danger' };
+  status?: { text: ReactNode; tone?: ToneInput };
   badges?: ProfileBadge[];
   toggles?: { id: string; label: string; on: boolean; onChange: (next: boolean) => void }[];
   chips?: string[];
@@ -43,7 +44,7 @@ export function ProfileCard({
         <div data-meta="">
           <span 
             data-dot="" 
-            data-tone={status.tone} 
+            data-tone={statusHook(status.tone)} 
             style={{ width: 6, height: 6, display: "inline-block", marginRight: 6 }} 
           />
           {status.text}

@@ -9,9 +9,9 @@
 [data-treeitem] {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 7px 10px 7px calc(10px + var(--morph-tree-depth, 0) * 20px);
-  border-radius: 7px;
+  gap: var(--s2);
+  padding: var(--s2) var(--s3) var(--s2) calc(10px + var(--morph-tree-depth, 0) * 20px);
+  border-radius: var(--r-sm);
   cursor: pointer;
   transition: background-color var(--d2) var(--ease-fx),
     border-color var(--d2) var(--ease-fx),
@@ -30,7 +30,7 @@
 }
 
 [data-treeitem][data-selected] {
-  background: rgba(108, 156, 240, 0.14);
+  background: color-mix(in srgb, var(--app-blue) 14%, transparent);
   color: var(--morph-accent);
   font-weight: 650;
 }
@@ -38,7 +38,7 @@
 [data-treecaret] {
   flex: none;
   width: 14px;
-  font-size: 10px;
+  font-size: var(--t-xs);
   opacity: 0.7;
 }
 
@@ -53,6 +53,6 @@
 [data-treemeta] {
   flex: none;
   font-size: var(--t-meta);
-  opacity: 0.6;
+  color: var(--app-faint);
   font-variant-numeric: tabular-nums;
 }

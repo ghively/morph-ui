@@ -6,6 +6,8 @@ export interface MorphWizardStep {
   title: string;
   content: ReactNode;
   onValidate?: () => boolean | Promise<boolean>;
+  /** Shown when onValidate returns false. Defaults to 'Validation failed'. */
+  validationMessage?: string;
 }
 
 export interface MorphWizardProps {
@@ -57,7 +59,7 @@ export function MorphWizard({
       try {
         const isValid = await currentStep.onValidate();
         if (!isValid) {
-          setValidationError('Validation failed');
+          setValidationError(currentStep.validationMessage ?? 'Validation failed');
           setIsValidating(false);
           return;
         }

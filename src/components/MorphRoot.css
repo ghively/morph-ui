@@ -1,0 +1,4 @@
+/* MorphRoot only switches the frame layer on (see frame.css); it adds no look of its own. */
+:where([data-morph-frame][data-fill]) {
+  min-height: 100vh;
+}

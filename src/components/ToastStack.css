@@ -37,6 +37,16 @@
   background-color: var(--color-error-text);
 }
 
+[data-osditem][data-tone="warn"] {
+  border-color: var(--color-warning-border);
+  color: var(--color-warning);
+  background: var(--color-warning-bg);
+}
+
+[data-osditem][data-tone="warn"] [data-dot] {
+  background-color: var(--color-warning);
+}
+
 [data-osditem][data-tone="ok"] {
   border-color: var(--color-success-border);
   color: var(--color-success-text);

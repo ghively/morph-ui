@@ -56,7 +56,7 @@ export function SourceFallbackCard(props: SourceFallbackCardProps) {
   } = props;
 
   return (
-    <div data-sandboxcontent="fallback" style={{ display: "flex", flexDirection: "column", gap: "var(--s4)", minWidth: 0 }} className={className}>
+    <div data-sandboxcontent="fallback" style={{ display: "flex", flexDirection: "column", gap: "var(--s4)", minWidth: 0 }} className={['sandboxed-frame', className].filter(Boolean).join(' ')}>
       <div data-alert="" data-tone="warn" role="note">
         <span data-dot="" />
         <div>{note}</div>
@@ -64,11 +64,11 @@ export function SourceFallbackCard(props: SourceFallbackCardProps) {
       {source ? (
         <div data-code="">
           <div data-codehead="">
-            <span data-num="">{sourceLabel} source</span>
+            <span data-num="" data-sourcelabel="">{sourceLabel} source</span>
             <button
+              type="button"
               data-btn="text"
               data-state=""
-              style={{ marginLeft: "auto", padding: "3px var(--s3)", fontSize: "var(--t-meta)" }}
               onClick={() => void navigator.clipboard?.writeText(source)}
               aria-label="Copy source"
             >
@@ -202,7 +202,7 @@ export function SandboxedContentFrame(props: SandboxedContentFrameProps) {
   }
 
   return (
-    <div data-sandboxcontent="live" style={{ display: "flex", flexDirection: "column", gap: "var(--s3)", minWidth: 0 }} className={className}>
+    <div data-sandboxcontent="live" data-phase={status.phase} aria-busy={status.phase === 'loading'} style={{ display: "flex", flexDirection: "column", gap: "var(--s3)", minWidth: 0 }} className={['sandboxed-frame', className].filter(Boolean).join(' ')}>
       <iframe
         key={run}
         ref={ref}
@@ -213,9 +213,9 @@ export function SandboxedContentFrame(props: SandboxedContentFrameProps) {
         referrerPolicy="no-referrer"
         loading="eager"
         onLoad={send}
-        style={{ width: "100%", height, border: "0", background: "transparent", colorScheme: "normal", display: "block" }}
+        style={{ height }}
       />
-      {status.phase === 'loading' ? <span data-meta="">Rendering…</span> : null}
+      {status.phase === 'loading' ? <span data-meta="" role="status">Rendering…</span> : null}
       {status.phase === 'live' && status.warnings.length > 0 ? (
         <span data-meta="">{warningText(status.warnings)}</span>
       ) : null}

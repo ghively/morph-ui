@@ -2,7 +2,7 @@
 :where([data-iconbtn]) { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border: 0; border-radius: 50%; background: transparent; color: var(--app-dim); cursor: pointer; }
 :where([data-iconbtn]):hover { background: var(--app-hover); color: var(--app-text); }
 
-.tile { position: relative; display: flex; gap: var(--s4); padding: 6px 8px; border-radius: var(--r-md); outline: none; animation: tile-in var(--d3) var(--ease-out, var(--ease-emph)) both;
+.tile { position: relative; display: flex; gap: var(--s4); padding: var(--s1h) var(--s2); border-radius: var(--r-md); outline: none; animation: tile-in var(--d3) var(--ease-out, var(--ease-emph)) both;
   transition: background var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx); }
 .tile:hover { background: color-mix(in srgb, var(--app-text) 2.5%, transparent); }
 .tile:focus-visible { box-shadow: inset 0 0 0 2px var(--sec-soft); }
@@ -12,40 +12,40 @@
 .tile-avatar { width: 32px; height: 32px; flex: none; display: inline-grid; place-items: center; border-radius: 50%; font-size: var(--t-num); font-weight: 600; color: var(--app-text); background: color-mix(in srgb, var(--sec) 26%, var(--app-panel)); }
 .tile-avatar[data-avatar=""] { border-radius: var(--r-sm); box-shadow: 0 0 0 1px color-mix(in srgb, var(--sec) 50%, transparent); }
 [data-avatarspacer].tile-avatar { background: none; }
-.tile-body { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.tile-body { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: var(--s1h); }
 .tile-who { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); }
 .tile-name { padding: 0; border: 0; background: none; color: var(--sec-ink, var(--app-text)); font: inherit; font-size: var(--t-body); font-weight: 600; cursor: pointer; }
 .tile-name:hover { text-decoration: underline; text-underline-offset: 2px; }
-.tile-agent { display: inline-flex; align-items: center; gap: 5px; padding: 1px 7px; border-radius: var(--r-pill, 999px); background: color-mix(in srgb, var(--state-live) 16%, transparent); color: var(--ai-ink, var(--state-live)); font-size: var(--t-num); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tk-caps, .04em); }
+.tile-agent { display: inline-flex; align-items: center; gap: var(--s1h); padding: 1px var(--s2); border-radius: var(--r-pill, 999px); background: color-mix(in srgb, var(--state-live) 16%, transparent); color: var(--ai-ink, var(--state-live)); font-size: var(--t-num); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tk-caps, .04em); }
 .tile-agent i { width: 5px; height: 5px; border-radius: 50%; background: currentColor; box-shadow: 0 0 6px currentColor; }
-.tile-tag { padding: 1px 6px; border-radius: var(--r-xs, 4px); background: color-mix(in srgb, var(--app-text) 6%, transparent); color: var(--app-dim); font-size: var(--t-num); text-transform: uppercase; letter-spacing: var(--tk-caps, .04em); }
+.tile-tag { padding: 1px var(--s1h); border-radius: var(--r-xs, 4px); background: color-mix(in srgb, var(--app-text) 6%, transparent); color: var(--app-dim); font-size: var(--t-num); text-transform: uppercase; letter-spacing: var(--tk-caps, .04em); }
 .tile-bubble { max-width: 85%; overflow-wrap: anywhere; }
 .tile[data-turn="user"] .tile-bubble { padding: var(--s3) var(--s4); border-radius: var(--r-card) var(--r-card) var(--r-sm) var(--r-card); border: 1px solid color-mix(in srgb, var(--sec) 30%, transparent); background: color-mix(in srgb, var(--sec) 18%, var(--app-panel)); }
 .tile-attach { max-width: 85%; }
-.tile-quote { display: flex; flex-direction: column; gap: 1px; max-width: 100%; padding: 2px 0 2px var(--s2); border: 0; border-left: 2px solid var(--sec); background: none; color: var(--app-dim); font: inherit; font-size: var(--t-small); text-align: left; cursor: pointer; }
+.tile-quote { display: flex; flex-direction: column; gap: 1px; max-width: 100%; padding: var(--s0) 0 var(--s0) var(--s2); border: 0; border-left: 2px solid var(--sec); background: none; color: var(--app-dim); font: inherit; font-size: var(--t-small); text-align: left; cursor: pointer; }
 .tile-quote:hover { color: var(--app-text); }
 .tile-ell { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.tile-thread { display: inline-flex; align-items: center; gap: var(--s2); padding: 4px 10px 4px 8px; border: 1px solid var(--app-line); border-radius: var(--r-pill, 999px); background: none; color: var(--sec-ink, var(--sec)); font: inherit; font-size: var(--t-small); cursor: pointer; }
+.tile-thread { display: inline-flex; align-items: center; gap: var(--s2); padding: var(--s1) var(--s3) var(--s1) var(--s2); border: 1px solid var(--app-line); border-radius: var(--r-pill, 999px); background: none; color: var(--sec-ink, var(--sec)); font: inherit; font-size: var(--t-small); cursor: pointer; }
 .tile-thread:hover { background: var(--app-hover); border-color: var(--sec-line, var(--app-line)); }
 .tile-thread [data-meta] { color: var(--app-faint); }
 .tile-unread { width: 6px; height: 6px; border-radius: 50%; background: var(--sec); box-shadow: 0 0 6px var(--sec); }
 .tile-meta { display: flex; align-items: center; gap: var(--s2); min-height: 16px; color: var(--app-faint); font-size: var(--t-meta); }
 .tile-meta [data-num] { font-variant-numeric: tabular-nums; }
 .tile[data-sendstate="sending"] .tile-bubble { opacity: .65; }
-.tile-failed { display: inline-flex; align-items: center; gap: 6px; }
+.tile-failed { display: inline-flex; align-items: center; gap: var(--s1h); }
 .tile-failed b { color: var(--danger-ink); }
-.tile-failed button { padding: 0 4px; border: 0; background: none; color: var(--sec-ink, var(--app-blue)); font: inherit; font-weight: 600; cursor: pointer; }
-.tile-receipts { display: inline-flex; padding-left: 4px; }
-.tile-receipts > * { width: 16px; height: 16px; margin-left: -4px; display: inline-grid; place-items: center; border-radius: 50%; border: 1px solid var(--app-bg); background: var(--app-panel); font-size: 7px; }
+.tile-failed button { padding: 0 var(--s1); border: 0; background: none; color: var(--sec-ink, var(--app-blue)); font: inherit; font-weight: 600; cursor: pointer; }
+.tile-receipts { display: inline-flex; padding-left: var(--s1); }
+.tile-receipts > * { width: 16px; height: 16px; margin-left: -4px; display: inline-grid; place-items: center; border-radius: 50%; border: 1px solid var(--app-bg); background: var(--app-panel); font-size: var(--t-2xs); }
 .tile-artifact { display: inline-flex; align-items: center; gap: var(--s2); max-width: 100%; padding: var(--s2) var(--s3); border: 1px solid var(--app-line); border-radius: var(--r-md); background: var(--app-panel); color: var(--app-text); font: inherit; font-size: var(--t-small); cursor: pointer; }
 .tile-artifact:hover { border-color: var(--sec-line, var(--app-line)); }
 .tile-artifact[data-degraded] { border-style: dashed; }
-.tile-actions, .tile-picker { position: absolute; right: 12px; z-index: 10; display: flex; align-items: center; gap: 2px; padding: 3px; border: 1px solid var(--app-line); border-radius: var(--r-md);
+.tile-actions, .tile-picker { position: absolute; right: 12px; z-index: 10; display: flex; align-items: center; gap: var(--s0); padding: var(--s1); border: 1px solid var(--app-line); border-radius: var(--r-md);
   background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); box-shadow: var(--glass-edge), var(--glass-shadow); }
 .tile-actions { top: -14px; opacity: 0; transform: translateY(2px); pointer-events: none; transition: opacity var(--d1) var(--ease-fx), transform var(--d1) var(--ease-fx); }
 .tile:hover > .tile-actions, .tile:focus-within > .tile-actions, .tile[data-picking] > .tile-actions { opacity: 1; transform: none; pointer-events: auto; }
 .tile-picker { top: 20px; z-index: 11; animation: tile-pop var(--d2) var(--ease-spring); }
-.tile-act, .tile-emoji { width: 28px; height: 28px; display: grid; place-items: center; border: 0; border-radius: var(--r-sm); background: none; color: var(--app-dim); font-size: 15px; cursor: pointer; transition: background var(--d1) var(--ease-fx), color var(--d1) var(--ease-fx), transform var(--d1) var(--ease-spring); }
+.tile-act, .tile-emoji { width: 28px; height: 28px; display: grid; place-items: center; border: 0; border-radius: var(--r-sm); background: none; color: var(--app-dim); font-size: var(--t-input); cursor: pointer; transition: background var(--d1) var(--ease-fx), color var(--d1) var(--ease-fx), transform var(--d1) var(--ease-spring); }
 .tile-act:hover, .tile-emoji:hover, .tile-emoji:focus-visible { outline: none; background: var(--app-hover); color: var(--app-text); }
 .tile-act[aria-expanded="true"] { background: var(--sec-soft); color: var(--sec-ink, var(--sec)); }
 .tile-act[data-tone="danger"]:hover { background: var(--danger-soft, var(--app-hover)); color: var(--danger-ink); }

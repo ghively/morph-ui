@@ -131,7 +131,7 @@
 .animated-media-tabs-title {
   margin: 0 0 var(--s1) 0;
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: var(--t-lead);
   color: var(--app-text);
   font-weight: 600;
 }
@@ -142,4 +142,10 @@
   font-size: var(--t-meta);
   color: var(--app-dim);
   line-height: 1.4;
+}
+
+/* Back cards are only a stack silhouette: their copy would otherwise ghost
+   through/below the front card. */
+.animated-media-tabs-card:not([data-selected="true"]) .animated-media-tabs-footer > * {
+  visibility: hidden;
 }

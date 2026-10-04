@@ -51,6 +51,14 @@ Last verified 2026-10-02: all 174 `*.stories.tsx` modules load, and every story 
 - [x] **Duplicate public export of `formatBytes`.** Both re-exports now resolve to the single binding in `messageFormat.ts`, so `export *` can't become ambiguous.
 - [ ] **`MessageContent.tsx` has its own private `formatBytes`** (`toFixed(1)`, no PB). Left alone because changing the rounding could break `MessageContent-component.test.tsx` ("2 KB"). Consider switching it to `messageFormat` after checking that test.
 
+- [x] **Checkbox / RadioGroup restyled by generated primitives (2026-10-04).**
+  - `primitives.css` imported ChatUIMorph's own `[data-checkbox]` / `[data-radio]` control styles because the generator copies any rule naming an attribute a component renders. Inside a frame the Checkbox label wrapped one word per line, RadioGroup drew a phantom second dot, and `orientation="horizontal"` stacked.
+  - **Fix:** removed the 18 offending selectors (the components own those attributes). `test/primitives-collisions.test.ts` fails if they come back. Also gave the checkbox a `--r-xs` corner so it no longer reads as a radio.
+
+- [x] **Leaky / mis-built component styles found by the Claude Design regrade (2026-10-04).**
+  - `HeroPanel.css` was unscoped, so its `[data-mark]` / `[data-enter]` rules broke brand marks app-wide and stacked the composer's offline banner. Scoped under `.hero-panel`.
+  - ModalSurface `center` placement rendered as a bottom sheet (square bottom, no padding); Tooltip wrapped word by word; BarChart bars didn't share a baseline; success/error backgrounds were opaque light pastels on the dark frame. All fixed (see `.design-sync/NOTES.md`).
+
 ## P2 — Theme contract
 
 - [x] **Hard-coded colors moved to tokens** (new "component-scoped tokens" block in `tokens.css`):
@@ -63,6 +71,10 @@ Last verified 2026-10-02: all 174 `*.stories.tsx` modules load, and every story 
 - [~] **Intentionally literal**: named skins stay as they are, because the colors *are* the variant. That covers the TactileKeyboardBoard, TactileKeyboardShowcase and KeyboardShowcase colorways and finishes, the TextChromaReveal RGB layers, the TextGlitch channels, the LaptopFrame bezel and the ColorArchiveScroll media backdrop. This is documented in `docs/extraction.md`.
 - [x] **Monospace font**: AuditLogViewer, CodeDiffViewer, ShortcutHelp and VariablePromptInput now use `var(--app-mono)`.
 - [x] **Derived tokens didn't re-theme on a wrapper.** A new "alias re-resolution" block at the end of `tokens.css` redeclares all 53 `var()` aliases on `:where(.morph-frame, [data-morph-frame])`. Theming a frame now flows through `--morph-*`, `--cpi-gray-*`, `--bloom`, `--el*` and the rest.
+
+- [x] **Sizes and colours bypassed the token scales (2026-10-04).**
+  - Component CSS used 0 spacing tokens against 857 literal paddings/gaps, 27 distinct px font sizes, 21 radii and ~100 `var(--token, #hex)` fallbacks that silently ignored theming.
+  - **Fix:** completed the scales in `tokens.css` (`--t-2xs/xs/h4/h3/h2`, `--r-2xs`, `--s0/s1h/s4h/s7…s11`), snapped 1,403 declarations with `scripts/snap-to-scale.mjs` (screenshot-diffed all 210 previews: largest change 2% of pixels, no layout breaks), stripped dead colour fallbacks, tokenized the remaining tints, and added `pnpm lint:css` (stylelint + scale check) to the lint gate.
 
 ## P3 — Robustness
 

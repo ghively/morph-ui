@@ -1,8 +1,9 @@
 import type { ReactNode } from 'react';
 import './KpiCard.css';
+import { toTone, type ToneInput } from '../tone';
 
 export type DeltaDirection = 'up' | 'down' | 'flat';
-export type DeltaTone = 'good' | 'bad' | 'neutral';
+export type DeltaTone = ToneInput;
 
 export interface KpiCardProps {
   label: ReactNode;
@@ -36,7 +37,8 @@ function sparkPath(values: number[], width: number, height: number): string {
 
 /** Single headline metric tile for agent-built dashboards. */
 export function KpiCard({ label, value, delta, deltaDirection = 'flat', deltaTone, hint, spark, className = '' }: KpiCardProps) {
-  const tone: DeltaTone = deltaTone ?? (deltaDirection === 'up' ? 'good' : deltaDirection === 'down' ? 'bad' : 'neutral');
+  const t = deltaTone ? toTone(deltaTone) : deltaDirection === 'up' ? 'success' : deltaDirection === 'down' ? 'danger' : 'neutral';
+  const tone = t === 'success' ? 'good' : t === 'danger' ? 'bad' : 'neutral';
   const arrow = deltaDirection === 'up' ? '▲' : deltaDirection === 'down' ? '▼' : '●';
   return (
     <div className={className} data-kpi="">

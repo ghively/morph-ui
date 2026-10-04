@@ -117,8 +117,19 @@ export function MorphingBlobBackground({
     };
   }, [colors, blobCount]);
 
+  // The reduced-motion fallback paints from the same palette as the canvas.
+  const paletteVars = {
+    '--blob-c1': colors[0],
+    '--blob-c2': colors[1] ?? colors[0],
+    '--blob-c3': colors[2] ?? colors[0],
+  } as React.CSSProperties;
+
   return (
-    <div className={`morphing-blob-container ${className}`} data-morphing-blob-background>
+    <div
+      className={`morphing-blob-container ${className}`}
+      data-morphing-blob-background
+      style={paletteVars}
+    >
       <canvas ref={canvasRef} className="morphing-blob-canvas" aria-hidden="true" />
       <div className="morphing-blob-fallback" aria-hidden="true" />
     </div>

@@ -1,5 +1,6 @@
 /** Shared hooks + helpers for the LAYOUT_NAV components (polish batch, 2026-10). Not exported from the package index. */
 import { useState, useRef, useEffect, useMemo, useCallback, useInsertionEffect } from 'react';
+import { type ToneInput } from '../tone';
 import type { ReactNode, CSSProperties, PointerEvent as ReactPointerEvent } from 'react';
 
 /* ── shared bits ─────────────────────────────────────────────────────────── */
@@ -116,7 +117,7 @@ export interface CardProps { children: ReactNode; title?: ReactNode; subtitle?: 
 
 /* ── DetailsPanel ────────────────────────────────────────────────────────── */
 export interface ProfileBadge { id: string; label: string; solid?: boolean; }
-export interface ProfileCardProps { title: ReactNode; identifier?: ReactNode; description?: ReactNode; avatar?: ReactNode; status?: { text: ReactNode; tone?: 'ok' | 'warn' | 'danger' }; badges?: ProfileBadge[]; toggles?: { id: string; label: string; on: boolean; onChange: (next: boolean) => void }[]; chips?: string[]; note?: ReactNode; eyebrow?: ReactNode; className?: string; }
+export interface ProfileCardProps { title: ReactNode; identifier?: ReactNode; description?: ReactNode; avatar?: ReactNode; status?: { text: ReactNode; tone?: ToneInput }; badges?: ProfileBadge[]; toggles?: { id: string; label: string; on: boolean; onChange: (next: boolean) => void }[]; chips?: string[]; note?: ReactNode; eyebrow?: ReactNode; className?: string; }
 export interface DetailsPanelProps { kind: string; context?: string; onBack?: () => void; backLabel?: string; onClose: () => void; closeLabel?: string; icon?: ReactNode; label: string; children: ReactNode; className?: string; }
 
 /* ── Divider ─────────────────────────────────────────────────────────────── */
@@ -246,7 +247,7 @@ export function pageWindow(page: number, totalPages: number, siblingCount: numbe
 }
 
 /* ── PaneHeader ──────────────────────────────────────────────────────────── */
-export interface PaneHeaderProps { title: ReactNode; subtitle?: ReactNode; subtitlePrefix?: ReactNode; onBack?: () => void; backLabel?: string; ornament?: ReactNode; status?: { label: string; detail?: string; tone?: 'ok' | 'warn' | 'danger'; phase?: 'connecting' | 'live'; indicator?: ReactNode; }; actions?: { id: string; icon: ReactNode; label: string; shortLabel?: string; title?: string; ariaLabel?: string; active?: boolean; controls?: string; onSelect: () => void; }[]; className?: string; }
+export interface PaneHeaderProps { title: ReactNode; subtitle?: ReactNode; subtitlePrefix?: ReactNode; onBack?: () => void; backLabel?: string; ornament?: ReactNode; status?: { label: string; detail?: string; tone?: ToneInput; phase?: 'connecting' | 'live'; indicator?: ReactNode; }; actions?: { id: string; icon: ReactNode; label: string; shortLabel?: string; title?: string; ariaLabel?: string; active?: boolean; controls?: string; onSelect: () => void; }[]; className?: string; }
 
 /* ── SettingsPanel ───────────────────────────────────────────────────────── */
 export interface SettingsSection { id: string; label: string; }

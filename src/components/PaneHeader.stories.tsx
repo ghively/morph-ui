@@ -6,6 +6,7 @@ export default {
 } satisfies StoryDefault;
 
 export const Default: Story = () => (
+  <>
   <PaneHeader 
     title="Main Workspace"
     subtitle="12 members"
@@ -15,4 +16,7 @@ export const Default: Story = () => (
       { id: 'rooms', label: 'Rooms', icon: <span>R</span>, shortLabel: 'Rooms', active: true, controls: 'r-1', onSelect: () => {} }
     ]}
   />
+  {/* The Rooms action's aria-controls target. */}
+  <div id="r-1" style={{ padding: 'var(--s4)', color: 'var(--app-dim)' }}>Rooms panel</div>
+  </>
 );

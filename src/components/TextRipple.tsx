@@ -50,6 +50,7 @@ export function TextRipple({
       } as React.CSSProperties}
       onClick={triggerOnClick ? triggerRipple : undefined}
       data-text-ripple
+      data-clickable={triggerOnClick ? '' : undefined}
       key={key} // Re-renders the component to restart animation when triggered
     >
       <span className="text-ripple-sr-only">{text}</span>

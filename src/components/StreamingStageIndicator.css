@@ -3,16 +3,16 @@
 :where(.rag-stages) [data-state], :where(.rag-stages)[data-state] { position: revert; isolation: auto; overflow: visible; }
 :where(.rag-stages) [data-state]::before, :where(.rag-stages)[data-state]::before { content: none; }
 :where(.rag-stages) [data-empty], :where(.rag-stages)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
-.rag-stages { display: flex; align-items: center; gap: 10px; padding: 8px 2px; font-family: var(--font-sans); font-size: 12.5px; color: var(--app-text); border-top: 1px solid var(--app-line); border-bottom: 1px solid var(--app-line); }
-.rag-stages-step { flex: none; display: inline-flex; align-items: center; gap: 7px; color: var(--app-faint); transition: color var(--d2) var(--ease-fx); }
+.rag-stages { display: flex; align-items: center; gap: var(--s3); padding: var(--s2) var(--s0); font-family: var(--font-sans); font-size: var(--t-ctl); color: var(--app-text); border-top: 1px solid var(--app-line); border-bottom: 1px solid var(--app-line); }
+.rag-stages-step { flex: none; display: inline-flex; align-items: center; gap: var(--s2); color: var(--app-faint); transition: color var(--d2) var(--ease-fx); }
 .rag-stages-step[data-s='active'] { color: var(--app-text); font-weight: 600; }
 .rag-stages-step[data-s='done'] { color: var(--app-dim); }
-.rag-stages-mark { width: 18px; height: 18px; box-sizing: border-box; display: grid; place-items: center; border-radius: 4px; font-family: var(--app-mono); font-size: 10.5px; font-weight: 700; border: 1px solid color-mix(in srgb, var(--c) 60%, transparent); color: var(--c); }
+.rag-stages-mark { width: 18px; height: 18px; box-sizing: border-box; display: grid; place-items: center; border-radius: var(--r-xs); font-family: var(--app-mono); font-size: var(--t-eyebrow); font-weight: 700; border: 1px solid color-mix(in srgb, var(--c) 60%, transparent); color: var(--c); }
 .rag-stages-step[data-s='done'] .rag-stages-mark { background: var(--c); border-color: var(--c); color: var(--on-accent); }
 .rag-stages-step[data-s='active'] .rag-stages-mark { border-color: var(--c); box-shadow: 0 0 8px -2px var(--c); }
 .rag-stages-cursor { width: 7px; height: 13px; background: var(--c); animation: rag-stages-blink 1s step-end infinite; }
 .rag-stages-rule { flex: 1; min-width: 14px; height: 1px; background: var(--app-line); transition: background-color var(--d3) var(--ease-fx); }
 .rag-stages-rule[data-done] { background: var(--state-ok); }
-.rag-stages-ok { font-family: var(--app-mono); font-size: 11px; font-weight: 700; color: var(--c); }
+.rag-stages-ok { font-family: var(--app-mono); font-size: var(--t-num); font-weight: 700; color: var(--c); }
 @keyframes rag-stages-blink { 50% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .rag-stages-cursor { animation: none; } .rag-stages * { transition: none !important; } }

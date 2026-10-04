@@ -88,7 +88,7 @@ export function BloomSheet({ triggerLabel, title, children, className = '' }: Bl
             </svg>
           </button>
         </div>
-        <div className="bloom-sheet-content">
+        <div className="bloom-sheet-content" tabIndex={0}>
           {children}
         </div>
       </div>

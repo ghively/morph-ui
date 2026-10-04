@@ -7,8 +7,8 @@ describe('TactileKeyboardShowcase', () => {
     const { container } = render(<TactileKeyboardShowcase />);
     
     expect(container.querySelector('.colorway-classic')).toBeTruthy();
-    // Use aria-label selector for space because getLabel returns '' for space
-    expect(container.querySelector('[aria-label=""]')).toBeTruthy();
+    // The space bar has no printed label but still needs an accessible name.
+    expect(container.querySelector('.key-space')?.getAttribute('aria-label')).toBe('Space');
   });
 
   it('renders correctly with cyber colorway', () => {

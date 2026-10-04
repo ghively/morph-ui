@@ -1,26 +1,55 @@
-.lgA { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
-.lgA-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 0 4px; }
-.lgA-t { display: flex; align-items: baseline; gap: 10px; }
-.lgA-t h3 { margin: 0; font-size: 20px; font-weight: 700; color: var(--app-text); }
-.lgA-t span { font-size: 12px; color: var(--app-faint); }
-.lgA-ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
-.lgA-seg { display: inline-flex; gap: 2px; padding: 2px; border-radius: 999px; background: color-mix(in srgb, var(--app-text) 6%, transparent); border: 1px solid var(--app-line); }
-.lgA-seg button { all: unset; cursor: pointer; height: 26px; padding: 0 11px; border-radius: 999px; font-size: 11.5px; font-weight: 600; color: var(--app-dim); transition: color var(--d2) var(--ease-fx), background-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx); }
+.lgA { display: flex; flex-direction: column; gap: var(--s4h); min-width: 0; }
+.lgA-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s4); padding: 0 var(--s1); }
+.lgA-t { display: flex; align-items: baseline; gap: var(--s3); }
+.lgA-t h3 { margin: 0; font-size: var(--t-h3); font-weight: 700; color: var(--app-text); }
+.lgA-t span { font-size: var(--t-small); color: var(--app-faint); }
+.lgA-ctl { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3); }
+.lgA-seg { display: inline-flex; gap: var(--s0); padding: var(--s0); border-radius: var(--r-pill); background: color-mix(in srgb, var(--app-text) 6%, transparent); border: 1px solid var(--app-line); }
+.lgA-seg button { all: unset; cursor: pointer; height: 26px; padding: 0 var(--s4); border-radius: var(--r-pill); font-size: var(--t-meta); font-weight: 600; color: var(--app-dim); transition: color var(--d2) var(--ease-fx), background-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx); }
 .lgA-seg button:hover { color: var(--app-text); }
 .lgA-seg button[aria-pressed="true"] { color: var(--on-accent); background: var(--morph-accent); box-shadow: 0 0 12px -3px var(--morph-accent); }
 .lgA-seg button:focus-visible { outline: 2px solid var(--morph-accent); outline-offset: 1px; }
-.lgA-sort { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--app-dim); }
-.lgA-sort select { all: unset; cursor: pointer; box-sizing: border-box; height: 30px; padding: 0 10px; border-radius: 8px; font-size: 12px; font-weight: 600; color: var(--app-text); background: color-mix(in srgb, var(--app-text) 6%, transparent); border: 1px solid var(--app-line); }
+.lgA-sort { display: inline-flex; align-items: center; gap: var(--s1h); font-size: var(--t-meta); color: var(--app-dim); }
+/* No `all: unset` here: it drops the select to an inline box (text rides high)
+   and removes the native chevron. appearance:none + explicit line-height keeps
+   the label centred; the chevron is drawn from currentColor gradients. */
+.lgA-sort select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 30px;
+  line-height: 28px;
+  margin: 0;
+  padding: 0 calc(var(--s3) + var(--s5)) 0 var(--s3);
+  border-radius: var(--r-sm);
+  font: inherit;
+  font-size: var(--t-small);
+  font-weight: 600;
+  color: var(--app-text);
+  border: 1px solid var(--app-line);
+  background-color: color-mix(in srgb, var(--app-text) 6%, transparent);
+  background-image:
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position:
+    calc(100% - var(--s4) - var(--s1)) 55%,
+    calc(100% - var(--s4)) 55%;
+  background-size: var(--s1) var(--s1), var(--s1) var(--s1);
+  background-repeat: no-repeat;
+}
+.lgA-sort select option { color: var(--app-text); background: var(--app-elev); }
 .lgA-sort select:focus-visible { outline: 2px solid var(--morph-accent); outline-offset: 1px; }
 .lgA-body { position: relative; }
-.lgA-scroll { overflow-y: auto; padding-right: 32px; scroll-behavior: smooth; }
-.lgA-grid { display: grid; gap: 16px; }
+.lgA-scroll { overflow-y: auto; padding-right: var(--s8); scroll-behavior: smooth; }
+.lgA-grid { display: grid; gap: var(--s5); }
 .lgA-grid[data-shape="portrait"] { grid-template-columns: repeat(auto-fill, minmax(136px, 1fr)); }
 .lgA-grid[data-shape="landscape"] { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); }
 .lgA-grid[data-shape="square"] { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-.lgA-alpha { position: absolute; right: 0; top: 0; bottom: 0; width: 22px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 4px 0; font-family: var(--app-mono); font-size: 9.5px; }
-.lgA-alpha button { all: unset; cursor: pointer; width: 18px; height: 16px; display: grid; place-items: center; border-radius: 4px; color: var(--app-faint); transition: color var(--d1) var(--ease-fx), background-color var(--d1) var(--ease-fx); }
+.lgA-alpha { position: absolute; right: 0; top: 0; bottom: 0; width: 22px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: var(--s1) 0; font-family: var(--app-mono); font-size: var(--t-xs); }
+.lgA-alpha button { all: unset; cursor: pointer; width: 18px; height: 16px; display: grid; place-items: center; border-radius: var(--r-xs); color: var(--app-faint); transition: color var(--d1) var(--ease-fx), background-color var(--d1) var(--ease-fx); }
 .lgA-alpha button:hover:not(:disabled) { color: var(--app-text); background: color-mix(in srgb, var(--app-text) 10%, transparent); }
 .lgA-alpha button:disabled { opacity: .2; cursor: default; }
 .lgA-alpha button[aria-current="true"] { color: var(--on-accent); background: var(--morph-accent); font-weight: 700; }
-.lgA-empty { padding: 48px 16px; text-align: center; font-size: 13px; color: var(--app-faint); border-radius: 12px; background: color-mix(in srgb, var(--app-text) 3%, transparent); border: 1px dashed var(--app-line); }
+.lgA-empty { padding: var(--s10) var(--s5); text-align: center; font-size: var(--t-body); color: var(--app-faint); border-radius: var(--r-md); background: color-mix(in srgb, var(--app-text) 3%, transparent); border: 1px dashed var(--app-line); }

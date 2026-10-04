@@ -2,32 +2,32 @@
    Reads only theme tokens + the --state-* / --glass-* layer in tokens.css. */
 .context-switcher { position: relative; display: inline-block; font-size: var(--t-body, 13px); color: var(--app-text); }
 .context-switcher-trig {
-  all: unset; box-sizing: border-box; display: flex; align-items: center; gap: 10px; min-width: 200px; padding: 6px 10px 6px 6px; cursor: pointer;
-  border-radius: 12px; border: 1px solid var(--app-line); background: var(--glass-bg);
+  all: unset; box-sizing: border-box; display: flex; align-items: center; gap: var(--s3); min-width: 200px; padding: var(--s1h) var(--s3) var(--s1h) var(--s1h); cursor: pointer;
+  border-radius: var(--r-md); border: 1px solid var(--app-line); background: var(--glass-bg);
   backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
   box-shadow: var(--glass-edge), 0 6px 18px -10px rgba(0, 0, 0, .6);
   transition: border-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx), background var(--d2) var(--ease-fx);
 }
 .context-switcher-trig:hover { border-color: color-mix(in srgb, var(--ai) 35%, var(--app-line)); }
 .context-switcher-trig:focus-visible, .context-switcher.is-open .context-switcher-trig { border-color: color-mix(in srgb, var(--ai) 55%, transparent); box-shadow: var(--glass-edge), 0 0 0 3px color-mix(in srgb, var(--ai) 16%, transparent), 0 6px 22px -8px color-mix(in srgb, var(--ai) 45%, transparent); }
-.context-switcher-tile { --tc: var(--ai); flex: none; width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; font-size: 13px; font-weight: 700; color: var(--tc); background: color-mix(in srgb, var(--tc) 16%, transparent); border: 1px solid color-mix(in srgb, var(--tc) 35%, transparent); box-shadow: 0 0 14px -6px var(--tc); }
-.context-switcher-tile.is-sm { width: 26px; height: 26px; border-radius: 8px; font-size: 12px; }
+.context-switcher-tile { --tc: var(--ai); flex: none; width: 30px; height: 30px; border-radius: var(--r-sm); display: grid; place-items: center; font-size: var(--t-body); font-weight: 700; color: var(--tc); background: color-mix(in srgb, var(--tc) 16%, transparent); border: 1px solid color-mix(in srgb, var(--tc) 35%, transparent); box-shadow: 0 0 14px -6px var(--tc); }
+.context-switcher-tile.is-sm { width: 26px; height: 26px; border-radius: var(--r-sm); font-size: var(--t-small); }
 .context-switcher-tt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
-.context-switcher-k { font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--app-faint); }
+.context-switcher-k { font-size: var(--t-eyebrow); letter-spacing: .06em; text-transform: uppercase; color: var(--app-faint); }
 .context-switcher-v { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.context-switcher-d { font-size: 11.5px; color: var(--app-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.context-switcher-d { font-size: var(--t-meta); color: var(--app-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .context-switcher-ud { flex: none; width: 16px; height: 16px; fill: none; stroke: var(--app-faint); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 .context-switcher-menu {
-  position: absolute; z-index: 100; top: calc(100% + 6px); left: 0; min-width: 100%; width: 260px; padding: 5px;
-  border-radius: 14px; border: 1px solid var(--app-line); background: color-mix(in srgb, var(--app-elev) 92%, transparent);
+  position: absolute; z-index: 100; top: calc(100% + 6px); left: 0; min-width: 100%; width: 260px; padding: var(--s1h);
+  border-radius: var(--r-lg); border: 1px solid var(--app-line); background: color-mix(in srgb, var(--app-elev) 92%, transparent);
   backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%);
   box-shadow: var(--glass-edge), 0 24px 48px -16px rgba(0, 0, 0, .7);
   transform-origin: top left; opacity: 0; visibility: hidden; transform: translateY(-4px) scale(.97);
   transition: opacity var(--d2) var(--ease-fx), transform var(--d2) var(--ease-emph), visibility 0s linear var(--d2);
 }
 .context-switcher.is-open .context-switcher-menu { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
-.context-switcher-it { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border-radius: 10px; cursor: pointer; color: var(--app-dim); transition: background var(--d1) var(--ease-fx), color var(--d1) var(--ease-fx); }
+.context-switcher-it { display: flex; align-items: center; gap: var(--s3); padding: var(--s2) var(--s2); border-radius: var(--r-md); cursor: pointer; color: var(--app-dim); transition: background var(--d1) var(--ease-fx), color var(--d1) var(--ease-fx); }
 .context-switcher-it.is-hi { background: color-mix(in srgb, var(--app-text) 7%, transparent); color: var(--app-text); }
 .context-switcher-it.is-sel { color: var(--app-text); }
 .context-switcher-check { flex: none; width: 16px; height: 16px; fill: none; stroke: var(--ai); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 4px color-mix(in srgb, var(--ai) 60%, transparent)); }

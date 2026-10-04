@@ -3,7 +3,7 @@ import { CodeDiffViewer, type DiffHunk } from './CodeDiffViewer';
 const unifiedDiff = `diff --git a/src/gateway/retry.ts b/src/gateway/retry.ts
 --- a/src/gateway/retry.ts
 +++ b/src/gateway/retry.ts
-@@ -12,8 +12,10 @@ export async function withRetry<T>(
+@@ -12,9 +12,10 @@ export async function withRetry<T>(
    let attempt = 0;
    while (attempt < maxAttempts) {
      try {
@@ -15,7 +15,7 @@ const unifiedDiff = `diff --git a/src/gateway/retry.ts b/src/gateway/retry.ts
        attempt += 1;
      }
    }
-@@ -41,4 +43,4 @@ export function isRetryable(err: unknown) {
+@@ -41,3 +42,3 @@ export function isRetryable(err: unknown) {
    if (!(err instanceof HttpError)) return false;
 -  return err.status >= 500;
 +  return err.status >= 500 || err.status === 429;

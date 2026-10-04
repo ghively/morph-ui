@@ -40,6 +40,23 @@
   letter-spacing: inherit;
 }
 
+/* color: inherit above makes control ink light, so the UA's light ButtonFace /
+   Field backgrounds must go too or an unstyled control is light-on-light. */
+:where(.morph-frame, [data-morph-frame]) :where(button) {
+  background-color: var(--morph-input-bg);
+  border: 1px solid var(--morph-border-strong);
+  border-radius: var(--r-sm);
+}
+
+:where(.morph-frame, [data-morph-frame]) :where(input:not([type='range'], [type='checkbox'], [type='radio'], [type='color'], [type='file']), select, textarea) {
+  background-color: var(--morph-input-bg);
+  border: 1px solid var(--morph-border);
+}
+
+:where(.morph-frame, [data-morph-frame]) :where(select option, optgroup) {
+  background-color: var(--app-bg);
+}
+
 :where(.morph-frame, [data-morph-frame]) :where(svg) {
   display: block;
 }

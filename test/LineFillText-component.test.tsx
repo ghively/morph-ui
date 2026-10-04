@@ -28,3 +28,26 @@ describe('LineFillText', () => {
     expect((containerEl as HTMLElement).style.getPropertyValue('--fill-delay')).toBe('2s');
   });
 });
+
+describe('LineFillText viewBox fitting', () => {
+  it('fits the viewBox to the measured text box', () => {
+    const proto = (window as unknown as { SVGElement: typeof SVGElement }).SVGElement.prototype as unknown as {
+      getBBox?: () => { x: number; y: number; width: number; height: number };
+    };
+    const original = proto.getBBox;
+    proto.getBBox = () => ({ x: -200, y: 50, width: 1200, height: 100 });
+    try {
+      const { container } = render(<LineFillText text="Interfaces that morph" />);
+      const svg = container.querySelector('svg');
+      expect(svg?.getAttribute('viewBox')).toBe('-208 42 1216 116');
+    } finally {
+      if (original) proto.getBBox = original;
+      else delete proto.getBBox;
+    }
+  });
+
+  it('keeps the fallback viewBox when text cannot be measured', () => {
+    const { container } = render(<LineFillText text="Morph" />);
+    expect(container.querySelector('svg')?.getAttribute('viewBox')).toBe('0 0 800 200');
+  });
+});

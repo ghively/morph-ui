@@ -43,6 +43,8 @@ export function PerspectiveMarquee({
           <div
             key={row.id}
             className="perspective-marquee-row-wrapper"
+            // Scrollable under reduced motion; focusable so the keyboard can scroll it.
+            tabIndex={0}
           >
             <div
               className={`perspective-marquee-row direction-${row.direction || 'left'}`}

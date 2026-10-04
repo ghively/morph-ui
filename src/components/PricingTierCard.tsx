@@ -7,6 +7,8 @@ export interface PricingTierCardProps {
   features: ReactNode[];
   highlight?: boolean;
   onToggle?: (active: boolean) => void;
+  /** Visible label for the toggle (e.g. "Billed annually"). Without one the switch has no on-screen meaning. */
+  toggleLabel?: ReactNode;
   ctaText?: string;
   className?: string;
 }
@@ -17,6 +19,7 @@ export function PricingTierCard({
   features, 
   highlight = false,
   onToggle,
+  toggleLabel,
   ctaText = 'Subscribe',
   className = '' 
 }: PricingTierCardProps) {
@@ -58,9 +61,10 @@ export function PricingTierCard({
               type="checkbox" 
               checked={isActive} 
               onChange={handleToggle} 
-              aria-label={`Toggle ${title} features`}
+              aria-label={toggleLabel ? undefined : `Toggle ${title} features`}
             />
-            <span className="pricing-toggle-slider" />
+            <span className="pricing-toggle-slider" aria-hidden="true" />
+            {toggleLabel ? <span className="pricing-toggle-label">{toggleLabel}</span> : null}
           </label>
         )}
 

@@ -44,12 +44,12 @@
 .keyboard-keys-container {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--s1);
 }
 
 .keyboard-row {
   display: flex;
-  gap: 4px;
+  gap: var(--s1);
   justify-content: space-between;
 }
 
@@ -58,10 +58,10 @@
   background: var(--kb-key-bg);
   color: var(--kb-key-text);
   border: 1px solid rgba(0,0,0,0.05);
-  border-radius: 4px;
+  border-radius: var(--r-xs);
   font-family: var(--font-sans);
-  font-size: 10px;
-  padding: 4px;
+  font-size: var(--t-xs);
+  padding: var(--s1);
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
@@ -78,7 +78,7 @@
 
 .keyboard-row:first-child .keyboard-key {
   height: 20px;
-  font-size: 8px;
+  font-size: var(--t-2xs);
 }
 
 /* Modifier widths */
@@ -93,19 +93,22 @@
 
 /* ISO specific */
 .layout-iso .key-shift-l { min-width: 44px; }
-.layout-iso .key-enter-iso-top { 
-  min-width: 50px; 
-  height: 84px; 
-  position: absolute; 
-  right: 0;
-  border-radius: 4px 4px 4px 4px; 
+.layout-iso .key-enter-iso-top {
+  /* In flow (so `]` keeps its slot) and spanning two rows: 2 × 40px keys plus
+     the row gap. The negative bottom margin keeps row 3 at one key height. */
+  min-width: 50px;
+  height: calc(80px + var(--s1, 4px));
+  margin-bottom: calc(-40px - var(--s1, 4px));
+  align-self: flex-start;
+  /* Label sits in the wide upper half, never in the clipped lower-left notch. */
+  align-items: flex-start;
+  /* Lower half is 80% wide, matching the 40px spacer on the home row. */
   clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%, 20% 50%, 0 50%);
-  /* Z-index to layer over the bottom row */
+  /* Layer over the home row's spacer */
   z-index: 2;
 }
 
-/* For ISO, since enter spans two rows, we use absolute positioning on the top part and hide the bottom part or make it a spacer */
-.layout-iso .keyboard-row:nth-child(3) { position: relative; }
+/* The home-row spacer reserves the Enter's lower half. */
 .layout-iso .key-enter-iso-bottom { visibility: hidden; min-width: 40px; }
 
 
@@ -132,7 +135,7 @@
 .keyboard-key-group {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--s0);
 }
 
 .keyboard-arrows-top {
@@ -142,7 +145,7 @@
 
 .keyboard-arrows-bottom {
   display: flex;
-  gap: 4px;
+  gap: var(--s1);
 }
 
 .key-arrow {

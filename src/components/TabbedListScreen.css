@@ -60,7 +60,7 @@
 [data-tabstrip] > [data-tab] > [data-count] {
   background-color: var(--app-line);
   color: var(--app-dim);
-  border-radius: 12px;
+  border-radius: var(--r-md);
   padding: var(--s1) var(--s2);
   font-size: var(--t-num);
   font-weight: 500;

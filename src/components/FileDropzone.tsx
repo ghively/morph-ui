@@ -104,22 +104,22 @@ export function FileDropzone({
         </svg>
         <span data-droptitle="">{dragging ? 'Drop to upload' : label}</span>
         <span data-drophint="">{hint}</span>
-        <input
-          ref={inputRef}
-          id={id}
-          type="file"
-          accept={accept}
-          multiple={multiple}
-          disabled={disabled}
-          data-dropinput=""
-          tabIndex={-1}
-          aria-hidden="true"
-          onChange={(e) => {
-            if (e.target.files && e.target.files.length > 0) ingest(e.target.files);
-            e.target.value = '';
-          }}
-        />
       </div>
+      <input
+        ref={inputRef}
+        id={id}
+        type="file"
+        accept={accept}
+        multiple={multiple}
+        disabled={disabled}
+        data-dropinput=""
+        tabIndex={-1}
+        aria-hidden="true"
+        onChange={(e) => {
+          if (e.target.files && e.target.files.length > 0) ingest(e.target.files);
+          e.target.value = '';
+        }}
+      />
       {errors.length > 0 && (
         <ul data-droperrors="" role="alert">
           {errors.map((err) => (

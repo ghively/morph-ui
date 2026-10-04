@@ -4,25 +4,25 @@
 :where(.var-prompt) [data-state]::before, :where(.var-prompt)[data-state]::before { content: none; }
 :where(.var-prompt) [data-empty], :where(.var-prompt)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
 .var-prompt { --c: var(--morph-accent); display: flex; flex-direction: column; font-family: var(--font-sans); color: var(--app-text); }
-.var-prompt-label { padding-bottom: 6px; font-size: 13px; font-weight: 700; }
-.var-prompt-tpl { font-family: var(--app-mono); font-size: 12px; line-height: 1.6; padding: 8px 2px; color: var(--app-dim); background: transparent; border: 0; border-top: 1px solid var(--app-line); border-bottom: 1px solid var(--app-line); resize: vertical; outline: none; transition: border-color var(--d2) var(--ease-fx); }
+.var-prompt-label { padding-bottom: var(--s1h); font-size: var(--t-body); font-weight: 700; }
+.var-prompt-tpl { font-family: var(--app-mono); font-size: var(--t-small); line-height: 1.6; padding: var(--s2) var(--s0); color: var(--app-dim); background: transparent; border: 0; border-top: 1px solid var(--app-line); border-bottom: 1px solid var(--app-line); resize: vertical; outline: none; transition: border-color var(--d2) var(--ease-fx); }
 .var-prompt-tpl:focus { border-bottom-color: var(--c); color: var(--app-text); }
 .var-prompt-fields { display: flex; flex-direction: column; }
-.var-prompt-field { display: grid; grid-template-columns: minmax(90px, 30%) minmax(0, 1fr) 44px; align-items: center; gap: 10px; padding: 0 2px; border-bottom: 1px solid var(--app-line); transition: background-color var(--d2) var(--ease-fx); }
+.var-prompt-field { display: grid; grid-template-columns: minmax(90px, 30%) minmax(0, 1fr) 44px; align-items: center; gap: var(--s3); padding: 0 var(--s0); border-bottom: 1px solid var(--app-line); transition: background-color var(--d2) var(--ease-fx); }
 .var-prompt-field:focus-within { background: var(--app-hover); }
-.var-prompt-name { font-family: var(--app-mono); font-size: 11.5px; font-weight: 700; color: var(--app-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.var-prompt-name { font-family: var(--app-mono); font-size: var(--t-meta); font-weight: 700; color: var(--app-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .var-prompt-field:focus-within .var-prompt-name { color: var(--c); }
-.var-prompt-field input { font: inherit; font-size: 12.5px; height: 34px; padding: 0; color: var(--app-text); background: transparent; border: 0; outline: none; min-width: 0; }
-.var-prompt-st { text-align: right; font-family: var(--app-mono); font-size: 10.5px; letter-spacing: .06em; color: var(--state-warn); }
+.var-prompt-field input { font: inherit; font-size: var(--t-ctl); height: 34px; padding: 0; color: var(--app-text); background: transparent; border: 0; outline: none; min-width: 0; }
+.var-prompt-st { text-align: right; font-family: var(--app-mono); font-size: var(--t-eyebrow); letter-spacing: .06em; color: var(--state-warn); }
 .var-prompt-field[data-filled] .var-prompt-st { color: var(--state-ok); }
-.var-prompt-preview { display: flex; gap: 10px; padding: 10px 2px; border-bottom: 1px solid var(--app-line); }
-.var-prompt-p { font-family: var(--app-mono); font-size: 12px; color: var(--c); line-height: 1.6; }
-.var-prompt-text { margin: 0; font-size: 13px; line-height: 1.6; white-space: pre-wrap; text-wrap: pretty; }
-.var-prompt-text mark { background: transparent; color: var(--state-warn); font-family: var(--app-mono); font-size: 11.5px; }
+.var-prompt-preview { display: flex; gap: var(--s3); padding: var(--s3) var(--s0); border-bottom: 1px solid var(--app-line); }
+.var-prompt-p { font-family: var(--app-mono); font-size: var(--t-small); color: var(--c); line-height: 1.6; }
+.var-prompt-text { margin: 0; font-size: var(--t-body); line-height: 1.6; white-space: pre-wrap; text-wrap: pretty; }
+.var-prompt-text mark { background: transparent; color: var(--state-warn); font-family: var(--app-mono); font-size: var(--t-meta); }
 .var-prompt-text mark[data-filled] { font-family: inherit; font-size: inherit; color: var(--app-text); text-decoration: underline; text-decoration-color: var(--c); text-underline-offset: 3px; }
-.var-prompt-actions { display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding-top: 10px; }
-.var-prompt-hint { font-family: var(--app-mono); font-size: 11px; color: var(--app-faint); }
-.var-prompt-run { all: unset; height: 30px; padding: 0 14px; border-radius: 4px; font-size: 12.5px; font-weight: 650; color: var(--c); border: 1px solid var(--c); cursor: pointer; transition: color var(--d2) var(--ease-fx), background-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx); }
+.var-prompt-actions { display: flex; align-items: center; justify-content: flex-end; gap: var(--s4); padding-top: var(--s3); }
+.var-prompt-hint { font-family: var(--app-mono); font-size: var(--t-num); color: var(--app-faint); }
+.var-prompt-run { all: unset; height: 30px; padding: 0 var(--s4h); border-radius: var(--r-xs); font-size: var(--t-ctl); font-weight: 650; color: var(--c); border: 1px solid var(--c); cursor: pointer; transition: color var(--d2) var(--ease-fx), background-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx); }
 .var-prompt-run:hover:not(:disabled) { color: var(--on-accent); background: var(--c); box-shadow: 0 0 14px -4px var(--c); }
 .var-prompt-run:focus-visible { outline: 2px solid var(--c); outline-offset: 2px; }
 .var-prompt-run:disabled { cursor: not-allowed; color: var(--app-faint); border-color: var(--app-line); }

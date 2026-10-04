@@ -60,6 +60,22 @@ describe('ParticleImage', () => {
     expect(staticImg.getAttribute('src')).toBe('test.png');
   });
 
+  it('keeps a canvas for the static particle frame under reduced motion', async () => {
+    window.matchMedia = vi.fn().mockImplementation(query => ({
+      matches: query === '(prefers-reduced-motion: reduce)',
+      media: query,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    }));
+
+    const { container } = render(<ParticleImage src="test.png" alt="Test" />);
+    await new Promise(r => setTimeout(r, 10));
+
+    const canvas = container.querySelector('canvas.particle-image-canvas');
+    expect(canvas).toBeTruthy();
+    expect(canvas?.hasAttribute('data-static')).toBe(true);
+  });
+
   it('handles mouse interaction without crashing', async () => {
     window.matchMedia = vi.fn().mockImplementation(() => ({
       matches: false,

@@ -1703,22 +1703,6 @@
 :where(.morph-frame, [data-morph-frame]) [data-sw]:active::before {
   opacity: 0.1;
 }
-:where(.morph-frame, [data-morph-frame]) [data-radio]::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: currentColor;
-  opacity: 0;
-  transition: opacity var(--d2) var(--ease-fx);
-}
-:where(.morph-frame, [data-morph-frame]) [data-radio]:hover::after {
-  opacity: 0.08;
-}
-:where(.morph-frame, [data-morph-frame]) [data-radio]:active::after {
-  opacity: 0.1;
-}
 :where(.morph-frame, [data-morph-frame]) [data-state] {
   overflow: hidden;
 }
@@ -1996,107 +1980,6 @@
   text-align: end;
   color: var(--app-dim);
 }
-:where(.morph-frame, [data-morph-frame]) [data-radio] {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--s3);
-  padding: var(--s3) var(--s3);
-  width: 100%;
-  border: 0;
-  border-radius: var(--r-card);
-  background: transparent;
-  color: var(--app-text);
-  cursor: pointer;
-  text-align: left;
-  font: inherit;
-  position: relative;
-  isolation: isolate;
-}
-:where(.morph-frame, [data-morph-frame]) [data-radio]::before {
-  content: "";
-  flex: none;
-  width: 16px;
-  height: 16px;
-  margin-top: 1px;
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 2px var(--app-line);
-  transition: box-shadow var(--d2) var(--ease-emph);
-}
-:where(.morph-frame, [data-morph-frame]) [data-radio][aria-checked="true"]::before {
-  box-shadow: inset 0 0 0 5px var(--sec-fill, var(--sec));
-}
-:where(.morph-frame, [data-morph-frame]) [data-checkbox] {
-  display: inline-flex;
-  flex: none;
-  width: 16px;
-  height: 16px;
-  border: 0;
-  padding: 0;
-  border-radius: var(--r-xs);
-  background: transparent;
-  color: var(--app-text);
-  box-shadow: inset 0 0 0 2px var(--app-line);
-  cursor: pointer;
-  position: relative;
-  isolation: isolate;
-  transition:
-    background var(--d2) var(--ease-emph),
-    box-shadow var(--d2) var(--ease-emph);
-}
-:where(.morph-frame, [data-morph-frame]) [data-checkbox][aria-checked="true"],
-:where(.morph-frame, [data-morph-frame]) [data-checkbox][aria-checked="mixed"] {
-  box-shadow: none;
-  background: var(--sec-fill, var(--sec));
-  color: var(--on-sec);
-}
-:where(.morph-frame, [data-morph-frame]) [data-checkbox]::before {
-  content: "";
-  position: absolute;
-  inset-inline-start: 3px;
-  top: 3px;
-  width: 8px;
-  height: 5px;
-  border-left: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-  transform: rotate(-45deg) scale(0);
-  transform-origin: 1px 2px;
-  opacity: 0;
-  transition:
-    transform var(--d3) var(--ease-emph),
-    opacity var(--d2) var(--ease-fx);
-}
-:where(.morph-frame, [data-morph-frame]) [data-checkbox][aria-checked="true"]::before {
-  opacity: 1;
-  transform: rotate(-45deg) scale(1);
-}
-:where(.morph-frame, [data-morph-frame]) [data-checkbox][aria-checked="mixed"]::before {
-  border-left: 0;
-  width: 8px;
-  height: 0;
-  top: 7px;
-  inset-inline-start: 3px;
-  transform: none;
-  opacity: 1;
-}
-:where(.morph-frame, [data-morph-frame]) [data-checkbox]::after {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  z-index: -1;
-  border-radius: inherit;
-  background: currentColor;
-  opacity: 0;
-  transition: opacity var(--d2) var(--ease-fx);
-}
-:where(.morph-frame, [data-morph-frame]) [data-checkbox]:hover::after {
-  opacity: 0.08;
-}
-:where(.morph-frame, [data-morph-frame]) [data-checkbox]:active::after {
-  opacity: 0.1;
-}
-:where(.morph-frame, [data-morph-frame]) [data-checkbox][disabled]::after {
-  display: none;
-}
 :where(.morph-frame, [data-morph-frame]) [data-avatars] {
   display: flex;
   align-items: center;
@@ -2288,8 +2171,7 @@
 :where(.morph-frame, [data-morph-frame]) [data-iconbtn][disabled],
 :where(.morph-frame, [data-morph-frame]) [data-chip][disabled],
 :where(.morph-frame, [data-morph-frame]) [data-segbtn][disabled],
-:where(.morph-frame, [data-morph-frame]) [data-sw][disabled],
-:where(.morph-frame, [data-morph-frame]) [data-checkbox][disabled] {
+:where(.morph-frame, [data-morph-frame]) [data-sw][disabled] {
   background: var(--app-track) !important;
   color: var(--app-dim) !important;
   box-shadow: none !important;
@@ -2530,10 +2412,6 @@
   flex: none;
   color: var(--sec-ink);
   font-weight: 700;
-}
-:where(.morph-frame, [data-morph-frame]) [data-checkitem] > [data-checkbox] {
-  margin-top: 2px;
-  flex: none;
 }
 :where(.morph-frame, [data-morph-frame]) [data-checkitem] [data-meta] {
   display: block;

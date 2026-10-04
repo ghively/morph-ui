@@ -5,9 +5,15 @@ export interface SplitFlapDisplayProps {
   value: string;
   className?: string;
   padLength?: number;
+  /**
+   * Which side the value hugs when `padLength` adds blank tiles.
+   * 'start' (default) pads after the value; 'end' pads before it (right-aligned,
+   * e.g. counters and prices).
+   */
+  align?: 'start' | 'end';
 }
 
-export function SplitFlapDisplay({ value, className = '', padLength }: SplitFlapDisplayProps) {
+export function SplitFlapDisplay({ value, className = '', padLength, align = 'start' }: SplitFlapDisplayProps) {
   const [currentValue, setCurrentValue] = useState(value);
   const [nextValue, setNextValue] = useState(value);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -39,8 +45,10 @@ export function SplitFlapDisplay({ value, className = '', padLength }: SplitFlap
     }
   }, [isAnimating, nextValue]);
 
-  const displayString = padLength ? currentValue.padEnd(padLength, ' ') : currentValue;
-  const nextDisplayString = padLength ? nextValue.padEnd(padLength, ' ') : nextValue;
+  const pad = (str: string) =>
+    padLength ? (align === 'end' ? str.padStart(padLength, ' ') : str.padEnd(padLength, ' ')) : str;
+  const displayString = pad(currentValue);
+  const nextDisplayString = pad(nextValue);
 
   const chars = displayString.split('');
   const nextChars = nextDisplayString.split('');
@@ -49,7 +57,7 @@ export function SplitFlapDisplay({ value, className = '', padLength }: SplitFlap
   const maxLength = Math.max(chars.length, nextChars.length);
 
   return (
-    <div data-split-flap-display className={className} aria-label={`Display showing ${nextValue}`}>
+    <div data-split-flap-display data-align={align} className={className} aria-label={`Display showing ${nextValue}`}>
       {Array.from({ length: maxLength }).map((_, index) => {
         const char = chars[index] || ' ';
         const nextChar = nextChars[index] || ' ';
@@ -57,13 +65,15 @@ export function SplitFlapDisplay({ value, className = '', padLength }: SplitFlap
 
         return (
           <div key={`${index}-${char}`} className="flap-character" data-animating={charIsAnimating}>
-            <div className="flap-top">{nextChar}</div>
-            <div className="flap-bottom">{char}</div>
+            {/* Each half clips one full-height glyph: the top shows its upper
+                half, the bottom shifts it up to show the lower half. */}
+            <div className="flap-top"><span className="flap-glyph">{nextChar}</span></div>
+            <div className="flap-bottom"><span className="flap-glyph">{char}</span></div>
             
             {charIsAnimating && (
               <>
-                <div className="flap-top-fold">{char}</div>
-                <div className="flap-bottom-fold">{nextChar}</div>
+                <div className="flap-top-fold"><span className="flap-glyph">{char}</span></div>
+                <div className="flap-bottom-fold"><span className="flap-glyph">{nextChar}</span></div>
               </>
             )}
           </div>

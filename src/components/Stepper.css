@@ -21,13 +21,13 @@
 [data-stepbtn] {
   font: inherit;
   display: flex;
-  gap: 9px;
+  gap: var(--s3);
   align-items: flex-start;
   background: transparent;
   border: none;
   color: inherit;
-  padding: 2px;
-  border-radius: 8px;
+  padding: var(--s0);
+  border-radius: var(--r-sm);
   text-align: left;
   transition: background-color var(--d2) var(--ease-fx),
     border-color var(--d2) var(--ease-fx),
@@ -73,7 +73,7 @@
 [data-steptext] {
   display: flex;
   flex-direction: column;
-  padding-top: 3px;
+  padding-top: var(--s1);
   min-width: 0;
 }
 
@@ -89,19 +89,19 @@
 
 [data-stephint] {
   font-size: var(--t-meta);
-  opacity: 0.65;
+  color: var(--app-faint);
   white-space: nowrap;
 }
 
 [data-stepconnector] {
   flex: 1;
   height: 1.5px;
-  margin: 15px 10px 0;
+  margin: var(--s5) var(--s3) 0;
   background: var(--morph-border);
   min-width: 12px;
 }
 
-[data-step][data-state='done'] + [data-step] [data-stepconnector],
-[data-step]:has(+ [data-step][data-state='done']) [data-stepconnector] {
+/* A step's connector links it to the next step: complete only when both ends are done. */
+[data-step][data-state='done']:has(+ [data-step][data-state='done']) [data-stepconnector] {
   background: var(--morph-success);
 }

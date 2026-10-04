@@ -1,12 +1,10 @@
 import { FluidWorkspaceBoard } from "./FluidWorkspaceBoard";
 import type { FluidWorkspaceBoardItem } from "./FluidWorkspaceBoard";
 
+// The board item already pads its body and sets body type; the panel adds
+// none of its own so the copy lines up with the card title.
 function panel(text: string) {
-  return (
-    <div style={{ padding: "1rem", fontSize: "0.9rem", lineHeight: 1.6, opacity: 0.85 }}>
-      {text}
-    </div>
-  );
+  return <div>{text}</div>;
 }
 
 const items: FluidWorkspaceBoardItem[] = [

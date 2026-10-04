@@ -6,8 +6,8 @@ export const Default = () => (
       coverContent={
         <div
           style={{
-            width: 220,
-            height: 320,
+            width: "100%",
+            height: "100%",
             background: "linear-gradient(150deg, #2b2d64, #0b1030)",
             color: "#eef1fc",
             padding: "1.5rem",

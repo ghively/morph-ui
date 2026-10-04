@@ -2,24 +2,24 @@
 .threads-main { padding: 0 var(--s3); margin-top: var(--s3); }
 .threads-eyebrow { margin: var(--s5) var(--s5) var(--s2); color: var(--app-rail-dim); font-size: var(--t-eyebrow, var(--t-meta)); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tk-caps, .05em); }
 .threads-empty { padding: var(--s2) var(--s5); color: var(--app-rail-dim); font-size: var(--t-meta); line-height: 1.45; }
-.threads-row { position: relative; margin: 0 var(--s3) 2px; }
+.threads-row { position: relative; margin: 0 var(--s3) var(--s0); }
 .threads-main .threads-row { margin: 0; }
-.threads-btn { position: relative; width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 7px 64px 7px var(--s3); border: 0; border-radius: var(--r-md); background: none;
+.threads .threads-row > .threads-btn { position: relative; width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: var(--s0); padding: var(--s2) var(--s11) var(--s2) var(--s3); border: 0; border-radius: var(--r-md); background: none;
   color: inherit; font: inherit; font-size: var(--t-ctl); text-align: left; cursor: pointer; transition: background var(--d1) var(--ease-fx); }
-.threads-btn:hover { background: var(--app-hover); }
-.threads-btn:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--sec-soft); }
-.threads-row[data-on="true"] > .threads-btn { background: var(--sec-soft); color: var(--sec-ink, var(--app-blue)); font-weight: 600; }
-.threads-row[data-on="true"] > .threads-btn::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; border-radius: 2px; background: var(--sec); box-shadow: 0 0 8px var(--sec); }
+.threads .threads-row > .threads-btn:hover { background: var(--app-hover); }
+.threads .threads-row > .threads-btn:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--sec-soft); }
+.threads .threads-row[data-on="true"] > .threads-btn { background: var(--sec-soft); color: var(--sec-ink, var(--app-blue)); font-weight: 600; }
+.threads .threads-row[data-on="true"] > .threads-btn::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; border-radius: var(--r-2xs); background: var(--sec); box-shadow: 0 0 8px var(--sec); }
 .threads-title { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .threads-meta { color: var(--app-rail-dim); font-size: var(--t-meta); font-weight: 400; }
 .threads-row[data-on="true"] .threads-meta { color: inherit; opacity: .75; }
 .threads-side { position: absolute; right: var(--s2); top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: var(--s2); pointer-events: none; }
 .threads-acts { pointer-events: auto; opacity: 0; transition: opacity var(--d1) var(--ease-fx); }
 .threads-row:hover .threads-acts, .threads-row:focus-within .threads-acts { opacity: 1; }
-.threads .cm-count { min-width: 18px; height: 18px; padding: 0 6px; display: inline-grid; place-items: center; border-radius: var(--r-pill, 999px); background: var(--app-line); color: var(--app-text); font-family: var(--app-mono); font-size: var(--t-num); font-weight: 600; font-variant-numeric: tabular-nums; }
+.threads .cm-count { min-width: 18px; height: 18px; padding: 0 var(--s1h); display: inline-grid; place-items: center; border-radius: var(--r-pill, 999px); background: var(--app-line); color: var(--app-text); font-family: var(--app-mono); font-size: var(--t-num); font-weight: 600; font-variant-numeric: tabular-nums; }
 .threads .cm-count[data-mention] { background: var(--state-error, var(--color-error)); color: var(--on-accent); box-shadow: 0 0 10px -2px var(--state-error, var(--color-error)); }
-.threads .cm-dot { width: 7px; height: 7px; margin-right: 8px; border-radius: 50%; background: var(--sec); box-shadow: 0 0 8px var(--sec); }
+.threads .cm-dot { width: 7px; height: 7px; margin-right: var(--s2); border-radius: 50%; background: var(--sec); box-shadow: 0 0 8px var(--sec); }
 .threads .cm-iconbtn { width: 26px; height: 26px; display: grid; place-items: center; border: 0; border-radius: var(--r-sm); background: none; color: var(--app-rail-dim); cursor: pointer; }
 .threads .cm-iconbtn:hover { background: var(--app-hover); color: var(--app-rail-text); }
 @media (hover: none) { .threads-acts { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { .threads-btn, .threads-acts { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .threads .threads-row > .threads-btn, .threads-acts { transition: none; } }

@@ -1,8 +1,12 @@
 .text-word-flip-container {
   display: inline-flex;
   position: relative;
-  vertical-align: top;
-  overflow: hidden; /* clip the flip out of bounds */
+  /* Sit on the surrounding text's baseline (inline-flex exports the word's). */
+  vertical-align: baseline;
+  /* Clip the flip vertically only. `clip` (unlike `hidden`) does not make a
+     scroll container, so the baseline is still taken from the word. */
+  overflow: hidden;
+  overflow: visible clip;
   /* Reserve height of one line */
   line-height: 1.2;
 }
@@ -18,8 +22,8 @@
   transform-style: preserve-3d;
   transform-origin: center center;
   color: var(--app-text);
-  font-family: var(--font-sans);
-  font-weight: 600;
+  /* Inherit the surrounding type so the word reads as part of the sentence. */
+  font: inherit;
   
   /* All words stack on top of each other except the first one dictating width if needed, or absolute positioning is best */
 }
@@ -40,8 +44,8 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
-  align-items: center;
-  justify-items: center; /* or start */
+  align-items: baseline;
+  justify-items: start;
 }
 
 .text-word-flip-word {

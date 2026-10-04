@@ -4,7 +4,7 @@ Component library extracted from [ChatUIMorph](https://github.com/ghively/ChatUI
 
 Philosophy: **available, not forced.** Components exist because they're good designs, not because a surface currently needs them. Every component ships with tests + provenance; nothing depends on ChatUIMorph app code.
 
-## Components (198)
+## Components (199)
 
 Grouped as in `src/index.ts`. Every component has `X.tsx`, `X.css` and `X.stories.tsx` in `src/components/`.
 
@@ -14,7 +14,7 @@ Grouped as in `src/index.ts`. Every component has `X.tsx`, `X.css` and `X.storie
 | Agent ops | CommandPalette, ToolCallCard, StreamingMessage, ModelSelector, ContextMeter, ApprovalGate, RunTimeline, DiffStatPill, AgentCard, ApprovalInbox, PlanChecklist, CostMeter, EvalScoreCard, HandoffCard, AuditLogViewer |
 | RAG answer | CitationPills, SourceCardList, RetrievalInspector, GroundingBadge, StreamingStageIndicator, ContextAttributionList, AnswerFeedback, FollowUpChips, VariablePromptInput |
 | Chat | MessageTimeline, ReactionBar, MessageContent, MessageTile, CodeBlockCard, TypingIndicator, MentionAutocomplete, MessageComposer, ConversationList, ThreadList, MarkdownNoteEditor, CreateGroupDialog, DirectoryBrowser, AttachmentPreviewPanel, SandboxedContentFrame, SasVerificationPanel, CredentialSignInForm |
-| App shell + overlays | AppFrame, NavigationRail, SidePanel, PaneHeader, DetailsPanel, SettingsPanel, HeroPanel, StatusRowList, TabbedListScreen, ModalSurface, ToastStack, AlertBanner, EmptyState, ShortcutHelp, NotificationCenter |
+| App shell + overlays | MorphRoot, AppFrame, NavigationRail, SidePanel, PaneHeader, DetailsPanel, SettingsPanel, HeroPanel, StatusRowList, TabbedListScreen, ModalSurface, ToastStack, AlertBanner, EmptyState, ShortcutHelp, NotificationCenter |
 | Primitives | Button, TextField, TextArea, Select, Checkbox, RadioGroup, ToggleSwitch, SegmentedControl, FormField, Badge, Card, Divider, Tabs, Tooltip, Accordion, ProgressBar, Spinner, Pagination, InitialsAvatar, AvatarStack, GlyphIcon, Stepper, Breadcrumbs |
 | Forms + overlays | Combobox, MultiSelect, DropdownMenu, Drawer, Slider, ConfirmDialog, TreeView, FileDropzone, SearchField, FilterBar, DateRangePicker |
 | Charts + dashboard | DataTable, KpiCard, BarChart, LineChart, DonutChart, GaugeChart, FunnelChart |
@@ -31,11 +31,11 @@ npm install @ghively/morph-ui
 ```
 
 ```tsx
-import { AgentPresence } from "@ghively/morph-ui";
+import { MorphRoot, AgentPresence } from "@ghively/morph-ui";
 import "@ghively/morph-ui/styles.css";
 
-// Put the frame on whatever element owns the surface:
-<div className="morph-frame"> … </div>
+// Wrap the app once in MorphRoot (it applies the .morph-frame layer):
+<MorphRoot fill> … </MorphRoot>
 ```
 
 `styles.css` carries three layers plus component rules:
@@ -47,6 +47,10 @@ import "@ghively/morph-ui/styles.css";
 ### Theming
 
 Override base tokens (`--app-text`, `--app-bg`, `--app-blue`, `--color-*`, `--r-*`, `--ease-*`, …) on `:root` **or on the `.morph-frame` element itself**. Alias tokens (`--morph-fg`, `--morph-card-bg`, `--bloom`, …) are re-resolved at every frame boundary, so a themed frame picks up its own base values. See `src/tokens.css` for the full list.
+
+### Tone vocabulary
+
+Every tone-taking prop accepts the same `Tone`: `neutral | info | success | warn | danger` (exported from the package, with `toTone()` to normalize). Older spellings (`ok`, `good`, `warning`, `bad`, `error`, `default`) still work and map onto it.
 
 ## Development
 

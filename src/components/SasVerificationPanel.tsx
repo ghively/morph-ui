@@ -74,15 +74,15 @@ export function SasVerificationPanel(props: SasVerificationPanelProps) {
       return (
         <>
           <p data-meta="">{c.comparePrompt}</p>
-          <div style={{ display: "flex", gap: "var(--s3)", flexWrap: "wrap", margin: "var(--s3) 0" }}>
+          <div data-sasemoji="">
             {emoji.map((e, i) => (
-              <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", minWidth: 56 }}>
-                <span style={{ fontSize: 28 }} aria-hidden="true">{e.symbol}</span>
+              <div key={i} data-sasglyph="">
+                <span data-sassymbol="" aria-hidden="true">{e.symbol}</span>
                 <span data-meta="">{e.name}</span>
               </div>
             ))}
           </div>
-          <div style={{ display: "flex", gap: "var(--s2)" }}>
+          <div data-sasactions="">
             <button data-btn="fill" data-state="" onClick={onConfirmMatch}>{c.matchLabel}</button>
             <button data-btn="" data-state="" onClick={onReportMismatch}>{c.mismatchLabel}</button>
           </div>
@@ -98,7 +98,7 @@ export function SasVerificationPanel(props: SasVerificationPanelProps) {
     return (
       <>
         <p data-meta="">{statusText}</p>
-        <div style={{ display: "flex", gap: "var(--s2)" }}>
+        <div data-sasactions="">
           {phase === 'requested' && !initiatedByMe ? (
             <button data-btn="fill" data-state="" onClick={onAccept}>{c.acceptLabel}</button>
           ) : null}
@@ -109,7 +109,7 @@ export function SasVerificationPanel(props: SasVerificationPanelProps) {
   };
 
   return (
-    <div data-card="" data-pad="roomy" aria-live="polite" className={className}>
+    <div data-card="" data-pad="roomy" aria-live="polite" className={['sas-panel', className].filter(Boolean).join(' ')}>
       <div data-eyebrow="">{eyebrow}</div>
       {renderContent()}
     </div>

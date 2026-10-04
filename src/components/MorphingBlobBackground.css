@@ -7,6 +7,17 @@
   overflow: hidden;
   background: var(--app-bg);
   z-index: -1;
+  pointer-events: none;
+}
+
+/*
+ * z-index: -1 only stays visible when an ancestor forms a stacking context;
+ * otherwise it paints behind the frame/page background. The direct parent is
+ * isolated (zero specificity via :where) so the backdrop always sits just
+ * above the parent's own background and below its content.
+ */
+:where(:has(> .morphing-blob-container)) {
+  isolation: isolate;
 }
 
 .morphing-blob-canvas {
@@ -23,8 +34,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 30% 30%, var(--app-blue-soft) 0%, transparent 40%),
-              radial-gradient(circle at 70% 70%, var(--color-info-bg) 0%, transparent 50%);
+  background:
+    radial-gradient(circle at 28% 30%, color-mix(in srgb, var(--blob-c1, var(--app-blue)) 55%, transparent) 0%, transparent 45%),
+    radial-gradient(circle at 72% 68%, color-mix(in srgb, var(--blob-c2, var(--color-info-border)) 50%, transparent) 0%, transparent 50%),
+    radial-gradient(circle at 60% 20%, color-mix(in srgb, var(--blob-c3, var(--app-blue-soft)) 40%, transparent) 0%, transparent 40%);
+  filter: blur(var(--s7, 24px));
   display: none;
 }
 

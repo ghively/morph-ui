@@ -1,29 +1,29 @@
-.ppA { display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 18px 8px; min-height: 280px; justify-content: center; }
-.ppA-title { margin: 0; font-size: 22px; font-weight: 750; letter-spacing: -.01em; text-align: center; }
-.ppA-grid { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; }
-.ppA-user { all: unset; box-sizing: border-box; cursor: pointer; width: 104px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.ppA { display: flex; flex-direction: column; align-items: center; gap: var(--s6); padding: var(--s6) var(--s2); min-height: 280px; justify-content: center; }
+.ppA-title { margin: 0; font-size: var(--t-h2); font-weight: 750; letter-spacing: -.01em; text-align: center; }
+.ppA-grid { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s6); }
+.ppA-user { all: unset; box-sizing: border-box; cursor: pointer; width: 104px; display: flex; flex-direction: column; align-items: center; gap: var(--s1h); text-align: center; }
 .ppA-hex { position: relative; width: 92px; display: block; filter: drop-shadow(0 0 0 transparent); transition: filter var(--d3) var(--ease-fx), transform var(--d3) var(--ease-emph); }
-.ppA-hex .mlArt { background: color-mix(in srgb, var(--c) 18%, #0b0b0f); }
+.ppA-hex .mlArt { background: color-mix(in srgb, var(--c) 18%, #000); }
 .ppA-user:hover .ppA-hex, .ppA-user:focus-visible .ppA-hex { transform: translateY(-3px) scale(1.04); filter: drop-shadow(0 0 14px var(--c)); }
 .ppA-user:focus-visible { outline: none; }
 .ppA-user:focus-visible .ppA-name { text-decoration: underline; text-underline-offset: 3px; color: var(--c); }
-.ppA-ini { position: absolute; inset: 0; display: grid; place-items: center; font-size: 28px; font-weight: 800; color: var(--c); text-shadow: 0 0 14px color-mix(in srgb, var(--c) 60%, transparent); }
-.ppA-plus { position: absolute; inset: 0; display: grid; place-items: center; font-size: 30px; color: var(--app-dim); clip-path: polygon(50% 0, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%); background: color-mix(in srgb, var(--app-text) 6%, transparent); aspect-ratio: 1; }
+.ppA-ini { position: absolute; inset: 0; display: grid; place-items: center; font-size: var(--t-h1); font-weight: 800; color: var(--c); text-shadow: 0 0 14px color-mix(in srgb, var(--c) 60%, transparent); }
+.ppA-plus { position: absolute; inset: 0; display: grid; place-items: center; font-size: var(--t-h1); color: var(--app-dim); clip-path: polygon(50% 0, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%); background: color-mix(in srgb, var(--app-text) 6%, transparent); aspect-ratio: 1; }
 .ppA-add .ppA-hex { aspect-ratio: 1; }
-.ppA-name { font-size: 13px; font-weight: 650; }
-.ppA-sub { font-size: 10.5px; color: var(--app-faint); }
-.ppA-pin { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 18px 22px; animation: ppA-in var(--d3) var(--ease-emph); }
+.ppA-name { font-size: var(--t-body); font-weight: 650; }
+.ppA-sub { font-size: var(--t-eyebrow); color: var(--app-faint); }
+.ppA-pin { display: flex; flex-direction: column; align-items: center; gap: var(--s4); padding: var(--s6) var(--s7); animation: ppA-in var(--d3) var(--ease-emph); }
 @keyframes ppA-in { from { opacity: 0; transform: scale(.96); } }
 .ppA-sm { width: 64px; }
-.ppA-sm .ppA-ini { font-size: 20px; }
-.ppA-dots { display: flex; gap: 10px; padding: 4px 0; }
+.ppA-sm .ppA-ini { font-size: var(--t-h3); }
+.ppA-dots { display: flex; gap: var(--s3); padding: var(--s1) 0; }
 .ppA-dots i { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--app-faint); box-sizing: border-box; transition: background-color var(--d1) var(--ease-fx), border-color var(--d1) var(--ease-fx); }
 .ppA-dots i[data-on] { background: var(--c); border-color: var(--c); box-shadow: 0 0 10px var(--c); }
 .ppA-dots[data-bad] { animation: ppA-shake .45s var(--ease-fx); }
 .ppA-dots[data-bad] i[data-on] { background: var(--state-error); border-color: var(--state-error); box-shadow: 0 0 10px var(--state-error); }
 @keyframes ppA-shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
-.ppA-pad { display: grid; grid-template-columns: repeat(3, 52px); gap: 8px; }
-.ppA-key { all: unset; box-sizing: border-box; cursor: pointer; height: 52px; display: grid; place-items: center; border-radius: 50%; font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--app-text); background: color-mix(in srgb, var(--app-text) 7%, transparent); border: 1px solid var(--app-line); transition: background-color var(--d1) var(--ease-fx), box-shadow var(--d1) var(--ease-fx), transform var(--d1) var(--ease-fx); }
+.ppA-pad { display: grid; grid-template-columns: repeat(3, 52px); gap: var(--s2); }
+.ppA-key { all: unset; box-sizing: border-box; cursor: pointer; height: 52px; display: grid; place-items: center; border-radius: 50%; font-size: var(--t-h3); font-weight: 600; font-variant-numeric: tabular-nums; color: var(--app-text); background: color-mix(in srgb, var(--app-text) 7%, transparent); border: 1px solid var(--app-line); transition: background-color var(--d1) var(--ease-fx), box-shadow var(--d1) var(--ease-fx), transform var(--d1) var(--ease-fx); }
 .ppA-key:hover { background: color-mix(in srgb, var(--app-text) 12%, transparent); }
 .ppA-key:active { transform: scale(.94); background: var(--c); color: var(--on-accent); box-shadow: 0 0 16px -4px var(--c); }
 .ppA-key:focus-visible { outline: 2px solid var(--c); outline-offset: 2px; }

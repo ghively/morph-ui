@@ -1,8 +1,12 @@
 /* legacy unscoped fallbacks — out-of-group components (NavigationRail, DetailsPanel, DirectoryBrowser, TabbedListScreen) still lean on these; frame primitives supersede */
 :where([data-fade]) { opacity: .6; transition: opacity var(--d2) var(--ease-soft); }
 :where([data-fade]):hover, :where([data-rows]:focus-within [data-fade]) { opacity: 1; }
-:where([data-tag][data-solid]) { padding: 2px 6px; border-radius: 4px; background: var(--color-success-bg); color: var(--color-success-text); font-size: var(--t-meta); font-weight: 600; flex: none; }
-:where([data-count]) { padding: 2px 6px; border-radius: 10px; background: var(--app-line); color: var(--app-text); font-family: var(--app-mono); font-size: var(--t-num); font-weight: 600; flex: none; }
+/* Outside a navigation rail, fade means dimmed until hover/focus. Inside one
+   ([data-dockzone]) the primitives' reveal-on-rail-hover behaviour applies. */
+.convs [data-fade]:not([data-dockzone] *) { opacity: .75; transform: none; pointer-events: auto; transition: opacity var(--d2) var(--ease-soft); }
+.convs [data-fade]:not([data-dockzone] *):hover, .convs:focus-within [data-fade]:not([data-dockzone] *) { opacity: 1; }
+:where([data-tag][data-solid]) { padding: var(--s0) var(--s1h); border-radius: var(--r-xs); background: var(--color-success-bg); color: var(--color-success-text); font-size: var(--t-meta); font-weight: 600; flex: none; }
+:where([data-count]) { padding: var(--s0) var(--s1h); border-radius: var(--r-md); background: var(--app-line); color: var(--app-text); font-family: var(--app-mono); font-size: var(--t-num); font-weight: 600; flex: none; }
 :where([data-count][data-tone="danger"]) { background: var(--color-error); color: var(--on-accent); }
 :where([data-searchcap]) { border-bottom: 1px solid var(--app-line); }
 :where([data-searchcap]) input::placeholder { color: var(--app-rail-faint); }
@@ -14,32 +18,32 @@
 .convs-group { display: contents; }
 .convs-eyebrow { margin: var(--s5) var(--s5) var(--s2); color: var(--app-rail-dim); font-size: var(--t-eyebrow, var(--t-meta)); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tk-caps, .05em); }
 .convs-item { padding: 0 var(--s3); }
-.convs-row { display: flex; align-items: center; gap: var(--s1); margin-bottom: 2px; }
+.convs-row { display: flex; align-items: center; gap: var(--s1); margin-bottom: var(--s0); }
 .convs-row[data-invite] { padding: 0 var(--s3); }
-.convs-btn { position: relative; flex: 1; min-width: 0; display: flex; align-items: center; gap: var(--s2); padding: 7px var(--s3); border: 0; border-radius: var(--r-md); background: none;
+.convs .convs-row > .convs-btn { position: relative; flex: 1; min-width: 0; display: flex; align-items: center; gap: var(--s2); padding: var(--s2) var(--s3); border: 0; border-radius: var(--r-md); background: none;
   color: inherit; font: inherit; font-size: var(--t-ctl); text-align: left; cursor: pointer; transition: background var(--d1) var(--ease-fx); }
-.convs-btn:hover { background: var(--app-hover); }
-.convs-btn:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--sec-soft); }
-.convs-row[data-on="true"] > .convs-btn { background: var(--sec-soft); color: var(--sec-ink, var(--app-blue)); font-weight: 600; }
-.convs-row[data-on="true"] > .convs-btn::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; border-radius: 2px; background: var(--sec); box-shadow: 0 0 8px var(--sec); }
+.convs .convs-row > .convs-btn:hover { background: var(--app-hover); }
+.convs .convs-row > .convs-btn:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--sec-soft); }
+.convs .convs-row[data-on="true"] > .convs-btn { background: var(--sec-soft); color: var(--sec-ink, var(--app-blue)); font-weight: 600; }
+.convs .convs-row[data-on="true"] > .convs-btn::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; border-radius: var(--r-2xs); background: var(--sec); box-shadow: 0 0 8px var(--sec); }
 .convs-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.convs-lock { margin-left: 6px; color: var(--app-rail-faint); }
-.convs-join { flex: none; padding: 2px 8px; border-radius: var(--r-pill, 999px); background: color-mix(in srgb, var(--state-ok) 18%, transparent); color: var(--ok-ink, var(--state-ok)); font-size: var(--t-num); font-weight: 600; }
-.convs .cm-count { min-width: 18px; height: 18px; padding: 0 6px; display: inline-grid; place-items: center; border-radius: var(--r-pill, 999px); background: var(--app-line); color: var(--app-text); font-family: var(--app-mono); font-size: var(--t-num); font-weight: 600; font-variant-numeric: tabular-nums; }
+.convs-lock { display: inline-flex; vertical-align: middle; margin-left: var(--s1h); color: var(--app-rail-faint); }
+.convs-join { flex: none; padding: var(--s0) var(--s2); border-radius: var(--r-pill, 999px); background: color-mix(in srgb, var(--state-ok) 18%, transparent); color: var(--ok-ink, var(--state-ok)); font-size: var(--t-num); font-weight: 600; }
+.convs .cm-count { min-width: 18px; height: 18px; padding: 0 var(--s1h); display: inline-grid; place-items: center; border-radius: var(--r-pill, 999px); background: var(--app-line); color: var(--app-text); font-family: var(--app-mono); font-size: var(--t-num); font-weight: 600; font-variant-numeric: tabular-nums; }
 .convs .cm-count[data-mention] { background: var(--state-error, var(--color-error)); color: var(--on-accent); box-shadow: 0 0 10px -2px var(--state-error, var(--color-error)); }
 .convs .cm-iconbtn { flex: none; width: 28px; height: 28px; display: grid; place-items: center; border: 0; border-radius: var(--r-sm); background: none; color: var(--app-rail-dim); cursor: pointer; transition: background var(--d1) var(--ease-fx), color var(--d1) var(--ease-fx); }
 .convs .cm-iconbtn:hover { background: var(--app-hover); color: var(--app-rail-text); }
 .convs .cm-iconbtn[data-tone="danger"]:hover { color: var(--state-error, var(--color-error)); }
 .convs-browse { padding: var(--seam) var(--s5) 0; }
 .convs-meta { color: var(--app-rail-dim); font-size: var(--t-meta); }
-.convs-chip { margin-top: var(--s2); padding: 4px 12px; border: 1px solid var(--app-line); border-radius: var(--r-pill, 999px); background: none; color: var(--app-rail-text); font: inherit; font-size: var(--t-meta); cursor: pointer; }
+.convs-chip { margin-top: var(--s2); padding: var(--s1) var(--s4); border: 1px solid var(--app-line); border-radius: var(--r-pill, 999px); background: none; color: var(--app-rail-text); font: inherit; font-size: var(--t-meta); cursor: pointer; }
 .convs-chip:hover { background: var(--app-hover); border-color: var(--sec-line, var(--app-line)); }
 .convs-empty { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s2); padding: var(--s5) var(--s4) var(--s3); }
 .convs-empty .convs-eyebrow { margin: 0; }
 .convs-empty-ico { color: var(--app-rail-faint); }
 .convs-cta { display: flex; gap: var(--s2); margin-top: var(--s2); }
-.convs-cta-btn { height: 30px; padding: 0 14px; border: 1px solid var(--app-line); border-radius: var(--r-md); background: none; color: var(--app-rail-text); font: inherit; font-size: var(--t-ctl); font-weight: 600; cursor: pointer; transition: background var(--d1) var(--ease-fx), box-shadow var(--d1) var(--ease-fx); }
+.convs-cta-btn { height: 30px; padding: 0 var(--s4h); border: 1px solid var(--app-line); border-radius: var(--r-md); background: none; color: var(--app-rail-text); font: inherit; font-size: var(--t-ctl); font-weight: 600; cursor: pointer; transition: background var(--d1) var(--ease-fx), box-shadow var(--d1) var(--ease-fx); }
 .convs-cta-btn:hover { background: var(--app-hover); }
 .convs-cta-btn[data-convbtn="accent"] { border-color: transparent; background: var(--sec); color: var(--on-sec, var(--on-accent)); }
 .convs-cta-btn[data-convbtn="accent"]:hover { box-shadow: 0 0 14px -2px var(--sec); }
-@media (prefers-reduced-motion: reduce) { .convs-btn, .convs .cm-iconbtn, .convs-cta-btn, :where([data-fade]) { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .convs .convs-row > .convs-btn, .convs .cm-iconbtn, .convs-cta-btn, :where([data-fade]) { transition: none; } }

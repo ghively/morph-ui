@@ -17,6 +17,9 @@ import "./frame.css";
 // components emit (previously only in ChatUIMorph app.css). Also frame-scoped.
 import "./primitives.css";
 
+// Shared semantic vocabulary
+export * from "./tone";
+
 // Agent + data (original extraction set)
 export * from "./components/AgentPresence";
 export * from "./components/AgentActivityCapsule";
@@ -143,6 +146,7 @@ export * from "./components/ToastStack";
 export * from "./components/AlertBanner";
 export * from "./components/HeroPanel";
 export * from "./components/StatusRowList";
+export * from "./components/MorphRoot";
 export * from "./components/AppFrame";
 export * from "./components/NavigationRail";
 export * from "./components/SidePanel";

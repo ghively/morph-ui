@@ -3,32 +3,32 @@
 :where(.approval-gate) [data-state], :where(.approval-gate)[data-state] { position: revert; isolation: auto; overflow: visible; }
 :where(.approval-gate) [data-state]::before, :where(.approval-gate)[data-state]::before { content: none; }
 :where(.approval-gate) [data-empty], :where(.approval-gate)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
-.approval-gate { display: grid; gap: 10px; padding: 14px 16px; color: var(--app-text); font-family: var(--font-sans); border-radius: 14px; border: 1px solid color-mix(in srgb, var(--c) 28%, var(--app-line));
+.approval-gate { display: grid; gap: var(--s3); padding: var(--s4h) var(--s5); color: var(--app-text); font-family: var(--font-sans); border-radius: var(--r-lg); border: 1px solid color-mix(in srgb, var(--c) 28%, var(--app-line));
   background: radial-gradient(100% 60% at 100% 0%, color-mix(in srgb, var(--c) 9%, transparent), transparent 60%), var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
   box-shadow: var(--glass-edge), var(--glass-shadow), 0 0 30px -18px var(--c); transition: border-color var(--d3), box-shadow var(--d3); }
 .approval-gate[data-decision="approved"] { --c: var(--state-ok); } .approval-gate[data-decision="denied"] { --c: var(--state-idle); }
-.approval-gate-head { display: flex; align-items: center; gap: 10px; }
-.approval-gate-meter { display: flex; align-items: flex-end; gap: 2px; height: 14px; }
+.approval-gate-head { display: flex; align-items: center; gap: var(--s3); }
+.approval-gate-meter { display: flex; align-items: flex-end; gap: var(--s0); height: 14px; }
 .approval-gate-meter i { width: 4px; border-radius: 1px; background: color-mix(in srgb, var(--app-text) 14%, transparent); }
 .approval-gate-meter i:nth-child(1) { height: 6px; } .approval-gate-meter i:nth-child(2) { height: 10px; } .approval-gate-meter i:nth-child(3) { height: 14px; }
 .approval-gate-meter i[data-on] { background: var(--c); box-shadow: 0 0 6px var(--c); }
-.approval-gate-title { flex: 1; min-width: 0; font-size: 14.5px; font-weight: 600; }
-.approval-gate-badge { font-size: 10.5px; font-weight: 600; letter-spacing: .04em; padding: 2px 8px; border-radius: 999px; color: var(--c); background: color-mix(in srgb, var(--c) 13%, transparent); white-space: nowrap; }
-.approval-gate-desc { margin: 0; font-size: 13px; line-height: 1.55; color: var(--app-dim); text-wrap: pretty; }
-.approval-gate-cmd { display: flex; gap: 8px; padding: 8px 10px; border-radius: 8px; font-family: var(--app-mono); font-size: 12px; background: color-mix(in srgb, var(--app-bg) 60%, transparent); border: 1px solid var(--app-line); overflow-x: auto; }
+.approval-gate-title { flex: 1; min-width: 0; font-size: var(--t-prose); font-weight: 600; }
+.approval-gate-badge { font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .04em; padding: var(--s0) var(--s2); border-radius: var(--r-pill); color: var(--c); background: color-mix(in srgb, var(--c) 13%, transparent); white-space: nowrap; }
+.approval-gate-desc { margin: 0; font-size: var(--t-body); line-height: 1.55; color: var(--app-dim); text-wrap: pretty; }
+.approval-gate-cmd { display: flex; gap: var(--s2); padding: var(--s2) var(--s3); border-radius: var(--r-sm); font-family: var(--app-mono); font-size: var(--t-small); background: color-mix(in srgb, var(--app-bg) 60%, transparent); border: 1px solid var(--app-line); overflow-x: auto; }
 .approval-gate-cmd span { color: var(--app-faint); } .approval-gate-cmd code { white-space: nowrap; color: var(--app-text); }
-.approval-gate-comment input { all: unset; box-sizing: border-box; width: 100%; padding: 8px 10px; border-radius: 8px; font-size: 13px; border: 1px solid var(--app-line); background: color-mix(in srgb, var(--app-text) 4%, transparent); transition: border-color var(--d2); }
+.approval-gate-comment input { all: unset; box-sizing: border-box; width: 100%; padding: var(--s2) var(--s3); border-radius: var(--r-sm); font-size: var(--t-body); border: 1px solid var(--app-line); background: color-mix(in srgb, var(--app-text) 4%, transparent); transition: border-color var(--d2); }
 .approval-gate-comment input:focus { border-color: color-mix(in srgb, var(--c) 55%, transparent); }
 .approval-gate-comment input::placeholder { color: var(--app-faint); }
-.approval-gate-actions { display: flex; justify-content: flex-end; gap: 8px; }
-.approval-gate-actions button { all: unset; cursor: pointer; padding: 7px 16px; border-radius: 9px; font-size: 13px; font-weight: 600; transition: background var(--d2), box-shadow var(--d2), transform var(--d1); }
+.approval-gate-actions { display: flex; justify-content: flex-end; gap: var(--s2); }
+.approval-gate-actions button { all: unset; cursor: pointer; padding: var(--s2) var(--s5); border-radius: var(--r-sm); font-size: var(--t-body); font-weight: 600; transition: background var(--d2), box-shadow var(--d2), transform var(--d1); }
 .approval-gate-actions button:active { transform: scale(.97); }
 .approval-gate-actions button:focus-visible { outline: 2px solid color-mix(in srgb, var(--c) 70%, transparent); outline-offset: 2px; }
 [data-approval-gate-btn="deny"] { color: var(--app-dim); border: 1px solid var(--app-line); }
 [data-approval-gate-btn="deny"]:hover { color: var(--app-text); background: color-mix(in srgb, var(--app-text) 6%, transparent); }
-.approval-gate [data-approval-gate-btn="approve"] { color: var(--on-accent, #000); background: var(--c); box-shadow: 0 0 16px -4px var(--c); }
+.approval-gate [data-approval-gate-btn="approve"] { color: var(--on-accent); background: var(--c); box-shadow: 0 0 16px -4px var(--c); }
 .approval-gate [data-approval-gate-btn="approve"]:hover { box-shadow: 0 0 22px -2px var(--c); }
-.approval-gate-done { display: flex; align-items: baseline; gap: 10px; padding: 8px 10px; border-radius: 8px; font-size: 13px; color: var(--c); background: color-mix(in srgb, var(--c) 10%, transparent); animation: approval-gate-in var(--d3) var(--ease-emph); }
-.approval-gate-done span { color: var(--app-dim); font-size: 12.5px; }
+.approval-gate-done { display: flex; align-items: baseline; gap: var(--s3); padding: var(--s2) var(--s3); border-radius: var(--r-sm); font-size: var(--t-body); color: var(--c); background: color-mix(in srgb, var(--c) 10%, transparent); animation: approval-gate-in var(--d3) var(--ease-emph); }
+.approval-gate-done span { color: var(--app-dim); font-size: var(--t-ctl); }
 @keyframes approval-gate-in { from { opacity: 0; transform: translateY(4px); } }
 @media (prefers-reduced-motion: reduce) { .approval-gate-done { animation: none; } }

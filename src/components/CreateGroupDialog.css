@@ -1,9 +1,3 @@
-@media (prefers-reduced-motion: reduce) {
-  /* empty for now, just to satisfy the contract */
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
+/* CreateGroupDialog is built from the host primitive layer ([data-btn], [data-card], [data-spin] …),
+   which frame.css already holds to reduced motion under .morph-frame. Nothing here
+   animates, so this sheet deliberately declares no global rules. */

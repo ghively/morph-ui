@@ -17,8 +17,8 @@
   /* Soft elastic pop-in */
   transition: opacity var(--d2) var(--ease-morph);
   /* Use fixed offset so it doesn't cover the cursor exactly */
-  margin-top: 20px;
-  margin-left: 20px;
+  margin-top: var(--s6);
+  margin-left: var(--s6);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);

@@ -22,6 +22,16 @@ describe('KeyboardShowcase', () => {
     expect(getByLabelText('Key enter-iso-top')).toBeTruthy();
   });
 
+  it('ISO keeps `]` in the top row and adds the `#` key on the home row', () => {
+    const { container, getByLabelText } = render(<KeyboardShowcase layout="ISO" />);
+    const rows = container.querySelectorAll('.keyboard-row');
+    const qwerty = Array.from(rows[2]!.querySelectorAll('.keyboard-key')).map(k => k.getAttribute('aria-label'));
+    expect(qwerty.slice(-2)).toEqual(['Key ]', 'Key enter-iso-top']);
+    const home = Array.from(rows[3]!.querySelectorAll('.keyboard-key')).map(k => k.getAttribute('aria-label'));
+    expect(home.slice(-2)).toEqual(['Key #', 'Key enter-iso-bottom']);
+    expect(getByLabelText('Key enter-iso-bottom', { selector: '[aria-hidden="true"]' })).toBeTruthy();
+  });
+
   it('handles finishes', () => {
     const { container } = render(<KeyboardShowcase finish="space-gray" />);
     expect(container.querySelector('.finish-space-gray')).toBeTruthy();

@@ -1,21 +1,21 @@
 /* TokenPills — AGENT_DATA polish batch 2 (2026-10-03). Glass chips: selecting slides in a check badge, tints + glows in the live accent.
    Reads only theme tokens + the --state-* / --glass-* layer in tokens.css. */
-.token-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.token-pills { display: flex; flex-wrap: wrap; gap: var(--s1h); }
 .token-pill {
-  all: unset; box-sizing: border-box; display: inline-flex; align-items: center; gap: 0; height: 30px; padding: 0 12px; cursor: pointer;
+  all: unset; box-sizing: border-box; display: inline-flex; align-items: center; gap: 0; height: 30px; padding: 0 var(--s4); cursor: pointer;
   font-size: var(--t-ctl, 12.5px); font-weight: 500; color: var(--app-dim); white-space: nowrap;
-  border-radius: 999px; border: 1px solid var(--app-line); background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); box-shadow: var(--glass-edge);
+  border-radius: var(--r-pill); border: 1px solid var(--app-line); background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); box-shadow: var(--glass-edge);
   transition: color var(--d2) var(--ease-fx), background var(--d2) var(--ease-fx), border-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx), padding var(--d3) var(--ease-morph);
 }
 .token-pill:hover:not(:disabled) { color: var(--app-text); border-color: color-mix(in srgb, var(--state-live) 30%, var(--app-line)); }
 .token-pill:focus-visible { outline: 2px solid var(--state-live); outline-offset: 2px; }
-.token-pill.is-on { color: var(--app-text); padding-left: 8px; border-color: color-mix(in srgb, var(--state-live) 55%, transparent);
+.token-pill.is-on { color: var(--app-text); padding-left: var(--s2); border-color: color-mix(in srgb, var(--state-live) 55%, transparent);
   background: linear-gradient(180deg, color-mix(in srgb, var(--state-live) 22%, transparent), color-mix(in srgb, var(--state-live) 10%, transparent));
   box-shadow: var(--glass-edge), 0 0 16px -4px color-mix(in srgb, var(--state-live) 60%, transparent); }
 .token-pill:disabled { opacity: .4; cursor: not-allowed; }
 .token-pill-check { display: inline-grid; place-items: center; width: 0; height: 16px; margin-right: 0; overflow: hidden; border-radius: 50%; background: var(--state-live); color: var(--app-bg); opacity: 0; transform: scale(.4);
   transition: width var(--d3) var(--ease-morph), margin var(--d3) var(--ease-morph), opacity var(--d2) var(--ease-fx), transform var(--d3) var(--ease-morph); }
-.token-pill.is-on .token-pill-check { width: 16px; margin-right: 7px; opacity: 1; transform: none; }
+.token-pill.is-on .token-pill-check { width: 16px; margin-right: var(--s2); opacity: 1; transform: none; }
 .token-pill-check svg { width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
-.token-pill-count { margin-left: 7px; min-width: 18px; padding: 0 5px; height: 18px; display: inline-grid; place-items: center; border-radius: 999px; font-size: 10.5px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--app-faint); background: color-mix(in srgb, var(--app-text) 7%, transparent); transition: color var(--d2), background var(--d2); }
+.token-pill-count { margin-left: var(--s2); min-width: 18px; padding: 0 var(--s1h); height: 18px; display: inline-grid; place-items: center; border-radius: var(--r-pill); font-size: var(--t-eyebrow); font-weight: 600; font-variant-numeric: tabular-nums; color: var(--app-faint); background: color-mix(in srgb, var(--app-text) 7%, transparent); transition: color var(--d2), background var(--d2); }
 .token-pill.is-on .token-pill-count { color: var(--state-live); background: color-mix(in srgb, var(--state-live) 16%, transparent); }

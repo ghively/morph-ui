@@ -19,7 +19,7 @@ const buttonStyle: React.CSSProperties = {
   fontSize: '0.8125rem',
   fontWeight: 600,
   color: '#ffffff',
-  backgroundColor: '#6366f1',
+  backgroundColor: 'var(--app-blue-strong)',
   border: 'none',
   borderRadius: '8px',
   cursor: 'pointer',
@@ -56,13 +56,16 @@ export const ManualMorph = () => {
   return (
     <div style={frame}>
       <TextMorphing text={labels[index]} as="h1" className="morph-headline" />
-      <button
-        type="button"
-        onClick={() => setIndex((value) => (value + 1) % labels.length)}
-        style={buttonStyle}
-      >
-        Morph to next label
-      </button>
+      {/* The morph root is inline-block; give the control its own row. */}
+      <div>
+        <button
+          type="button"
+          onClick={() => setIndex((value) => (value + 1) % labels.length)}
+          style={buttonStyle}
+        >
+          Morph to next label
+        </button>
+      </div>
     </div>
   );
 };

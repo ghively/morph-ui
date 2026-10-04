@@ -1,21 +1,21 @@
 [data-split-flap-display] {
   display: inline-flex;
   gap: var(--s1, 4px);
-  background-color: var(--app-bg, #080c2c);
+  background-color: var(--app-bg);
   padding: var(--s2, 8px);
   border-radius: var(--r-md, 12px);
   font-family: var(--app-mono);
   font-weight: bold;
   font-size: 1.5rem;
-  color: var(--app-text, #eef1fc);
+  color: var(--app-text);
 }
 
 .flap-character {
   position: relative;
   width: 1.5em;
   height: 2em;
-  background-color: var(--cpi-gray-700, #2e2e2e);
-  border-radius: 4px;
+  background-color: var(--cpi-gray-700);
+  border-radius: var(--r-xs);
   perspective: 400px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -28,31 +28,63 @@
   width: 100%;
   height: 50%;
   left: 0;
-  display: flex;
-  justify-content: center;
   overflow: hidden;
-  background-color: var(--cpi-gray-700, #2e2e2e);
-  border-radius: 4px;
+  background-color: var(--cpi-gray-700);
+  border-radius: var(--r-xs);
   backface-visibility: hidden;
-  border: 1px solid var(--cpi-gray-600, #444);
+  /* Inset ring instead of a border so both halves share one coordinate box
+     and the glyph halves line up exactly at the split. */
+  box-shadow: inset 0 0 0 1px var(--cpi-gray-600);
+}
+
+/* One full-tile-height glyph, centred; each half shows its own slice of it. */
+.flap-glyph {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .flap-top, .flap-top-fold {
   top: 0;
-  align-items: flex-end;
   transform-origin: bottom center;
-  border-bottom: 1px solid black;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 .flap-bottom, .flap-bottom-fold {
   bottom: 0;
-  align-items: flex-start;
   transform-origin: top center;
-  border-top: 1px solid black;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.flap-top .flap-glyph,
+.flap-top-fold .flap-glyph {
+  top: 0;
+}
+
+.flap-bottom .flap-glyph,
+.flap-bottom-fold .flap-glyph {
+  top: -100%;
+}
+
+/* Hinge line across the middle of the tile. */
+.flap-character::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  transform: translateY(-50%);
+  background-color: var(--app-bg);
+  z-index: 3;
+  pointer-events: none;
 }
 
 .flap-top-fold {

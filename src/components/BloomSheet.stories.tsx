@@ -25,10 +25,11 @@ export const InteractiveForm = () => (
         style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
       >
         <div>
-          <label style={{ display: "block", marginBottom: "0.25rem", fontSize: "0.85rem" }}>
+          <label htmlFor="bloom-instance-name" style={{ display: "block", marginBottom: "0.25rem", fontSize: "0.85rem" }}>
             Instance Name
           </label>
           <input
+            id="bloom-instance-name"
             type="text"
             defaultValue="worker-node-01"
             style={{

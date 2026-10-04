@@ -45,7 +45,7 @@ export const AgentRows: Story = () => (
 
 export const AdminModeration: Story = () => (
   <div style={{ padding: '20px', maxWidth: 600 }}>
-    <CollapsibleSection title="Moderation" meta="2 users">
+    <CollapsibleSection title="Moderation" meta="2 users" defaultOpen>
       <StatusRowList 
         rows={[
           {
@@ -70,6 +70,7 @@ export const Listbox: Story = () => (
   <div style={{ padding: '20px', maxWidth: 400 }}>
     <StatusRowList 
       semantics="listbox"
+      label="Notes"
       rows={[
         { id: '1', title: 'Note 1', meta: 'Yesterday', selected: true, onSelect: () => {} },
         { id: '2', title: 'Note 2', meta: '2 days ago', onSelect: () => {} }

@@ -111,14 +111,16 @@
 .color-archive-scroll-title {
   margin: 0 0 var(--s1) 0;
   font-family: var(--font-sans);
-  font-size: 20px;
+  font-size: var(--t-h3);
   font-weight: 600;
+  /* The item colour tints the title; mixed into ink so dark swatches stay legible. */
+  color: color-mix(in srgb, var(--item-color, var(--app-text)) 40%, var(--app-text));
 }
 
 .color-archive-scroll-desc {
   margin: 0;
   color: var(--app-dim);
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: var(--t-lead);
   line-height: 1.5;
 }

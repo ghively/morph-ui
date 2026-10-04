@@ -49,28 +49,35 @@ export function LineChart({
         {points.length === 0 ? (
           <span data-lineempty="">No data</span>
         ) : (
-          <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" aria-hidden="true">
-            {showArea && (
-              <defs>
-                {/* A flat wash reads as a solid block under the line; fading it
-                    out lets the plot sit on the surface instead of covering it. */}
-                <linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="var(--morph-accent)" stopOpacity="0.32" />
-                  <stop offset="100%" stopColor="var(--morph-accent)" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-            )}
-            {showArea && (
-              <path d={`${line} L${(W - PAD).toFixed(1)},${H} L${PAD},${H} Z`} data-linefill="" fill={`url(#${fillId})`} />
-            )}
-            <path d={line} fill="none" data-linestroke="" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+          <div data-lineplot="">
+            <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" aria-hidden="true">
+              {showArea && (
+                <defs>
+                  {/* A flat wash reads as a solid block under the line; fading it
+                      out lets the plot sit on the surface instead of covering it. */}
+                  <linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="var(--morph-accent)" stopOpacity="0.32" />
+                    <stop offset="100%" stopColor="var(--morph-accent)" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+              )}
+              {showArea && (
+                <path d={`${line} L${(W - PAD).toFixed(1)},${H} L${PAD},${H} Z`} data-linefill="" fill={`url(#${fillId})`} />
+              )}
+              <path d={line} fill="none" data-linestroke="" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+            </svg>
+            {/* Dots live in an HTML overlay positioned by percentage so they stay
+                round while the SVG above stretches (preserveAspectRatio="none"). */}
             {showDots &&
               points.map((p, i) => (
-                <circle key={i} cx={p.x} cy={p.y} r={4} data-linedot="">
-                  <title>{`${p.label}: ${formatValue(p.v)}`}</title>
-                </circle>
+                <span
+                  key={i}
+                  data-linedot=""
+                  title={`${p.label}: ${formatValue(p.v)}`}
+                  style={{ left: `${(p.x / W) * 100}%`, top: `${(p.y / H) * 100}%` }}
+                />
               ))}
-          </svg>
+          </div>
         )}
       </div>
       <figcaption data-sronly="">{summary || 'No data'}</figcaption>

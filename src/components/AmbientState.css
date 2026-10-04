@@ -39,3 +39,23 @@
 .ambient-state[data-intensity="subtle"] .ambient-state-fallback {
   opacity: 0.3;
 }
+
+/* Readability veil. The glow sits under real content (labels, badges, body copy);
+   at normal intensity a bright state such as speaking-green washes out text set on
+   top of it. A token-tinted veil keeps the hue but holds the surface dark enough
+   for --app-text / --app-dim ink. Subtle intensity is already low-alpha. */
+.ambient-state::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: color-mix(in srgb, var(--app-bg) 38%, transparent);
+}
+
+.ambient-state[data-state="speaking"]::after {
+  background: color-mix(in srgb, var(--app-bg) 52%, transparent);
+}
+
+.ambient-state[data-intensity="subtle"]::after {
+  background: none;
+}

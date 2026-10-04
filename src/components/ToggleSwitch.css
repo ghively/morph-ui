@@ -5,7 +5,7 @@
   padding: 0;
   width: 36px;
   height: 20px;
-  border-radius: 10px;
+  border-radius: var(--r-md);
   background-color: var(--app-panel);
   position: relative;
   cursor: pointer;

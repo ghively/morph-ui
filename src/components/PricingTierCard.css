@@ -1,6 +1,6 @@
 [data-pricing-tier-card] {
   position: relative;
-  background: var(--app-bg, #080c2c);
+  background: var(--app-bg);
   border-radius: var(--r-md, 12px);
   padding: 1px; /* space for the gradient border */
   overflow: hidden;
@@ -18,9 +18,9 @@
   background: conic-gradient(
     from var(--gradient-angle, 0deg), 
     transparent 0%, 
-    var(--app-blue, #6c9cf0) 25%, 
+    var(--app-blue) 25%, 
     transparent 50%,
-    var(--color-error, #d63c3c) 75%,
+    var(--color-error) 75%,
     transparent 100%
   );
   animation: rotate-border 4s linear infinite;
@@ -35,7 +35,7 @@
 
 [data-pricing-tier-card]:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(214, 60, 60, 0.15); /* Wensity Red halo */
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--color-error) 15%, transparent); /* Wensity Red halo */
 }
 
 @property --gradient-angle {
@@ -50,44 +50,45 @@
 }
 
 .pricing-content {
-  background: var(--app-bg, #080c2c);
+  background: var(--app-bg);
   border-radius: calc(var(--r-md, 12px) - 1px);
-  padding: var(--s3, 10px) 20px 20px;
+  padding: var(--s6);
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .is-highlight .pricing-content {
-  background: linear-gradient(180deg, rgba(31, 111, 230, 0.1) 0%, var(--app-bg, #080c2c) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--app-blue-strong) 10%, transparent) 0%, var(--app-bg) 100%);
 }
 
 .pricing-title {
-  color: var(--app-text, #eef1fc);
+  color: var(--app-text);
   font-family: var(--font-sans);
-  font-size: 1.25rem;
+  font-size: var(--t-h3);
   font-weight: 600;
-  margin: 0 0 8px 0;
+  line-height: 1.25;
+  margin: 0 0 var(--s2) 0;
 }
 
 .pricing-price {
   font-family: var(--font-mono);
   font-size: 2rem;
   font-weight: bold;
-  color: var(--app-blue-strong, #1f6fe6);
-  margin-bottom: 24px;
+  color: var(--app-blue-strong);
+  margin-bottom: var(--s7);
 }
 
 .pricing-features {
   list-style: none;
   padding: 0;
-  margin: 0 0 24px 0;
+  margin: 0 0 var(--s7) 0;
   flex-grow: 1;
 }
 
 .pricing-feature-item {
-  color: var(--app-dim, #a9b0d8);
-  margin-bottom: 8px;
+  color: var(--app-dim);
+  margin-bottom: var(--s2);
   font-size: 0.95rem;
   display: flex;
   align-items: center;
@@ -95,28 +96,54 @@
 
 .pricing-feature-item::before {
   content: '✓';
-  color: var(--color-success, #1a9b5e);
-  margin-right: 8px;
+  color: var(--color-success);
+  margin-right: var(--s2);
   font-weight: bold;
 }
 
 .pricing-toggle {
+  position: relative;
   display: flex;
   align-items: center;
+  gap: var(--s3);
   cursor: pointer;
-  margin-bottom: 16px;
+  margin-bottom: var(--s5);
 }
 
+/* Visually hidden, still focusable and announced (display:none dropped it from the tab order). */
 .pricing-toggle input {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pricing-toggle-slider {
+  flex: none;
+}
+
+.pricing-toggle-label {
+  color: var(--app-dim);
+  font-size: var(--t-ctl);
+}
+
+.pricing-toggle input:checked ~ .pricing-toggle-label {
+  color: var(--app-text);
+}
+
+.pricing-toggle input:focus-visible + .pricing-toggle-slider {
+  outline: 2px solid var(--app-blue);
+  outline-offset: 2px;
 }
 
 .pricing-toggle-slider {
   position: relative;
   width: 40px;
   height: 20px;
-  background-color: var(--app-faint, #979ecd);
-  border-radius: 20px;
+  background-color: var(--app-faint);
+  border-radius: var(--r-card);
   transition: background-color var(--d2, 220ms) ease;
 }
 
@@ -133,7 +160,7 @@
 }
 
 .pricing-toggle input:checked + .pricing-toggle-slider {
-  background-color: var(--app-blue-strong, #1f6fe6);
+  background-color: var(--app-blue-strong);
 }
 
 .pricing-toggle input:checked + .pricing-toggle-slider::before {
@@ -142,11 +169,11 @@
 
 .pricing-cta {
   width: 100%;
-  padding: 12px;
-  border-radius: 6px;
+  padding: var(--s4);
+  border-radius: var(--r-sm);
   border: none;
-  background-color: var(--app-blue, #6c9cf0);
-  color: var(--app-bg, #080c2c);
+  background-color: var(--app-blue);
+  color: var(--app-bg);
   font-weight: 600;
   cursor: pointer;
   position: relative;
@@ -190,5 +217,11 @@
   
   [data-pricing-tier-card]:hover {
     transform: none;
+  }
+
+  .pricing-toggle-slider,
+  .pricing-toggle-slider::before,
+  .pricing-cta {
+    transition: none;
   }
 }

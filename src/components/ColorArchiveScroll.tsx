@@ -57,7 +57,7 @@ export function ColorArchiveScroll({ items, className = '' }: ColorArchiveScroll
     >
       <div className="color-archive-scroll-background" aria-hidden="true" />
       
-      <div className="color-archive-scroll-viewport" ref={containerRef}>
+      <div className="color-archive-scroll-viewport" ref={containerRef} tabIndex={0}>
         <div className="color-archive-scroll-track">
           {items.map((item, index) => {
             const isActive = index === activeIndex;
@@ -74,7 +74,7 @@ export function ColorArchiveScroll({ items, className = '' }: ColorArchiveScroll
                     </div>
                   )}
                   <div className="color-archive-scroll-content">
-                    <h3 className="color-archive-scroll-title" style={{ color: item.color }}>
+                    <h3 className="color-archive-scroll-title" style={{ '--item-color': item.color } as React.CSSProperties}>
                       {item.title}
                     </h3>
                     {item.description && (

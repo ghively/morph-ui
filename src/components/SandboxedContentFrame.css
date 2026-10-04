@@ -1,8 +1,16 @@
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
+/* The frame and its fallback card. Nothing animates here (frame.css already holds
+   the host primitives to reduced motion), so this sheet declares no global rules. */
+
+/* Untrusted documents arrive unstyled: UA black ink on a transparent canvas reads as
+   nothing on a dark host. Give the frame an opaque document surface (the UA Canvas
+   colour that pairs with that default ink) and a visible edge; a document that styles
+   its own <body> paints over it. */
+.sandboxed-frame [data-sandboxframe] { display: block; box-sizing: border-box; width: 100%; color-scheme: normal;
+  border: 1px solid var(--app-line); border-radius: var(--r-card); background: Canvas; overflow: hidden; }
+.sandboxed-frame[data-phase='loading'] [data-sandboxframe] { opacity: .6; }
+.sandboxed-frame > [data-meta] { color: var(--app-faint); }
+
+/* Fallback: keep the "<label> source" caption and Copy apart even without the primitive layer. */
+.sandboxed-frame [data-codehead] { display: flex; align-items: center; gap: var(--s3); min-width: 0; }
+.sandboxed-frame [data-codehead] [data-sourcelabel] { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sandboxed-frame [data-codehead] > [data-btn] { flex: none; margin-left: auto; padding: var(--s1) var(--s3); font-size: var(--t-meta); }

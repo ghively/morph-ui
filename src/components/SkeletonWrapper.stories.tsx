@@ -9,9 +9,10 @@ const content = (
   </div>
 );
 
+/** Loaded: isLoading={false} renders the children as-is. (The prop defaults to true.) */
 export const Default = () => (
   <div style={{ padding: "2rem", maxWidth: 420 }}>
-    <SkeletonWrapper>{content}</SkeletonWrapper>
+    <SkeletonWrapper isLoading={false}>{content}</SkeletonWrapper>
   </div>
 );
 

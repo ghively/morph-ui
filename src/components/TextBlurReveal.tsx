@@ -58,6 +58,7 @@ export function TextBlurReveal({
       data-text-blur-reveal 
       ref={containerRef} 
       className={`${className} ${isVisible ? 'is-visible' : ''}`}
+      role="img"
       aria-label={text}
     >
       {items.map((item, index) => {

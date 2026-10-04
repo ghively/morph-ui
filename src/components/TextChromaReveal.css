@@ -2,6 +2,13 @@
   position: relative;
   display: inline-block;
   color: transparent;
+  /* Channel split distance in the scattered state; scales with the type. */
+  --chroma-offset: 0.06em;
+}
+
+/* Block-level tags keep their block flow so following content wraps below. */
+:where(h1, h2, h3, h4, h5, h6, p, div, blockquote, figcaption, section, header)[data-text-chroma-reveal] {
+  display: block;
 }
 
 [data-text-chroma-layer] {
@@ -10,33 +17,41 @@
   left: 0;
   width: 100%;
   height: 100%;
-  color: var(--app-text, #fff);
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path var(--d5, 780ms) var(--ease-morph, cubic-bezier(0.38, 1.21, 0.22, 1));
+  color: var(--app-text);
+  transition:
+    clip-path var(--d5, 780ms) var(--ease-morph, cubic-bezier(0.38, 1.21, 0.22, 1)),
+    transform var(--d5, 780ms) var(--ease-morph, cubic-bezier(0.38, 1.21, 0.22, 1));
 }
 
+/* Base layer is wiped in on reveal; until then only the split channels show. */
 [data-text-chroma-layer="base"] {
   position: relative;
-  color: var(--app-text, #fff);
+  color: var(--app-text);
+  clip-path: inset(0 100% 0 0);
 }
 
 [data-text-chroma-layer="red"] {
   color: #ff0000;
   mix-blend-mode: screen;
+  transform: translate(calc(var(--chroma-offset) * -1), calc(var(--chroma-offset) * -0.4));
 }
 
 [data-text-chroma-layer="green"] {
   color: #00ff00;
   mix-blend-mode: screen;
+  transform: translate(calc(var(--chroma-offset) * 0.35), calc(var(--chroma-offset) * 0.5));
 }
 
 [data-text-chroma-layer="blue"] {
   color: #0000ff;
   mix-blend-mode: screen;
+  transform: translate(var(--chroma-offset), calc(var(--chroma-offset) * -0.2));
 }
 
+/* Revealed: the channels converge onto the base layer. */
 [data-text-chroma-reveal][data-revealed] [data-text-chroma-layer] {
   clip-path: inset(0 0 0 0);
+  transform: translate(0, 0);
 }
 
 [data-text-chroma-reveal][data-revealed] [data-text-chroma-layer="red"] {
@@ -55,6 +70,8 @@
   transition-delay: calc(var(--d-scale, 1) * 90ms);
 }
 
+/* Reduced motion: no wipe or slide. Every layer is fully visible and the
+   scattered state keeps its static channel offset; reveal snaps them together. */
 @media (prefers-reduced-motion: reduce) {
   [data-text-chroma-layer] {
     transition: none !important;

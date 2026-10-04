@@ -11,7 +11,13 @@ export const fmtMs = (ms?: number) => {
   if (ms < 60000) { const s = (ms / 1000).toFixed(1); return (s.endsWith('.0') ? s.slice(0, -2) : s) + 's'; }
   return Math.floor(ms / 60000) + 'm ' + Math.round((ms % 60000) / 1000) + 's';
 };
-export const initials = (name: string) => name.split(/[\s\-_.]+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+/** Up to two initials. Parenthetical/bracketed asides ("Priya (Support lead)") are dropped and
+ *  tokens are split on any non-letter/number, so punctuation never becomes an initial. */
+export const initials = (name: string) => {
+  const words = (s: string) => s.split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+  const core = words(name.replace(/\([^)]*\)|\[[^\]]*\]|\{[^}]*\}/g, ' '));
+  return (core.length ? core : words(name)).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+};
 export const blocks = (v: number, of: number, n = 10) => { const k = of <= 0 ? 0 : Math.round(Math.min(1, Math.max(0, v / of)) * n); return '█'.repeat(k) + '░'.repeat(n - k); };
 const reduced = () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 const uid = () => 'm' + Math.random().toString(36).slice(2, 8);
@@ -63,9 +69,12 @@ export function usePalette(p: PaletteProps) {
   const listRef = useRef<HTMLDivElement>(null);
   const listId = useRef(uid()).current;
   const close = () => { onRequestClose?.(); if (!controlled) setOpenState(false); };
+  // Reset only when the palette opens, using the props as they are at that moment.
+  const atOpen = useRef({ initialQuery, qProp });
+  atOpen.current = { initialQuery, qProp };
   useEffect(() => {
     if (!isOpen) return;
-    if (qProp === undefined) setQState(initialQuery);
+    if (atOpen.current.qProp === undefined) setQState(atOpen.current.initialQuery);
     setSel(0);
     const t = setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 0);
     return () => clearTimeout(t);
@@ -198,12 +207,18 @@ export function useModelSelector({ models, selectedId, onSelect, defaultOpen = f
     const h = (e: MouseEvent) => { if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false); };
     document.addEventListener('mousedown', h); return () => document.removeEventListener('mousedown', h);
   }, [open]);
+  // Seed the highlight and focus only when the menu opens, from the props at that moment.
+  const atOpen = useRef({ models, selectedId, showSearch });
+  atOpen.current = { models, selectedId, showSearch };
   useEffect(() => {
     if (!open) return;
+    const { models: ms, selectedId: sel, showSearch: search } = atOpen.current;
     setQ('');
-    const i = models.findIndex(m => m.id === selectedId);
-    setActive(i >= 0 ? i : models.findIndex(m => m.enabled));
-    if (showSearch) setTimeout(() => searchRef.current?.focus({ preventScroll: true }), 0);
+    const i = ms.findIndex(m => m.id === sel);
+    setActive(i >= 0 ? i : ms.findIndex(m => m.enabled));
+    if (!search) return;
+    const t = setTimeout(() => searchRef.current?.focus({ preventScroll: true }), 0);
+    return () => clearTimeout(t);
   }, [open]);
   useEffect(() => {
     const list = listRef.current, el = list?.querySelector<HTMLElement>('[data-index="' + active + '"]');

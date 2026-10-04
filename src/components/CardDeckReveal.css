@@ -1,3 +1,7 @@
+/*
+ * All selectors are scoped under [data-card-deck-reveal] so the generic
+ * .deck-card / .card-pos-* hooks never collide with other components.
+ */
 [data-card-deck-reveal] {
   position: relative;
   width: 100%;
@@ -5,58 +9,76 @@
   min-height: 200px;
   perspective: 1000px;
   cursor: pointer;
+  /* Cards share one grid cell, so the deck and each card shell hug the card
+     content instead of stretching to the full container width. */
+  display: grid;
+  place-content: center;
+  /* Room for the stacked cards peeking out below the front card. */
+  padding-bottom: var(--s8, 32px);
+  box-sizing: border-box;
 }
 
-.deck-card {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--app-bg, #080c2c);
-  border: 1px solid var(--app-line, rgba(150, 175, 255, 0.16));
+[data-card-deck-reveal] .deck-card {
+  position: relative;
+  grid-area: 1 / 1;
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
+  background: var(--app-bg);
+  border: 1px solid var(--app-line);
   border-radius: var(--r-md, 12px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   transition: transform var(--d3, 300ms) var(--ease-spring),
               opacity var(--d3, 300ms) var(--ease-spring);
   transform-style: preserve-3d;
+  transform-origin: 50% 100%;
 }
 
 /* Static positions */
-.card-pos-0 {
+[data-card-deck-reveal] .card-pos-0 {
   transform: translate3d(0, 0, 0) scale(1);
   opacity: 1;
 }
 
-.card-pos-1 {
-  transform: translate3d(0, 10px, -20px) scale(0.95);
+[data-card-deck-reveal] .card-pos-1 {
+  transform: translate3d(0, 14px, -20px) scale(0.95);
   opacity: 0.8;
 }
 
-.card-pos-2 {
-  transform: translate3d(0, 20px, -40px) scale(0.9);
+[data-card-deck-reveal] .card-pos-2 {
+  transform: translate3d(0, 28px, -40px) scale(0.9);
   opacity: 0.5;
 }
 
-.card-pos-3 {
-  transform: translate3d(0, 30px, -60px) scale(0.85);
+[data-card-deck-reveal] .card-pos-3 {
+  transform: translate3d(0, 42px, -60px) scale(0.85);
   opacity: 0;
 }
 
+/* Back cards are decoration only: hide their content so it can't bleed. */
+[data-card-deck-reveal] .deck-card:not(.card-pos-0) > * {
+  visibility: hidden;
+}
+
+[data-card-deck-reveal] .card-animating-out > *,
+[data-card-deck-reveal] .card-promoting-to-0 > * {
+  visibility: visible;
+}
+
 /* Animations */
-.card-animating-out {
-  animation: drop-away 500ms var(--ease-fx) forwards;
+[data-card-deck-reveal] .card-animating-out {
+  animation: morph-deck-drop-away 500ms var(--ease-fx) forwards;
 }
 
-.card-promoting-to-0 {
-  animation: promote-to-0 500ms var(--ease-spring) forwards;
+[data-card-deck-reveal] .card-promoting-to-0 {
+  animation: morph-deck-promote-to-0 500ms var(--ease-spring) forwards;
 }
 
-.card-promoting-to-1 {
-  animation: promote-to-1 500ms var(--ease-spring) forwards;
+[data-card-deck-reveal] .card-promoting-to-1 {
+  animation: morph-deck-promote-to-1 500ms var(--ease-spring) forwards;
 }
 
-@keyframes drop-away {
+@keyframes morph-deck-drop-away {
   0% {
     transform: translate3d(0, 0, 0) scale(1) rotateX(0deg);
     opacity: 1;
@@ -71,27 +93,25 @@
   }
 }
 
-@keyframes promote-to-0 {
-  0% { transform: translate3d(0, 10px, -20px) scale(0.95); opacity: 0.8; }
+@keyframes morph-deck-promote-to-0 {
+  0% { transform: translate3d(0, 14px, -20px) scale(0.95); opacity: 0.8; }
   100% { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
 }
 
-@keyframes promote-to-1 {
-  0% { transform: translate3d(0, 20px, -40px) scale(0.9); opacity: 0.5; }
-  100% { transform: translate3d(0, 10px, -20px) scale(0.95); opacity: 0.8; }
+@keyframes morph-deck-promote-to-1 {
+  0% { transform: translate3d(0, 28px, -40px) scale(0.9); opacity: 0.5; }
+  100% { transform: translate3d(0, 14px, -20px) scale(0.95); opacity: 0.8; }
 }
 
+/* Reduced motion: keep the static stack (no movement), drop all transitions
+   and keyframe animations so cards swap instantly. */
 @media (prefers-reduced-motion: reduce) {
-  .deck-card {
-    transition: opacity var(--d3, 300ms) ease-in-out;
-    transform: none !important;
+  [data-card-deck-reveal] .deck-card {
+    transition: none;
   }
-  .card-pos-1, .card-pos-2, .card-pos-3 {
-    opacity: 0;
-  }
-  .card-animating-out,
-  .card-promoting-to-0,
-  .card-promoting-to-1 {
+  [data-card-deck-reveal] .card-animating-out,
+  [data-card-deck-reveal] .card-promoting-to-0,
+  [data-card-deck-reveal] .card-promoting-to-1 {
     animation: none;
   }
 }

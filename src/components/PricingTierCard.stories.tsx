@@ -15,6 +15,7 @@ export const Default = () => (
       features={features}
       ctaText="Start free trial"
       onToggle={() => {}}
+      toggleLabel="Billed annually (save 20%)"
     />
   </div>
 );
@@ -33,6 +34,7 @@ export const Highlighted = () => (
         <strong key="sla">99.9% uptime SLA</strong>,
       ]}
       onToggle={() => {}}
+      toggleLabel="Billed annually (save 20%)"
     />
   </div>
 );

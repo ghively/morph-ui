@@ -4,7 +4,17 @@
   overflow: hidden;
   z-index: -1;
   pointer-events: none;
-  background-color: var(--app-bg, #080c2c);
+  background-color: var(--app-bg);
+}
+
+/*
+ * z-index: -1 only stays visible when an ancestor forms a stacking context;
+ * otherwise it paints behind the frame/page background. The direct parent is
+ * isolated (zero specificity via :where) so the backdrop always sits just
+ * above the parent's own background and below its content.
+ */
+:where(:has(> .gradient-blind-backdrop)) {
+  isolation: isolate;
 }
 
 .gradient-blind-layer {
@@ -18,17 +28,17 @@
 }
 
 .gradient-blind-layer-1 {
-  background: linear-gradient(135deg, var(--app-blue-soft, rgba(108, 156, 240, 0.18)) 0%, transparent 50%);
+  background: linear-gradient(135deg, var(--app-blue-soft) 0%, transparent 50%);
   opacity: 0.8;
 }
 
 .gradient-blind-layer-2 {
-  background: linear-gradient(225deg, var(--app-blue, #6c9cf0) 0%, transparent 40%);
+  background: linear-gradient(225deg, var(--app-blue) 0%, transparent 40%);
   opacity: 0.3;
 }
 
 .gradient-blind-layer-3 {
-  background: linear-gradient(45deg, var(--color-info-text, #7fb0f5) 0%, transparent 60%);
+  background: linear-gradient(45deg, var(--color-info-text) 0%, transparent 60%);
   opacity: 0.15;
 }
 

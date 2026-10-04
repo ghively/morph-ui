@@ -47,6 +47,10 @@ const KIND: Record<ProgramKind, string> = {
   kids: '#ff8ad8',
 };
 
+/** Channel column width (px): the single source for the grid track, the
+ *  sticky channel cells and the timeline offset (exposed as --tvA-ch-w). */
+const CH_W = 168;
+
 const hm = (t: number) =>
   new Date(t).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
 
@@ -88,8 +92,8 @@ export function LiveTvGuide(p: LiveTvGuideProps) {
   return (
     <section className={'ml tvA ml-glass ' + (p.className || '')} aria-label="TV guide">
       <div className="tvA-scroll" ref={sc} onKeyDown={rove('[data-prog]', () => sc.current)}>
-        <div className="tvA-grid" style={{ width: W + 168 }}>
-          <div className="tvA-corner">
+        <div className="tvA-grid" role="table" aria-label="Schedule" style={{ width: W + CH_W, ['--tvA-ch-w' as string]: CH_W + 'px' }}>
+          <div className="tvA-corner" aria-hidden="true">
             <b>
               {new Date(now).toLocaleDateString([], {
                 weekday: 'short',
@@ -98,7 +102,7 @@ export function LiveTvGuide(p: LiveTvGuideProps) {
               })}
             </b>
           </div>
-          <div className="tvA-ruler" style={{ width: W }}>
+          <div className="tvA-ruler" aria-hidden="true" style={{ width: W }}>
             {slots.map(t => (
               <span key={t} style={{ left: x(t) }} className="ml-num">
                 {hm(t)}
@@ -120,7 +124,7 @@ export function LiveTvGuide(p: LiveTvGuideProps) {
                 )}
                 <span className="tvA-name ml-ell">{c.name}</span>
               </div>
-              <div className="tvA-row" style={{ width: W }}>
+              <div className="tvA-row" role="cell" style={{ width: W }}>
                 {p.programs
                   .filter(g => g.channelId === c.id && g.end > start && g.start < end)
                   .map(g => {
@@ -176,7 +180,7 @@ export function LiveTvGuide(p: LiveTvGuideProps) {
               </div>
             </div>
           ))}
-          <div className="tvA-now" style={{ left: 168 + x(now) }} aria-hidden="true">
+          <div className="tvA-now" style={{ left: CH_W + x(now) }} aria-hidden="true">
             <span className="ml-num">{hm(now)}</span>
           </div>
         </div>

@@ -7,7 +7,7 @@ export const Default = () => (
 );
 
 export const Variants = () => (
-  <div style={{ padding: "3rem", fontSize: "1.75rem", display: "grid", gap: "2rem" }}>
+  <div style={{ padding: "3rem", fontSize: "1.75rem", display: "grid", gap: "2rem", justifyItems: "start" }}>
     <TextScribble type="underline" playOnMount>
       underlined
     </TextScribble>

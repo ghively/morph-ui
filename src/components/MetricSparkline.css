@@ -1,16 +1,16 @@
 /* MetricSparkline — AGENT_DATA polish batch 2 (2026-10-03). Inline row: label/value + delta, accent sparkline on a dashed baseline, hover scrub.
    Reads only theme tokens + the --state-* / --glass-* layer in tokens.css. */
-.metric-sparkline { --c: var(--state-live); --t: var(--app-dim); display: flex; align-items: center; gap: 14px; padding: 10px 12px; color: var(--app-text);
-  border-radius: 12px; border: 1px solid var(--app-line); background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); box-shadow: var(--glass-edge);
+.metric-sparkline { --c: var(--state-live); --t: var(--app-dim); display: flex; align-items: center; gap: var(--s4h); padding: var(--s3) var(--s4); color: var(--app-text);
+  border-radius: var(--r-md); border: 1px solid var(--app-line); background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); box-shadow: var(--glass-edge);
   transition: border-color var(--d2) var(--ease-fx), background var(--d2) var(--ease-fx); }
 .metric-sparkline:hover { border-color: color-mix(in srgb, var(--c) 35%, var(--app-line)); }
 .metric-sparkline.is-good { --t: var(--state-ok); } .metric-sparkline.is-bad { --t: var(--state-error); }
-.metric-sparkline-txt { flex: none; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.metric-sparkline-label { display: flex; gap: 6px; align-items: baseline; font-size: 11px; color: var(--app-dim); white-space: nowrap; }
-.metric-sparkline-label em { font-style: normal; color: var(--app-faint); font-size: 10px; }
-.metric-sparkline-row { display: flex; align-items: baseline; gap: 7px; }
-.metric-sparkline-value { font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: -.01em; white-space: nowrap; }
-.metric-sparkline-delta { font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--t); }
+.metric-sparkline-txt { flex: none; min-width: 0; display: flex; flex-direction: column; gap: var(--s0); }
+.metric-sparkline-label { display: flex; gap: var(--s1h); align-items: baseline; font-size: var(--t-num); color: var(--app-dim); white-space: nowrap; }
+.metric-sparkline-label em { font-style: normal; color: var(--app-faint); font-size: var(--t-xs); }
+.metric-sparkline-row { display: flex; align-items: baseline; gap: var(--s2); }
+.metric-sparkline-value { font-size: var(--t-h4); font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: -.01em; white-space: nowrap; }
+.metric-sparkline-delta { font-size: var(--t-num); font-weight: 600; font-variant-numeric: tabular-nums; color: var(--t); }
 .metric-sparkline-chart { position: relative; flex: 1; min-width: 60px; height: 32px; cursor: crosshair; }
 .metric-sparkline-chart svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .metric-sparkline-base { stroke: var(--app-line); stroke-dasharray: 2 3; }

@@ -1,8 +1,9 @@
 import './Select.css';
-import { fieldIds, FieldNotes, Chevron, type SelectProps } from './forms.shared';
+import { fieldIds, useFieldId, FieldNotes, Chevron, type SelectProps } from './forms.shared';
 
 /** Native-select dropdown: keyboard, screen-reader, and mobile friendly by default. */
-export function Select({ id, label, options, placeholder, error, hint, disabled, className = '', ...rest }: SelectProps) {
+export function Select({ id: idProp, label, options, placeholder, error, hint, disabled, className = '', ...rest }: SelectProps) {
+  const id = useFieldId(idProp);
   const ids = fieldIds(id, hint, error);
   return (
     <div className={className} data-select="" {...ids.root} data-disabled={disabled ? '' : undefined}>

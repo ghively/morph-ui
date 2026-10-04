@@ -1,26 +1,26 @@
-.csA { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-.csA-head { display: flex; align-items: baseline; gap: 10px; }
-.csA-head h3 { margin: 0; font-size: 16px; font-weight: 700; color: var(--app-text); }
+.csA { display: flex; flex-direction: column; gap: var(--s4); min-width: 0; }
+.csA-head { display: flex; align-items: baseline; gap: var(--s3); }
+.csA-head h3 { margin: 0; font-size: var(--t-h4); font-weight: 700; color: var(--app-text); }
 .csA-sp { flex: 1; }
-.csA-nav { all: unset; box-sizing: border-box; cursor: pointer; width: 26px; height: 26px; display: inline-grid; place-items: center; border-radius: 50%; font-size: 14px; color: var(--app-text); background: color-mix(in srgb, var(--app-text) 8%, transparent); border: 1px solid var(--app-line); }
+.csA-nav { all: unset; box-sizing: border-box; cursor: pointer; width: 26px; height: 26px; display: inline-grid; place-items: center; border-radius: 50%; font-size: var(--t-lead); color: var(--app-text); background: color-mix(in srgb, var(--app-text) 8%, transparent); border: 1px solid var(--app-line); }
 .csA-nav:hover:not(:disabled) { background: color-mix(in srgb, var(--app-text) 14%, transparent); }
 .csA-nav:disabled { opacity: .25; cursor: default; }
-.csA-track { list-style: none; margin: 0; padding: 4px 2px 10px; display: flex; gap: 14px; overflow-x: auto; scrollbar-width: none; }
+.csA-track { list-style: none; margin: 0; padding: var(--s1) var(--s0) var(--s3); display: flex; gap: var(--s4h); overflow-x: auto; scrollbar-width: none; }
 .csA-track::-webkit-scrollbar { display: none; }
 .csA-track > li { flex: none; }
-.csA-person { all: unset; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; width: 92px; text-align: center; }
-.csA-person:focus-visible { outline: 2px solid var(--c); outline-offset: 4px; border-radius: 8px; }
+.csA-person { all: unset; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: var(--s1h); width: 92px; text-align: center; }
+.csA-person:focus-visible { outline: 2px solid var(--c); outline-offset: 4px; border-radius: var(--r-sm); }
 .csA-art { width: 72px; height: 72px; transition: transform var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx); }
 .csA-person:hover .csA-art { transform: translateY(-2px); }
-.csA-name { font-size: 12px; font-weight: 650; color: var(--app-text); line-height: 1.25; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.csA-name { font-size: var(--t-small); font-weight: 650; color: var(--app-text); line-height: 1.25; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .csA-person:hover .csA-name { color: var(--c); }
-.csA-role { font-size: 10.5px; color: var(--app-dim); line-height: 1.2; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.csA-more { width: 72px; height: 72px; display: grid; place-items: center; border-radius: 50%; font-size: 12px; font-weight: 700; color: var(--app-dim); background: color-mix(in srgb, var(--app-text) 6%, transparent); border: 1px dashed var(--app-line); }
-.csA-crew { margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 14px 24px; font-size: 12px; }
-.csA-g { display: flex; gap: 6px; }
+.csA-role { font-size: var(--t-eyebrow); color: var(--app-dim); line-height: 1.2; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.csA-more { width: 72px; height: 72px; display: grid; place-items: center; border-radius: 50%; font-size: var(--t-small); font-weight: 700; color: var(--app-dim); background: color-mix(in srgb, var(--app-text) 6%, transparent); border: 1px dashed var(--app-line); }
+.csA-crew { margin: var(--s1) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s4h) var(--s7); font-size: var(--t-small); }
+.csA-g { display: flex; gap: var(--s1h); }
 .csA-g dt { color: var(--app-faint); margin: 0; }
 .csA-g dt::after { content: ":"; }
-.csA-g dd { margin: 0; color: var(--app-text); display: flex; flex-wrap: wrap; gap: 4px; }
+.csA-g dd { margin: 0; color: var(--app-text); display: flex; flex-wrap: wrap; gap: var(--s1); }
 .csA-g button { all: unset; cursor: pointer; color: var(--app-text); }
 .csA-g button:hover { color: var(--c); text-decoration: underline; }
 .csA-g button:focus-visible { outline: 2px solid var(--c); outline-offset: 1px; }

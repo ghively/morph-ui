@@ -14,6 +14,7 @@ export const ActiveWithScrollTarget = () => {
       <GradientBlindBackdrop state="active" scrollTarget={scrollRef} />
       <div
         ref={scrollRef}
+        tabIndex={0}
         style={{ position: "relative", height: "100%", overflowY: "auto", padding: "2rem" }}
       >
         {Array.from({ length: 14 }, (_, index) => (

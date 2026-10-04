@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import { TextHighlight } from './TextHighlight';
 
+// Themed from tokens so the story renders in the library's own type and
+// surfaces (a hard-coded system-ui stack rendered italics differently per host).
 const frame: React.CSSProperties = {
-  padding: '3rem 2rem',
-  fontFamily: 'system-ui, -apple-system, sans-serif',
-  color: '#f8fafc',
-  background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-  borderRadius: '16px',
+  padding: 'var(--s9) var(--s7)',
+  fontFamily: 'var(--font-sans)',
+  color: 'var(--app-text)',
+  background: 'var(--app-panel)',
+  borderRadius: 'var(--r-xl)',
   maxWidth: '640px',
-  margin: '2rem auto',
-  border: '1px solid #334155',
+  margin: 'var(--s7) auto',
+  border: '1px solid var(--app-line)',
   lineHeight: 1.7,
 };
 
@@ -36,8 +38,8 @@ export const Default = () => {
           padding: '0.5rem 1rem',
           fontSize: '0.8125rem',
           fontWeight: 600,
-          color: '#0f172a',
-          backgroundColor: '#38bdf8',
+          color: 'var(--on-accent)',
+          backgroundColor: 'var(--app-blue)',
           border: 'none',
           borderRadius: '8px',
           cursor: 'pointer',

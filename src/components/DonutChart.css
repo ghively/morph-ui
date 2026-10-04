@@ -24,7 +24,7 @@
 }
 
 [data-donutcenter] {
-  font-size: 20px;
+  font-size: var(--t-h3);
   font-weight: 700;
   fill: currentColor;
   font-variant-numeric: tabular-nums;
@@ -36,10 +36,13 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: var(--s2);
   font-size: var(--t-body);
   min-width: 140px;
-  flex: 1;
+  /* Grow with the row but stay a readable width so values sit next to their
+     labels instead of being pushed to the far edge of a wide card. */
+  flex: 1 1 140px;
+  max-width: 300px;
 }
 
 [data-donutlegend] li {
@@ -51,7 +54,7 @@
 [data-donutswatch] {
   width: 10px;
   height: 10px;
-  border-radius: 3px;
+  border-radius: var(--r-xs);
   flex: none;
 }
 

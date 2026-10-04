@@ -98,6 +98,7 @@ describe('AgentTopologyView', () => {
       fillText: vi.fn(),
       restore: vi.fn(),
       scale: vi.fn(),
+      setTransform: vi.fn(),
     });
     
     const { container } = render(
@@ -107,6 +108,34 @@ describe('AgentTopologyView', () => {
     expect(container.querySelector('canvas')).toBeTruthy();
     expect(container.querySelector('.agent-topology-svg')).toBeFalsy();
     
+    HTMLCanvasElement.prototype.getContext = originalGetContext;
+  });
+
+  it('paints a static frame synchronously and keeps a single ResizeObserver', () => {
+    const originalGetContext = HTMLCanvasElement.prototype.getContext;
+    const ctx = {
+      clearRect: vi.fn(), save: vi.fn(), translate: vi.fn(), beginPath: vi.fn(),
+      moveTo: vi.fn(), lineTo: vi.fn(), stroke: vi.fn(), setLineDash: vi.fn(),
+      arc: vi.fn(), fill: vi.fn(), fillText: vi.fn(), restore: vi.fn(),
+      scale: vi.fn(), setTransform: vi.fn(),
+    };
+    HTMLCanvasElement.prototype.getContext = vi.fn().mockReturnValue(ctx);
+    let created = 0;
+    class CountingResizeObserver extends MockResizeObserver {
+      constructor() { super(); created += 1; }
+    }
+    vi.stubGlobal('ResizeObserver', CountingResizeObserver);
+
+    const { rerender } = render(
+      <AgentTopologyView nodes={sampleNodes} edges={sampleEdges} paused />
+    );
+    // Nodes and labels drawn without waiting for requestAnimationFrame.
+    expect(ctx.arc).toHaveBeenCalled();
+    expect(ctx.fillText).toHaveBeenCalledWith('Agent 1', expect.any(Number), expect.any(Number));
+
+    rerender(<AgentTopologyView nodes={[...sampleNodes]} edges={sampleEdges} paused selectedId="1" />);
+    expect(created).toBe(1);
+
     HTMLCanvasElement.prototype.getContext = originalGetContext;
   });
 });

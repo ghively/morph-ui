@@ -1,3 +1,4 @@
+import './mediaLibrary.shared.css';
 import './LibraryScanStatus.css';
 import type { CSSProperties } from 'react';
 

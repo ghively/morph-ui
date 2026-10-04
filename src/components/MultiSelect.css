@@ -1,25 +1,25 @@
-[data-multiselect] { --c: var(--morph-accent); position: relative; display: flex; flex-direction: column; gap: 6px; min-width: 0; font: inherit; font-size: var(--t-title); }
+[data-multiselect] { --c: var(--morph-accent); position: relative; display: flex; flex-direction: column; gap: var(--s1h); min-width: 0; font: inherit; font-size: var(--t-title); }
 [data-multiselect] > label { font-size: var(--t-body); font-weight: 600; }
-[data-msbox] { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-height: 34px; padding: 4px 8px; box-sizing: border-box; cursor: text;
+[data-msbox] { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s1h); min-height: 34px; padding: var(--s1) var(--s2); box-sizing: border-box; cursor: text;
   background: var(--morph-input-bg); border: 1px solid var(--morph-border); border-radius: var(--morph-radius); transition: border-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx); }
 [data-msbox]:hover:not([data-disabled]) { border-color: var(--morph-border-strong); }
 [data-msbox]:focus-within { border-color: var(--c); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 22%, transparent); }
 [data-msbox][data-disabled] { opacity: .55; cursor: not-allowed; }
-[data-mschip] { display: inline-flex; align-items: center; gap: 4px; padding: 2px 3px 2px 9px; border-radius: 999px; font-size: var(--t-ctl); font-weight: 600;
+[data-mschip] { display: inline-flex; align-items: center; gap: var(--s1); padding: var(--s0) var(--s1) var(--s0) var(--s3); border-radius: var(--r-pill); font-size: var(--t-ctl); font-weight: 600;
   background: color-mix(in srgb, var(--c) 15%, transparent); border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); animation: morph-chip-in var(--d2) var(--ease-emph); }
 [data-mschip] button { all: unset; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; font-size: var(--t-lead); line-height: 1; cursor: pointer; transition: background-color var(--d2) var(--ease-fx); }
 [data-mschip] button:hover, [data-mschip] button:focus-visible { background: color-mix(in srgb, var(--c) 28%, transparent); }
 [data-msbox] input { flex: 1; min-width: 80px; height: 26px; padding: 0; font: inherit; color: inherit; background: transparent; border: 0; outline: none; }
 [data-msbox] input::placeholder { color: var(--morph-placeholder); }
-[data-msclear] { all: unset; padding: 2px 4px; border-radius: 4px; font-size: var(--t-meta); font-weight: 650; color: var(--app-dim); cursor: pointer; }
+[data-msclear] { all: unset; padding: var(--s0) var(--s1); border-radius: var(--r-xs); font-size: var(--t-meta); font-weight: 650; color: var(--app-dim); cursor: pointer; }
 [data-msclear]:hover, [data-msclear]:focus-visible { color: var(--app-text); background: var(--morph-hover); }
-[data-mslist] { position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 50; margin: 0; padding: 4px; list-style: none; max-height: 200px; overflow-y: auto; overscroll-behavior: contain;
-  border-radius: 10px; border: 1px solid var(--morph-border); background: var(--morph-menu-bg); box-shadow: var(--el-float); backdrop-filter: var(--blur-float);
+[data-mslist] { position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 50; margin: 0; padding: var(--s1); list-style: none; max-height: 200px; overflow-y: auto; overscroll-behavior: contain;
+  border-radius: var(--r-md); border: 1px solid var(--morph-border); background: var(--morph-menu-bg); box-shadow: var(--el-float); backdrop-filter: var(--blur-float);
   scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--app-text) 20%, transparent) transparent; animation: morph-list-in var(--d2) var(--ease-emph); }
-[data-msoption] { padding: 8px 10px; border-radius: 6px; font-size: inherit; cursor: pointer; }
+[data-msoption] { padding: var(--s2) var(--s3); border-radius: var(--r-sm); font-size: inherit; cursor: pointer; }
 [data-msoption][data-active] { background: var(--morph-hover); }
 [data-msoption] mark { background: none; color: var(--c); font-weight: 700; }
-[data-msempty] { padding: 10px; font-size: var(--t-ctl); color: var(--app-dim); }
+[data-msempty] { padding: var(--s3); font-size: var(--t-ctl); color: var(--app-dim); }
 @keyframes morph-chip-in { from { opacity: 0; transform: scale(.9); } }
 @keyframes morph-list-in { from { opacity: 0; transform: translateY(-4px) scaleY(.98); } }
 @media (prefers-reduced-motion: reduce) { [data-mschip], [data-mslist] { animation: none; } }

@@ -1,32 +1,34 @@
-.asA { display: flex; flex-direction: column; gap: 4px; padding: 10px; container-type: inline-size; }
-.asA-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 2px 6px 6px; }
-.asA-bw { display: inline-flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--app-dim); }
+.asA { display: flex; flex-direction: column; gap: var(--s1); padding: var(--s3); container-type: inline-size; }
+.asA-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); padding: var(--s0) var(--s1h) var(--s1h); }
+.asA-bw { display: inline-flex; align-items: center; gap: var(--s2); font-size: var(--t-meta); color: var(--app-dim); }
 .asA-bw .ml-bar { width: 70px; height: 4px; }
-.asA-row { display: grid; grid-template-columns: 132px minmax(0, 1fr) auto; gap: 12px; padding: 8px; }
+.asA-row { display: grid; grid-template-columns: 132px minmax(0, 1fr) auto; gap: var(--s4); padding: var(--s2); }
 @container (max-width: 460px) { .asA-row { grid-template-columns: 88px minmax(0, 1fr) auto; } }
 .asA-thumb { position: relative; align-self: start; }
-.asA-thumb .mlArt { border-radius: 8px; box-shadow: 0 0 0 1px var(--app-line), 0 0 18px -8px var(--c); }
+.asA-thumb .mlArt { border-radius: var(--r-sm); box-shadow: 0 0 0 1px var(--app-line), 0 0 18px -8px var(--c); }
 .asA-row[data-paused] .asA-thumb .mlArt-img { filter: grayscale(.6) brightness(.6); }
-.asA-state { position: absolute; left: 6px; bottom: 6px; z-index: 2; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; font-size: 8px; color: var(--on-accent); background: var(--c); box-shadow: 0 0 10px var(--c); }
+.asA-state { position: absolute; left: 6px; bottom: 6px; z-index: 2; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; font-size: var(--t-2xs); color: var(--on-accent); background: var(--c); box-shadow: 0 0 10px var(--c); }
+/* The no-art placeholder stacks its title + [ NO_ART ] at the bottom-left, so the badge moves up out of its way. */
+.asA-thumb .mlArt[data-phase="none"] + .asA-state { top: 6px; bottom: auto; }
 .asA-row[data-paused] .asA-state { background: rgba(0,0,0,.7); color: #fff; box-shadow: none; border: 1px solid rgba(255,255,255,.2); }
-.asA-main { min-width: 0; display: flex; flex-direction: column; gap: 5px; }
-.asA-av { flex: none; width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%; font-size: 9px; font-weight: 800; color: #000; background: var(--k); box-shadow: 0 0 8px -2px var(--k); }
-.asA-user { font-size: 12px; font-weight: 700; }
-.asA-dev { font-size: 11.5px; color: var(--app-faint); }
-.asA-title { all: unset; cursor: pointer; font-size: 13.5px; font-weight: 650; }
+.asA-main { min-width: 0; display: flex; flex-direction: column; gap: var(--s1h); }
+.asA-av { flex: none; width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%; font-size: var(--t-2xs); font-weight: 800; color: #000; background: var(--k); box-shadow: 0 0 8px -2px var(--k); }
+.asA-user { font-size: var(--t-small); font-weight: 700; }
+.asA-dev { font-size: var(--t-meta); color: var(--app-faint); }
+.asA-title { all: unset; cursor: pointer; font-size: var(--t-title); font-weight: 650; }
 .asA-title:hover { color: var(--c); }
-.asA-title:focus-visible { outline: 2px solid var(--c); outline-offset: 2px; border-radius: 3px; }
-.asA-prog { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 10px; font-size: 11px; color: var(--app-faint); }
+.asA-title:focus-visible { outline: 2px solid var(--c); outline-offset: 2px; border-radius: var(--r-xs); }
+.asA-prog { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--s3); font-size: var(--t-num); color: var(--app-faint); }
 .asA-prog .ml-bar { height: 4px; }
-.asA-tags { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
-.asA-more { all: unset; cursor: pointer; font-size: 11px; font-weight: 600; color: var(--app-dim); padding: 0 6px; border-radius: 999px; }
+.asA-tags { display: flex; flex-wrap: wrap; gap: var(--s1h); align-items: center; }
+.asA-more { all: unset; cursor: pointer; font-size: var(--t-num); font-weight: 600; color: var(--app-dim); padding: 0 var(--s1h); border-radius: var(--r-pill); }
 .asA-more:hover { color: var(--c); }
 .asA-more:focus-visible { outline: 2px solid var(--c); }
-.asA-why { margin: 2px 0 0; padding: 6px 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 4px 14px; animation: asA-in var(--d3) var(--ease-emph); }
+.asA-why { margin: var(--s0) 0 0; padding: var(--s1h) var(--s3); display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--s1) var(--s4h); animation: asA-in var(--d3) var(--ease-emph); }
 @keyframes asA-in { from { opacity: 0; transform: translateY(-4px); } }
-.asA-why div { display: flex; gap: 8px; font-size: 11.5px; min-width: 0; }
+.asA-why div { display: flex; gap: var(--s2); font-size: var(--t-meta); min-width: 0; }
 .asA-why dt { color: var(--app-faint); flex: none; width: 64px; }
 .asA-why dd { margin: 0; color: var(--app-text); overflow-wrap: anywhere; }
-.asA-acts { display: flex; flex-direction: column; gap: 2px; }
+.asA-acts { display: flex; flex-direction: column; gap: var(--s0); }
 .asA-stop:hover { color: #000 !important; background: var(--state-error) !important; }
-.asA-empty { padding: 26px; text-align: center; font-size: 12.5px; color: var(--app-dim); }
+.asA-empty { padding: var(--s7); text-align: center; font-size: var(--t-ctl); color: var(--app-dim); }

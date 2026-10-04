@@ -76,7 +76,7 @@
   display: flex;
   background: var(--app-line);
   border-radius: var(--r-md);
-  padding: 2px;
+  padding: var(--s0);
   flex: none;
 }
 
@@ -84,7 +84,7 @@
   background: transparent;
   border: none;
   color: var(--app-dim);
-  padding: 4px 12px;
+  padding: var(--s1) var(--s4);
   border-radius: calc(var(--r-md) - 2px);
   font-size: var(--t-meta);
   font-weight: 600;
@@ -102,7 +102,7 @@
   font-family: inherit;
   font-weight: 600;
   font-size: var(--t-ctl);
-  padding: 6px 16px;
+  padding: var(--s1h) var(--s5);
   border-radius: var(--r-md);
   cursor: pointer;
   border: none;
@@ -135,6 +135,15 @@
   justify-content: center;
   flex: 1;
   color: var(--app-dim);
+}
+
+[data-empty-state][data-notelistempty] {
+  padding: var(--s7) var(--s4);
+  text-align: center;
+}
+
+[data-notelistempty] [data-empty-body] {
+  font-size: var(--t-ctl);
 }
 
 [data-empty-title] {

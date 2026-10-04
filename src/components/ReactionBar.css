@@ -1,5 +1,5 @@
-.reactions { display: flex; flex-wrap: wrap; gap: 6px; }
-.reactions-chip { display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 9px; border-radius: var(--r-pill, 999px); border: 1px solid var(--app-line); background: color-mix(in srgb, var(--app-text) 4%, transparent);
+.reactions { display: flex; flex-wrap: wrap; gap: var(--s1h); }
+.reactions-chip { display: inline-flex; align-items: center; gap: var(--s1h); height: 26px; padding: 0 var(--s3); border-radius: var(--r-pill, 999px); border: 1px solid var(--app-line); background: color-mix(in srgb, var(--app-text) 4%, transparent);
   color: var(--app-text); font: inherit; font-size: var(--t-ctl); cursor: pointer; transition: background var(--d1) var(--ease-fx), border-color var(--d1) var(--ease-fx), transform var(--d1) var(--ease-spring); }
 .reactions-chip:hover { background: var(--app-hover); }
 .reactions-chip:active { transform: scale(.94); }

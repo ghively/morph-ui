@@ -39,7 +39,7 @@ export function CountBadge({ highlight = 0, unread = 0, dot }: { highlight?: num
   if (highlight > 0) return <span className="cm-count" data-count="" data-tone="danger" data-mention="" aria-label={highlight + ' mentions'}>@{highlight}</span>;
   if (unread <= 0) return null;
   return dot
-    ? <span className="cm-dot" data-threaddot="" data-live="" aria-label="Unread replies" />
+    ? <span className="cm-dot" data-threaddot="" data-live="" role="img" aria-label="Unread replies" />
     : <span className="cm-count" data-count="" aria-label={unread + ' unread'}>{unread}</span>;
 }
 

@@ -1,7 +1,7 @@
 [data-checkbox] { --c: var(--morph-accent); display: inline-flex; align-items: flex-start; gap: var(--s2); font: inherit; font-size: var(--t-title); cursor: pointer; }
 [data-checkbox][data-disabled] { opacity: .55; cursor: not-allowed; }
 [data-checkbox] input[type='checkbox'] { appearance: none; -webkit-appearance: none; flex: none; display: inline-grid; place-content: center; width: 17px; height: 17px; margin: 1px 0 0;
-  border: 1.5px solid var(--morph-border-strong); border-radius: var(--morph-radius-sm); background: transparent; cursor: inherit;
+  border: 1.5px solid var(--morph-border-strong); border-radius: var(--r-xs); background: transparent; cursor: inherit;
   transition: background-color var(--d2) var(--ease-fx), border-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx); }
 [data-checkbox] input[type='checkbox']:hover:not(:disabled) { border-color: var(--c); }
 [data-checkbox] input[type='checkbox']:focus-visible { outline: 2px solid var(--c); outline-offset: 2px; }

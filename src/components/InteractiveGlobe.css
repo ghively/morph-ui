@@ -1,11 +1,15 @@
 .interactive-globe-container {
+  /* Square, but capped (and centred) so a wide container doesn't produce a
+     globe taller than the viewport. Override with --interactive-globe-max. */
   width: 100%;
+  max-width: var(--interactive-globe-max, 480px);
+  margin-inline: auto;
   aspect-ratio: 1;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--app-bg, #080c2c);
+  background-color: var(--app-bg);
   border-radius: var(--r-md, 12px);
   overflow: hidden;
   cursor: grab;
@@ -27,8 +31,8 @@
 /* Tooltip for markers */
 .interactive-globe-tooltip {
   position: absolute;
-  background-color: var(--app-elev, rgba(34, 46, 112, 0.72));
-  color: var(--app-text, #eef1fc);
+  background-color: var(--app-elev);
+  color: var(--app-text);
   padding: var(--s1, 4px) var(--s2, 8px);
   border-radius: var(--s1, 4px);
   font-size: var(--t-meta, 11.5px);

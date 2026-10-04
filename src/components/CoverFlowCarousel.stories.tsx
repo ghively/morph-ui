@@ -5,8 +5,8 @@ function cover(title: string, accent: string) {
   return (
     <div
       style={{
-        width: 220,
-        height: 220,
+        width: "100%",
+        height: "100%",
         borderRadius: 12,
         background: `linear-gradient(160deg, ${accent}, #0b1030)`,
         color: "#eef1fc",

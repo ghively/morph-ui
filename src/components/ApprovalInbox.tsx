@@ -16,7 +16,7 @@ export function ApprovalInbox(props: ApprovalInboxProps) {
             const risk = r.risk ?? 'medium';
             return (
               <li key={r.id} className="approval-inbox-row" data-approval="" data-risk={risk} data-leaving={x.leaving[r.id]} style={cv(RISK_C[risk])}>
-                <span className="approval-inbox-flag" data-riskflag="" aria-label={risk + ' risk'} />
+                <span className="approval-inbox-flag" data-riskflag="" role="img" aria-label={risk + ' risk'} />
                 <div className="approval-inbox-main" data-approvalmain="">
                   <span className="approval-inbox-title" data-approvaltitle="">{r.title}</span>
                   <span className="approval-inbox-meta" data-approvalmeta="">{r.detail && <span data-approvaldetail="">{r.detail}</span>}{r.agent && <span>{r.agent}</span>}{r.time && <span>{r.time}</span>}</span>
