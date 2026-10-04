@@ -24,6 +24,17 @@
   animation: text-path-move var(--duration, 10s) linear infinite;
 }
 
+/* The arc is a single headline: larger type, centred on the apex. */
+[data-text-path-preset="arc"] .text-path-text {
+  font-size: var(--t-h1, 30px);
+  letter-spacing: var(--tk-caps, 0.6px);
+}
+
+/* Fitted text already spans the whole path; never slide it off the end. */
+[data-fit] .text-path-text textPath {
+  animation: none;
+}
+
 @keyframes text-path-move {
   0% {
     startOffset: 0%;

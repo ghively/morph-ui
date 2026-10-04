@@ -45,3 +45,27 @@ describe('TextPath', () => {
     expect((wrapper as HTMLElement).style.getPropertyValue('--duration')).toBe('5s');
   });
 });
+
+describe('TextPath fitting', () => {
+  it('fits circle text to the full circumference with an even seam', () => {
+    const { container } = render(<TextPath text="ORBITING ·" path="circle" repeat={3} />);
+    const textPath = container.querySelector('textPath');
+    expect(Number(textPath?.getAttribute('textLength'))).toBeCloseTo(2 * Math.PI * 75, 3);
+    expect(textPath?.getAttribute('lengthAdjust')).toBe('spacing');
+    expect(textPath?.textContent).toBe('ORBITING ·   ORBITING ·   ORBITING ·   ');
+    expect(container.querySelector('[data-text-path]')?.hasAttribute('data-fit')).toBe(true);
+  });
+
+  it('centres arc text on the apex', () => {
+    const { container } = render(<TextPath text="An arc" path="arc" />);
+    const textPath = container.querySelector('textPath');
+    expect(textPath?.getAttribute('startOffset')).toBe('50%');
+    expect(textPath?.getAttribute('text-anchor')).toBe('middle');
+    expect(container.querySelector('[data-text-path]')?.getAttribute('data-text-path-preset')).toBe('arc');
+  });
+
+  it('does not fit the wave preset by default', () => {
+    const { container } = render(<TextPath text="Wave" path="wave" />);
+    expect(container.querySelector('textPath')?.hasAttribute('textLength')).toBe(false);
+  });
+});

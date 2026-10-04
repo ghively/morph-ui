@@ -1,14 +1,13 @@
 .text-ripple-container {
+  /* A text effect: inherit family, size and weight from the surrounding type. */
   display: inline-flex;
-  cursor: pointer;
-  font-family: var(--font-sans);
-  font-size: var(--t-ctl);
+  font: inherit;
   color: var(--app-text);
-  font-weight: 500;
+  cursor: default;
 }
 
-.text-ripple-container:not([onClick]) {
-  cursor: default;
+.text-ripple-container[data-clickable] {
+  cursor: pointer;
 }
 
 .text-ripple-chars {

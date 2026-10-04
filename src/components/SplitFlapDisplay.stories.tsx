@@ -8,6 +8,6 @@ export const Default = () => (
 
 export const PaddedCounter = () => (
   <div style={{ padding: "3rem" }}>
-    <SplitFlapDisplay value="249" padLength={6} />
+    <SplitFlapDisplay value="249" padLength={6} align="end" />
   </div>
 );

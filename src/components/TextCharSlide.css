@@ -3,6 +3,11 @@
   overflow: hidden;
 }
 
+/* Block-level tags keep their block flow so following content wraps below. */
+:where(h1, h2, h3, h4, h5, h6, p, div, blockquote, figcaption, section, header)[data-text-char-slide] {
+  display: block;
+}
+
 [data-text-char-slide-char] {
   display: inline-block;
   opacity: 0;

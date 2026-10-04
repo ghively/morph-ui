@@ -82,13 +82,16 @@ export const HeadingTag = () => {
   return (
     <div style={frame}>
       <TextFlip text={headlines[index]} as="h1" />
-      <button
-        type="button"
-        onClick={() => setIndex((value) => (value + 1) % headlines.length)}
-        style={buttonStyle}
-      >
-        Flip headline
-      </button>
+      {/* The flip root is inline-block; give the control its own row. */}
+      <div>
+        <button
+          type="button"
+          onClick={() => setIndex((value) => (value + 1) % headlines.length)}
+          style={buttonStyle}
+        >
+          Flip headline
+        </button>
+      </div>
     </div>
   );
 };

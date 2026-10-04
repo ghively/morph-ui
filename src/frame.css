@@ -48,7 +48,7 @@
   border-radius: var(--r-sm);
 }
 
-:where(.morph-frame, [data-morph-frame]) :where(input, select, textarea) {
+:where(.morph-frame, [data-morph-frame]) :where(input:not([type='range'], [type='checkbox'], [type='radio'], [type='color'], [type='file']), select, textarea) {
   background-color: var(--morph-input-bg);
   border: 1px solid var(--morph-border);
 }

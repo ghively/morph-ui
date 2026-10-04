@@ -41,4 +41,12 @@ describe('TextRipple', () => {
     expect(chars[1].classList.contains('is-space')).toBe(true);
     expect(chars[1].textContent).toBe('\u00A0');
   });
+
+  it('marks the root clickable only when triggerOnClick is set', () => {
+    const { container, rerender } = render(<TextRipple text="Tap" />);
+    const root = () => container.querySelector('[data-text-ripple]') as HTMLElement;
+    expect(root().hasAttribute('data-clickable')).toBe(true);
+    rerender(<TextRipple text="Tap" triggerOnClick={false} />);
+    expect(root().hasAttribute('data-clickable')).toBe(false);
+  });
 });
