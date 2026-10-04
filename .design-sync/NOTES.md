@@ -48,7 +48,6 @@
 
 - `[RENDER_THIN] CardDeckReveal: variants render identically`: AutoAdvancing differs from Default only over time, which a static capture can't show.
 - `[RENDER_THIN] ParticleImage: variants render identically`: the variants differ only in particle motion and timing. Each still frame is a legitimate render.
-- `[FONT_MISSING] "JetBrains Mono"`: a mid-stack fallback in `--app-mono`. **Pending a user decision.** Do not resolve it without the user.
 - `[GRID_OVERFLOW]` is resolved with `cfg.overrides` and should not re-flag. These are presentation-only, so the grades carried:
   - `cardMode: "column"`: AgentCard, CardDeckReveal (wide stories).
   - `cardMode: "single"` + `primaryStory`, for fixed/portal overlays: BloomSheet (Default), CommandPalette (Default), ModalSurface (CenterDialog), ToastStack (Interactive), ConfirmDialog (Danger). The escape flag on these was intermittent between runs because of overlay timing, so all of them are pinned to single.
