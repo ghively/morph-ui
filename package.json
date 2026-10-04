@@ -1,7 +1,7 @@
 {
   "name": "@ghively/morph-ui",
   "version": "0.1.0",
-  "description": "Morph UI — component library extracted from ChatUIMorph. Concept-reference components, not app code.",
+  "description": "Morph UI \u2014 component library extracted from ChatUIMorph. Concept-reference components, not app code.",
   "type": "module",
   "license": "MIT",
   "sideEffects": [
@@ -27,15 +27,19 @@
     "typecheck": "tsc --noEmit",
     "catalog": "ladle serve",
     "catalog:build": "ladle build",
-    "lint:css": "stylelint \"src/**/*.css\" && node scripts/snap-to-scale.mjs --check"
+    "lint:css": "stylelint \"src/**/*.css\" && node scripts/snap-to-scale.mjs --check",
+    "test:visual": "pnpm catalog:build && playwright test e2e/visual.spec.ts",
+    "test:a11y": "pnpm catalog:build && playwright test e2e/a11y.spec.ts"
   },
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@eslint/js": "^9.39.5",
     "@ladle/react": "^5.1.1",
+    "@playwright/test": "1.56.1",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/react": "^16.3.3",
     "@types/react": "^19.3.0",

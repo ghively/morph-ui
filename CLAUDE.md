@@ -17,12 +17,18 @@ pnpm lint:css       # stylelint (token colours) + scripts/snap-to-scale.mjs --ch
 pnpm typecheck      # tsc --noEmit (covers src/ and test/)
 pnpm catalog        # Ladle dev server for *.stories.tsx
 pnpm catalog:build  # static catalog → catalog-dist/
+pnpm test:visual    # catalog:build + Playwright screenshot of every story vs e2e/__screenshots__/
+pnpm test:a11y      # catalog:build + axe over every story (serious/critical fail)
 
 pnpm vitest run test/Button-component.test.tsx   # single file
 pnpm vitest run -t "renders loading state"       # single test by name
+pnpm exec playwright test e2e/visual.spec.ts -g "button--"   # visual subset (needs catalog-dist/)
+pnpm exec playwright test e2e/visual.spec.ts -g "button--" --update-snapshots   # accept an intended change
 ```
 
-Nothing lands on main unless all four gates pass: `pnpm build && pnpm test && pnpm lint && pnpm typecheck`.
+Nothing lands on main unless all four gates pass: `pnpm build && pnpm test && pnpm lint && pnpm typecheck`. CI (`.github/workflows/ci.yml`) also runs the visual and a11y suites.
+
+**Visual baselines.** `e2e/prepare.ts` makes each story deterministic: remote requests are blocked, the page clock is frozen at 2026-03-12 10:30 (timer-driven demos stay on their first frame), and fonts and images settle before capture. Comparison is pixel-exact, so any visual change to a component fails until you re-run with `--update-snapshots` and commit the new PNGs alongside the change. Baselines come from Ubuntu 24.04 + Playwright 1.56.1 Chromium; if CI renders differently, run the CI workflow manually with `update_snapshots` and commit its `visual-baselines` artifact. Stories that can't be made deterministic go in `NONDETERMINISTIC` in `e2e/stories.ts` (still checked for page errors and a11y).
 
 ## Architecture
 
