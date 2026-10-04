@@ -1,100 +1,41 @@
-[data-msgbody] {
-  color: var(--app-text);
-  font-size: var(--t-prose);
-  line-height: 1.5;
-}
+/* legacy unscoped fallback — SandboxedContentFrame still leans on it; frame primitives / CodeBlockCard supersede */
+:where([data-code]) { margin: var(--s2) 0; overflow: hidden; border: 1px solid var(--app-line); border-radius: var(--r-md); background: var(--app-bg); }
+:where([data-codehead]) { display: flex; align-items: center; padding: var(--s1) var(--s2); border-bottom: 1px solid var(--app-line); background: var(--app-panel); }
+:where([data-code]) pre { margin: 0; padding: var(--s3); overflow-x: auto; font-family: var(--font-mono); font-size: var(--t-small); }
 
-[data-msgbody][data-notice] {
-  color: var(--app-dim);
-}
-
-[data-msgbody][data-emote] {
-  font-style: italic;
-}
-
-[data-msgbody] a {
-  color: var(--app-blue);
-  text-decoration: underline;
-  text-decoration-color: transparent;
-  transition: text-decoration-color var(--d1) var(--ease-emph);
-}
-
-[data-msgbody] a:hover {
-  text-decoration-color: currentColor;
-}
-
-[data-msgbody] pre {
-  margin: var(--s2) 0;
-  overflow: auto;
-}
-
-[data-media="image"] {
-  display: block;
-  width: 100%;
-  max-width: 400px;
-  background: var(--app-bg);
-  border: 1px solid var(--app-line);
-  border-radius: var(--r-md);
-  overflow: hidden;
-  padding: 0;
-  cursor: pointer;
-}
-
-[data-media="image"] img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-[data-filechip] {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--s2);
-  padding: var(--s2) var(--s3);
-  border-radius: var(--r-md);
-  border: 1px solid var(--app-line);
-  background: var(--app-panel);
-  color: var(--app-text);
-  font-size: var(--t-small);
-  cursor: pointer;
-  text-align: left;
-}
-
-[data-filechip] svg {
-  color: var(--app-dim);
-}
-
-[data-undecryptable], [data-redacted] {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--s1);
-  color: var(--app-faint);
-  font-size: var(--t-meta);
-  font-style: italic;
-}
-
-/* Code enhancement */
-[data-code] {
-  border: 1px solid var(--app-line);
-  border-radius: var(--r-md);
-  background: var(--app-bg);
-  overflow: hidden;
-  margin: var(--s2) 0;
-}
-
-[data-codehead] {
-  display: flex;
-  align-items: center;
-  padding: var(--s1) var(--s2);
-  background: var(--app-panel);
-  border-bottom: 1px solid var(--app-line);
-}
-
-[data-code] pre {
-  margin: 0;
-  padding: var(--s3);
-  font-family: var(--font-mono);
-  font-size: var(--t-small);
-  overflow-x: auto;
-}
+.msgc-prose { color: var(--app-text); font-size: var(--t-prose); line-height: 1.55; overflow-wrap: anywhere; }
+.msgc-prose[data-notice] { color: var(--app-dim); }
+.msgc-prose[data-emote] { font-style: italic; }
+.msgc-prose > :first-child { margin-top: 0; } .msgc-prose > :last-child { margin-bottom: 0; }
+.msgc-prose a { color: var(--sec-ink, var(--app-blue)); text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); text-underline-offset: 2px; transition: text-decoration-color var(--d1) var(--ease-fx); }
+.msgc-prose a:hover { text-decoration-color: currentColor; }
+.msgc-prose a[data-pill] { padding: 0 var(--s1h); border-radius: var(--r-pill, 999px); background: var(--sec-soft); text-decoration: none; font-weight: 600; }
+.msgc-prose code { padding: 1px var(--s1h); border-radius: var(--r-xs, 4px); background: var(--app-code, var(--app-bg)); font-family: var(--app-mono); font-size: .9em; }
+.msgc-code { margin: var(--s2) 0; overflow: hidden; border: 1px solid var(--app-line); border-radius: var(--r-md); background: var(--app-code, var(--app-bg)); }
+.msgc-codehead { display: flex; align-items: center; padding: var(--s1) var(--s1h) var(--s1) var(--s3); border-bottom: 1px solid var(--app-line); background: var(--code-head, var(--app-panel)); color: var(--code-dim, var(--app-faint)); font-family: var(--app-mono); font-size: var(--t-num); text-transform: lowercase; }
+.msgc-copy { margin-left: auto; padding: var(--s1) var(--s3); border: 0; border-radius: var(--r-sm); background: none; color: var(--app-dim); font: inherit; font-size: var(--t-meta); cursor: pointer; }
+.msgc-copy:hover { background: var(--app-hover); color: var(--app-text); }
+.msgc-copy[data-copied] { color: var(--state-ok); }
+.msgc-code pre { margin: 0; padding: var(--s3) var(--s4); overflow-x: auto; scrollbar-width: thin; color: var(--code-ink, var(--app-text)); font-family: var(--app-mono); font-size: var(--t-small); line-height: 1.55; }
+.msgc-code pre code { padding: 0; background: none; font-size: inherit; }
+.msgc-note { display: inline-flex; align-items: center; gap: var(--s1h); color: var(--app-faint); font-size: var(--t-meta); font-style: italic; }
+.msgc-note[data-busy] { animation: msgc-breathe var(--loop-pulse, 2.6s) ease-in-out infinite; }
+.msgc-media { display: block; width: 100%; max-width: 400px; padding: 0; overflow: hidden; border: 1px solid var(--app-line); border-radius: var(--r-md); background: var(--app-bg); cursor: zoom-in; transition: border-color var(--d1) var(--ease-fx); }
+.msgc-media:hover { border-color: var(--sec-line, var(--app-line)); }
+.msgc-media:focus-visible { outline: none; box-shadow: var(--ring-focus); }
+.msgc-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.msgc-media:not([data-loaded]) { min-height: 96px; display: grid; place-items: center; background: linear-gradient(100deg, transparent 30%, var(--app-hover) 50%, transparent 70%) 0 0 / 200% 100%, var(--app-bg); animation: msgc-shimmer 1.6s linear infinite; }
+.msgc-media-wait { color: var(--app-faint); font-size: var(--t-meta); }
+.msgc-file { display: flex; flex-direction: column; gap: var(--s2); }
+.msgc-file-row { display: flex; align-items: center; gap: var(--s2); }
+.msgc-filechip { display: inline-flex; align-items: center; gap: var(--s2); max-width: 100%; padding: var(--s1h) var(--s3) var(--s1h) var(--s1h); border: 1px solid var(--app-line); border-radius: var(--r-md); background: var(--app-panel); color: var(--app-text); font: inherit; font-size: var(--t-small); text-align: left; cursor: pointer; transition: border-color var(--d1) var(--ease-fx); }
+.msgc-filechip:hover { border-color: var(--sec-line, var(--app-line)); }
+.msgc-file-ico { width: 26px; height: 26px; flex: none; display: grid; place-items: center; border-radius: var(--r-sm); background: var(--sec-soft); color: var(--sec-ink, var(--sec)); }
+.msgc-file-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.msgc-file-size { color: var(--app-faint); font-family: var(--app-mono); font-size: var(--t-num); }
+.msgc-dl { padding: var(--s1) var(--s2); border: 0; border-radius: var(--r-sm); background: none; color: var(--sec-ink, var(--app-blue)); font: inherit; font-size: var(--t-meta); font-weight: 600; cursor: pointer; }
+.msgc-dl:hover { background: var(--app-hover); }
+.msgc-audio { width: 100%; max-width: 360px; height: 34px; }
+@keyframes msgc-shimmer { to { background-position: -200% 0, 0 0; } }
+@keyframes msgc-breathe { 50% { opacity: .5; } }
+@media (prefers-reduced-motion: reduce) { .msgc-media:not([data-loaded]), .msgc-note[data-busy] { animation: none; } }

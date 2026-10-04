@@ -1,43 +1,9 @@
-[data-reactions] {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s2);
-}
-
-[data-reactions] > [data-chip] {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--s1);
-  padding: var(--s1) var(--s2);
-  border-radius: var(--r-card);
-  border: 1px solid transparent;
-  background: var(--app-panel);
-  color: var(--app-text);
-  font-size: var(--t-ctl);
-  cursor: pointer;
-  transition: all var(--d1) var(--ease-emph);
-}
-
-[data-reactions] > [data-chip][data-on="true"] {
-  background: var(--sec-soft);
-  border-color: var(--sec);
-  color: var(--sec);
-}
-
-[data-reactions] > [data-chip] > [data-num] {
-  font-size: var(--t-num);
-  font-weight: 600;
-  color: var(--app-dim);
-}
-
-/* On the active chip the count sits on the --sec tint: mix the accent toward ink
-   (no opacity) so it keeps contrast instead of fading into the fill. */
-[data-reactions] > [data-chip][data-on="true"] > [data-num] {
-  color: color-mix(in srgb, var(--sec) 45%, var(--app-text));
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [data-reactions] > [data-chip] {
-    transition: none;
-  }
-}
+.reactions { display: flex; flex-wrap: wrap; gap: var(--s1h); }
+.reactions-chip { display: inline-flex; align-items: center; gap: var(--s1h); height: 26px; padding: 0 var(--s3); border-radius: var(--r-pill, 999px); border: 1px solid var(--app-line); background: color-mix(in srgb, var(--app-text) 4%, transparent);
+  color: var(--app-text); font: inherit; font-size: var(--t-ctl); cursor: pointer; transition: background var(--d1) var(--ease-fx), border-color var(--d1) var(--ease-fx), transform var(--d1) var(--ease-spring); }
+.reactions-chip:hover { background: var(--app-hover); }
+.reactions-chip:active { transform: scale(.94); }
+.reactions-chip:focus-visible { outline: none; box-shadow: var(--ring-focus); }
+.reactions-chip[data-on="true"] { background: var(--sec-soft); border-color: color-mix(in srgb, var(--sec) 60%, transparent); color: var(--sec-ink, var(--sec)); }
+.reactions-n { font-family: var(--app-mono); font-size: var(--t-num); font-variant-numeric: tabular-nums; opacity: .8; }
+@media (prefers-reduced-motion: reduce) { .reactions-chip { transition: none; } }

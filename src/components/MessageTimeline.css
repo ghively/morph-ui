@@ -1,21 +1,17 @@
-/* Note: some basic styling inherited from context but keeping structural needs */
-[data-daysep] {
-  text-align: center;
-  margin: var(--s5) 0;
-}
-[data-daysep] > [data-eyebrow] {
-  font-size: var(--t-meta);
-  color: var(--app-faint);
-  text-transform: uppercase;
-  letter-spacing: var(--tk-wide);
-  font-weight: 600;
-}
-[data-stategroup] {
-  margin-left: var(--s10);
-}
-[data-stategroup] > [data-meta] {
-  cursor: pointer;
-  user-select: none;
-  font-size: var(--t-small);
-  color: var(--app-dim);
-}
+.timeline { flex: 1; overflow: auto; padding: var(--s7) var(--s7) var(--s6); scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--app-text) 18%, transparent) transparent; overscroll-behavior: contain; }
+.timeline-list { display: flex; flex-direction: column; gap: var(--s4); max-width: 780px; margin: 0 auto; }
+.timeline-head { display: flex; justify-content: center; min-height: 28px; }
+.timeline-begin { color: var(--app-faint); font-size: var(--t-meta); }
+.timeline-more { position: relative; display: inline-flex; align-items: center; gap: var(--s2); padding: var(--s1) var(--s4); border: 1px solid var(--app-line); border-radius: var(--r-pill, 999px); background: none; color: var(--app-dim); font: inherit; font-size: var(--t-meta); cursor: pointer; }
+.timeline-more:hover { background: var(--app-hover); color: var(--app-text); }
+.timeline-more i { display: none; width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid color-mix(in srgb, currentColor 25%, transparent); border-top-color: currentColor; animation: timeline-rot var(--loop-spin, .72s) linear infinite; }
+.timeline-more[data-busy="true"] { pointer-events: none; opacity: .8; }
+.timeline-more[data-busy="true"] i { display: block; }
+.timeline-day { display: flex; align-items: center; gap: var(--s3); margin: var(--s4) 0 var(--s1); color: var(--app-faint); font-size: var(--t-eyebrow, var(--t-meta)); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tk-caps, .05em); }
+.timeline-day::before, .timeline-day::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--app-line)); }
+.timeline-day::after { transform: scaleX(-1); }
+.timeline-fold { margin-left: var(--s10); }
+.timeline-fold > summary { width: fit-content; padding: var(--s0) var(--s2); border-radius: var(--r-sm); color: var(--app-dim); font-size: var(--t-small); cursor: pointer; user-select: none; }
+.timeline-fold > summary:hover { background: var(--app-hover); color: var(--app-text); }
+@keyframes timeline-rot { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .timeline-more i { animation: none; } }
