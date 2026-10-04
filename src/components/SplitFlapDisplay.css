@@ -1,21 +1,21 @@
 [data-split-flap-display] {
   display: inline-flex;
   gap: var(--s1, 4px);
-  background-color: var(--app-bg, #080c2c);
+  background-color: var(--app-bg);
   padding: var(--s2, 8px);
   border-radius: var(--r-md, 12px);
   font-family: var(--app-mono);
   font-weight: bold;
   font-size: 1.5rem;
-  color: var(--app-text, #eef1fc);
+  color: var(--app-text);
 }
 
 .flap-character {
   position: relative;
   width: 1.5em;
   height: 2em;
-  background-color: var(--cpi-gray-700, #2e2e2e);
-  border-radius: 4px;
+  background-color: var(--cpi-gray-700);
+  border-radius: var(--r-xs);
   perspective: 400px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
@@ -31,10 +31,10 @@
   display: flex;
   justify-content: center;
   overflow: hidden;
-  background-color: var(--cpi-gray-700, #2e2e2e);
-  border-radius: 4px;
+  background-color: var(--cpi-gray-700);
+  border-radius: var(--r-xs);
   backface-visibility: hidden;
-  border: 1px solid var(--cpi-gray-600, #444);
+  border: 1px solid var(--cpi-gray-600);
 }
 
 .flap-top, .flap-top-fold {

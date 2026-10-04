@@ -1,6 +1,6 @@
 /* AgentPresence — AGENT_DATA polish (2026-10-02). Ring dial: the arc carries state, the core carries a dot / equalizer / outcome glyph.
    Reads only theme tokens + the --state-* / --glass-* layer in tokens.css. */
-.agent-presence { --c: var(--state-idle); --sz: 36px; --sw: 2.6; display: inline-flex; align-items: center; gap: 8px; vertical-align: middle; line-height: 1; }
+.agent-presence { --c: var(--state-idle); --sz: 36px; --sw: 2.6; display: inline-flex; align-items: center; gap: var(--s2); vertical-align: middle; line-height: 1; }
 .agent-presence-xs { --sz: 14px; --sw: 5; } .agent-presence-sm { --sz: 22px; --sw: 3.6; } .agent-presence-md { --sz: 36px; --sw: 2.6; } .agent-presence-hero { --sz: 72px; --sw: 1.8; }
 .agent-presence-available { --c: var(--state-ready); } .agent-presence-success { --c: var(--state-ok); }
 .agent-presence-listening, .agent-presence-speaking, .agent-presence-streaming { --c: var(--state-live); }
@@ -35,11 +35,11 @@
 .agent-presence-thinking .agent-presence-dot, .agent-presence-waiting .agent-presence-dot { animation: agent-presence-fade 1.6s ease-in-out infinite; }
 .agent-presence-glyph { width: 56%; height: 56%; fill: none; stroke: var(--c); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
 .agent-presence-bars { display: flex; align-items: center; gap: 9%; width: 46%; height: 40%; }
-.agent-presence-bars i { flex: 1; height: 100%; border-radius: 99px; background: var(--c); box-shadow: 0 0 6px color-mix(in srgb, var(--c) 60%, transparent); animation: agent-presence-eq .9s ease-in-out infinite; }
+.agent-presence-bars i { flex: 1; height: 100%; border-radius: var(--r-pill); background: var(--c); box-shadow: 0 0 6px color-mix(in srgb, var(--c) 60%, transparent); animation: agent-presence-eq .9s ease-in-out infinite; }
 .agent-presence-bars i:nth-child(2) { animation-delay: -.3s; } .agent-presence-bars i:nth-child(3) { animation-delay: -.6s; }
 .agent-presence-listening .agent-presence-bars i { animation-duration: 1.6s; }
 
-.agent-presence.has-label { padding: 3px 10px 3px 4px; border-radius: 999px; background: color-mix(in srgb, var(--c) 10%, transparent); border: 1px solid color-mix(in srgb, var(--c) 30%, transparent); }
+.agent-presence.has-label { padding: var(--s1) var(--s3) var(--s1) var(--s1); border-radius: var(--r-pill); background: color-mix(in srgb, var(--c) 10%, transparent); border: 1px solid color-mix(in srgb, var(--c) 30%, transparent); }
 .agent-presence-label { font-size: var(--t-small, 12px); color: var(--app-text); white-space: nowrap; }
 
 @keyframes agent-presence-spin { from { transform: rotate(-90deg); } to { transform: rotate(270deg); } }

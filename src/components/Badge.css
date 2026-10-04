@@ -1,12 +1,12 @@
 [data-badge] {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: var(--s1h);
   font-size: var(--t-small);
   font-weight: 600;
   line-height: 1;
-  padding: 4px 9px;
-  border-radius: 999px;
+  padding: var(--s1) var(--s3);
+  border-radius: var(--r-pill);
   border: 1px solid transparent;
   white-space: nowrap;
   background: var(--morph-badge-bg);
@@ -15,29 +15,29 @@
 
 [data-badge][data-size='sm'] {
   font-size: var(--t-num);
-  padding: 3px 7px;
+  padding: var(--s1) var(--s2);
 }
 
 [data-badge][data-tone='info'] {
-  background: rgba(108, 156, 240, 0.14);
+  background: color-mix(in srgb, var(--app-blue) 14%, transparent);
   color: var(--morph-info);
-  border-color: rgba(108, 156, 240, 0.35);
+  border-color: color-mix(in srgb, var(--app-blue) 35%, transparent);
 }
 
 [data-badge][data-tone='success'] {
-  background: rgba(26, 155, 94, 0.14);
+  background: color-mix(in srgb, var(--color-success) 14%, transparent);
   color: var(--morph-success);
-  border-color: rgba(26, 155, 94, 0.35);
+  border-color: color-mix(in srgb, var(--color-success) 35%, transparent);
 }
 
 [data-badge][data-tone='warn'] {
-  background: rgba(224, 140, 32, 0.15);
+  background: color-mix(in srgb, var(--color-warning) 15%, transparent);
   color: var(--morph-warn);
-  border-color: rgba(224, 140, 32, 0.4);
+  border-color: color-mix(in srgb, var(--color-warning) 40%, transparent);
 }
 
 [data-badge][data-tone='danger'] {
-  background: rgba(214, 60, 60, 0.13);
+  background: color-mix(in srgb, var(--color-error) 13%, transparent);
   color: var(--morph-danger);
-  border-color: rgba(214, 60, 60, 0.4);
+  border-color: color-mix(in srgb, var(--color-error) 40%, transparent);
 }

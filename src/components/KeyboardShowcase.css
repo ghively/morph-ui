@@ -44,12 +44,12 @@
 .keyboard-keys-container {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--s1);
 }
 
 .keyboard-row {
   display: flex;
-  gap: 4px;
+  gap: var(--s1);
   justify-content: space-between;
 }
 
@@ -58,10 +58,10 @@
   background: var(--kb-key-bg);
   color: var(--kb-key-text);
   border: 1px solid rgba(0,0,0,0.05);
-  border-radius: 4px;
+  border-radius: var(--r-xs);
   font-family: var(--font-sans);
-  font-size: 10px;
-  padding: 4px;
+  font-size: var(--t-xs);
+  padding: var(--s1);
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
@@ -78,7 +78,7 @@
 
 .keyboard-row:first-child .keyboard-key {
   height: 20px;
-  font-size: 8px;
+  font-size: var(--t-2xs);
 }
 
 /* Modifier widths */
@@ -98,7 +98,7 @@
   height: 84px; 
   position: absolute; 
   right: 0;
-  border-radius: 4px 4px 4px 4px; 
+  border-radius: var(--r-xs) var(--r-xs) var(--r-xs) var(--r-xs); 
   clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%, 20% 50%, 0 50%);
   /* Z-index to layer over the bottom row */
   z-index: 2;
@@ -132,7 +132,7 @@
 .keyboard-key-group {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--s0);
 }
 
 .keyboard-arrows-top {
@@ -142,7 +142,7 @@
 
 .keyboard-arrows-bottom {
   display: flex;
-  gap: 4px;
+  gap: var(--s1);
 }
 
 .key-arrow {

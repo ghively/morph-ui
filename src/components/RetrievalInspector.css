@@ -4,35 +4,35 @@
 :where(.retrieval) [data-state]::before, :where(.retrieval)[data-state]::before { content: none; }
 :where(.retrieval) [data-empty], :where(.retrieval)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
 .retrieval { --c: var(--morph-accent); container-type: inline-size; font-family: var(--font-sans); color: var(--app-text); }
-.retrieval-cap { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding-bottom: 8px; }
-.retrieval-title { font-size: 13px; font-weight: 700; }
-.retrieval-sum { font-family: var(--app-mono); font-size: 11px; color: var(--app-dim); }
-.retrieval-empty { padding: 12px 6px; border-top: 1px dashed var(--app-line); border-bottom: 1px dashed var(--app-line); font-family: var(--app-mono); font-size: 12px; color: var(--app-dim); }
+.retrieval-cap { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); padding-bottom: var(--s2); }
+.retrieval-title { font-size: var(--t-body); font-weight: 700; }
+.retrieval-sum { font-family: var(--app-mono); font-size: var(--t-num); color: var(--app-dim); }
+.retrieval-empty { padding: var(--s4) var(--s1h); border-top: 1px dashed var(--app-line); border-bottom: 1px dashed var(--app-line); font-family: var(--app-mono); font-size: var(--t-small); color: var(--app-dim); }
 .retrieval-empty span { color: var(--c); }
-.retrieval-head, .retrieval-sumrow { display: grid; grid-template-columns: 24px minmax(0, 1fr) 84px 44px 92px; gap: 10px; align-items: center; }
-.retrieval-head { padding: 6px 6px; border-top: 1px solid var(--app-line); border-bottom: 1px solid var(--app-line); font-family: var(--app-mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--app-faint); }
+.retrieval-head, .retrieval-sumrow { display: grid; grid-template-columns: 24px minmax(0, 1fr) 84px 44px 92px; gap: var(--s3); align-items: center; }
+.retrieval-head { padding: var(--s1h) var(--s1h); border-top: 1px solid var(--app-line); border-bottom: 1px solid var(--app-line); font-family: var(--app-mono); font-size: var(--t-eyebrow); letter-spacing: .12em; text-transform: uppercase; color: var(--app-faint); }
 .retrieval-head span:nth-child(4), .retrieval-head span:nth-child(5) { text-align: right; }
 .retrieval-list { list-style: none; margin: 0; padding: 0; }
 .retrieval-row { border-bottom: 1px solid var(--app-line); }
-.retrieval-sumrow { all: unset; box-sizing: border-box; width: 100%; display: grid; grid-template-columns: 24px minmax(0, 1fr) 84px 44px 92px; gap: 10px; align-items: center; padding: 9px 6px; cursor: pointer; transition: background-color var(--d2) var(--ease-fx); }
+.retrieval-sumrow { all: unset; box-sizing: border-box; width: 100%; display: grid; grid-template-columns: 24px minmax(0, 1fr) 84px 44px 92px; gap: var(--s3); align-items: center; padding: var(--s3) var(--s1h); cursor: pointer; transition: background-color var(--d2) var(--ease-fx); }
 .retrieval-sumrow:hover { background: var(--app-hover); }
 .retrieval-sumrow:focus-visible { outline: 2px solid var(--c); outline-offset: -2px; }
-.retrieval-rank { font-family: var(--app-mono); font-size: 11.5px; font-weight: 700; color: var(--app-faint); }
+.retrieval-rank { font-family: var(--app-mono); font-size: var(--t-meta); font-weight: 700; color: var(--app-faint); }
 .retrieval-row[data-open] .retrieval-rank { color: var(--c); }
-.retrieval-name { font-size: 13px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.retrieval-dept { font-size: 11.5px; color: var(--app-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.retrieval-tok { font-family: var(--app-mono); font-size: 11.5px; color: var(--app-dim); text-align: right; font-variant-numeric: tabular-nums; }
-.retrieval-score { display: flex; align-items: center; justify-content: flex-end; gap: 8px; font-family: var(--app-mono); font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.retrieval-name { font-size: var(--t-body); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.retrieval-dept { font-size: var(--t-meta); color: var(--app-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.retrieval-tok { font-family: var(--app-mono); font-size: var(--t-meta); color: var(--app-dim); text-align: right; font-variant-numeric: tabular-nums; }
+.retrieval-score { display: flex; align-items: center; justify-content: flex-end; gap: var(--s2); font-family: var(--app-mono); font-size: var(--t-small); font-weight: 700; font-variant-numeric: tabular-nums; }
 .retrieval-bar { width: 40px; height: 3px; background: var(--morph-track); }
 .retrieval-bar i { display: block; height: 100%; background: var(--c); transition: width var(--d3) var(--ease-emph); }
 .retrieval-row[data-below] .retrieval-name, .retrieval-row[data-below] .retrieval-score { color: var(--app-faint); }
 .retrieval-row[data-below] .retrieval-bar i { background: var(--state-warn); }
-.retrieval-cut { display: flex; align-items: center; gap: 10px; padding: 6px 6px; font-family: var(--app-mono); font-size: 10.5px; letter-spacing: .08em; color: var(--state-warn); border-bottom: 1px dashed color-mix(in srgb, var(--state-warn) 50%, transparent); }
+.retrieval-cut { display: flex; align-items: center; gap: var(--s3); padding: var(--s1h) var(--s1h); font-family: var(--app-mono); font-size: var(--t-eyebrow); letter-spacing: .08em; color: var(--state-warn); border-bottom: 1px dashed color-mix(in srgb, var(--state-warn) 50%, transparent); }
 .retrieval-cut::before { content: ''; width: 24px; height: 1px; background: currentColor; }
 .retrieval-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--d3) var(--ease-emph); }
 .retrieval-row[data-open] .retrieval-body { grid-template-rows: 1fr; }
 .retrieval-clip { min-height: 0; overflow: hidden; }
-.retrieval-ex { margin: 0; padding: 0 6px 11px 40px; font-size: 12.5px; line-height: 1.55; color: var(--app-dim); text-wrap: pretty; }
+.retrieval-ex { margin: 0; padding: 0 var(--s1h) var(--s4) var(--s9); font-size: var(--t-ctl); line-height: 1.55; color: var(--app-dim); text-wrap: pretty; }
 .retrieval-ex span { color: var(--c); font-family: var(--app-mono); }
 @container (max-width: 440px) { .retrieval-dcol { display: none; } .retrieval-head, .retrieval-sumrow { grid-template-columns: 24px minmax(0, 1fr) 40px 84px; } }
 @media (prefers-reduced-motion: reduce) { .retrieval * { transition: none !important; } }

@@ -9,7 +9,7 @@
 }
 
 .deck-empty {
-  color: var(--app-dim, #a9b0d8);
+  color: var(--app-dim);
   font-family: var(--font-sans);
 }
 
@@ -17,8 +17,8 @@
   position: absolute;
   width: 80%;
   height: 80%;
-  background: var(--app-bg, #080c2c);
-  border: 1px solid var(--app-line, rgba(150, 175, 255, 0.16));
+  background: var(--app-bg);
+  border: 1px solid var(--app-line);
   border-radius: var(--r-md, 12px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: flex;

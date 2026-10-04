@@ -9,8 +9,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 26px 18px;
+  gap: var(--s1h);
+  padding: var(--s7) var(--s6);
   text-align: center;
   border: 1.5px dashed var(--morph-border-strong);
   border-radius: var(--morph-radius-lg);
@@ -35,7 +35,7 @@
 [data-droparea][data-dragging] {
   border-style: solid;
   border-color: var(--morph-accent);
-  background: rgba(108, 156, 240, 0.08);
+  background: color-mix(in srgb, var(--app-blue) 8%, transparent);
 }
 
 [data-droparea][data-disabled] {
@@ -84,17 +84,17 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--s1h);
 }
 
 [data-dropfile] {
   display: flex;
   align-items: center;
   gap: var(--s3);
-  padding: 8px 10px;
+  padding: var(--s2) var(--s3);
   font-size: var(--t-body);
   border: 1px solid var(--morph-border);
-  border-radius: 8px;
+  border-radius: var(--r-sm);
 }
 
 [data-dropfilename] {
@@ -120,8 +120,8 @@
   color: inherit;
   font-size: var(--t-input);
   cursor: pointer;
-  border-radius: 6px;
-  padding: 0 5px;
+  border-radius: var(--r-sm);
+  padding: 0 var(--s1h);
   opacity: 0.65;
   transition: background-color var(--d2) var(--ease-fx),
     border-color var(--d2) var(--ease-fx),

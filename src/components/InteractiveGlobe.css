@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--app-bg, #080c2c);
+  background-color: var(--app-bg);
   border-radius: var(--r-md, 12px);
   overflow: hidden;
   cursor: grab;
@@ -27,8 +27,8 @@
 /* Tooltip for markers */
 .interactive-globe-tooltip {
   position: absolute;
-  background-color: var(--app-elev, rgba(34, 46, 112, 0.72));
-  color: var(--app-text, #eef1fc);
+  background-color: var(--app-elev);
+  color: var(--app-text);
   padding: var(--s1, 4px) var(--s2, 8px);
   border-radius: var(--s1, 4px);
   font-size: var(--t-meta, 11.5px);

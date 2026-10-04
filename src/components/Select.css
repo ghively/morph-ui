@@ -1,7 +1,7 @@
 @import './TextField.css';
 
 [data-selectwrap] { position: relative; display: block; }
-[data-selectwrap] select { appearance: none; -webkit-appearance: none; padding-right: 30px; cursor: pointer; }
+[data-selectwrap] select { appearance: none; -webkit-appearance: none; padding-right: var(--s8); cursor: pointer; }
 [data-selectwrap] select option { background: var(--morph-menu-bg); color: var(--morph-fg); }
 [data-chevron] { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; opacity: .6; transition: color var(--d2) var(--ease-fx), opacity var(--d2) var(--ease-fx); }
 [data-selectwrap]:focus-within [data-chevron] { opacity: 1; color: var(--c); }

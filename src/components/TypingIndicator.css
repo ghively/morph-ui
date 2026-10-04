@@ -43,7 +43,7 @@
 [data-typing] {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: var(--s0);
 }
 
 [data-typing] i {

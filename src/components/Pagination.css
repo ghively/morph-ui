@@ -11,7 +11,7 @@
   font-weight: 600;
   min-width: 30px;
   height: 30px;
-  padding: 0 8px;
+  padding: 0 var(--s2);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -47,7 +47,7 @@
 }
 
 [data-pagegap] {
-  padding: 0 2px;
+  padding: 0 var(--s0);
   opacity: 0.6;
   font-size: var(--t-body);
 }

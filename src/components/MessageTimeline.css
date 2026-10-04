@@ -11,7 +11,7 @@
   font-weight: 600;
 }
 [data-stategroup] {
-  margin-left: 48px;
+  margin-left: var(--s10);
 }
 [data-stategroup] > [data-meta] {
   cursor: pointer;

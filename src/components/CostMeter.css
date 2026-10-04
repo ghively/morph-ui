@@ -3,15 +3,15 @@
 :where(.cost-meter) [data-state], :where(.cost-meter)[data-state] { position: revert; isolation: auto; overflow: visible; }
 :where(.cost-meter) [data-state]::before, :where(.cost-meter)[data-state]::before { content: none; }
 :where(.cost-meter) [data-empty], :where(.cost-meter)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
-.cost-meter { display: grid; gap: 8px; color: var(--app-text); font-family: var(--font-sans); }
-.cost-meter-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; }
-.cost-meter-lab { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--app-faint); padding-bottom: 4px; }
-.cost-meter-big { display: flex; align-items: baseline; gap: 6px; font-size: 24px; font-weight: 600; letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1; }
+.cost-meter { display: grid; gap: var(--s2); color: var(--app-text); font-family: var(--font-sans); }
+.cost-meter-head { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--s4); }
+.cost-meter-lab { font-size: var(--t-num); letter-spacing: .06em; text-transform: uppercase; color: var(--app-faint); padding-bottom: var(--s1); }
+.cost-meter-big { display: flex; align-items: baseline; gap: var(--s1h); font-size: var(--t-h2); font-weight: 600; letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1; }
 .cost-meter[data-over] .cost-meter-big, .cost-meter[data-level="warn"] .cost-meter-big { color: var(--c); }
-.cost-meter-big small { font-size: 12px; font-weight: 400; letter-spacing: 0; color: var(--app-faint); }
-.cost-meter-bar { position: relative; height: 3px; border-radius: 2px; background: color-mix(in srgb, var(--app-text) 9%, transparent); }
+.cost-meter-big small { font-size: var(--t-small); font-weight: 400; letter-spacing: 0; color: var(--app-faint); }
+.cost-meter-bar { position: relative; height: 3px; border-radius: var(--r-2xs); background: color-mix(in srgb, var(--app-text) 9%, transparent); }
 .cost-meter-bar span { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: var(--c); transition: width var(--d3) var(--ease-emph); }
 .cost-meter-bar i { position: absolute; top: -3px; bottom: -3px; width: 1px; background: color-mix(in srgb, var(--app-text) 30%, transparent); }
-.cost-meter-left { font-size: 12px; color: var(--app-faint); font-variant-numeric: tabular-nums; } .cost-meter-left b { color: var(--app-dim); font-weight: 600; }
-.cost-meter-alert { padding: 7px 10px; border-radius: 8px; font-size: 12px; color: var(--app-text); background: color-mix(in srgb, var(--c) 12%, transparent); } .cost-meter-alert b { color: var(--c); }
+.cost-meter-left { font-size: var(--t-small); color: var(--app-faint); font-variant-numeric: tabular-nums; } .cost-meter-left b { color: var(--app-dim); font-weight: 600; }
+.cost-meter-alert { padding: var(--s2) var(--s3); border-radius: var(--r-sm); font-size: var(--t-small); color: var(--app-text); background: color-mix(in srgb, var(--c) 12%, transparent); } .cost-meter-alert b { color: var(--c); }
 @media (prefers-reduced-motion: reduce) { .cost-meter-bar span { transition: none; } }

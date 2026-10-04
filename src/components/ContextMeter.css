@@ -3,21 +3,21 @@
 :where(.context-meter) [data-state], :where(.context-meter)[data-state] { position: revert; isolation: auto; overflow: visible; }
 :where(.context-meter) [data-state]::before, :where(.context-meter)[data-state]::before { content: none; }
 :where(.context-meter) [data-empty], :where(.context-meter)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
-.context-meter { display: grid; gap: 8px; width: 100%; font-family: var(--font-sans); color: var(--app-text); }
-.context-meter-head { display: flex; align-items: baseline; gap: 8px; font-size: 12.5px; }
+.context-meter { display: grid; gap: var(--s2); width: 100%; font-family: var(--font-sans); color: var(--app-text); }
+.context-meter-head { display: flex; align-items: baseline; gap: var(--s2); font-size: var(--t-ctl); }
 .context-meter-head [data-context-meter-label] { color: var(--app-dim); flex: 1; min-width: 0; }
-.context-meter-pct { font-size: 15px; font-weight: 600; color: var(--c); font-variant-numeric: tabular-nums; text-shadow: 0 0 10px color-mix(in srgb, var(--c) 50%, transparent); transition: color var(--d3); }
-.context-meter-val { font-family: var(--app-mono); font-size: 11.5px; color: var(--app-faint); font-variant-numeric: tabular-nums; }
-.context-meter-track { position: relative; height: 8px; border-radius: 999px; background: color-mix(in srgb, var(--app-text) 7%, transparent); box-shadow: inset 0 1px 2px rgba(0,0,0,.35); }
+.context-meter-pct { font-size: var(--t-input); font-weight: 600; color: var(--c); font-variant-numeric: tabular-nums; text-shadow: 0 0 10px color-mix(in srgb, var(--c) 50%, transparent); transition: color var(--d3); }
+.context-meter-val { font-family: var(--app-mono); font-size: var(--t-meta); color: var(--app-faint); font-variant-numeric: tabular-nums; }
+.context-meter-track { position: relative; height: 8px; border-radius: var(--r-pill); background: color-mix(in srgb, var(--app-text) 7%, transparent); box-shadow: inset 0 1px 2px rgba(0,0,0,.35); }
 .context-meter-fill { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: linear-gradient(90deg, color-mix(in srgb, var(--c) 45%, transparent), var(--c)); box-shadow: 0 0 12px -1px var(--c); transition: width var(--d3) var(--ease-emph), background var(--d3); }
 .context-meter-fill::after { content: ''; position: absolute; right: -1px; top: 50%; width: 10px; height: 10px; border-radius: 50%; transform: translate(50%, -50%); background: var(--c); box-shadow: 0 0 10px var(--c); }
 .context-meter[data-level="danger"] .context-meter-fill::after { animation: context-meter-pulse 1.2s var(--ease-fx) infinite; }
 .context-meter-seg { position: absolute; top: 0; bottom: 0; transition: width var(--d3) var(--ease-emph); }
-.context-meter-seg:first-child { border-radius: 999px 0 0 999px; }
+.context-meter-seg:first-child { border-radius: var(--r-pill) 0 0 var(--r-pill); }
 .context-meter-track i { position: absolute; top: -2px; bottom: -2px; width: 1px; background: color-mix(in srgb, var(--app-bg) 70%, transparent); }
-.context-meter-legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11px; color: var(--app-faint); font-variant-numeric: tabular-nums; }
-.context-meter-legend span { display: inline-flex; align-items: center; gap: 5px; }
-.context-meter-legend i { width: 7px; height: 7px; border-radius: 2px; }
+.context-meter-legend { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s4); font-size: var(--t-num); color: var(--app-faint); font-variant-numeric: tabular-nums; }
+.context-meter-legend span { display: inline-flex; align-items: center; gap: var(--s1h); }
+.context-meter-legend i { width: 7px; height: 7px; border-radius: var(--r-2xs); }
 .context-meter-left { margin-left: auto; }
 @keyframes context-meter-pulse { 50% { box-shadow: 0 0 2px var(--c); opacity: .6; } }
 @media (prefers-reduced-motion: reduce) { .context-meter-fill, .context-meter-seg { transition: none; } .context-meter-fill::after { animation: none; } }

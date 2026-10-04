@@ -76,7 +76,7 @@
 }
 
 .has-mirror {
-  padding-bottom: 60px; /* Space for reflection */
+  padding-bottom: var(--s11); /* Space for reflection */
 }
 
 .cover-flow-controls {
@@ -99,7 +99,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 18px;
+  font-size: var(--t-h3);
   transition: background var(--d1) var(--ease-soft);
 }
 

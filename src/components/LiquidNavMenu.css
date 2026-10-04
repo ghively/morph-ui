@@ -28,8 +28,8 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background-color: var(--app-blue, #6c9cf0);
-  color: var(--app-bg, #080c2c);
+  background-color: var(--app-blue);
+  color: var(--app-bg);
   border: none;
   display: flex;
   align-items: center;
@@ -42,7 +42,7 @@
 
 .liquid-nav-trigger:hover,
 .liquid-nav-trigger:focus-visible {
-  background-color: var(--app-blue-strong, #1f6fe6);
+  background-color: var(--app-blue-strong);
   transform: scale(1.05);
   outline: none;
 }
@@ -67,8 +67,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  padding-bottom: 60px; /* Space above trigger */
+  gap: var(--s5);
+  padding-bottom: var(--s11); /* Space above trigger */
   pointer-events: none;
   z-index: 5;
 }
@@ -77,8 +77,8 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background-color: var(--app-elev, rgba(34, 46, 112, 0.72));
-  color: var(--app-text, #eef1fc);
+  background-color: var(--app-elev);
+  color: var(--app-text);
   border: none;
   display: flex;
   align-items: center;
@@ -92,8 +92,8 @@
 
 .liquid-nav-action:hover,
 .liquid-nav-action:focus-visible {
-  background-color: var(--app-blue, #6c9cf0);
-  color: var(--app-bg, #080c2c);
+  background-color: var(--app-blue);
+  color: var(--app-bg);
   outline: none;
 }
 

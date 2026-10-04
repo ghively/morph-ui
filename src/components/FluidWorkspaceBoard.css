@@ -1,21 +1,21 @@
 /* FluidWorkspaceBoard — AGENT_DATA polish batch 3 (2026-10-03). Accent tiles: each card tinted by its series colour with a status dot; drag lifts with a coloured glow.
    Reads only theme tokens + the --state-* / --glass-* layer in tokens.css. */
 .fluid-workspace-board { position: relative; display: flex; flex-wrap: wrap; width: 100%; }
-.fluid-workspace-board[data-density="compact"] { gap: 8px; }
+.fluid-workspace-board[data-density="compact"] { gap: var(--s2); }
 .fluid-workspace-board .fluid-workspace-board-item { position: relative; box-sizing: border-box; color: var(--app-text); touch-action: none; user-select: none; cursor: grab; outline: none; z-index: 1; }
 .fluid-workspace-board .fluid-workspace-board-item.is-dragging { cursor: grabbing; z-index: 10; transition: none; }
-.fluid-workspace-board-empty { width: 100%; padding: 24px; text-align: center; }
-.fluid-workspace-board { gap: 10px; }
-.fluid-workspace-board .fluid-workspace-board-item { --tc: var(--series-1); flex: 1 1 200px; padding: 14px 14px 14px 16px; border-radius: 12px; border: 1px solid var(--app-line);
+.fluid-workspace-board-empty { width: 100%; padding: var(--s7); text-align: center; }
+.fluid-workspace-board { gap: var(--s3); }
+.fluid-workspace-board .fluid-workspace-board-item { --tc: var(--series-1); flex: 1 1 200px; padding: var(--s4h) var(--s4h) var(--s4h) var(--s5); border-radius: var(--r-md); border: 1px solid var(--app-line);
   background: linear-gradient(135deg, color-mix(in srgb, var(--tc) 13%, transparent), transparent 55%), color-mix(in srgb, var(--app-elev) 85%, transparent);
   transition: transform .45s var(--ease-morph), box-shadow var(--d2), border-color var(--d2); }
 .fluid-workspace-board .fluid-workspace-board-item:nth-child(4n+2) { --tc: var(--series-2); } .fluid-workspace-board .fluid-workspace-board-item:nth-child(4n+3) { --tc: var(--series-3); } .fluid-workspace-board .fluid-workspace-board-item:nth-child(4n+4) { --tc: var(--series-4); }
 .fluid-workspace-board .fluid-workspace-board-item:hover { border-color: color-mix(in srgb, var(--tc) 40%, var(--app-line)); }
 .fluid-workspace-board .fluid-workspace-board-item:focus-visible { border-color: var(--tc); box-shadow: 0 0 0 3px color-mix(in srgb, var(--tc) 22%, transparent); }
 .fluid-workspace-board .fluid-workspace-board-item.is-dragging { transform: scale(1.04); border-color: var(--tc); box-shadow: 0 20px 40px -14px rgba(0,0,0,.7), 0 0 26px -6px var(--tc); }
-.fluid-workspace-board-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 13px; font-weight: 600; }
+.fluid-workspace-board-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--s1h); font-size: var(--t-body); font-weight: 600; }
 .fluid-workspace-board-item-header::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--tc); box-shadow: 0 0 8px var(--tc); }
-.fluid-workspace-board-item-content { font-size: 12.5px; line-height: 1.5; color: var(--app-dim); }
-.fluid-workspace-board[data-density="compact"] .fluid-workspace-board-item { padding: 9px 11px; border-radius: 9px; }
-.fluid-workspace-board-empty { border: 1px dashed var(--app-line); border-radius: 12px; color: var(--app-faint); }
+.fluid-workspace-board-item-content { font-size: var(--t-ctl); line-height: 1.5; color: var(--app-dim); }
+.fluid-workspace-board[data-density="compact"] .fluid-workspace-board-item { padding: var(--s3) var(--s4); border-radius: var(--r-sm); }
+.fluid-workspace-board-empty { border: 1px dashed var(--app-line); border-radius: var(--r-md); color: var(--app-faint); }
 @media (prefers-reduced-motion: reduce) { .fluid-workspace-board .fluid-workspace-board-item { transition: none; } }

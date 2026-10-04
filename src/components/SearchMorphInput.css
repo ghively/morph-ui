@@ -9,33 +9,33 @@
   position: relative;
   display: flex;
   align-items: center;
-  background-color: var(--app-bg, #080c2c);
-  border-radius: 24px;
+  background-color: var(--app-bg);
+  border-radius: var(--r-xl);
   overflow: hidden;
   transition: width var(--d3, 360ms) var(--ease-morph, cubic-bezier(0.38, 1.21, 0.22, 1)),
               box-shadow var(--d2, 220ms) ease;
   width: 48px;
   height: 48px;
-  box-shadow: 0 2px 8px var(--app-elev, rgba(34, 46, 112, 0.72));
+  box-shadow: 0 2px 8px var(--app-elev);
 }
 
 .search-morph-wrapper[data-expanded="true"] {
   width: 320px;
-  box-shadow: 0 4px 16px var(--app-elev, rgba(34, 46, 112, 0.72));
+  box-shadow: 0 4px 16px var(--app-elev);
 }
 
 /* Rainbow rim effect */
 .search-morph-rim {
   position: absolute;
   inset: 0;
-  border-radius: 24px;
-  padding: 2px; /* border width */
+  border-radius: var(--r-xl);
+  padding: var(--s0); /* border width */
   background: conic-gradient(from var(--gradient-angle), 
-              var(--app-blue, #6c9cf0), 
-              var(--color-success, #1a9b5e), 
-              var(--color-warning, #e08c20), 
-              var(--color-error, #d63c3c), 
-              var(--app-blue, #6c9cf0));
+              var(--app-blue), 
+              var(--color-success), 
+              var(--color-warning), 
+              var(--color-error), 
+              var(--app-blue));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -69,14 +69,14 @@
   justify-content: center;
   background: transparent;
   border: none;
-  color: var(--app-text, #eef1fc);
+  color: var(--app-text);
   cursor: pointer;
   z-index: 2;
   transition: color var(--d2, 220ms) ease;
 }
 
 .search-morph-icon-btn:hover {
-  color: var(--app-blue, #6c9cf0);
+  color: var(--app-blue);
 }
 
 .search-morph-input-container {
@@ -103,9 +103,9 @@
   height: 100%;
   background: transparent;
   border: none;
-  color: var(--app-text, #eef1fc);
-  font-size: 14px;
-  padding: 0 16px 0 0;
+  color: var(--app-text);
+  font-size: var(--t-lead);
+  padding: 0 var(--s5) 0 0;
   outline: none;
   z-index: 2;
 }
@@ -117,8 +117,8 @@
   bottom: 0;
   display: flex;
   align-items: center;
-  color: var(--app-dim, #a9b0d8);
-  font-size: 14px;
+  color: var(--app-dim);
+  font-size: var(--t-lead);
   pointer-events: none;
   z-index: 1;
   white-space: nowrap;
@@ -130,11 +130,11 @@
   top: calc(100% + 8px);
   left: 0;
   right: 0;
-  background-color: var(--app-bg, #080c2c);
-  border: 1px solid var(--app-line, rgba(150, 175, 255, 0.16));
+  background-color: var(--app-bg);
+  border: 1px solid var(--app-line);
   border-radius: var(--r-md, 12px);
   padding: var(--s2, 8px);
-  box-shadow: 0 4px 12px var(--app-elev, rgba(34, 46, 112, 0.72));
+  box-shadow: 0 4px 12px var(--app-elev);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
@@ -152,13 +152,13 @@
   display: flex;
   align-items: center;
   gap: var(--s2, 8px);
-  font-size: 13px;
-  color: var(--app-text, #eef1fc);
+  font-size: var(--t-body);
+  color: var(--app-text);
 }
 
 .search-morph-wordmark {
   font-weight: 700;
-  background: linear-gradient(90deg, var(--app-blue, #6c9cf0), var(--color-success, #1a9b5e));
+  background: linear-gradient(90deg, var(--app-blue), var(--color-success));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -172,7 +172,7 @@
   .search-morph-wrapper[data-expanded="true"]:focus-within .search-morph-rim {
     animation: none;
     /* Static fallback for rim */
-    background: var(--app-blue, #6c9cf0);
+    background: var(--app-blue);
   }
   
   .search-morph-hint-row {

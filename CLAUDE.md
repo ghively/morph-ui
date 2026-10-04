@@ -12,7 +12,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 pnpm install
 pnpm build          # tsc --noEmit && vite build → dist/morph-ui.js + dist/morph-ui.css
 pnpm test           # vitest run (jsdom, setup in test/setup.ts)
-pnpm lint           # eslint .
+pnpm lint           # eslint . + lint:css
+pnpm lint:css       # stylelint (token colours) + scripts/snap-to-scale.mjs --check (size scales)
 pnpm typecheck      # tsc --noEmit (covers src/ and test/)
 pnpm catalog        # Ladle dev server for *.stories.tsx
 pnpm catalog:build  # static catalog → catalog-dist/
@@ -35,7 +36,9 @@ Nothing lands on main unless all four gates pass: `pnpm build && pnpm test && pn
 3. `primitives.css`: the generated `[data-btn]` / `[data-chip]` / `[data-tile]` / `[data-row]` / … attribute layer, carried over from ChatUIMorph `app.css`. It is frame-scoped through `:where()`, so it adds zero specificity. A component that emits these attributes renders unstyled unless a `.morph-frame` ancestor is present.
 
 **Component CSS conventions** (from `docs/POLISH.md`):
-- Use tokens, never hard-coded colours. Each component sets a local accent `--c` and derives tints and glows from it with `color-mix()`.
+- Use tokens, never hard-coded colours. Each component sets a local accent `--c` and derives tints and glows from it with `color-mix()`. `stylelint.config.mjs` enforces this on colour properties (pure black/white alpha is allowed for scrims and sheens; named skins like the keyboards and media artwork are exempt).
+- Sizes come from the scales in `tokens.css`: type `--t-2xs … --t-hero`, radius `--r-2xs … --r-xl` / `--r-pill`, spacing `--s0 … --s11`. `node scripts/snap-to-scale.mjs` rewrites stray px values onto them; its `--check` mode is part of `pnpm lint`. Negative offsets and 1px hairlines stay literal.
+- Every `tone` prop takes the shared `Tone` from `src/tone.ts` (`neutral | info | success | warn | danger`, aliases normalized by `toTone`). Don't invent a new tone union.
 - Agent state colours come from the `--state-*` tokens. Glass surfaces use `--glass-*`. Motion uses `--ease-*` tokens and must respect reduced motion.
 - Stylesheets open with a `:where(.root)` reset so the host primitives for `[data-status]`, `[data-state]` and `[data-empty]` and the host `p, li` font rules don't bleed in.
 - Per-instance runtime knobs set inline from TSX (`--morph-fill-pct`, `--char-index`, …) are not declared in tokens. Their CSS uses must carry fallbacks.

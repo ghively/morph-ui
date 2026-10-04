@@ -153,8 +153,8 @@
 [data-herochip] [data-tag][data-solid] {
   background: var(--app-faint);
   color: var(--app-bg);
-  padding: 2px 6px;
-  border-radius: 4px;
+  padding: var(--s0) var(--s1h);
+  border-radius: var(--r-xs);
   font-size: var(--t-num);
   font-weight: 600;
 }

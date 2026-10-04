@@ -1,18 +1,18 @@
 /* ArchiveCollection — AGENT_DATA polish batch 3 (2026-10-03). Timeline: day gutter, glowing rail nodes, sticky month pills with counts, glass cards with colour-dotted tags.
    Reads only theme tokens + the --state-* / --glass-* layer in tokens.css. */
-.archive-collection { --c: var(--state-live); display: flex; flex-direction: column; gap: 18px; color: var(--app-text); font-size: var(--t-body, 13px); }
+.archive-collection { --c: var(--state-live); display: flex; flex-direction: column; gap: var(--s6); color: var(--app-text); font-size: var(--t-body, 13px); }
 .archive-collection p, .archive-collection li { font-size: inherit; }
-.archive-gh { position: sticky; top: 0; z-index: 1; display: inline-flex; align-items: center; gap: 8px; margin: 0 0 8px 44px; padding: 4px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 600; letter-spacing: .02em; color: var(--app-text);
+.archive-gh { position: sticky; top: 0; z-index: 1; display: inline-flex; align-items: center; gap: var(--s2); margin: 0 0 var(--s2) var(--s10); padding: var(--s1) var(--s3); border-radius: var(--r-pill); font-size: var(--t-meta); font-weight: 600; letter-spacing: .02em; color: var(--app-text);
   background: var(--glass-bg); border: 1px solid var(--app-line); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); }
-.archive-gh span { font-size: 10.5px; font-weight: 600; padding: 0 6px; border-radius: 999px; color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); }
-.archive-rail { position: relative; display: flex; flex-direction: column; gap: 8px; }
+.archive-gh span { font-size: var(--t-eyebrow); font-weight: 600; padding: 0 var(--s1h); border-radius: var(--r-pill); color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); }
+.archive-rail { position: relative; display: flex; flex-direction: column; gap: var(--s2); }
 .archive-rail::before { content: ''; position: absolute; left: 47px; top: 6px; bottom: 6px; width: 1px; background: linear-gradient(var(--app-line), color-mix(in srgb, var(--c) 35%, var(--app-line)), var(--app-line)); }
 .archive-entry { display: grid; grid-template-columns: 36px 24px minmax(0, 1fr); align-items: start; cursor: pointer; outline: none; }
-.archive-date { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.1; padding-top: 10px; }
-.archive-date b { font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; }
-.archive-date span { font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--app-faint); }
-.archive-node { justify-self: center; margin-top: 16px; width: 9px; height: 9px; border-radius: 50%; background: var(--app-bg); border: 2px solid var(--app-faint); box-sizing: border-box; z-index: 1; transition: border-color var(--d2), background var(--d2), box-shadow var(--d2); }
-.archive-card { padding: 10px 14px 12px; border-radius: 12px; border: 1px solid var(--app-line); background: var(--glass-bg); box-shadow: var(--glass-edge);
+.archive-date { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.1; padding-top: var(--s3); }
+.archive-date b { font-size: var(--t-h4); font-weight: 600; font-variant-numeric: tabular-nums; }
+.archive-date span { font-size: var(--t-xs); text-transform: uppercase; letter-spacing: .06em; color: var(--app-faint); }
+.archive-node { justify-self: center; margin-top: var(--s5); width: 9px; height: 9px; border-radius: 50%; background: var(--app-bg); border: 2px solid var(--app-faint); box-sizing: border-box; z-index: 1; transition: border-color var(--d2), background var(--d2), box-shadow var(--d2); }
+.archive-card { padding: var(--s3) var(--s4h) var(--s4); border-radius: var(--r-md); border: 1px solid var(--app-line); background: var(--glass-bg); box-shadow: var(--glass-edge);
   transition: border-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx), transform var(--d2) var(--ease-morph); }
 .archive-entry:hover .archive-card { border-color: color-mix(in srgb, var(--c) 35%, var(--app-line)); transform: translateX(2px); }
 .archive-entry:hover .archive-node { border-color: var(--c); }
@@ -20,8 +20,8 @@
 .archive-entry.is-sel .archive-card { border-color: color-mix(in srgb, var(--c) 55%, transparent); background: linear-gradient(90deg, color-mix(in srgb, var(--c) 10%, transparent), transparent 70%), var(--glass-bg); box-shadow: var(--glass-edge), 0 0 22px -8px var(--c); }
 .archive-entry.is-sel .archive-node { border-color: var(--c); background: var(--c); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 20%, transparent), 0 0 10px var(--c); }
 .archive-title { font-weight: 600; }
-.archive-sum { margin: 3px 0 0; color: var(--app-dim); line-height: 1.5; text-wrap: pretty; }
-.archive-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
-.archive-tags span { --tc: var(--c); display: inline-flex; align-items: center; gap: 5px; padding: 1px 8px 1px 6px; border-radius: 999px; font-size: 11px; color: var(--app-dim); background: color-mix(in srgb, var(--tc) 10%, transparent); border: 1px solid color-mix(in srgb, var(--tc) 28%, transparent); }
+.archive-sum { margin: var(--s1) 0 0; color: var(--app-dim); line-height: 1.5; text-wrap: pretty; }
+.archive-tags { display: flex; flex-wrap: wrap; gap: var(--s1h); margin-top: var(--s2); }
+.archive-tags span { --tc: var(--c); display: inline-flex; align-items: center; gap: var(--s1h); padding: 1px var(--s2) 1px var(--s1h); border-radius: var(--r-pill); font-size: var(--t-num); color: var(--app-dim); background: color-mix(in srgb, var(--tc) 10%, transparent); border: 1px solid color-mix(in srgb, var(--tc) 28%, transparent); }
 .archive-tags span::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--tc); }
-.archive-empty { padding: 28px 12px; text-align: center; font-size: 12.5px; color: var(--app-faint); border: 1px dashed var(--app-line); border-radius: 12px; }
+.archive-empty { padding: var(--s8) var(--s4); text-align: center; font-size: var(--t-ctl); color: var(--app-faint); border: 1px dashed var(--app-line); border-radius: var(--r-md); }

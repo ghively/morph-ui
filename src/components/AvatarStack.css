@@ -27,7 +27,7 @@
 [data-avatarstack][data-size='sm'] [data-stackmore] {
   width: 23px;
   height: 23px;
-  font-size: 9px;
+  font-size: var(--t-2xs);
 }
 
 [data-stackavatar] + [data-stackavatar],
@@ -37,7 +37,7 @@
 }
 
 [data-stackavatar][data-agent] {
-  border-radius: 9px;
+  border-radius: var(--r-sm);
 }
 
 [data-stackmore] {

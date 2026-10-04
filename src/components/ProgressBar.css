@@ -1,7 +1,7 @@
 [data-progresswrap] {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--s1h);
   font: inherit;
   min-width: 0;
 }
@@ -13,7 +13,7 @@
 
 [data-progress] {
   height: 8px;
-  border-radius: 999px;
+  border-radius: var(--r-pill);
   background: var(--morph-track);
   overflow: hidden;
 }

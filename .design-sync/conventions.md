@@ -14,6 +14,8 @@
 - Glass: `--glass-bg`, `--glass-blur`, `--glass-edge`, `--glass-shadow`
 - Motion: `--ease-out`, `--ease-soft`, `--ease-spring`, `--ease-emph`
 
+**Sizes come from scales, never raw px:** spacing `var(--s1)` 4 · `--s2` 8 · `--s3` 10 · `--s4` 12 · `--s5` 16 · `--s6` 20 · `--s7` 24 · `--s8` 32; type `--t-small` 12 · `--t-body` 13 · `--t-lead` 14 · `--t-h4` 16 · `--t-h3` 20 · `--t-h2` 24 · `--t-h1`; radius `--r-xs` · `--r-sm` · `--r-md` · `--r-card` · `--r-pill`.
+
 **Prefer the library components to raw HTML.** Native `<button>`/`<input>` elements inside the frame render as blank light boxes. Use the core set for app UI:
 - `Button` (`variant` primary/secondary/ghost/danger, `size`, `loading`)
 - `Badge` (`tone` success/info/warn/danger/neutral)

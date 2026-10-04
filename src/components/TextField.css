@@ -1,18 +1,18 @@
 /* Field shell shared by TextField, TextArea and Select (they @import this sheet). */
-:is([data-textfield], [data-textarea], [data-select]) { --c: var(--morph-accent); display: flex; flex-direction: column; gap: 6px; font: inherit; }
+:is([data-textfield], [data-textarea], [data-select]) { --c: var(--morph-accent); display: flex; flex-direction: column; gap: var(--s1h); font: inherit; }
 :is([data-textfield], [data-textarea], [data-select])[data-invalid] { --c: var(--morph-danger); }
 :is([data-textfield], [data-textarea], [data-select]) > label { font-size: var(--t-body); font-weight: 600; }
-:is([data-textfield] input, [data-textarea] textarea, [data-select] select) { box-sizing: border-box; width: 100%; height: 34px; padding: 0 10px;
+:is([data-textfield] input, [data-textarea] textarea, [data-select] select) { box-sizing: border-box; width: 100%; height: 34px; padding: 0 var(--s3);
   font: inherit; font-size: var(--t-title); color: var(--morph-fg); background: var(--morph-input-bg); border: 1px solid var(--morph-border); border-radius: var(--morph-radius);
   transition: background-color var(--d2) var(--ease-fx), border-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx), opacity var(--d2) var(--ease-fx); }
-[data-textarea] textarea { height: auto; min-height: 76px; padding: 8px 10px; line-height: 1.5; resize: vertical; }
+[data-textarea] textarea { height: auto; min-height: 76px; padding: var(--s2) var(--s3); line-height: 1.5; resize: vertical; }
 :is([data-textfield] input, [data-textarea] textarea)::placeholder { color: var(--morph-placeholder); opacity: 1; }
 :is([data-textfield] input, [data-textarea] textarea, [data-select] select):hover:not(:disabled) { border-color: var(--morph-border-strong); }
 :is([data-textfield] input, [data-textarea] textarea, [data-select] select):focus-visible { outline: none; border-color: var(--c); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 22%, transparent); }
 :is([data-textfield], [data-textarea], [data-select])[data-invalid] :is(input, textarea, select) { border-color: var(--c); background: color-mix(in srgb, var(--c) 5%, var(--morph-input-bg)); }
 :is([data-textfield] input, [data-textarea] textarea, [data-select] select):disabled { opacity: .55; cursor: not-allowed; }
 :is([data-textfield], [data-textarea], [data-select]) > :is([data-fieldhint], [data-hint]) { font-size: var(--t-small); color: var(--app-dim); }
-:is([data-textfield], [data-textarea], [data-select]) > [data-error] { display: flex; align-items: center; gap: 6px; font-size: var(--t-small); font-weight: 600; color: var(--morph-danger); animation: morph-field-err var(--d2) var(--ease-emph); }
+:is([data-textfield], [data-textarea], [data-select]) > [data-error] { display: flex; align-items: center; gap: var(--s1h); font-size: var(--t-small); font-weight: 600; color: var(--morph-danger); animation: morph-field-err var(--d2) var(--ease-emph); }
 :is([data-textfield], [data-textarea], [data-select]) > [data-error]::before { content: ''; flex: none; width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 6px currentColor; }
 @keyframes morph-field-err { from { opacity: 0; transform: translateY(-3px); } }
 @media (prefers-reduced-motion: reduce) { :is([data-textfield] input, [data-textarea] textarea, [data-select] select) { transition: none; } [data-error] { animation: none; } }

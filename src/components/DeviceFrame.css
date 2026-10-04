@@ -1,7 +1,7 @@
 .device-frame-container {
   display: inline-block;
-  padding: 12px;
-  background-color: var(--cpi-gray-700, #2e2e2e);
+  padding: var(--s4);
+  background-color: var(--cpi-gray-700);
   border-radius: 40px;
   box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.1),
               0 10px 30px rgba(0, 0, 0, 0.5);
@@ -12,9 +12,9 @@
 }
 
 .device-frame-bezel {
-  background-color: var(--app-bg, #080c2c);
-  border: 4px solid var(--cpi-gray-700, #2e2e2e);
-  border-radius: 32px;
+  background-color: var(--app-bg);
+  border: 4px solid var(--cpi-gray-700);
+  border-radius: var(--r-xl);
   position: relative;
   overflow: hidden;
   /* Default phone aspect ratio */
@@ -32,9 +32,9 @@
   transform: translateX(-50%);
   width: 40%;
   height: 24px;
-  background-color: var(--cpi-gray-700, #2e2e2e);
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+  background-color: var(--cpi-gray-700);
+  border-bottom-left-radius: var(--r-md);
+  border-bottom-right-radius: var(--r-md);
   z-index: 10;
 }
 
@@ -43,7 +43,7 @@
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
-  background-color: var(--app-bg, #080c2c);
+  background-color: var(--app-bg);
   display: flex;
   flex-direction: column;
 }
@@ -56,6 +56,6 @@
   background: transparent;
 }
 .device-frame-screen::-webkit-scrollbar-thumb {
-  background-color: var(--app-line, rgba(150, 175, 255, 0.16));
-  border-radius: 4px;
+  background-color: var(--app-line);
+  border-radius: var(--r-xs);
 }

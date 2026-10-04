@@ -1,22 +1,22 @@
 [data-gallery] {
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: var(--s7);
   max-width: 1180px;
   margin: 0 auto;
-  padding: 20px 20px 48px;
+  padding: var(--s6) var(--s6) var(--s10);
   font: inherit;
 }
 
 [data-galhead] h1 {
   margin: 0;
-  font-size: 24px;
+  font-size: var(--t-h2);
   font-weight: 750;
   letter-spacing: -0.01em;
 }
 
 [data-galhead] p {
-  margin: 4px 0 0;
+  margin: var(--s1) 0 0;
   font-size: var(--t-title);
   opacity: 0.72;
 }
@@ -29,12 +29,12 @@
 
 [data-galheading] {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--t-h4);
   font-weight: 700;
 }
 
 [data-galblurb] {
-  margin: 0 0 8px;
+  margin: 0 0 var(--s2);
   font-size: var(--t-body);
   opacity: 0.7;
 }
@@ -48,7 +48,7 @@
 [data-galcell] {
   border: 1px solid var(--morph-border);
   border-radius: var(--morph-radius-lg);
-  padding: 14px;
+  padding: var(--s4h);
   min-width: 0;
   background: var(--morph-card-bg);
   box-shadow: var(--el-raised);
@@ -64,7 +64,7 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   opacity: 0.6;
-  margin-bottom: 10px;
+  margin-bottom: var(--s3);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 

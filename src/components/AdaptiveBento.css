@@ -1,7 +1,7 @@
 /* AdaptiveBento — AGENT_DATA polish batch 3 (2026-10-03). Hero aurora: the 2×2 tile carries an ai/think mesh, the rest stay quiet; every tile lifts with an edge-light on hover.
    Reads only theme tokens + the --state-* / --glass-* layer in tokens.css. */
 .adaptive-bento { container-type: inline-size; container-name: bento; display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); grid-auto-flow: dense; width: 100%; }
-.adaptive-bento[data-density="compact"] { gap: 6px; }
+.adaptive-bento[data-density="compact"] { gap: var(--s1h); }
 .adaptive-bento-tile { overflow: hidden; }
 @container bento (max-width: 479px) { .adaptive-bento { grid-template-columns: repeat(1, minmax(0, 1fr)); } .adaptive-bento-tile { grid-column: span 1 !important; } }
 @container bento (min-width: 480px) and (max-width: 759px) {
@@ -14,12 +14,12 @@
   .adaptive-bento-tile[data-span="1"] { grid-column: span 1; } .adaptive-bento-tile[data-span="2"] { grid-column: span 2; } .adaptive-bento-tile[data-span="3"] { grid-column: span 3; }
   .adaptive-bento-tile[data-rowspan="1"] { grid-row: span 1; } .adaptive-bento-tile[data-rowspan="2"] { grid-row: span 2; }
 }
-.adaptive-bento { gap: 10px; }
-.adaptive-bento .adaptive-bento-tile { position: relative; min-height: 120px; border-radius: 18px; border: 1px solid var(--app-line); background: color-mix(in srgb, var(--app-elev) 80%, transparent); box-shadow: var(--glass-edge); transition: border-color var(--d2) var(--ease-fx), box-shadow var(--d3) var(--ease-fx), transform var(--d3) var(--ease-morph), background var(--d3); }
+.adaptive-bento { gap: var(--s3); }
+.adaptive-bento .adaptive-bento-tile { position: relative; min-height: 120px; border-radius: var(--r-card); border: 1px solid var(--app-line); background: color-mix(in srgb, var(--app-elev) 80%, transparent); box-shadow: var(--glass-edge); transition: border-color var(--d2) var(--ease-fx), box-shadow var(--d3) var(--ease-fx), transform var(--d3) var(--ease-morph), background var(--d3); }
 .adaptive-bento .adaptive-bento-tile[data-span="2"][data-rowspan="2"] { border-color: color-mix(in srgb, var(--state-live) 35%, var(--app-line));
   background: radial-gradient(80% 70% at 10% 0%, color-mix(in srgb, var(--state-live) 26%, transparent), transparent 70%), radial-gradient(70% 60% at 100% 100%, color-mix(in srgb, var(--state-think) 28%, transparent), transparent 70%), color-mix(in srgb, var(--app-elev) 85%, transparent);
   box-shadow: var(--glass-edge), 0 24px 50px -24px color-mix(in srgb, var(--state-live) 60%, transparent); }
-.adaptive-bento-empty { border: 1px dashed var(--app-line); text-align: center; border-radius: 18px; color: var(--app-faint); padding: 28px; }
+.adaptive-bento-empty { border: 1px dashed var(--app-line); text-align: center; border-radius: var(--r-card); color: var(--app-faint); padding: var(--s8); }
 
 /* hover (from option A): edge-light + lift + accent glow */
 .adaptive-bento .adaptive-bento-tile::before { content: ''; position: absolute; top: 0; left: 15%; right: 15%; height: 1px; z-index: 1; pointer-events: none; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--state-live) 80%, transparent), transparent); opacity: 0; transition: opacity var(--d3) var(--ease-fx); }

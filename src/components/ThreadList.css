@@ -13,14 +13,14 @@
 
 [data-threadrow] {
   padding: 0 var(--s3);
-  margin-bottom: 2px;
+  margin-bottom: var(--s0);
 }
 
 [data-threadrow] > button[data-state] {
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 6px var(--s2);
+  padding: var(--s1h) var(--s2);
   border: none;
   background: transparent;
   color: var(--app-rail-text);
@@ -34,7 +34,7 @@
 [data-threadrow][data-threadlink] > button[data-state] {
   flex-direction: column;
   align-items: flex-start;
-  gap: 2px;
+  gap: var(--s0);
   position: relative;
 }
 
@@ -69,8 +69,8 @@
 [data-count] {
   background: var(--app-line);
   color: var(--app-text);
-  padding: 2px 6px;
-  border-radius: 10px;
+  padding: var(--s0) var(--s1h);
+  border-radius: var(--r-md);
   font-size: var(--t-num);
   font-family: var(--app-mono);
   font-weight: 600;
@@ -93,11 +93,11 @@
   border: none;
   color: var(--app-rail-dim);
   cursor: pointer;
-  padding: 4px;
+  padding: var(--s1);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: var(--r-xs);
 }
 
 [data-threadacts] [data-iconbtn]:hover {

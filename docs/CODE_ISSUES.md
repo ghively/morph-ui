@@ -68,6 +68,10 @@ Last verified 2026-10-02: all 174 `*.stories.tsx` modules load, and every story 
 - [x] **Monospace font**: AuditLogViewer, CodeDiffViewer, ShortcutHelp and VariablePromptInput now use `var(--app-mono)`.
 - [x] **Derived tokens didn't re-theme on a wrapper.** A new "alias re-resolution" block at the end of `tokens.css` redeclares all 53 `var()` aliases on `:where(.morph-frame, [data-morph-frame])`. Theming a frame now flows through `--morph-*`, `--cpi-gray-*`, `--bloom`, `--el*` and the rest.
 
+- [x] **Sizes and colours bypassed the token scales (2026-10-04).**
+  - Component CSS used 0 spacing tokens against 857 literal paddings/gaps, 27 distinct px font sizes, 21 radii and ~100 `var(--token, #hex)` fallbacks that silently ignored theming.
+  - **Fix:** completed the scales in `tokens.css` (`--t-2xs/xs/h4/h3/h2`, `--r-2xs`, `--s0/s1h/s4h/s7…s11`), snapped 1,403 declarations with `scripts/snap-to-scale.mjs` (screenshot-diffed all 210 previews: largest change 2% of pixels, no layout breaks), stripped dead colour fallbacks, tokenized the remaining tints, and added `pnpm lint:css` (stylelint + scale check) to the lint gate.
+
 ## P3 — Robustness
 
 - [x] **CSS var fallbacks**: TextShimmer (`--shimmer-color`, `--shimmer-highlight`), FanHoverStack (`--spread-x/y/rotate`) and TextRipple (`--char-index`).

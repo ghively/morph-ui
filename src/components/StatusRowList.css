@@ -104,10 +104,10 @@
 [data-statuschip] {
   display: inline-flex;
   align-items: center;
-  padding: 2px 6px;
+  padding: var(--s0) var(--s1h);
   background-color: var(--app-line);
   color: var(--app-dim);
-  border-radius: 4px;
+  border-radius: var(--r-xs);
   font-size: var(--t-num);
   white-space: nowrap;
 }
@@ -115,9 +115,9 @@
 [data-statustag] {
   font-size: var(--t-num);
   color: var(--app-dim);
-  padding: 2px 6px;
+  padding: var(--s0) var(--s1h);
   border: 1px solid var(--app-line);
-  border-radius: 4px;
+  border-radius: var(--r-xs);
 }
 
 [data-statustag][data-solid] {
@@ -132,7 +132,7 @@
 }
 
 [data-statustag][data-tone="warn"] {
-  background-color: var(--color-warning-bg, rgba(224, 140, 32, 0.16));
+  background-color: var(--color-warning-bg);
   color: var(--color-warning);
 }
 

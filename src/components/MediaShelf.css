@@ -1,14 +1,14 @@
-.msA { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-.msA-head { display: flex; align-items: baseline; gap: 10px; padding: 0 4px; }
-.msA-title { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -.01em; color: var(--app-text); }
-.msA-count { font-size: 12px; color: var(--app-faint); }
+.msA { display: flex; flex-direction: column; gap: var(--s3); min-width: 0; }
+.msA-head { display: flex; align-items: baseline; gap: var(--s3); padding: 0 var(--s1); }
+.msA-title { margin: 0; font-size: var(--t-h4); font-weight: 700; letter-spacing: -.01em; color: var(--app-text); }
+.msA-count { font-size: var(--t-small); color: var(--app-faint); }
 .msA-sp { flex: 1; }
-.msA-all { all: unset; cursor: pointer; font-size: 12px; font-weight: 600; color: var(--app-dim); padding: 4px 8px; border-radius: 6px; }
+.msA-all { all: unset; cursor: pointer; font-size: var(--t-small); font-weight: 600; color: var(--app-dim); padding: var(--s1) var(--s2); border-radius: var(--r-sm); }
 .msA-all:hover { color: var(--c); }
-.msA-nav { all: unset; box-sizing: border-box; cursor: pointer; width: 26px; height: 26px; display: inline-grid; place-items: center; border-radius: 50%; font-size: 14px; color: var(--app-text); background: color-mix(in srgb, var(--app-text) 8%, transparent); border: 1px solid var(--app-line); transition: background-color var(--d2) var(--ease-fx), opacity var(--d2) var(--ease-fx); }
+.msA-nav { all: unset; box-sizing: border-box; cursor: pointer; width: 26px; height: 26px; display: inline-grid; place-items: center; border-radius: 50%; font-size: var(--t-lead); color: var(--app-text); background: color-mix(in srgb, var(--app-text) 8%, transparent); border: 1px solid var(--app-line); transition: background-color var(--d2) var(--ease-fx), opacity var(--d2) var(--ease-fx); }
 .msA-nav:hover:not(:disabled) { background: color-mix(in srgb, var(--app-text) 14%, transparent); }
 .msA-nav:disabled { opacity: .25; cursor: default; }
-.msA-track { display: flex; gap: 14px; overflow-x: auto; padding: 6px 4px 14px; margin: -6px -4px -14px; scrollbar-width: none; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; }
+.msA-track { display: flex; gap: var(--s4h); overflow-x: auto; padding: var(--s1h) var(--s1) var(--s4h); margin: -6px -4px -14px; scrollbar-width: none; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; }
 .msA-track::-webkit-scrollbar { display: none; }
 .msA-card { flex: none; scroll-snap-align: start; }
-.msA-empty { padding: 36px 12px; text-align: center; font-size: 13px; color: var(--app-faint); border-radius: 12px; background: color-mix(in srgb, var(--app-text) 3%, transparent); border: 1px dashed var(--app-line); }
+.msA-empty { padding: var(--s9) var(--s4); text-align: center; font-size: var(--t-body); color: var(--app-faint); border-radius: var(--r-md); background: color-mix(in srgb, var(--app-text) 3%, transparent); border: 1px dashed var(--app-line); }

@@ -6,7 +6,7 @@
   position: relative;
   outline: none;
   border-radius: var(--r-md);
-  padding: 4px;
+  padding: var(--s1);
 }
 
 [data-turn][data-highlight] {
@@ -73,7 +73,7 @@ img.avatar {
   gap: var(--s2);
   font-size: var(--t-meta);
   color: var(--app-faint);
-  margin-top: 2px;
+  margin-top: var(--s0);
 }
 [data-turn="user"] > [data-msgmeta] {
   justify-content: flex-end;
@@ -82,11 +82,11 @@ img.avatar {
 [data-msgactions] {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--s1);
   background: var(--app-bg);
   border: 1px solid var(--app-line);
   border-radius: var(--r-card);
-  padding: 4px;
+  padding: var(--s1);
   position: absolute;
   top: -12px;
   right: 12px;
@@ -120,7 +120,7 @@ img.avatar {
 }
 [data-iconbtn][data-tone="danger"]:hover {
   color: var(--danger-ink);
-  background: rgba(240, 128, 128, 0.1);
+  background: color-mix(in srgb, var(--danger-ink) 10%, transparent);
 }
 
 [data-reactpicker] {
@@ -128,16 +128,16 @@ img.avatar {
   background: var(--app-bg);
   border: 1px solid var(--app-line);
   border-radius: var(--r-card);
-  padding: 4px;
+  padding: var(--s1);
   position: absolute;
   top: 24px;
   right: 12px;
   z-index: 11;
-  gap: 2px;
+  gap: var(--s0);
 }
 
 [data-reactpicker] [data-iconbtn] {
-  font-size: 16px;
+  font-size: var(--t-h4);
 }
 
 [data-replyquote] {
@@ -211,10 +211,10 @@ img.avatar {
 [data-agentbadge] {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--s1);
   background: var(--color-success-bg);
   color: var(--color-success-text);
-  padding: 2px 6px;
+  padding: var(--s0) var(--s1h);
   border-radius: var(--r-md);
   font-size: var(--t-num);
   font-weight: 600;
@@ -224,7 +224,7 @@ img.avatar {
 [data-tiletag] {
   background: var(--app-panel);
   color: var(--app-dim);
-  padding: 2px 6px;
+  padding: var(--s0) var(--s1h);
   border-radius: var(--r-md);
   font-size: var(--t-num);
   text-transform: uppercase;

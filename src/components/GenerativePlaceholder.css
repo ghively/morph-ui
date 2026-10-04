@@ -1,17 +1,17 @@
 /* GenerativePlaceholder — AGENT_DATA polish (2026-10-02). Construct: dashed wireframes solidify in sequence while a scan beam passes.
    Reads only theme tokens + the --state-* / --glass-* layer in tokens.css. */
 .gen-placeholder { position: relative; width: 100%; overflow: hidden; border-radius: var(--r-card, 14px); }
-.gen-placeholder-surface { padding: 16px; border-radius: var(--r-card, 14px); border: 1px dashed color-mix(in srgb, var(--app-text) 16%, transparent); background: repeating-linear-gradient(0deg, transparent 0 15px, color-mix(in srgb, var(--app-text) 3%, transparent) 15px 16px), repeating-linear-gradient(90deg, transparent 0 15px, color-mix(in srgb, var(--app-text) 3%, transparent) 15px 16px); }
+.gen-placeholder-surface { padding: var(--s5); border-radius: var(--r-card, 14px); border: 1px dashed color-mix(in srgb, var(--app-text) 16%, transparent); background: repeating-linear-gradient(0deg, transparent 0 15px, color-mix(in srgb, var(--app-text) 3%, transparent) 15px 16px), repeating-linear-gradient(90deg, transparent 0 15px, color-mix(in srgb, var(--app-text) 3%, transparent) 15px 16px); }
 .gen-placeholder-b {
-  display: block; flex: none; max-width: 100%; box-sizing: border-box; border-radius: 4px;
+  display: block; flex: none; max-width: 100%; box-sizing: border-box; border-radius: var(--r-xs);
   border: 1px dashed color-mix(in srgb, var(--app-text) 20%, transparent); background: transparent;
   animation: gen-placeholder-build 2.8s var(--ease-emph, ease) infinite; animation-delay: calc(var(--i) * 70ms);
 }
 .gen-placeholder-b.is-circ { border-radius: 50%; }
-.gen-placeholder-b.is-pill { border-radius: 999px; }
-.gen-placeholder-b.is-bub { border-radius: 12px 12px 12px 3px; }
-.gen-placeholder-b.is-me { border-radius: 12px 12px 3px 12px; }
-.gen-placeholder-b.is-bar { border-radius: 3px 3px 0 0; }
+.gen-placeholder-b.is-pill { border-radius: var(--r-pill); }
+.gen-placeholder-b.is-bub { border-radius: var(--r-md) var(--r-md) var(--r-md) var(--r-xs); }
+.gen-placeholder-b.is-me { border-radius: var(--r-md) var(--r-md) var(--r-xs) var(--r-md); }
+.gen-placeholder-b.is-bar { border-radius: var(--r-xs) var(--r-xs) 0 0; }
 .gen-placeholder-b.is-axis { animation: none; border: 0; background: color-mix(in srgb, var(--app-text) 18%, transparent); }
 .gen-placeholder-beam { position: absolute; left: 0; right: 0; top: 0; height: 36px; pointer-events: none; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--state-live) 14%, transparent) 70%, color-mix(in srgb, var(--state-live) 70%, transparent) 98%, transparent); mix-blend-mode: screen; animation: gen-placeholder-scan 2.8s cubic-bezier(.5, 0, .5, 1) infinite; }
 .gen-placeholder-beam::after { content: ''; position: absolute; left: 0; right: 0; bottom: 1px; height: 1px; background: var(--state-live); box-shadow: 0 0 10px 1px var(--state-live); }

@@ -1,7 +1,7 @@
 [data-text-blur-reveal] {
   display: inline-flex;
   flex-wrap: wrap;
-  color: var(--app-text, #eef1fc);
+  color: var(--app-text);
 }
 
 .blur-item {

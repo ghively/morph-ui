@@ -1,10 +1,10 @@
 .globe-card {
-  --globe-card-bg: var(--app-bg, #080c2c);
-  --globe-card-border: var(--app-line, rgba(150, 175, 255, 0.16));
-  --globe-card-text: var(--app-text, #eef1fc);
-  --globe-card-dim: var(--app-dim, #a9b0d8);
-  --globe-dot: var(--app-faint, #979ecd);
-  --globe-marker: var(--app-blue, #6c9cf0);
+  --globe-card-bg: var(--app-bg);
+  --globe-card-border: var(--app-line);
+  --globe-card-text: var(--app-text);
+  --globe-card-dim: var(--app-dim);
+  --globe-dot: var(--app-faint);
+  --globe-marker: var(--app-blue);
   
   display: flex;
   flex-direction: column;
@@ -38,7 +38,7 @@
 }
 
 .globe-card-title {
-  font-size: 14px;
+  font-size: var(--t-lead);
   font-weight: 600;
   color: var(--globe-card-text);
   margin: 0;

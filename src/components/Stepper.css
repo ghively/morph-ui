@@ -21,13 +21,13 @@
 [data-stepbtn] {
   font: inherit;
   display: flex;
-  gap: 9px;
+  gap: var(--s3);
   align-items: flex-start;
   background: transparent;
   border: none;
   color: inherit;
-  padding: 2px;
-  border-radius: 8px;
+  padding: var(--s0);
+  border-radius: var(--r-sm);
   text-align: left;
   transition: background-color var(--d2) var(--ease-fx),
     border-color var(--d2) var(--ease-fx),
@@ -73,7 +73,7 @@
 [data-steptext] {
   display: flex;
   flex-direction: column;
-  padding-top: 3px;
+  padding-top: var(--s1);
   min-width: 0;
 }
 
@@ -96,7 +96,7 @@
 [data-stepconnector] {
   flex: 1;
   height: 1.5px;
-  margin: 15px 10px 0;
+  margin: var(--s5) var(--s3) 0;
   background: var(--morph-border);
   min-width: 12px;
 }

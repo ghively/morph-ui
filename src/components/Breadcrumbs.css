@@ -1,6 +1,6 @@
 [data-breadcrumbs] {
   font: inherit;
-  font-size: 12.5px;
+  font-size: var(--t-ctl);
 }
 
 [data-breadcrumbs] ol {
@@ -10,13 +10,13 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 2px;
+  gap: var(--s0);
 }
 
 [data-crumb] {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--s1h);
 }
 
 [data-crumb] a,
@@ -26,8 +26,8 @@
   opacity: 0.72;
   background: transparent;
   border: none;
-  padding: 2px 3px;
-  border-radius: 4px;
+  padding: var(--s0) var(--s1);
+  border-radius: var(--r-xs);
   cursor: pointer;
   text-decoration: none;
 }
@@ -40,15 +40,15 @@
 
 [data-crumbcurrent] {
   font-weight: 650;
-  padding: 2px 3px;
+  padding: var(--s0) var(--s1);
 }
 
 [data-crumbsep] {
   opacity: 0.45;
-  margin: 0 3px;
+  margin: 0 var(--s1);
 }
 
 [data-crumb][data-gap] {
   opacity: 0.55;
-  padding: 0 2px;
+  padding: 0 var(--s0);
 }

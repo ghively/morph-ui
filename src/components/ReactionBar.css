@@ -8,7 +8,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--s1);
-  padding: 4px 8px;
+  padding: var(--s1) var(--s2);
   border-radius: var(--r-card);
   border: 1px solid transparent;
   background: var(--app-panel);

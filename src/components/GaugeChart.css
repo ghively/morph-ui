@@ -16,7 +16,7 @@
 }
 
 [data-gaugecenter] {
-  font-size: 24px;
+  font-size: var(--t-h2);
   font-weight: 800;
   fill: currentColor;
   font-variant-numeric: tabular-nums;

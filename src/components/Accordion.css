@@ -4,7 +4,7 @@
 [data-accitem][data-open] { background: color-mix(in srgb, var(--c) 4%, transparent); }
 [data-accitem][data-open]::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--c); box-shadow: 0 0 8px color-mix(in srgb, var(--c) 60%, transparent); }
 [data-acchead] { margin: 0; font-size: inherit; }
-[data-acchead] > button { all: unset; box-sizing: border-box; display: flex; align-items: center; gap: var(--s2); width: 100%; padding: 12px 14px; cursor: pointer; transition: background-color var(--d2) var(--ease-fx); }
+[data-acchead] > button { all: unset; box-sizing: border-box; display: flex; align-items: center; gap: var(--s2); width: 100%; padding: var(--s4) var(--s4h); cursor: pointer; transition: background-color var(--d2) var(--ease-fx); }
 [data-acchead] > button:hover:not(:disabled) { background: var(--morph-hover); }
 [data-acchead] > button:focus-visible { box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--c) 70%, transparent); }
 [data-acchead] > button:disabled { opacity: .5; cursor: not-allowed; }
@@ -12,6 +12,6 @@
 [data-accbadge] { flex: none; font-variant-numeric: tabular-nums; }
 [data-accicon] { flex: none; opacity: .6; transition: transform var(--d2) var(--ease-emph), opacity var(--d2) var(--ease-fx); }
 [data-accitem][data-open] [data-accicon] { transform: rotate(180deg); opacity: 1; color: var(--c); }
-[data-accpanel] { padding: 0 14px 14px; font-size: var(--t-title); line-height: 1.5; animation: morph-acc-in var(--d2) var(--ease-emph); }
+[data-accpanel] { padding: 0 var(--s4h) var(--s4h); font-size: var(--t-title); line-height: 1.5; animation: morph-acc-in var(--d2) var(--ease-emph); }
 @keyframes morph-acc-in { from { opacity: 0; transform: translateY(-4px); } }
 @media (prefers-reduced-motion: reduce) { [data-accicon], [data-accitem] { transition: none; } [data-accpanel] { animation: none; } }

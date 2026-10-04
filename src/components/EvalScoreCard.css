@@ -3,23 +3,23 @@
 :where(.eval-card) [data-state], :where(.eval-card)[data-state] { position: revert; isolation: auto; overflow: visible; }
 :where(.eval-card) [data-state]::before, :where(.eval-card)[data-state]::before { content: none; }
 :where(.eval-card) [data-empty], :where(.eval-card)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
-.eval-card { display: grid; gap: 12px; padding: 14px; color: var(--app-text); font-family: var(--font-sans); border-radius: 10px; border: 1px solid var(--app-line); background: var(--app-panel); }
-.eval-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-.eval-card-tt h3 { margin: 0; font-size: 14.5px; font-weight: 600; color: var(--app-text); text-shadow: none; }
-.eval-card-tt p { margin: 2px 0 0; font-size: 12px; color: var(--app-faint); }
+.eval-card { display: grid; gap: var(--s4); padding: var(--s4h); color: var(--app-text); font-family: var(--font-sans); border-radius: var(--r-md); border: 1px solid var(--app-line); background: var(--app-panel); }
+.eval-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--s4); }
+.eval-card-tt h3 { margin: 0; font-size: var(--t-prose); font-weight: 600; color: var(--app-text); text-shadow: none; }
+.eval-card-tt p { margin: var(--s0) 0 0; font-size: var(--t-small); color: var(--app-faint); }
 .eval-card-ov { display: grid; justify-items: end; line-height: 1; }
-.eval-card-ov b { font-size: 28px; font-weight: 600; letter-spacing: -.03em; color: var(--c); font-variant-numeric: tabular-nums; }
-.eval-card-ov span { margin-top: 4px; font-size: 10.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--c); }
-.eval-card-t { width: 100%; border-collapse: collapse; font-size: 12.5px; font-variant-numeric: tabular-nums; }
-.eval-card-t th { padding: 0 0 6px; font-size: 10.5px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; color: var(--app-faint); text-align: right; border-bottom: 1px solid var(--app-line); }
+.eval-card-ov b { font-size: var(--t-h1); font-weight: 600; letter-spacing: -.03em; color: var(--c); font-variant-numeric: tabular-nums; }
+.eval-card-ov span { margin-top: var(--s1); font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--c); }
+.eval-card-t { width: 100%; border-collapse: collapse; font-size: var(--t-ctl); font-variant-numeric: tabular-nums; }
+.eval-card-t th { padding: 0 0 var(--s1h); font-size: var(--t-eyebrow); font-weight: 500; letter-spacing: .05em; text-transform: uppercase; color: var(--app-faint); text-align: right; border-bottom: 1px solid var(--app-line); }
 .eval-card-t th:first-child, .eval-card-t td:first-child { text-align: left; }
-.eval-card-t td { padding: 7px 0; text-align: right; border-bottom: 1px solid var(--app-line); color: var(--app-dim); }
+.eval-card-t td { padding: var(--s2) 0; text-align: right; border-bottom: 1px solid var(--app-line); color: var(--app-dim); }
 .eval-card-t tr:last-child td { border-bottom: 0; }
-.eval-card-t td:first-child { color: var(--app-text); display: grid; gap: 4px; }
+.eval-card-t td:first-child { color: var(--app-text); display: grid; gap: var(--s1); }
 .eval-card-t [data-evalscore] { font-weight: 600; color: var(--app-text); }
-.eval-card-mini { position: relative; height: 3px; width: 100%; max-width: 160px; border-radius: 2px; background: color-mix(in srgb, var(--app-text) 8%, transparent); }
+.eval-card-mini { position: relative; height: 3px; width: 100%; max-width: 160px; border-radius: var(--r-2xs); background: color-mix(in srgb, var(--app-text) 8%, transparent); }
 .eval-card-mini [data-evalfill] { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: var(--state-warn); }
 .eval-card-t tr[data-met] .eval-card-mini [data-evalfill] { background: var(--state-ok); }
 .eval-card-mini i { position: absolute; top: -2px; bottom: -2px; width: 1px; background: var(--app-text); }
-.eval-card-d { display: inline-block; min-width: 30px; padding: 1px 6px; border-radius: 5px; font-size: 11px; font-weight: 600; text-align: center; color: var(--state-warn); background: color-mix(in srgb, var(--state-warn) 12%, transparent); }
+.eval-card-d { display: inline-block; min-width: 30px; padding: 1px var(--s1h); border-radius: var(--r-xs); font-size: var(--t-num); font-weight: 600; text-align: center; color: var(--state-warn); background: color-mix(in srgb, var(--state-warn) 12%, transparent); }
 .eval-card-t tr[data-met] .eval-card-d { color: var(--state-ok); background: color-mix(in srgb, var(--state-ok) 12%, transparent); }

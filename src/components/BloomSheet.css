@@ -4,16 +4,16 @@
 }
 
 .bloom-sheet-trigger {
-  background-color: var(--app-blue, #6c9cf0);
-  color: var(--app-bg, #080c2c);
+  background-color: var(--app-blue);
+  color: var(--app-bg);
   border: none;
-  border-radius: 9999px; /* Pill */
-  padding: var(--s2, 8px) 16px;
+  border-radius: var(--r-pill); /* Pill */
+  padding: var(--s2, 8px) var(--s5);
   font-family: var(--font-sans, sans-serif);
-  font-size: 14px;
+  font-size: var(--t-lead);
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 2px 8px var(--app-elev, rgba(34, 46, 112, 0.72));
+  box-shadow: 0 2px 8px var(--app-elev);
   transition: transform var(--d2, 220ms) var(--ease-spring, cubic-bezier(0.42, 1.67, 0.21, 0.9)),
               opacity var(--d2, 220ms) ease;
 }
@@ -21,7 +21,7 @@
 .bloom-sheet-trigger:hover,
 .bloom-sheet-trigger:focus-visible {
   transform: scale(1.05);
-  background-color: var(--app-blue-strong, #1f6fe6);
+  background-color: var(--app-blue-strong);
 }
 
 .bloom-sheet-trigger[aria-expanded="true"] {
@@ -62,13 +62,13 @@
   opacity: 0;
   pointer-events: none;
   
-  background-color: var(--app-panel, rgba(27, 37, 92, 0.55));
+  background-color: var(--app-panel);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--app-line, rgba(150, 175, 255, 0.16));
-  border-radius: 24px;
-  padding: 24px;
-  box-shadow: 0 10px 40px var(--app-elev, rgba(34, 46, 112, 0.72));
+  border: 1px solid var(--app-line);
+  border-radius: var(--r-xl);
+  padding: var(--s7);
+  box-shadow: 0 10px 40px var(--app-elev);
   
   display: flex;
   flex-direction: column;
@@ -89,20 +89,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: var(--s5);
 }
 
 .bloom-sheet-title {
-  font-size: 18px;
+  font-size: var(--t-h3);
   font-weight: 600;
-  color: var(--app-text, #eef1fc);
+  color: var(--app-text);
   margin: 0;
 }
 
 .bloom-sheet-close {
   background: transparent;
   border: none;
-  color: var(--app-dim, #a9b0d8);
+  color: var(--app-dim);
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -115,13 +115,13 @@
 
 .bloom-sheet-close:hover,
 .bloom-sheet-close:focus-visible {
-  background-color: var(--app-hover, rgba(150, 175, 255, 0.1));
-  color: var(--app-text, #eef1fc);
+  background-color: var(--app-hover);
+  color: var(--app-text);
 }
 
 .bloom-sheet-content {
-  color: var(--app-dim, #a9b0d8);
-  font-size: 14px;
+  color: var(--app-dim);
+  font-size: var(--t-lead);
   line-height: 1.5;
   overflow-y: auto;
 }

@@ -30,7 +30,7 @@
   transform-style: preserve-3d;
   transition: transform var(--d5) var(--ease-spring);
   z-index: 5;
-  border-radius: 2px 4px 4px 2px;
+  border-radius: var(--r-2xs) var(--r-xs) var(--r-xs) var(--r-2xs);
   overflow: hidden;
   box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.1);
   background: var(--app-panel);
@@ -79,7 +79,7 @@
   width: 100%;
   height: 100%;
   background: var(--app-panel);
-  border-radius: 2px 4px 4px 2px;
+  border-radius: var(--r-2xs) var(--r-xs) var(--r-xs) var(--r-2xs);
   transform: translateZ(-20px);
   box-shadow: 10px 10px 30px var(--app-elev);
 }
@@ -94,7 +94,7 @@
   transform-origin: left;
   transform: rotateY(-90deg);
   background: var(--app-panel);
-  border-radius: 2px 0 0 2px;
+  border-radius: var(--r-2xs) 0 0 var(--r-2xs);
 }
 
 .book-spine-default {
@@ -119,7 +119,7 @@
     var(--app-bg) 1px,
     var(--app-bg) 2px
   );
-  border-radius: 0 2px 2px 0;
+  border-radius: 0 var(--r-2xs) var(--r-2xs) 0;
 }
 
 .book-pages-bottom {
@@ -149,7 +149,7 @@
   background: var(--app-bg);
   transform: translateZ(-19px);
   z-index: 1;
-  border-radius: 0 2px 2px 0;
+  border-radius: 0 var(--r-2xs) var(--r-2xs) 0;
   overflow: hidden;
 }
 

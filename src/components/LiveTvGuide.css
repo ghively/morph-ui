@@ -1,31 +1,31 @@
 .tvA { --c: var(--morph-accent); display: flex; flex-direction: column; overflow: hidden; padding: 0; }
 .tvA-scroll { overflow-x: auto; overscroll-behavior-x: contain; }
 .tvA-grid { position: relative; display: grid; grid-template-columns: 168px auto; }
-.tvA-corner { position: sticky; left: 0; z-index: 4; display: flex; align-items: center; padding: 0 12px; height: 34px; font-size: 11.5px; background: var(--app-elev); border-bottom: 1px solid var(--app-line); border-right: 1px solid var(--app-line); }
+.tvA-corner { position: sticky; left: 0; z-index: 4; display: flex; align-items: center; padding: 0 var(--s4); height: 34px; font-size: var(--t-meta); background: var(--app-elev); border-bottom: 1px solid var(--app-line); border-right: 1px solid var(--app-line); }
 .tvA-ruler { position: relative; height: 34px; border-bottom: 1px solid var(--app-line); }
-.tvA-ruler span { position: absolute; top: 0; height: 100%; display: flex; align-items: center; padding-left: 8px; font-size: 11px; color: var(--app-faint); border-left: 1px solid var(--app-line); }
+.tvA-ruler span { position: absolute; top: 0; height: 100%; display: flex; align-items: center; padding-left: var(--s2); font-size: var(--t-num); color: var(--app-faint); border-left: 1px solid var(--app-line); }
 .tvA-line { display: contents; }
-.tvA-ch { position: sticky; left: 0; z-index: 3; display: grid; grid-template-columns: 32px 28px minmax(0, 1fr); align-items: center; gap: 8px; height: 58px; padding: 0 10px; box-sizing: border-box; background: color-mix(in srgb, var(--app-elev) 96%, transparent); border-right: 1px solid var(--app-line); border-bottom: 1px solid var(--app-line); }
-.tvA-num { font-size: 11px; color: var(--app-faint); }
-.tvA-mono { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 8px; font-size: 10.5px; font-weight: 800; color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); }
+.tvA-ch { position: sticky; left: 0; z-index: 3; display: grid; grid-template-columns: 32px 28px minmax(0, 1fr); align-items: center; gap: var(--s2); height: 58px; padding: 0 var(--s3); box-sizing: border-box; background: color-mix(in srgb, var(--app-elev) 96%, transparent); border-right: 1px solid var(--app-line); border-bottom: 1px solid var(--app-line); }
+.tvA-num { font-size: var(--t-num); color: var(--app-faint); }
+.tvA-mono { width: 28px; height: 28px; display: grid; place-items: center; border-radius: var(--r-sm); font-size: var(--t-eyebrow); font-weight: 800; color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); }
 .tvA-logo { width: 28px; height: 28px; object-fit: contain; }
-.tvA-name { font-size: 12px; font-weight: 650; }
+.tvA-name { font-size: var(--t-small); font-weight: 650; }
 .tvA-row { position: relative; height: 58px; border-bottom: 1px solid var(--app-line); }
-.tvA-prog { all: unset; box-sizing: border-box; cursor: pointer; position: absolute; top: 5px; bottom: 5px; display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 0 10px; overflow: hidden; border-radius: 9px; background: color-mix(in srgb, var(--k) 9%, color-mix(in srgb, var(--app-text) 4%, transparent)); border: 1px solid color-mix(in srgb, var(--k) 22%, transparent); box-shadow: inset 3px 0 0 -1px var(--k); transition: background-color var(--d2) var(--ease-fx), border-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx); }
+.tvA-prog { all: unset; box-sizing: border-box; cursor: pointer; position: absolute; top: 5px; bottom: 5px; display: flex; flex-direction: column; justify-content: center; gap: var(--s0); padding: 0 var(--s3); overflow: hidden; border-radius: var(--r-sm); background: color-mix(in srgb, var(--k) 9%, color-mix(in srgb, var(--app-text) 4%, transparent)); border: 1px solid color-mix(in srgb, var(--k) 22%, transparent); box-shadow: inset 3px 0 0 -1px var(--k); transition: background-color var(--d2) var(--ease-fx), border-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx); }
 .tvA-prog:hover { background: color-mix(in srgb, var(--k) 18%, transparent); }
 .tvA-prog[data-now] { border-color: color-mix(in srgb, var(--k) 55%, transparent); box-shadow: inset 3px 0 0 -1px var(--k), 0 0 16px -8px var(--k); }
 .tvA-prog[data-past] { opacity: .45; }
 .tvA-prog[aria-pressed="true"] { background: color-mix(in srgb, var(--k) 26%, transparent); border-color: var(--k); }
 .tvA-prog:focus-visible { outline: 2px solid var(--k); outline-offset: 1px; }
-.tvA-pt { font-size: 12.5px; font-weight: 650; display: flex; align-items: center; gap: 6px; }
-.tvA-ps { font-size: 10.5px; color: var(--app-faint); }
+.tvA-pt { font-size: var(--t-ctl); font-weight: 650; display: flex; align-items: center; gap: var(--s1h); }
+.tvA-ps { font-size: var(--t-eyebrow); color: var(--app-faint); }
 .tvA-pp { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: color-mix(in srgb, var(--k) 20%, transparent); }
 .tvA-pp i { display: block; height: 100%; background: var(--k); box-shadow: 0 0 6px var(--k); }
-.tvA-flags { position: absolute; top: 5px; right: 6px; display: flex; gap: 3px; }
-.tvA-flags b { font-size: 8.5px; font-weight: 800; letter-spacing: .06em; padding: 1px 4px; border-radius: 4px; color: #000; background: var(--k); }
+.tvA-flags { position: absolute; top: 5px; right: 6px; display: flex; gap: var(--s1); }
+.tvA-flags b { font-size: var(--t-2xs); font-weight: 800; letter-spacing: .06em; padding: 1px var(--s1); border-radius: var(--r-xs); color: #000; background: var(--k); }
 .tvA-rec { flex: none; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--state-error); box-shadow: 0 0 6px var(--state-error); }
 .tvA-now { position: absolute; top: 0; bottom: 0; z-index: 2; width: 0; border-left: 2px solid var(--state-error); pointer-events: none; box-shadow: 0 0 10px var(--state-error); }
-.tvA-now span { position: absolute; top: 6px; left: 4px; padding: 1px 6px; border-radius: 999px; font-size: 10px; font-weight: 700; color: #000; background: var(--state-error); white-space: nowrap; }
-.tvA-detail { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-top: 1px solid var(--app-line); min-width: 0; animation: tvA-in var(--d3) var(--ease-emph); }
+.tvA-now span { position: absolute; top: 6px; left: 4px; padding: 1px var(--s1h); border-radius: var(--r-pill); font-size: var(--t-xs); font-weight: 700; color: #000; background: var(--state-error); white-space: nowrap; }
+.tvA-detail { display: flex; align-items: center; gap: var(--s3); padding: var(--s3) var(--s4); border-top: 1px solid var(--app-line); min-width: 0; animation: tvA-in var(--d3) var(--ease-emph); }
 @keyframes tvA-in { from { opacity: 0; transform: translateY(4px); } }
-.tvA-detail b { font-size: 13px; }
+.tvA-detail b { font-size: var(--t-body); }

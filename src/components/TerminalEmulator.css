@@ -4,7 +4,7 @@
   height: 400px;
   background: var(--morph-term-case);
   border-radius: var(--r-md);
-  padding: 4px;
+  padding: var(--s1);
   box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 10px rgba(0,0,0,0.5);
   position: relative;
   overflow: hidden;

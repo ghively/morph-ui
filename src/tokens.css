@@ -115,6 +115,23 @@
   --t-lead: 14px;
   --t-title: 13.5px;
   --t-hero: 36px;
+
+  /* scale completion (2026-10): every literal size in component CSS snaps to
+     one of these steps. stylelint (.stylelintrc.json) enforces it. */
+  --t-2xs: 9px;
+  --t-xs: 10px;
+  --t-h4: 16px;
+  --t-h3: 20px;
+  --t-h2: 24px;
+  --r-2xs: 2px;
+  --s0: 2px;
+  --s1h: 6px;
+  --s4h: 14px;
+  --s7: 24px;
+  --s8: 32px;
+  --s9: 40px;
+  --s10: 48px;
+  --s11: 64px;
   --tk-snug: -0.2px;
   --tk-wide: 0.3px;
   --tk-display: -1.1px;

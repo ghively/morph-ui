@@ -1,7 +1,7 @@
 [data-formfield] { display: flex; flex-direction: column; gap: var(--s2); }
 [data-formfield] > label { font-family: var(--font-sans); font-size: var(--t-lead); font-weight: 500; color: var(--app-text); }
 [data-formfield][data-invalid] > label { color: var(--color-error-text); }
-[data-formfield] [data-hint] { display: flex; align-items: center; gap: 6px; font-family: var(--font-sans); font-size: var(--t-meta); color: var(--app-dim); }
+[data-formfield] [data-hint] { display: flex; align-items: center; gap: var(--s1h); font-family: var(--font-sans); font-size: var(--t-meta); color: var(--app-dim); }
 [data-formfield] [data-hint]:is([data-probe='ok'], [data-probe='fail'], [data-probe='checking']) { color: color-mix(in srgb, var(--c) 85%, var(--app-text)); }
 [data-probedot] { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--c); box-shadow: 0 0 6px var(--c); }
 [data-hint][data-probe='checking'] [data-probedot] { animation: morph-probe-pulse 1s var(--ease-fx) infinite alternate; }

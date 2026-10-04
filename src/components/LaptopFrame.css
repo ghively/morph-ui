@@ -47,7 +47,7 @@
   left: 3px;
   width: 1px;
   height: 1px;
-  background: rgba(108, 156, 240, 0.4);
+  background: color-mix(in srgb, var(--app-blue) 40%, transparent);
   border-radius: 50%;
 }
 
