@@ -59,8 +59,10 @@
   height: 100%;
   transform: scaleY(-1);
   opacity: 0.3;
-  mask-image: linear-gradient(to bottom, transparent, white);
-  -webkit-mask-image: linear-gradient(to bottom, transparent, white);
+  /* Only the ~40% nearest the floor line is visible (the mask is applied
+     before the flip, so its opaque end lands against the cover). */
+  mask-image: linear-gradient(to bottom, transparent 60%, white);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 60%, white);
   pointer-events: none;
 }
 
@@ -76,16 +78,25 @@
 }
 
 .has-mirror {
-  padding-bottom: var(--s11); /* Space for reflection */
+  /* Grow to fit the reflection band + controls instead of overlapping them. */
+  height: auto;
+  min-height: 400px;
+  padding-bottom: var(--s5);
 }
 
 .cover-flow-controls {
+  position: relative; /* z-index needs a positioned box to stack over the 3D track */
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--s3);
   margin-top: var(--s3);
   z-index: 10;
+}
+
+/* Controls sit below the visible reflection band (40% of the 250px cover). */
+.has-mirror .cover-flow-controls {
+  margin-top: calc(var(--s11) + var(--s9));
 }
 
 .cover-flow-controls button {

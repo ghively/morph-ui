@@ -10,7 +10,36 @@
 .lgA-seg button[aria-pressed="true"] { color: var(--on-accent); background: var(--morph-accent); box-shadow: 0 0 12px -3px var(--morph-accent); }
 .lgA-seg button:focus-visible { outline: 2px solid var(--morph-accent); outline-offset: 1px; }
 .lgA-sort { display: inline-flex; align-items: center; gap: var(--s1h); font-size: var(--t-meta); color: var(--app-dim); }
-.lgA-sort select { all: unset; cursor: pointer; box-sizing: border-box; height: 30px; padding: 0 var(--s3); border-radius: var(--r-sm); font-size: var(--t-small); font-weight: 600; color: var(--app-text); background: color-mix(in srgb, var(--app-text) 6%, transparent); border: 1px solid var(--app-line); }
+/* No `all: unset` here: it drops the select to an inline box (text rides high)
+   and removes the native chevron. appearance:none + explicit line-height keeps
+   the label centred; the chevron is drawn from currentColor gradients. */
+.lgA-sort select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 30px;
+  line-height: 28px;
+  margin: 0;
+  padding: 0 calc(var(--s3) + var(--s5)) 0 var(--s3);
+  border-radius: var(--r-sm);
+  font: inherit;
+  font-size: var(--t-small);
+  font-weight: 600;
+  color: var(--app-text);
+  border: 1px solid var(--app-line);
+  background-color: color-mix(in srgb, var(--app-text) 6%, transparent);
+  background-image:
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position:
+    calc(100% - var(--s4) - var(--s1)) 55%,
+    calc(100% - var(--s4)) 55%;
+  background-size: var(--s1) var(--s1), var(--s1) var(--s1);
+  background-repeat: no-repeat;
+}
+.lgA-sort select option { color: var(--app-text); background: var(--app-elev); }
 .lgA-sort select:focus-visible { outline: 2px solid var(--morph-accent); outline-offset: 1px; }
 .lgA-body { position: relative; }
 .lgA-scroll { overflow-y: auto; padding-right: var(--s8); scroll-behavior: smooth; }

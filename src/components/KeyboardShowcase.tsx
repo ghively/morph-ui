@@ -33,7 +33,8 @@ export function KeyboardShowcase({
     ['esc', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12', 'eject'],
     ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'delete'],
     ['tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', layout === 'ANSI' ? '\\' : 'enter-iso-top'],
-    ['caps', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', "'", layout === 'ANSI' ? 'return' : 'enter-iso-bottom'],
+    // ISO home row carries the extra `#` key ahead of the Enter's lower half.
+    ['caps', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', "'", ...(layout === 'ANSI' ? ['return'] : ['#', 'enter-iso-bottom'])],
     ['shift-l', layout === 'ISO' ? '\\' : null, 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'shift-r'].filter(Boolean) as string[],
     ['fn', 'ctrl', 'opt-l', 'cmd-l', 'space', 'cmd-r', 'opt-r', 'arrows']
   ];
@@ -74,6 +75,7 @@ export function KeyboardShowcase({
                     className={`key-${keyId}`}
                     isCaps={isCaps}
                     capsOn={isCaps && capsLockOn}
+                    hidden={keyId === 'enter-iso-bottom'}
                   />
                 );
               })}
@@ -93,7 +95,8 @@ function Key({
   isPressed, 
   className,
   isCaps,
-  capsOn 
+  capsOn,
+  hidden,
 }: { 
   id: string; 
   label: string; 
@@ -103,6 +106,8 @@ function Key({
   className: string;
   isCaps?: boolean;
   capsOn?: boolean;
+  /** Layout spacer (ISO Enter lower half): not a separate key for AT. */
+  hidden?: boolean;
 }) {
   return (
     <button
@@ -111,6 +116,8 @@ function Key({
       onPointerUp={() => onUp(id)}
       onPointerLeave={() => onUp(id)}
       aria-label={`Key ${id}`}
+      aria-hidden={hidden || undefined}
+      tabIndex={hidden ? -1 : undefined}
     >
       <span className="key-label">{label}</span>
       {isCaps && <div className={`caps-led ${capsOn ? 'on' : ''}`} />}

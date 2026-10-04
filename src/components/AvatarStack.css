@@ -14,6 +14,11 @@
   border: 2px solid var(--morph-stack-ring);
   background: var(--morph-stack-bg);
   overflow: hidden;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
 [data-avatarstack][data-size='md'] [data-stackavatar],
@@ -30,10 +35,14 @@
   font-size: var(--t-2xs);
 }
 
-[data-stackavatar] + [data-stackavatar],
-[data-stackavatar] + [data-stackmore],
-[data-stackmore] + [data-stackavatar] {
-  margin-left: -9px;
+/* Overlap stays below the initials' side bearing, so the next avatar only
+   covers the ring area and never the letters (md 30px / sm 23px). */
+[data-avatarstack] :is([data-stackavatar], [data-stackmore]) + :is([data-stackavatar], [data-stackmore]) {
+  margin-left: -7px;
+}
+
+[data-avatarstack][data-size='sm'] :is([data-stackavatar], [data-stackmore]) + :is([data-stackavatar], [data-stackmore]) {
+  margin-left: -5px;
 }
 
 [data-stackavatar][data-agent] {

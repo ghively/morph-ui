@@ -30,6 +30,7 @@ export function ParticleImage({
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [staticDrawn, setStaticDrawn] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const particlesRef = useRef<Particle[]>([]);
   const requestRef = useRef<number | null>(null);
@@ -49,46 +50,79 @@ export function ParticleImage({
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
 
-    // We scale down the image to process fewer pixels for particle generation
-    const processWidth = Math.floor(width / (4 / density));
-    const processHeight = Math.floor(height / (4 / density));
-    
+    // Contain-fit the source inside the component box so the artwork keeps
+    // its aspect ratio instead of stretching to the container.
+    const iw = img.naturalWidth || img.width || width;
+    const ih = img.naturalHeight || img.height || height;
+    const fit = Math.min(width / iw, height / ih);
+    const drawW = Math.max(1, iw * fit);
+    const drawH = Math.max(1, ih * fit);
+    const offsetX = (width - drawW) / 2;
+    const offsetY = (height - drawH) / 2;
+
+    // Sample the image on a coarse grid: one particle every `step` px.
+    const step = 4 / density;
+    const processWidth = Math.max(1, Math.floor(drawW / step));
+    const processHeight = Math.max(1, Math.floor(drawH / step));
+
     canvas.width = processWidth;
     canvas.height = processHeight;
     ctx.drawImage(img, 0, 0, processWidth, processHeight);
-    
-    const imageData = ctx.getImageData(0, 0, processWidth, processHeight);
-    const pixels = imageData.data;
-    
+
+    let pixels: Uint8ClampedArray;
+    try {
+      pixels = ctx.getImageData(0, 0, processWidth, processHeight).data;
+    } catch {
+      // Tainted (cross-origin) source: leave the static <img> fallback in place.
+      return;
+    }
+
     const particles: Particle[] = [];
-    const scaleX = width / processWidth;
-    const scaleY = height / processHeight;
+    const scaleX = drawW / processWidth;
+    const scaleY = drawH / processHeight;
+    // Particles stay smaller than their grid cell so density reads visually.
+    const size = Math.max(1, Math.min(scaleX, scaleY) * 0.6);
 
     for (let y = 0; y < processHeight; y++) {
       for (let x = 0; x < processWidth; x++) {
         const index = (y * processWidth + x) * 4;
         const alpha = pixels[index + 3];
-        
+
         if (alpha && alpha > 128) { // Only solid pixels
-           const r = pixels[index];
-           const g = pixels[index + 1];
-           const b = pixels[index + 2];
-           
-           particles.push({
-             x: (x * scaleX) + (Math.random() - 0.5) * scaleX,
-             y: (y * scaleY) + (Math.random() - 0.5) * scaleY,
-             originX: x * scaleX,
-             originY: y * scaleY,
-             color: `rgb(${r},${g},${b})`,
-             vx: 0,
-             vy: 0,
-             size: Math.max(1, 2 * density),
-           });
+          const r = pixels[index];
+          const g = pixels[index + 1];
+          const b = pixels[index + 2];
+          const originX = offsetX + x * scaleX;
+          const originY = offsetY + y * scaleY;
+
+          particles.push({
+            x: originX + (Math.random() - 0.5) * scaleX,
+            y: originY + (Math.random() - 0.5) * scaleY,
+            originX,
+            originY,
+            color: `rgb(${r},${g},${b})`,
+            vx: 0,
+            vy: 0,
+            size,
+          });
         }
       }
     }
     particlesRef.current = particles;
   }, [density]);
+
+  /** Paint every particle at its rest position once — the reduced-motion frame. */
+  const drawStatic = useCallback(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext('2d');
+    if (!canvas || !ctx || particlesRef.current.length === 0) return false;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (const p of particlesRef.current) {
+      ctx.fillStyle = p.color;
+      ctx.fillRect(p.originX, p.originY, p.size, p.size);
+    }
+    return true;
+  }, []);
 
   const draw = useCallback(() => {
     const canvas = canvasRef.current;
@@ -146,28 +180,34 @@ export function ParticleImage({
   }, [draw, isLoaded, reducedMotion]);
 
   useEffect(() => {
+    let cancelled = false;
+    setStaticDrawn(false);
     const img = new Image();
-    img.src = src;
     img.crossOrigin = 'anonymous';
     img.onload = () => {
+      if (cancelled) return;
       imageRef.current = img;
       if (canvasRef.current && containerRef.current) {
         const { width, height } = containerRef.current.getBoundingClientRect();
-        // Setup initial canvas dimensions
         // Fallback for jsdom
-        const cw = width || 300;
-        const ch = height || 200;
-        
+        const cw = Math.round(width) || 300;
+        const ch = Math.round(height) || 200;
+
         canvasRef.current.width = cw;
         canvasRef.current.height = ch;
-        
-        if (!reducedMotion) {
-           initParticles(img, cw, ch);
-        }
+
+        particlesRef.current = [];
+        initParticles(img, cw, ch);
+        // Reduced motion: one static particle frame, no animation loop.
+        if (reducedMotion) setStaticDrawn(drawStatic());
       }
       setIsLoaded(true);
     };
-  }, [src, reducedMotion, initParticles]);
+    img.src = src;
+    return () => {
+      cancelled = true;
+    };
+  }, [src, reducedMotion, initParticles, drawStatic]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (reducedMotion) return;
@@ -193,14 +233,21 @@ export function ParticleImage({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {reducedMotion ? (
-        <img src={src} alt={alt} className="particle-image-static" data-testid="static-image" />
-      ) : (
-        <canvas
-          ref={canvasRef}
-          className="particle-image-canvas"
-          aria-label={alt}
-          role="img"
+      <canvas
+        ref={canvasRef}
+        className="particle-image-canvas"
+        aria-label={alt}
+        role="img"
+        aria-hidden={reducedMotion && !staticDrawn ? true : undefined}
+        data-static={reducedMotion ? '' : undefined}
+      />
+      {reducedMotion && (
+        <img
+          src={src}
+          alt={staticDrawn ? '' : alt}
+          className="particle-image-static"
+          data-testid="static-image"
+          data-hidden={staticDrawn ? '' : undefined}
         />
       )}
     </div>

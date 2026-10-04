@@ -7,6 +7,16 @@
   background-color: var(--app-bg);
 }
 
+/*
+ * z-index: -1 only stays visible when an ancestor forms a stacking context;
+ * otherwise it paints behind the frame/page background. The direct parent is
+ * isolated (zero specificity via :where) so the backdrop always sits just
+ * above the parent's own background and below its content.
+ */
+:where(:has(> .gradient-blind-backdrop)) {
+  isolation: isolate;
+}
+
 .gradient-blind-layer {
   position: absolute;
   inset: -10%; /* give room for rotation */

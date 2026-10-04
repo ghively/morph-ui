@@ -143,3 +143,9 @@
   color: var(--app-dim);
   line-height: 1.4;
 }
+
+/* Back cards are only a stack silhouette: their copy would otherwise ghost
+   through/below the front card. */
+.animated-media-tabs-card:not([data-selected="true"]) .animated-media-tabs-footer > * {
+  visibility: hidden;
+}

@@ -3,10 +3,15 @@
   width: 100%;
   height: 100%;
   min-height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  /* Cards stack in one grid cell so the deck (and every card shell) sizes to
+     the card content instead of a fixed fraction that content can overflow. */
+  display: grid;
+  place-items: center;
+  /* Room for the stacked cards peeking out below the top card. */
+  padding-bottom: var(--s9, 40px);
+  box-sizing: border-box;
 }
+
 
 .deck-empty {
   color: var(--app-dim);
@@ -14,9 +19,13 @@
 }
 
 .swipe-card {
-  position: absolute;
-  width: 80%;
-  height: 80%;
+  position: relative;
+  grid-area: 1 / 1;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: var(--swipe-card-min-w, 240px);
+  min-height: var(--swipe-card-min-h, 240px);
+  overflow: hidden;
   background: var(--app-bg);
   border: 1px solid var(--app-line);
   border-radius: var(--r-md, 12px);

@@ -1,5 +1,9 @@
 .interactive-globe-container {
+  /* Square, but capped (and centred) so a wide container doesn't produce a
+     globe taller than the viewport. Override with --interactive-globe-max. */
   width: 100%;
+  max-width: var(--interactive-globe-max, 480px);
+  margin-inline: auto;
   aspect-ratio: 1;
   position: relative;
   display: flex;

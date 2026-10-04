@@ -41,6 +41,13 @@
   height: 100%;
   position: relative;
   z-index: 1;
+  /* A single cover child stretches to fill the cover face. */
+  display: grid;
+}
+
+.book-cover-content > * {
+  min-width: 0;
+  min-height: 0;
 }
 
 .dimensional-book.is-open .book-cover {
@@ -95,6 +102,13 @@
   transform: rotateY(-90deg);
   background: var(--app-panel);
   border-radius: var(--r-2xs) 0 0 var(--r-2xs);
+  /* Spine content runs along the spine and is clipped to it. */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  white-space: nowrap;
 }
 
 .book-spine-default {

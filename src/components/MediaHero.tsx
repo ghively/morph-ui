@@ -23,6 +23,9 @@ export function MediaHero(props: MediaHeroProps) {
             eager={i === 0}
             alt=""
             className="mhA-bd"
+            // Backdrop fallback keeps the tinted placeholder surface but drops
+            // its title / [ NO_ART ] text, which ghosted behind the synopsis.
+            empty={<span className="mlArt-none" aria-hidden="true" />}
             style={{ opacity: i === h.rot.index ? 1 : 0 }}
           />
         ))}

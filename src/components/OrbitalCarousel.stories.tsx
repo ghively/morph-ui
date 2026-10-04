@@ -186,8 +186,8 @@ const EQUILATERAL_IMAGES: OrbitalImage[] = [
         <text x="40" y="80" fill="#38bdf8" font-size="14" font-family="system-ui, sans-serif" font-weight="700">NODE 01 / 03</text>
         <text x="40" y="160" fill="#ffffff" font-size="32" font-family="system-ui, sans-serif" font-weight="800">Reasoning Core</text>
         <text x="40" y="200" fill="#94a3b8" font-size="16" font-family="system-ui, sans-serif">Multi-step recursive planner &amp; validator</text>
-        <rect x="40" y="310" width="130" height="32" rx="6" fill="#38bdf8" opacity="0.2"/>
-        <text x="105" y="331" fill="#38bdf8" font-size="13" font-family="system-ui, sans-serif" font-weight="600" text-anchor="middle">ACTIVE INFERENCE</text>
+        <rect x="40" y="310" width="180" height="32" rx="6" fill="#38bdf8" opacity="0.2"/>
+        <text x="130" y="331" fill="#38bdf8" font-size="13" font-family="system-ui, sans-serif" font-weight="600" text-anchor="middle">ACTIVE INFERENCE</text>
       </svg>
     `),
   },
@@ -207,8 +207,8 @@ const EQUILATERAL_IMAGES: OrbitalImage[] = [
         <text x="40" y="80" fill="#c084fc" font-size="14" font-family="system-ui, sans-serif" font-weight="700">NODE 02 / 03</text>
         <text x="40" y="160" fill="#ffffff" font-size="32" font-family="system-ui, sans-serif" font-weight="800">Memory Matrix</text>
         <text x="40" y="200" fill="#e9d5ff" font-size="16" font-family="system-ui, sans-serif">Episodic memory &amp; hybrid vector graph</text>
-        <rect x="40" y="310" width="130" height="32" rx="6" fill="#c084fc" opacity="0.2"/>
-        <text x="105" y="331" fill="#c084fc" font-size="13" font-family="system-ui, sans-serif" font-weight="600" text-anchor="middle">INDEX READY</text>
+        <rect x="40" y="310" width="180" height="32" rx="6" fill="#c084fc" opacity="0.2"/>
+        <text x="130" y="331" fill="#c084fc" font-size="13" font-family="system-ui, sans-serif" font-weight="600" text-anchor="middle">INDEX READY</text>
       </svg>
     `),
   },
@@ -228,8 +228,8 @@ const EQUILATERAL_IMAGES: OrbitalImage[] = [
         <text x="40" y="80" fill="#34d399" font-size="14" font-family="system-ui, sans-serif" font-weight="700">NODE 03 / 03</text>
         <text x="40" y="160" fill="#ffffff" font-size="32" font-family="system-ui, sans-serif" font-weight="800">Tool Mesh</text>
         <text x="40" y="200" fill="#a7f3d0" font-size="16" font-family="system-ui, sans-serif">High-throughput sandboxed dispatch workers</text>
-        <rect x="40" y="310" width="130" height="32" rx="6" fill="#34d399" opacity="0.2"/>
-        <text x="105" y="331" fill="#34d399" font-size="13" font-family="system-ui, sans-serif" font-weight="600" text-anchor="middle">32 DISPATCHERS</text>
+        <rect x="40" y="310" width="180" height="32" rx="6" fill="#34d399" opacity="0.2"/>
+        <text x="130" y="331" fill="#34d399" font-size="13" font-family="system-ui, sans-serif" font-weight="600" text-anchor="middle">32 DISPATCHERS</text>
       </svg>
     `),
   },

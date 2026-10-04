@@ -8,6 +8,8 @@
 .asA-thumb .mlArt { border-radius: var(--r-sm); box-shadow: 0 0 0 1px var(--app-line), 0 0 18px -8px var(--c); }
 .asA-row[data-paused] .asA-thumb .mlArt-img { filter: grayscale(.6) brightness(.6); }
 .asA-state { position: absolute; left: 6px; bottom: 6px; z-index: 2; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; font-size: var(--t-2xs); color: var(--on-accent); background: var(--c); box-shadow: 0 0 10px var(--c); }
+/* The no-art placeholder stacks its title + [ NO_ART ] at the bottom-left, so the badge moves up out of its way. */
+.asA-thumb .mlArt[data-phase="none"] + .asA-state { top: 6px; bottom: auto; }
 .asA-row[data-paused] .asA-state { background: rgba(0,0,0,.7); color: #fff; box-shadow: none; border: 1px solid rgba(255,255,255,.2); }
 .asA-main { min-width: 0; display: flex; flex-direction: column; gap: var(--s1h); }
 .asA-av { flex: none; width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%; font-size: var(--t-2xs); font-weight: 800; color: #000; background: var(--k); box-shadow: 0 0 8px -2px var(--k); }
