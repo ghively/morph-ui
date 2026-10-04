@@ -48,6 +48,9 @@
     },
     "TextFlip": {
       "cardMode": "column"
+    },
+    "TextRipple": {
+      "cardMode": "column"
     }
   },
   "readmeHeader": ".design-sync/conventions.md",

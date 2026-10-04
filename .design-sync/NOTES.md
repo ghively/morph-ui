@@ -49,7 +49,7 @@
 - `[RENDER_THIN] CardDeckReveal: variants render identically`: AutoAdvancing differs from Default only over time, which a static capture can't show.
 - `[RENDER_THIN] ParticleImage: variants render identically`: the variants differ only in particle motion and timing. Each still frame is a legitimate render.
 - `[GRID_OVERFLOW]` is resolved with `cfg.overrides` and should not re-flag. These are presentation-only, so the grades carried:
-  - `cardMode: "column"`: AgentCard, CardDeckReveal (wide stories).
+  - `cardMode: "column"`: AgentCard, CardDeckReveal, TextFlip (wide stories), and TextRipple (added 2026-10-05: it now inherits the host font, so the 2.25rem stories outgrow a grid cell).
   - `cardMode: "single"` + `primaryStory`, for fixed/portal overlays: BloomSheet (Default), CommandPalette (Default), ModalSurface (CenterDialog), ToastStack (Interactive), ConfirmDialog (Danger). The escape flag on these was intermittent between runs because of overlay timing, so all of them are pinned to single.
 
 ## Re-sync risks
@@ -79,3 +79,14 @@
 - `--color-success-*` / `--color-error-*` are translucent on the dark frame with light inks, matching warning/info.
 - BarChart bars sit in a shared-height track, so they share the axis baseline; values ride on top of each bar.
 
+
+## Library fixes since the first sync (2026-10-04, PR #4) — preview workarounds to recheck
+
+The quality-gate PR fixed several library bugs that previews work around. They still render correctly (the 2026-10-05 re-sync carried every grade with no source churn), but the workarounds may now be unnecessary:
+- **Tooltip** `[data-tip]` collision fixed in Tooltip.css (the trigger is no longer a light box); a string `content` should now work.
+- **AgentTopologyView** paints synchronously and scales its rings to the canvas; the `nodes` re-pass and `maxHeight` caps are no longer needed.
+- **LineFillText** fits its viewBox to the text; long strings no longer clip.
+- **TextChromaReveal** scattered state now offsets the RGB layers instead of being invisible.
+- **Slider** wrapper no longer collapses (primitives `[data-slider]` collision reset).
+- Colour tokens changed: `--color-success #27c07a`, `--color-error #f27373`, `--on-accent` is now dark ink on accent fills.
+- The Ladle catalog now loads `primitives.css`; its stories match what previews render.
