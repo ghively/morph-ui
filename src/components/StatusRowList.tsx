@@ -182,51 +182,46 @@ function RowItem({ row, semantics, inList }: { row: StatusRow; semantics: Status
   const Component = isListbox ? 'button' : 'div';
   const additionalProps = isListbox ? { type: "button" as const } : {};
 
-  const TitleNode = () => {
-    const TNode = row.onTitleSelect ? 'button' : 'div';
-    const tProps = row.onTitleSelect ? { 
-      'data-linkish': "", 
-      onClick: (e: React.MouseEvent) => { e.stopPropagation(); row.onTitleSelect!(); } 
-    } : {};
-    return (
-      <TNode 
-        data-strong="" 
-        data-lead={row.lead ? "true" : undefined}
-        style={{ display: "flex", alignItems: "center", gap: "var(--s2)", flexWrap: "wrap" }}
-        {...tProps}
-      >
-        {row.title}
-        {row.badges && row.badges.map(b => (
-          <span 
-            key={b.id} 
-            data-statustag="" 
-            data-solid={b.solid ? "" : undefined} 
-            data-tone={statusHook(b.tone)}
-            title={b.title}
-          >
-            {b.label}
-          </span>
-        ))}
-        {row.inlineStatus && (
-          <span style={{ display: "flex", alignItems: "center", gap: "var(--s1)", color: "var(--app-dim)", fontSize: "var(--t-meta)", fontWeight: "normal" }}>
-            <span data-statusdot="" data-tone={statusHook(row.inlineStatus.tone)} data-live={row.inlineStatus.live ? "" : undefined} style={{ width: 6, height: 6 }} />
-            {row.inlineStatus.text}
-          </span>
-        )}
-      </TNode>
-    );
-  };
+  const TNode = row.onTitleSelect ? 'button' : 'div';
+  const tProps = row.onTitleSelect ? { 
+    'data-linkish': "", 
+    onClick: (e: React.MouseEvent) => { e.stopPropagation(); row.onTitleSelect!(); } 
+  } : {};
+  const titleNode = (
+    <TNode 
+      data-strong="" 
+      data-lead={row.lead ? "true" : undefined}
+      style={{ display: "flex", alignItems: "center", gap: "var(--s2)", flexWrap: "wrap" }}
+      {...tProps}
+    >
+      {row.title}
+      {row.badges && row.badges.map(b => (
+        <span 
+          key={b.id} 
+          data-statustag="" 
+          data-solid={b.solid ? "" : undefined} 
+          data-tone={statusHook(b.tone)}
+          title={b.title}
+        >
+          {b.label}
+        </span>
+      ))}
+      {row.inlineStatus && (
+        <span style={{ display: "flex", alignItems: "center", gap: "var(--s1)", color: "var(--app-dim)", fontSize: "var(--t-meta)", fontWeight: "normal" }}>
+          <span data-statusdot="" data-tone={statusHook(row.inlineStatus.tone)} data-live={row.inlineStatus.live ? "" : undefined} style={{ width: 6, height: 6 }} />
+          {row.inlineStatus.text}
+        </span>
+      )}
+    </TNode>
+  );
 
-  const MetaNode = () => {
-    if (!row.meta && !row.identifier) return null;
-    return (
-      <div data-statusmeta="" style={{ overflowWrap: "anywhere" }}>
-        {row.identifier && <span data-statusnum="">{row.identifier}</span>}
-        {row.identifier && row.meta && " "}
-        {row.meta}
-      </div>
-    );
-  };
+  const metaNode = row.meta || row.identifier ? (
+    <div data-statusmeta="" style={{ overflowWrap: "anywhere" }}>
+      {row.identifier && <span data-statusnum="">{row.identifier}</span>}
+      {row.identifier && row.meta && " "}
+      {row.meta}
+    </div>
+  ) : null;
 
   return (
     <Component
@@ -261,13 +256,13 @@ function RowItem({ row, semantics, inList }: { row: StatusRow; semantics: Status
       >
         {row.metaFirst ? (
           <>
-            <MetaNode />
-            <TitleNode />
+            {metaNode}
+            {titleNode}
           </>
         ) : (
           <>
-            <TitleNode />
-            <MetaNode />
+            {titleNode}
+            {metaNode}
           </>
         )}
 

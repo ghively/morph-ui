@@ -55,16 +55,14 @@ const hm = (t: number) =>
   new Date(t).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
 
 export function LiveTvGuide(p: LiveTvGuideProps) {
-  const [now, setNow] = useState(p.now ?? Date.now());
-
+  // Wall clock ticks only when the host doesn't control `now`.
+  const [clock, setClock] = useState(() => Date.now());
   useEffect(() => {
-    if (p.now != null) {
-      setNow(p.now);
-      return;
-    }
-    const t = setInterval(() => setNow(Date.now()), 30000);
+    if (p.now != null) return;
+    const t = setInterval(() => setClock(Date.now()), 30000);
     return () => clearInterval(t);
   }, [p.now]);
+  const now = p.now ?? clock;
 
   const half = 30 * 60000;
   const start = p.start ?? Math.floor(now / half) * half - half;

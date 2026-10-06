@@ -184,4 +184,15 @@ describe('CollapsibleSection', () => {
     
     expect(container.querySelector('#child')).toBeTruthy();
   });
+
+  it('keeps the title button mounted across re-renders', () => {
+    const onTitleSelect = vi.fn();
+    const rows = (meta: string) => [{ id: '1', title: 'R1', meta, onTitleSelect }];
+    const { container, rerender } = render(<StatusRowList rows={rows('a')} />);
+    const title = container.querySelector<HTMLButtonElement>('[data-strong]')!;
+    title.focus();
+    rerender(<StatusRowList rows={rows('b')} />);
+    expect(container.querySelector('[data-strong]')).toBe(title);
+    expect(document.activeElement).toBe(title);
+  });
 });

@@ -124,7 +124,7 @@ export function ParticleImage({
     return true;
   }, []);
 
-  const draw = useCallback(() => {
+  const draw = useCallback(function frame() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -168,7 +168,7 @@ export function ParticleImage({
       ctx.fillRect(p.x, p.y, p.size, p.size);
     }
 
-    requestRef.current = requestAnimationFrame(draw);
+    requestRef.current = requestAnimationFrame(frame);
   }, []);
 
   useEffect(() => {

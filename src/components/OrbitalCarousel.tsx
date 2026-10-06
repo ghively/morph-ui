@@ -20,7 +20,6 @@ export function OrbitalCarousel({
 }: OrbitalCarouselProps) {
   const [rotation, setRotation] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-  const [focusedIndex, setFocusedIndex] = useState(0);
   
   const containerRef = useRef<HTMLDivElement>(null);
   const startXRef = useRef(0);
@@ -32,24 +31,16 @@ export function OrbitalCarousel({
   const numImages = images.length;
   const anglePerImage = numImages > 0 ? 360 / numImages : 0;
 
-  const updateFocusedIndex = useCallback((currentRotation: number) => {
-    if (numImages === 0) return;
-    const normalizedRotation = ((currentRotation % 360) + 360) % 360;
-    const index = Math.round(normalizedRotation / anglePerImage) % numImages;
-    // Because dragging right increases rotation and moves earlier images to front, the index maps inversely.
-    const actualIndex = (numImages - index) % numImages;
-    setFocusedIndex(actualIndex);
-  }, [numImages, anglePerImage]);
+  // Derived from rotation: dragging right increases rotation and moves earlier
+  // images to the front, so the index maps inversely.
+  const focusedIndex = numImages === 0 ? 0
+    : (numImages - Math.round((((rotation % 360) + 360) % 360) / anglePerImage) % numImages) % numImages;
 
-  useEffect(() => {
-    updateFocusedIndex(rotation);
-  }, [rotation, updateFocusedIndex]);
-
-  const applyInertia = useCallback(() => {
+  const applyInertia = useCallback(function step() {
     if (Math.abs(velocityRef.current) > 0.1) {
       setRotation(prev => prev + velocityRef.current);
       velocityRef.current *= 0.95; // Friction
-      rafRef.current = requestAnimationFrame(applyInertia);
+      rafRef.current = requestAnimationFrame(step);
     } else {
       // Snap to nearest image
       setRotation(prev => {
