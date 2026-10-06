@@ -1,0 +1,190 @@
+/* Host-primitive reset: keep [data-status]/[data-state]/[data-empty] and host p, li rules out. */
+:where(.settings-tpl) [data-status] { display: revert; align-items: normal; gap: normal; font-size: inherit; font-weight: inherit; color: inherit; }
+:where(.settings-tpl) [data-empty] { display: revert; padding: 0; color: inherit; font-size: inherit; }
+:where(.settings-tpl) :is(p, li, h1, h2) { margin: 0; font-size: inherit; line-height: inherit; }
+
+.settings-tpl {
+  --c: var(--morph-accent);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  padding: var(--s5);
+  box-sizing: border-box;
+  container-type: inline-size;
+  color: var(--app-text);
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.settings-tpl__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s3) var(--s4);
+  flex: none;
+  padding-bottom: var(--s4);
+  border-bottom: 1px solid var(--morph-border);
+}
+
+.settings-tpl__heading { display: flex; flex-direction: column; gap: var(--s1); min-width: 0; }
+
+.settings-tpl__title {
+  font-size: var(--t-h2);
+  font-weight: 650;
+  letter-spacing: var(--tk-snug);
+  line-height: 1.15;
+  color: var(--app-text);
+}
+
+.settings-tpl__actions { display: flex; flex-wrap: wrap; gap: var(--s2); }
+
+.settings-tpl__banner { flex: none; }
+
+/* ── Vertical section nav (Tabs restyled as a side list) ────────────────── */
+.settings-tpl__tabs {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: var(--s6);
+}
+
+.settings-tpl__tabs [data-tablist] {
+  flex-direction: column;
+  align-self: start;
+  gap: var(--s1);
+  border-bottom: none;
+  overflow: visible;
+}
+
+.settings-tpl__tabs [data-tablist] [role='tab'] {
+  justify-content: flex-start;
+  font-size: var(--t-lead);
+  padding: var(--s2) var(--s3);
+  margin-bottom: 0;
+  border-bottom: none;
+  border-radius: var(--r-ctl);
+  text-align: start;
+}
+
+.settings-tpl__tabs [data-tablist] [role='tab']:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--app-text) 6%, transparent);
+}
+
+.settings-tpl__tabs [data-tablist] [role='tab'][data-selected] {
+  background: color-mix(in srgb, var(--c) 14%, transparent);
+  box-shadow: inset 2px 0 0 var(--c);
+}
+
+.settings-tpl__tabs [data-tabpanel] {
+  padding-top: 0;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: var(--s2);
+}
+
+/* ── Section body ───────────────────────────────────────────────────────── */
+.settings-tpl__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+  max-width: 680px;
+  padding-bottom: var(--s6);
+}
+
+.settings-tpl__section-title { font-size: var(--t-h4); font-weight: 600; color: var(--app-text); }
+
+.settings-tpl__blurb { margin-bottom: var(--s4); }
+
+.settings-tpl__muted { color: var(--app-dim); font-size: var(--t-meta); }
+
+.settings-tpl__stack { display: flex; flex-direction: column; gap: var(--s5); min-width: 0; }
+
+.settings-tpl__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--s4);
+}
+
+.settings-tpl__identity,
+.settings-tpl__plan {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--s4);
+  padding: var(--s4);
+  border-radius: var(--r-card);
+  background: var(--morph-card-bg);
+  border: 1px solid var(--morph-border);
+}
+
+.settings-tpl__plan { justify-content: space-between; }
+
+.settings-tpl__identity-text { display: flex; flex-direction: column; gap: var(--s1); min-width: 0; }
+
+.settings-tpl__identity-name { font-size: var(--t-title); font-weight: 600; color: var(--app-text); }
+
+.settings-tpl__toggles {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--r-card);
+  border: 1px solid var(--morph-border);
+  background: var(--morph-card-bg);
+}
+
+.settings-tpl__toggle { padding: var(--s3) var(--s4); }
+
+.settings-tpl__toggle + .settings-tpl__toggle { border-top: 1px solid var(--morph-border); }
+
+/* FormField stacks label / control / hint; lay the row out as label+hint left, switch right. */
+.settings-tpl__toggle [data-formfield] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: 'label control' 'hint control';
+  align-items: center;
+  column-gap: var(--s4);
+  row-gap: var(--s1);
+}
+
+.settings-tpl__toggle [data-formfield] > label { grid-area: label; font-size: var(--t-body); }
+.settings-tpl__toggle [data-formfield] > [data-sw] { grid-area: control; }
+.settings-tpl__toggle [data-formfield] > [data-hint] { grid-area: hint; }
+
+.settings-tpl__digest { max-width: 260px; }
+
+.settings-tpl__features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1h);
+  margin: 0;
+  padding-left: var(--s4);
+  font-size: var(--t-body);
+}
+
+/* ── Narrow containers: section list moves on top as a scrolling strip ──── */
+@container (max-width: 640px) {
+  .settings-tpl__tabs {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: var(--s4);
+  }
+
+  .settings-tpl__tabs [data-tablist] {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .settings-tpl__tabs [data-tablist] [role='tab'] { flex: none; }
+
+  .settings-tpl__tabs [data-tablist] [role='tab'][data-selected] { box-shadow: inset 0 -2px 0 var(--c); }
+}
+
+@container (max-width: 420px) {
+  .settings-tpl__actions { width: 100%; }
+  .settings-tpl__actions > * { flex: 1 1 0; }
+}
