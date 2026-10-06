@@ -194,6 +194,7 @@ export * from "./components/ConfirmDialog";
 export * from "./components/TreeView";
 export * from "./components/Breadcrumbs";
 export * from "./components/FileDropzone";
+export * from "./components/Popover";
 // Dashboard/agent-ops backfill (dead lanes)
 export * from "./components/SearchField";
 export * from "./components/FilterBar";
