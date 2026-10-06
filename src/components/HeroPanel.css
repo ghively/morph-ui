@@ -47,6 +47,14 @@
   }
 }
 
+.hero-panel [data-heromark] {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  color: var(--on-accent);
+}
+
 .hero-panel [data-mark] {
   width: 36px;
   height: 36px;

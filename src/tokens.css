@@ -194,7 +194,9 @@
   --d4: calc(540ms * var(--d-scale, 1));
 
   /* theme-neutral (no sane default; hosts override) */
-  --mark: none;
+  /* An empty SVG, not `none`: `mask: none` disables masking and paints a solid
+     currentColor square. Hosts set their own brand glyph here. */
+  --mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E");
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════

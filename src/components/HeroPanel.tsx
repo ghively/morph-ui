@@ -26,6 +26,8 @@ export interface HeroPanelProps {
   description?: ReactNode;
   /** 'mark' = the big gradient mark tile (Launcher/Login). 'tile' = the small status tile (Centered). */
   ornament?: 'mark' | 'tile' | 'none';   // default 'mark'
+  /** Brand glyph inside the mark tile (ornament='mark'). Defaults to the host's `--mark` mask, which is empty unless set. */
+  mark?: ReactNode;
   /** With ornament='tile': pulsing dot. */
   busy?: boolean;
   groups?: HeroChipGroup[];
@@ -40,6 +42,7 @@ export function HeroPanel({
   title,
   description,
   ornament = 'mark',
+  mark,
   busy,
   groups,
   actions,
@@ -57,7 +60,7 @@ export function HeroPanel({
           {ornament === 'mark' && (
             <div data-grow="">
               <span data-sheen="" />
-              <span data-mark="" />
+              {mark ? <span data-heromark="" aria-hidden="true">{mark}</span> : <span data-mark="" />}
             </div>
           )}
           {ornament === 'tile' && (
