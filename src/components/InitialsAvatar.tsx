@@ -1,4 +1,5 @@
 import './InitialsAvatar.css';
+import { initials, identityHue, cssUrl } from './agentOps.shared';
 
 export type AvatarSize = 'sm' | 'md' | 'lg';
 
@@ -13,15 +14,16 @@ export interface InitialsAvatarProps {
   working?: boolean;
   /** Omit for the default medium. */
   size?: AvatarSize;
+  /** Stable key for the person's colour (e.g. a user id). Defaults to `name`. */
+  colorKey?: string;
+  /** Accessible name. When set the avatar is an image (`role="img"`); omitted, it's decorative. */
+  label?: string;
   className?: string;
 }
 
-export function InitialsAvatar({ name, src, agent, working, size, className = '' }: InitialsAvatarProps) {
-  // Initials derivation matching matrix/rooms.ts initials() logic
-  const initials = (name || '').replace(/[^a-zA-Z0-9\s]/g, '').trim().split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase();
-
+export function InitialsAvatar({ name, src, agent, working, size, colorKey, label, className = '' }: InitialsAvatarProps) {
   const style = src ? {
-    backgroundImage: `url(${src})`,
+    backgroundImage: cssUrl(src),
     backgroundSize: "cover",
     backgroundPosition: "center",
     color: "transparent"
@@ -29,14 +31,18 @@ export function InitialsAvatar({ name, src, agent, working, size, className = ''
 
   return (
     <span
-      className={className}
+      className={('morph-avatar ' + className).trim()}
       data-avatar={agent ? "" : "user"}
+      data-hue={agent ? undefined : identityHue(colorKey ?? name)}
       data-ring={working ? "" : undefined}
       data-size={size}
-      aria-hidden="true"
+      role={label ? 'img' : undefined}
+      aria-label={label}
+      aria-hidden={label ? undefined : 'true'}
+      title={label}
       style={style}
     >
-      {initials}
+      {initials(name || '')}
     </span>
   );
 }

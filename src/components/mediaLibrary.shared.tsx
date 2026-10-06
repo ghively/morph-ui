@@ -1,5 +1,6 @@
 import { useState, useRef, useMemo, useEffect, useContext, createContext, useCallback, type ReactNode, type CSSProperties, type KeyboardEvent } from 'react';
 import './mediaLibrary.shared.css';
+import { initials } from './agentOps.shared';
 
 /* ── types (normalized) ──────────────────────────────────────────────────── */
 export type ArtType = 'Primary' | 'Backdrop' | 'Logo' | 'Thumb' | 'Banner' | 'Art' | 'Disc' | 'Profile' | 'Screenshot';
@@ -457,7 +458,7 @@ export function Art({ item, type = 'Primary', fallback, shape = 'portrait', alt,
       )}
       {phase === 'none' && (empty !== undefined ? empty : (
         <span className="mlArt-none" aria-hidden="true">
-          <b>{shape === 'circle' || shape === 'hex' ? initials(item?.title || '?') : item?.title}</b>
+          <b>{shape === 'circle' || shape === 'hex' ? (initials(item?.title || '') || '?') : item?.title}</b>
           <i>[ NO_ART ]</i>
         </span>
       ))}
@@ -524,7 +525,7 @@ export function useRotation(n: number, interval?: number) {
 }
 
 /* ── formatting + derived metadata ───────────────────────────────────────── */
-export const initials = (n: string) => n.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]!.toUpperCase()).join('');
+export { initials };
 export const fmtRuntime = (m?: number) => (m == null ? '' : m >= 60 ? Math.floor(m / 60) + 'h ' + String(m % 60).padStart(2, '0') + 'm' : m + 'm');
 
 /** Parses YYYY-MM-DD as a local date (no UTC shift). */

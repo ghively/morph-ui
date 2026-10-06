@@ -47,6 +47,20 @@
 
 [data-stackavatar][data-agent] {
   border-radius: var(--r-sm);
+  background: linear-gradient(145deg, color-mix(in srgb, var(--ai) 80%, var(--app-text)), var(--ai)); /* ≥ 5:1 for --on-accent initials */
+  color: var(--on-accent);
+}
+
+/* Same identity colour as InitialsAvatar for the same name. */
+[data-stackavatar][data-hue="1"] { --c: var(--series-1); }
+[data-stackavatar][data-hue="2"] { --c: var(--series-2); }
+[data-stackavatar][data-hue="3"] { --c: var(--series-3); }
+[data-stackavatar][data-hue="4"] { --c: var(--series-4); }
+[data-stackavatar][data-hue="5"] { --c: var(--series-5); }
+[data-stackavatar][data-hue="6"] { --c: var(--series-6); }
+[data-stackavatar][data-hue] {
+  background: linear-gradient(140deg, var(--c), color-mix(in srgb, var(--c) 82%, var(--app-bg)));
+  color: var(--on-accent);
 }
 
 [data-stackmore] {
