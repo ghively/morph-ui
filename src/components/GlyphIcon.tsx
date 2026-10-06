@@ -13,6 +13,8 @@ export interface GlyphIconProps {
   name: GlyphName;
   /** Defaults to the per-glyph size the source set. */
   size?: number;
+  /** Accessible name. When set the icon is an image (`role="img"` + `<title>`); omitted, it's decorative. */
+  label?: string;
   className?: string;
 }
 
@@ -67,7 +69,7 @@ export const glyphs: Record<GlyphName, (size?: number) => ReactElement> = {
   send: (s) => S(s, 16, 1.55, "M2 8l12-6-6 12L7 9 2 8zM7 9l5-5", true),
   attach: (s) => S(s, 16, 1.55, "M14.5 7.5l-6.2 6.2a3.535 3.535 0 11-5-5l6.2-6.2a2.121 2.121 0 113 3l-6.2 6.2a.707.707 0 11-1-1l6.2-6.2", true),
   reply: (s) => S(s, 16, 1.55, "M5 7L2 4l3-3M2 4h8a4 4 0 014 4v7", true),
-  thread: (s) => S(s, 16, 1.55, "M4 2v11a1 1 0 001 1h9M11 11l3 3-3 3", true),
+  thread: (s) => S(s, 16, 1.55, "M4 1v10a1 1 0 001 1h9M11 9l3 3-3 3", true),
   edit: (s) => S(s, 16, 1.55, "M10 2l4 4-9 9H2v-3l8-10zM8 4l4 4", true),
   react: (s) => S(s, 16, 1.55, "M8 15A7 7 0 108 1a7 7 0 000 14zM5.5 6v.01M10.5 6v.01M5.5 10a3 3 0 005 0", true),
   copy: (s) => S(s, 16, 1.55, "M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h9a1 1 0 001-1V8M6 2v4h4M6 2l4 4", true),
@@ -83,17 +85,18 @@ export const glyphs: Record<GlyphName, (size?: number) => ReactElement> = {
   shield: (s) => S(s, 16, 1.55, "M8 1l6 3v4.5c0 3.5-2.5 6.5-6 7.5-3.5-1-6-4-6-7.5V4l6-3zM8 1v15", true),
 };
 
-export function GlyphIcon({ name, size, className = '' }: GlyphIconProps) {
+export function GlyphIcon({ name, size, label, className = '' }: GlyphIconProps) {
   const iconThunk = glyphs[name];
   if (!iconThunk) return null; // Safe fallback in case of invalid name passed (if not TS checked)
-  const iconElement = iconThunk(size);
-  
-  if (className) {
-      const elementProps = (iconElement as ReactElement<{ className?: string; children?: ReactNode }>).props as { className?: string; children?: ReactNode };
-      const newClassName = `${elementProps.className || ''} ${className}`.trim();
-      const children = (iconElement as ReactElement<{ children?: ReactNode }>).props.children;
-      return createElement("svg", { ...(elementProps), className: newClassName }, children);
-  }
+  const icon = iconThunk(size) as ReactElement<Record<string, unknown> & { children?: ReactNode }>;
+  if (!className && !label) return icon;
 
-  return iconElement;
+  const { children, ...props } = icon.props;
+  const a11y = label ? { role: 'img', 'aria-label': label, 'aria-hidden': undefined } : {};
+  return createElement(
+    'svg',
+    { ...props, ...a11y, className: className || undefined },
+    label ? createElement('title', null, label) : null,
+    ...(Array.isArray(children) ? children : [children]),
+  );
 }
