@@ -1,0 +1,66 @@
+/* Host-primitive reset: keep frame rules for [data-status]/[data-state]/[data-empty] and p/li fonts out of the panel. */
+:where(.morph-popover) [data-status], :where(.morph-popover)[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where(.morph-popover) [data-state], :where(.morph-popover)[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where(.morph-popover) [data-state]::before, :where(.morph-popover)[data-state]::before { content: none; }
+:where(.morph-popover) [data-empty], :where(.morph-popover)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+:where(.morph-popover) :where(p, li) { font: inherit; }
+
+[data-popover] { --c: var(--morph-accent); position: relative; display: inline-block; font: inherit; font-size: var(--t-body); color: var(--app-text); }
+
+[data-popover][data-open] [data-popovertrigger] { box-shadow: 0 0 0 1px color-mix(in srgb, var(--c) 45%, transparent), 0 0 14px -4px color-mix(in srgb, var(--c) 55%, transparent); }
+
+[data-popoverpanel] {
+  --notch: 10px;
+  --gap: 10px;
+  position: absolute;
+  z-index: 60;
+  width: var(--popover-w, 280px);
+  max-width: min(92vw, 420px);
+  box-sizing: border-box;
+  padding: var(--s4) var(--s4h) var(--s4h);
+  border-radius: var(--r-md);
+  border: 1px solid color-mix(in srgb, var(--c) 22%, var(--morph-border));
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-edge), var(--glass-shadow), 0 0 0 1px color-mix(in srgb, var(--c) 6%, transparent);
+  text-align: left;
+  outline: none;
+  animation: morph-popover-in var(--d2) var(--ease-emph);
+}
+[data-popoverpanel]:focus-visible { box-shadow: var(--glass-edge), var(--glass-shadow), 0 0 0 2px color-mix(in srgb, var(--c) 55%, transparent); }
+
+/* Notch: a rotated square sharing the panel's glass, pinned to the anchored edge. */
+[data-popoverpanel]::before {
+  content: '';
+  position: absolute;
+  width: var(--notch);
+  height: var(--notch);
+  background: var(--glass-bg);
+  border: 1px solid color-mix(in srgb, var(--c) 22%, var(--morph-border));
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+[data-popoverpanel][data-placement^='bottom'] { top: calc(100% + var(--gap)); }
+[data-popoverpanel][data-placement^='top'] { bottom: calc(100% + var(--gap)); }
+[data-popoverpanel][data-placement$='start'] { left: 0; }
+[data-popoverpanel][data-placement$='end'] { right: 0; }
+[data-popoverpanel][data-placement='bottom-start'] { transform-origin: top left; }
+[data-popoverpanel][data-placement='bottom-end'] { transform-origin: top right; }
+[data-popoverpanel][data-placement='top-start'] { transform-origin: bottom left; --rise: 4px; }
+[data-popoverpanel][data-placement='top-end'] { transform-origin: bottom right; --rise: 4px; }
+
+[data-popoverpanel][data-placement^='bottom']::before { top: calc(var(--notch) / -2 - 1px); border-right: 0; border-bottom: 0; }
+[data-popoverpanel][data-placement^='top']::before { bottom: calc(var(--notch) / -2 - 1px); border-left: 0; border-top: 0; }
+[data-popoverpanel][data-placement$='start']::before { left: var(--s5); }
+[data-popoverpanel][data-placement$='end']::before { right: var(--s5); }
+
+[data-popovertitle] { margin: 0 0 var(--s3); padding-bottom: var(--s2); border-bottom: 1px solid var(--morph-border); font-size: var(--t-title); font-weight: 650; letter-spacing: .01em; color: var(--app-text); }
+[data-popoverbody] { display: grid; gap: var(--s3); font-size: var(--t-body); line-height: 1.45; color: var(--app-text); }
+
+@keyframes morph-popover-in {
+  from { opacity: 0; transform: translateY(var(--rise, -4px)) scale(.97); }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-popoverpanel] { animation: none; }
+}
