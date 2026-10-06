@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { LiveTvGuide, type Channel, type Program, type ProgramKind } from './LiveTvGuide';
 import { credit } from './__fixtures__/mediaLibrary';
 
@@ -58,7 +58,7 @@ function demoPrograms(t0: number): Program[] {
 }
 
 export const Default = () => {
-  const now = useMemo(() => Date.now(), []);
+  const [now] = useState(() => Date.now());
   const t0 = Math.floor(now / 1800000) * 1800000 - 1800000;
   const [progs, setProgs] = useState(() => demoPrograms(t0));
   const [msg, setMsg] = useState('> scroll horizontally; ←/→ moves between programs');

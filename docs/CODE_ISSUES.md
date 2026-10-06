@@ -49,7 +49,7 @@ Last verified 2026-10-02: all 174 `*.stories.tsx` modules load, and every story 
   - MessageTimeline and AttachmentPreviewPanel re-export the same binding, so the public API and existing test imports are unchanged.
   - New `test/messageFormat.test.ts` asserts the re-exports are identical.
 - [x] **Duplicate public export of `formatBytes`.** Both re-exports now resolve to the single binding in `messageFormat.ts`, so `export *` can't become ambiguous.
-- [ ] **`MessageContent.tsx` has its own private `formatBytes`** (`toFixed(1)`, no PB). Left alone because changing the rounding could break `MessageContent-component.test.tsx` ("2 KB"). Consider switching it to `messageFormat` after checking that test.
+- [x] **`MessageContent.tsx` had its own private `formatBytes`.** It now imports the shared one from `messageFormat.ts` (verified 2026-10-06; `MessageContent-component.test.tsx` still passes).
 
 - [x] **Checkbox / RadioGroup restyled by generated primitives (2026-10-04).**
   - `primitives.css` imported ChatUIMorph's own `[data-checkbox]` / `[data-radio]` control styles because the generator copies any rule naming an attribute a component renders. Inside a frame the Checkbox label wrapped one word per line, RadioGroup drew a phantom second dot, and `orientation="horizontal"` stacked.
@@ -58,6 +58,15 @@ Last verified 2026-10-02: all 174 `*.stories.tsx` modules load, and every story 
 - [x] **Leaky / mis-built component styles found by the Claude Design regrade (2026-10-04).**
   - `HeroPanel.css` was unscoped, so its `[data-mark]` / `[data-enter]` rules broke brand marks app-wide and stacked the composer's offline banner. Scoped under `.hero-panel`.
   - ModalSurface `center` placement rendered as a bottom sheet (square bottom, no padding); Tooltip wrapped word by word; BarChart bars didn't share a baseline; success/error backgrounds were opaque light pastels on the dark frame. All fixed (see `.design-sync/NOTES.md`).
+
+- [x] **React Compiler lint rules surfaced render bugs (2026-10-06).** `eslint.config.js` only enabled `rules-of-hooks` and `exhaustive-deps`, although `eslint-plugin-react-hooks` v7 ships more checks. The recommended set is now on and these findings were fixed:
+  - `StatusRowList` declared `TitleNode` / `MetaNode` as components inside render, so they remounted on every render and the title button lost focus. They're plain elements now. `test/StatusRowList-component.test.tsx` covers it.
+  - `OrbitalCarousel` copied `focusedIndex` into state from an effect. It's derived from `rotation` during render now. Its inertia loop and the `ParticleImage` draw loop referenced themselves before declaration and now use named function expressions.
+  - `LiveTvGuide` and `ReleaseCalendar` called `Date.now()` during render. They now read a lazily initialised clock, and `LiveTvGuide` uses a controlled `now` prop directly instead of mirroring it into state.
+  - `BloomSheet` used `handleClose` before declaring it, and its focus timer outlived unmount.
+  - `useVarPrompt` reset the module-level `SLOT` regex's `lastIndex`. It uses `matchAll` now.
+  - `docs/extraction-source/` is excluded from ESLint because it's a reference-only snapshot.
+- [ ] **Remaining React Compiler rules are off:** `refs` (160 findings in 21 files, mostly the latest-value ref pattern), `set-state-in-effect` (32 in 24 files) and `preserve-manual-memoization` (2). To list them, enable the rules in `eslint.config.js`.
 
 ## P2 — Theme contract
 

@@ -15,29 +15,6 @@ export function BloomSheet({ triggerLabel, title, children, className = '' }: Bl
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        handleClose();
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      // Optional: Prevent background scrolling when open
-      document.body.style.overflow = 'hidden';
-      // Focus management
-      setTimeout(() => closeRef.current?.focus(), 100);
-    } else {
-      document.body.style.overflow = '';
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
-
   const handleOpen = () => setIsOpen(true);
   
   const handleClose = () => {
@@ -45,6 +22,31 @@ export function BloomSheet({ triggerLabel, title, children, className = '' }: Bl
     // Return focus to trigger after closing
     setTimeout(() => triggerRef.current?.focus(), 50);
   };
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        handleClose();
+      }
+    };
+
+    let focusTimer: ReturnType<typeof setTimeout> | undefined;
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      // Optional: Prevent background scrolling when open
+      document.body.style.overflow = 'hidden';
+      // Focus management
+      focusTimer = setTimeout(() => closeRef.current?.focus(), 100);
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      clearTimeout(focusTimer);
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   return (
     <div className={`bloom-sheet-container ${className}`} data-open={isOpen} data-bloom-sheet>

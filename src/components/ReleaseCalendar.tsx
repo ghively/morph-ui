@@ -37,7 +37,8 @@ const K: Record<CalState, { l: string; k: string }> = {
 const D = 86400000;
 
 export function ReleaseCalendar(p: ReleaseCalendarProps) {
-  const [own, setOwn] = useState(p.week ?? new Date(p.now ?? Date.now()));
+  const [mountedAt] = useState(() => Date.now());
+  const [own, setOwn] = useState(() => p.week ?? new Date(p.now ?? mountedAt));
   const wk = p.week ?? own;
   const ws = p.weekStartsOn ?? 1;
   const wkTime = wk.getTime();
@@ -49,7 +50,7 @@ export function ReleaseCalendar(p: ReleaseCalendarProps) {
     return d.getTime();
   }, [wkTime, ws]);
 
-  const today = new Date(p.now ?? Date.now());
+  const today = new Date(p.now ?? mountedAt);
   today.setHours(0, 0, 0, 0);
   const days = Array.from({ length: 7 }, (_, i) => start + i * D);
 

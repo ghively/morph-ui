@@ -146,9 +146,8 @@ export function useVarPrompt(p: VariablePromptInputProps) {
   const setLive = onValuesChange ?? setInner;
   const { slots, segments } = useMemo(() => {
     const slots: string[] = [], segments: { text: string; slot?: string }[] = [];
-    let last = 0, m: RegExpExecArray | null;
-    SLOT.lastIndex = 0;
-    while ((m = SLOT.exec(template)) !== null) {
+    let last = 0;
+    for (const m of template.matchAll(SLOT)) {
       if (m.index > last) segments.push({ text: template.slice(last, m.index) });
       segments.push({ text: m[0], slot: m[1] });
       if (!slots.includes(m[1]!)) slots.push(m[1]!);

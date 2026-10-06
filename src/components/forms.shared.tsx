@@ -35,10 +35,12 @@ export function useDismiss(ref: RefObject<HTMLElement | null>, open: boolean, cl
 export function useKeepInView(list: RefObject<HTMLElement | null>, active: number, open = true) {
   useEffect(() => {
     const l = list.current, el = l?.querySelector<HTMLElement>('[data-active]');
-    if (!l || !el || !open) return;
-    const lr = l.getBoundingClientRect(), r = el.getBoundingClientRect();
-    if (r.top < lr.top) l.scrollTop -= lr.top - r.top; else if (r.bottom > lr.bottom) l.scrollTop += r.bottom - lr.bottom;
+    if (l && el && open) scrollIntoList(l, el);
   }, [list, active, open]);
+}
+function scrollIntoList(list: HTMLElement, el: HTMLElement) {
+  const lr = list.getBoundingClientRect(), r = el.getBoundingClientRect();
+  if (r.top < lr.top) list.scrollTop -= lr.top - r.top; else if (r.bottom > lr.bottom) list.scrollTop += r.bottom - lr.bottom;
 }
 /** First case-insensitive match of `query` wrapped in <mark>. */
 export function Match({ text, query }: { text: string; query?: string }) {
