@@ -158,6 +158,7 @@ export * from "./components/Button";
 export * from "./components/TextField";
 export * from "./components/TextArea";
 export * from "./components/NumberInput";
+export * from "./components/OtpInput";
 export * from "./components/Select";
 export * from "./components/Checkbox";
 export * from "./components/RadioGroup";

@@ -1,0 +1,36 @@
+/* OtpInput: a row of single-character cells. The frame layer styles bare inputs (zero specificity),
+   so the attribute selectors below win inside .morph-frame without !important. */
+:where([data-otp]) [data-status], :where([data-otp])[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where([data-otp]) [data-state], :where([data-otp])[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where([data-otp]) [data-state]::before, :where([data-otp])[data-state]::before { content: none; }
+:where([data-otp]) [data-empty], :where([data-otp])[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+:where([data-otp]) :is(p, li) { font-size: inherit; line-height: inherit; }
+
+[data-otp] { --c: var(--morph-accent); display: inline-flex; flex-direction: column; gap: var(--s1h); font: inherit; color: var(--morph-fg); }
+[data-otp][data-invalid] { --c: var(--morph-danger); }
+[data-otplabel] { font-size: var(--t-body); font-weight: 600; }
+[data-otpcells] { display: flex; gap: var(--s2); }
+
+[data-otpcell] {
+  box-sizing: border-box; width: 40px; height: 48px; margin: 0; padding: 0;
+  font: inherit; font-family: var(--app-mono); font-size: var(--t-h3); font-weight: 700; font-variant-numeric: tabular-nums;
+  text-align: center; color: var(--morph-fg); caret-color: var(--c);
+  background: var(--morph-input-bg); border: 1px solid var(--morph-border); border-radius: var(--r-sm);
+  transition: border-color var(--d2) var(--ease-fx), background-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx), transform var(--d2) var(--ease-emph);
+}
+[data-otpcell][data-filled] { border-color: color-mix(in srgb, var(--c) 45%, var(--morph-border)); background: color-mix(in srgb, var(--c) 8%, var(--morph-input-bg)); }
+/* The cell that will take the next character gets a soft accent underline, focused or not. */
+[data-otpcell][data-next] { box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--c) 55%, transparent); }
+[data-otpcell]:hover:not(:disabled, :focus) { border-color: var(--morph-border-strong); }
+[data-otpcell]:focus-visible, [data-otpcell]:focus { outline: none; border-color: var(--c); background: color-mix(in srgb, var(--c) 10%, var(--morph-input-bg));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 24%, transparent), 0 0 12px color-mix(in srgb, var(--c) 22%, transparent); transform: translateY(-1px); }
+[data-otpcell]::selection { background: transparent; }
+[data-otp][data-invalid] [data-otpcell] { border-color: color-mix(in srgb, var(--c) 70%, var(--morph-border)); background: color-mix(in srgb, var(--c) 6%, var(--morph-input-bg)); }
+[data-otp][data-complete]:not([data-invalid]) [data-otpcell] { border-color: color-mix(in srgb, var(--c) 65%, var(--morph-border)); }
+[data-otpcell]:disabled { opacity: .5; cursor: not-allowed; }
+
+[data-otp] > [data-fieldhint] { font-size: var(--t-small); color: var(--app-dim); }
+[data-otp] > [data-error] { display: flex; align-items: center; gap: var(--s1h); font-size: var(--t-small); font-weight: 600; color: var(--morph-danger); }
+[data-otp] > [data-error]::before { content: ''; flex: none; width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 6px currentColor; }
+
+@media (prefers-reduced-motion: reduce) { [data-otpcell] { transition: none; } [data-otpcell]:focus { transform: none; } }
