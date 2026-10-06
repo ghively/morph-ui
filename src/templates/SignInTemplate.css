@@ -1,0 +1,133 @@
+/* SignInTemplate — layout only; every control is styled by its own component. */
+:where(.signin-template) [data-status],
+:where(.signin-template) [data-state],
+:where(.signin-template) p,
+:where(.signin-template) li {
+  font: inherit;
+  margin: 0;
+}
+
+.signin-template {
+  --c: var(--morph-accent);
+  /* HeroPanel's [data-mark] is masked by --mark, which tokens ship as `none`
+     (a solid square). Give the template a neutral glyph; hosts override it. */
+  --mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 19V6.5l8 8 8-8V19' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  color: var(--app-text);
+}
+
+.signin-main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HeroPanel has no children slot: the step body rides in `actions`, whose
+   wrapper is a centred row. Stack it as a full-width column instead. */
+.signin-template .hero-actions {
+  flex-direction: column;
+  align-items: stretch;
+  text-align: start;
+}
+
+.signin-template .hero-panel [data-enter] {
+  gap: var(--s5);
+  margin-bottom: var(--s7);
+}
+
+.signin-template .hero-title-mark {
+  font-size: var(--t-h1);
+}
+
+.signin-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+  width: 100%;
+}
+
+.signin-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+}
+
+.signin-row-center {
+  justify-content: center;
+}
+
+.signin-otp {
+  align-self: center;
+}
+
+.signin-done {
+  padding-block: var(--s5) 0;
+  text-align: center;
+}
+
+.signin-link {
+  color: var(--app-dim);
+  font-size: var(--t-ctl);
+  text-decoration: none;
+  border-radius: var(--r-xs);
+  transition: color var(--d2) var(--ease-fx);
+}
+
+.signin-link:hover {
+  color: var(--c);
+  text-decoration: underline;
+}
+
+.signin-link:focus-visible {
+  outline: 2px solid var(--c);
+  outline-offset: 2px;
+}
+
+.signin-muted {
+  color: var(--app-dim);
+  font-size: var(--t-ctl);
+}
+
+.signin-footer {
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2) var(--s6);
+  padding: var(--s4) var(--s5);
+  border-top: 1px solid var(--app-line);
+}
+
+.signin-footer ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@container (max-width: 420px) {
+  .signin-template .hero-panel {
+    padding: var(--s5) var(--s4);
+  }
+
+  .signin-template .hero-title-mark {
+    font-size: var(--t-h2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signin-link {
+    transition: none;
+  }
+}
