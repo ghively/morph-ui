@@ -113,4 +113,18 @@ describe('HeroPanel', () => {
     );
     expect(getByText('My Action')).toBeTruthy();
   });
+
+  it('mark prop replaces the masked [data-mark] with a brand glyph', () => {
+    const { container } = render(<HeroPanel title="Welcome" mark={<svg data-testid="brand" />} />);
+    expect(container.querySelector('[data-mark]')).toBeNull();
+    const slot = container.querySelector('[data-heromark]')!;
+    expect(slot.getAttribute('aria-hidden')).toBe('true');
+    expect(slot.querySelector('svg')).not.toBeNull();
+  });
+
+  it('ships an empty --mark mask so [data-mark] never paints a solid square', async () => {
+    const { readFileSync } = await import('node:fs');
+    const css = readFileSync('src/tokens.css', 'utf8');
+    expect(css).not.toMatch(/--mark:\s*none/);
+  });
 });
