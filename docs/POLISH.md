@@ -147,6 +147,20 @@ Shared primitives live in `src/components/mediaLibrary.shared.tsx` + `mediaLibra
 
 Files shipped: `src/components/mediaLibrary.shared.{tsx,css}`, `src/components/__fixtures__/mediaLibrary.ts`, `src/components/{MediaArtwork,PosterCard,MediaShelf,MediaHero,EpisodeList,CastStrip,MediaInfoBadges,LibraryGrid,PlayerScrubber,TrackPicker,NowPlayingBar,AlbumTrackList,CollectionTile,ActiveSessions,LibraryScanStatus,ArtworkPicker,IdentifyMatch,ProfilePicker,RequestCard,LiveTvGuide,ArrItemStatus,DownloadQueue,ReleaseCalendar,IndexerHealth}.{tsx,css,stories.tsx}`, `test/media-library.test.tsx`. Reference files deleted from `media-library/`.
 
+## IDENTITY + small controls (shipped, 2026-10-06)
+
+This was the one index group with no polish pass. The fixes centre on identity: a person looks the same in every component that shows them.
+
+| Component | Change | API changes |
+|---|---|---|
+| InitialsAvatar | Stable per-person colour. A user avatar's `data-hue` (1–6) maps to `--series-N`, and agents keep the `--ai` tile. Initials come from the shared `initials()`, so `Émile Zola` → `ÉZ` (it was `Z`) and CJK names no longer render blank. Styles are scoped to `.morph-avatar`; they used to restyle every `[data-avatar]` in the library. The ring follows `--c`. Image URLs are quoted. | + `colorKey`, + `label` (`role="img"`; without it the avatar stays `aria-hidden`). Existing `data-avatar` / `data-ring` / `data-size` hooks and `className` are unchanged. |
+| AvatarStack | Same hue and initials as InitialsAvatar for the same name. Agent avatars get the AI tile. URLs are quoted. | + `data-hue` hook |
+| ToggleSwitch | Visible off-track edge, accent glow when on, focus ring. `--c` follows the primitives layer's `--sec-fill`. | + `id` (so a FormField label can target it), + `aria-describedby` |
+| GlyphIcon | The `thread` arrowhead no longer clips below its viewBox. Simpler `className` path, with no key warning. | + `label` (`role="img"` + `<title>`) |
+| EmptyState | Stories only (icon + action, live). | none |
+
+Shared: `initials()`, `identityHue()` and `cssUrl()` live in `agentOps.shared`, and `mediaLibrary.shared` re-exports the same `initials`. Initials text is `--on-accent`; every gradient stop keeps at least 4.7:1 against it. Tests: `test/identity-polish.test.tsx`.
+
 ## Accessibility pass (axe, 2026-10-04)
 
 `pnpm test:a11y` runs axe (WCAG 2.1 A/AA + best-practice) on every story; serious and critical violations fail. The first run failed 114 of 397 stories. All of them now pass.
