@@ -1,4 +1,10 @@
-[data-avatar] {
+/* Scoped to the component's own class: the primitives layer and raw
+   `[data-avatar]` emitters (MentionAutocomplete, MessageTile receipts) keep
+   their own look. Colour and shape selectors use :where() so a host class
+   (e.g. `.typing-avatar`) can restyle the avatar with one class. */
+:where(.morph-avatar) { --c: var(--app-elev); }
+
+.morph-avatar {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -8,41 +14,56 @@
   background-color: var(--app-elev);
   color: var(--app-text);
   font-family: var(--font-sans);
-  font-weight: 500;
+  font-weight: 600;
   font-size: var(--t-small);
+  line-height: 1;
+  letter-spacing: -0.02em;
   user-select: none;
   flex: none;
 }
 
-[data-avatar="user"] {
+/* People get a stable identity colour from `data-hue` (1–6 → --series-N). */
+:where(.morph-avatar[data-hue="1"]) { --c: var(--series-1); }
+:where(.morph-avatar[data-hue="2"]) { --c: var(--series-2); }
+:where(.morph-avatar[data-hue="3"]) { --c: var(--series-3); }
+:where(.morph-avatar[data-hue="4"]) { --c: var(--series-4); }
+:where(.morph-avatar[data-hue="5"]) { --c: var(--series-5); }
+:where(.morph-avatar[data-hue="6"]) { --c: var(--series-6); }
+
+.morph-avatar:where([data-avatar="user"]) {
   border-radius: 50%;
+  background: linear-gradient(140deg, var(--c), color-mix(in srgb, var(--c) 82%, var(--app-bg))); /* ≥ 4.7:1 for --on-accent initials */
+  color: var(--on-accent);
 }
 
-[data-avatar][data-size="sm"] {
+/* Agents keep the AI tile so they never read as a person. */
+.morph-avatar:where([data-avatar=""]) {
+  --c: var(--ai);
+  background: linear-gradient(145deg, color-mix(in srgb, var(--ai) 80%, var(--app-text)), var(--ai)); /* ≥ 5:1 for --on-accent initials */
+  color: var(--on-accent);
+}
+
+.morph-avatar[data-size="sm"] {
   width: 24px;
   height: 24px;
   font-size: var(--t-xs);
 }
 
-[data-avatar][data-size="lg"] {
+.morph-avatar[data-size="lg"] {
   width: 48px;
   height: 48px;
   font-size: var(--t-h4);
 }
 
-[data-avatar][data-ring] {
-  box-shadow: 0 0 0 2px var(--color-info-border);
-  animation: pulse-ring var(--d5) infinite alternate;
+.morph-avatar[data-ring] {
+  box-shadow: 0 0 0 2px var(--app-bg), 0 0 0 4px color-mix(in srgb, var(--c) 70%, transparent);
+  animation: morph-avatar-ring var(--d5) var(--ease-fx) infinite alternate;
 }
 
-@keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 2px var(--color-info-border); }
-  100% { box-shadow: 0 0 0 4px var(--color-info-border); }
+@keyframes morph-avatar-ring {
+  to { box-shadow: 0 0 0 2px var(--app-bg), 0 0 0 5px color-mix(in srgb, var(--c) 25%, transparent); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-avatar][data-ring] {
-    animation: none;
-    box-shadow: 0 0 0 2px var(--color-info-border);
-  }
+  .morph-avatar[data-ring] { animation: none; }
 }

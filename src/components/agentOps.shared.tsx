@@ -18,6 +18,14 @@ export const initials = (name: string) => {
   const core = words(name.replace(/\([^)]*\)|\[[^\]]*\]|\{[^}]*\}/g, ' '));
   return (core.length ? core : words(name)).slice(0, 2).map(w => w[0]).join('').toUpperCase();
 };
+/** Stable 1–6 slot for a person, so the same name always gets the same `--series-N` colour. */
+export const identityHue = (key: string) => {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < key.length; i++) h = Math.imul(h ^ key.charCodeAt(i), 0x01000193);
+  return ((h >>> 0) % 6) + 1;
+};
+/** `url()` value safe for any URL, including ones containing quotes or parentheses. */
+export const cssUrl = (src: string) => 'url(' + JSON.stringify(src) + ')';
 export const blocks = (v: number, of: number, n = 10) => { const k = of <= 0 ? 0 : Math.round(Math.min(1, Math.max(0, v / of)) * n); return '█'.repeat(k) + '░'.repeat(n - k); };
 const reduced = () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 const uid = () => 'm' + Math.random().toString(36).slice(2, 8);

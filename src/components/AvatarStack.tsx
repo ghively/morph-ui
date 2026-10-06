@@ -1,4 +1,5 @@
 import './AvatarStack.css';
+import { initials, identityHue, cssUrl } from './agentOps.shared';
 
 export interface StackPerson {
   name: string;
@@ -18,8 +19,6 @@ export interface AvatarStackProps {
 export function AvatarStack({ people, max = 4, size = 'md', className = '' }: AvatarStackProps) {
   const shown = people.slice(0, max);
   const extra = people.length - shown.length;
-  const initials = (name: string) =>
-    name.replace(/[^a-zA-Z0-9\s]/g, '').trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
   return (
     <span className={className} data-avatarstack="" data-size={size} role="group" aria-label={`${people.length} contributors: ${people.map((p) => p.name).join(', ')}`}>
       {shown.map((p) => (
@@ -27,8 +26,9 @@ export function AvatarStack({ people, max = 4, size = 'md', className = '' }: Av
           key={p.name}
           data-stackavatar=""
           data-agent={p.agent ? '' : undefined}
+          data-hue={p.agent ? undefined : identityHue(p.name)}
           title={p.name}
-          style={p.src ? { backgroundImage: `url(${p.src})`, backgroundSize: 'cover', backgroundPosition: 'center', color: 'transparent' } : undefined}
+          style={p.src ? { backgroundImage: cssUrl(p.src), backgroundSize: 'cover', backgroundPosition: 'center', color: 'transparent' } : undefined}
           aria-hidden="true"
         >
           {initials(p.name)}
