@@ -1,0 +1,42 @@
+/* NumberInput: TextField-height shell with inset − / + steppers. Host primitives for [data-error] / [data-hint] / p are reset first. */
+:where([data-numberinput]) :where([data-error], [data-fieldhint], p) { margin: 0; font-size: inherit; letter-spacing: normal; }
+
+[data-numberinput] { --c: var(--morph-accent); --num-h: 34px; --num-btn: 30px; display: flex; flex-direction: column; gap: var(--s1h); min-width: 0; font: inherit; }
+[data-numberinput][data-numsize="sm"] { --num-h: 28px; --num-btn: 24px; }
+[data-numberinput][data-invalid] { --c: var(--morph-danger); }
+[data-numberinput] > label { font-size: var(--t-body); font-weight: 600; }
+
+[data-numfield] { box-sizing: border-box; display: flex; align-items: center; gap: var(--s0); height: var(--num-h); padding: 0 var(--s0);
+  color: var(--morph-fg); background: var(--morph-input-bg); border: 1px solid var(--morph-border); border-radius: var(--morph-radius);
+  transition: background-color var(--d2) var(--ease-fx), border-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx), opacity var(--d2) var(--ease-fx); }
+[data-numfield]:hover { border-color: var(--morph-border-strong); }
+[data-numfield]:focus-within { border-color: var(--c); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 22%, transparent); }
+[data-numberinput][data-invalid] [data-numfield] { border-color: var(--c); background: color-mix(in srgb, var(--c) 5%, var(--morph-input-bg)); }
+[data-numberinput][data-disabled] [data-numfield] { opacity: .55; cursor: not-allowed; border-color: var(--morph-border); }
+[data-numberinput][data-readonly] [data-numfield] { background: transparent; border-style: dashed; }
+
+[data-numfield] > input { flex: 1 1 auto; min-width: 0; height: 100%; margin: 0; padding: 0 var(--s1); border: 0; outline: none; background: transparent;
+  font: inherit; font-size: var(--t-title); font-variant-numeric: tabular-nums; text-align: right; color: inherit; }
+[data-numberinput][data-numsize="sm"] [data-numfield] > input { font-size: var(--t-ctl); }
+[data-numfield] > input::placeholder { color: var(--morph-placeholder); opacity: 1; }
+[data-numfield] > input:disabled { cursor: not-allowed; }
+[data-numunit] { flex: none; padding-right: var(--s1); font-size: var(--t-small); font-weight: 600; color: var(--app-dim); user-select: none; }
+
+[data-numstep] { flex: none; display: grid; place-items: center; width: var(--num-btn); height: calc(var(--num-h) - 6px); margin: 0; padding: 0;
+  color: var(--app-dim); background: transparent; border: 0; border-radius: var(--r-sm); cursor: pointer;
+  transition: background-color var(--d1) var(--ease-fx), color var(--d1) var(--ease-fx), transform var(--d1) var(--ease-fx); }
+[data-numstep]:hover:not(:disabled) { color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); }
+[data-numstep]:active:not(:disabled) { transform: scale(.92); background: color-mix(in srgb, var(--c) 22%, transparent); }
+[data-numstep]:disabled { opacity: .35; cursor: not-allowed; }
+[data-numstep] > svg { display: block; }
+
+[data-numberinput] > [data-fieldhint] { font-size: var(--t-small); color: var(--app-dim); }
+[data-numberinput] > [data-error] { display: flex; align-items: center; gap: var(--s1h); font-size: var(--t-small); font-weight: 600; color: var(--morph-danger); animation: morph-num-err var(--d2) var(--ease-emph); }
+[data-numberinput] > [data-error]::before { content: ''; flex: none; width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 6px currentColor; }
+@keyframes morph-num-err { from { opacity: 0; transform: translateY(-3px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-numfield], [data-numstep] { transition: none; }
+  [data-numstep]:active:not(:disabled) { transform: none; }
+  [data-numberinput] > [data-error] { animation: none; }
+}
