@@ -9,8 +9,8 @@
 
 .signin-template {
   --c: var(--morph-accent);
-  /* HeroPanel's [data-mark] is masked by --mark, which tokens ship as `none`
-     (a solid square). Give the template a neutral glyph; hosts override it. */
+  /* Brand glyph for HeroPanel's mark tile. Tokens ship an empty --mark, so the
+     template sets a neutral one; hosts swap in their own (or pass HeroPanel `mark`). */
   --mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 19V6.5l8 8 8-8V19' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   container-type: inline-size;
   display: flex;
@@ -27,21 +27,9 @@
   flex-direction: column;
 }
 
-/* HeroPanel has no children slot: the step body rides in `actions`, whose
-   wrapper is a centred row. Stack it as a full-width column instead. */
-.signin-template .hero-actions {
-  flex-direction: column;
-  align-items: stretch;
-  text-align: start;
-}
-
 .signin-template .hero-panel [data-enter] {
   gap: var(--s5);
   margin-bottom: var(--s7);
-}
-
-.signin-template .hero-title-mark {
-  font-size: var(--t-h1);
 }
 
 .signin-form {
@@ -72,22 +60,12 @@
   text-align: center;
 }
 
-.signin-link {
-  color: var(--app-dim);
+.signin-small {
   font-size: var(--t-ctl);
-  text-decoration: none;
-  border-radius: var(--r-xs);
-  transition: color var(--d2) var(--ease-fx);
 }
 
-.signin-link:hover {
-  color: var(--c);
-  text-decoration: underline;
-}
-
-.signin-link:focus-visible {
-  outline: 2px solid var(--c);
-  outline-offset: 2px;
+.signin-center {
+  align-self: center;
 }
 
 .signin-muted {
@@ -117,17 +95,9 @@
 }
 
 @container (max-width: 420px) {
+  /* The container is .signin-template itself, so the knob goes on a descendant. */
   .signin-template .hero-panel {
+    --hero-title-size: var(--t-h2);
     padding: var(--s5) var(--s4);
-  }
-
-  .signin-template .hero-title-mark {
-    font-size: var(--t-h2);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .signin-link {
-    transition: none;
   }
 }

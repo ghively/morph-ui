@@ -45,31 +45,18 @@
 
 .settings-tpl__banner { flex: none; }
 
-/* ── Vertical section nav (Tabs restyled as a side list) ────────────────── */
+/* ── Section nav: Tabs orientation="vertical" (horizontal strip when narrow) ── */
 .settings-tpl__tabs {
   flex: 1 1 auto;
   min-height: 0;
-  display: grid;
   grid-template-columns: 180px minmax(0, 1fr);
   gap: var(--s6);
 }
 
-.settings-tpl__tabs [data-tablist] {
-  flex-direction: column;
-  align-self: start;
-  gap: var(--s1);
-  border-bottom: none;
-  overflow: visible;
-}
-
 .settings-tpl__tabs [data-tablist] [role='tab'] {
-  justify-content: flex-start;
   font-size: var(--t-lead);
   padding: var(--s2) var(--s3);
-  margin-bottom: 0;
-  border-bottom: none;
-  border-radius: var(--r-ctl);
-  text-align: start;
+  border-radius: 0 var(--r-ctl) var(--r-ctl) 0;
 }
 
 .settings-tpl__tabs [data-tablist] [role='tab']:hover:not(:disabled) {
@@ -78,11 +65,9 @@
 
 .settings-tpl__tabs [data-tablist] [role='tab'][data-selected] {
   background: color-mix(in srgb, var(--c) 14%, transparent);
-  box-shadow: inset 2px 0 0 var(--c);
 }
 
 .settings-tpl__tabs [data-tabpanel] {
-  padding-top: 0;
   min-height: 0;
   overflow-y: auto;
   padding-right: var(--s2);
@@ -166,22 +151,20 @@
   font-size: var(--t-body);
 }
 
-/* ── Narrow containers: section list moves on top as a scrolling strip ──── */
+/* ── Narrow containers: the template switches Tabs to horizontal (see TSX);
+   keep the panel scrolling under the strip. ───────────────────────────── */
 @container (max-width: 640px) {
   .settings-tpl__tabs {
+    display: grid;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto minmax(0, 1fr);
     gap: var(--s4);
   }
 
-  .settings-tpl__tabs [data-tablist] {
-    flex-direction: row;
-    overflow-x: auto;
+  .settings-tpl__tabs [data-tablist] [role='tab'] {
+    flex: none;
+    border-radius: var(--r-ctl) var(--r-ctl) 0 0;
   }
-
-  .settings-tpl__tabs [data-tablist] [role='tab'] { flex: none; }
-
-  .settings-tpl__tabs [data-tablist] [role='tab'][data-selected] { box-shadow: inset 0 -2px 0 var(--c); }
 }
 
 @container (max-width: 420px) {

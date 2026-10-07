@@ -149,16 +149,6 @@
   align-items: start;
 }
 
-.ops-dash-table-card [data-table] caption {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  padding: 0;
-}
-
 .ops-dash-mono {
   font-family: var(--app-mono);
   font-size: var(--t-num);
@@ -261,8 +251,3 @@
   }
 }
 
-/* Workaround: Badge's warn ink (--morph-warn) measures 4.23:1 on DataTable's
-   striped rows, under AA. Lift it toward the text colour inside the table only. */
-.ops-dash-table-card [data-badge][data-tone='warn'] {
-  color: color-mix(in srgb, var(--morph-warn) 75%, var(--app-text));
-}

@@ -14,7 +14,7 @@
  *
  * Provenance: original morph-ui composition (2026-10).
  */
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import './AgentWorkspaceTemplate.css';
 import { ConversationList, type ConversationGroup } from '../components/ConversationList';
 import { MessageTile } from '../components/MessageTile';
@@ -183,10 +183,6 @@ export function AgentWorkspaceTemplate({
   const [presence, setPresence] = useState(agent.presence);
   const [sent, setSent] = useState(0);
 
-  const groups = useMemo(() => {
-    const q = filter.trim().toLowerCase();
-    return q ? conversations.map(g => ({ ...g, conversations: g.conversations.filter(c => c.name.toLowerCase().includes(q)) })) : conversations;
-  }, [conversations, filter]);
 
   const send = (d: ComposerDraft) => {
     const text = d.text.trim();
@@ -237,7 +233,7 @@ export function AgentWorkspaceTemplate({
 
       <div className="agent-ws-body">
         <div className="agent-ws-left" data-agent-ws-pane="left">
-          <ConversationList groups={groups} activeId={activeId} filter={filter} onFilterChange={setFilter}
+          <ConversationList groups={conversations} activeId={activeId} filter={filter} onFilterChange={setFilter}
             onSelect={id => { setActiveId(id); setPane('none'); }} />
         </div>
 

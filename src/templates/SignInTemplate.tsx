@@ -4,7 +4,7 @@
  * verification → signed-in confirmation.
  *
  * Composition: HeroPanel (brand mark + heading, maxWidth 440) carries each
- * step's body in its `actions` slot; TextField, Checkbox, Button and Divider
+ * step's body as its children; TextField, Checkbox, Button, Divider and Link
  * build the credentials form; OtpInput handles the verification code;
  * AlertBanner + EmptyState make up the confirmation. A small footer links to
  * terms and privacy.
@@ -21,6 +21,7 @@ import { TextField } from '../components/TextField';
 import { Checkbox } from '../components/Checkbox';
 import { Button } from '../components/Button';
 import { Divider } from '../components/Divider';
+import { Link } from '../components/Link';
 import { OtpInput } from '../components/OtpInput';
 import { AlertBanner } from '../components/AlertBanner';
 import { EmptyState } from '../components/EmptyState';
@@ -166,7 +167,7 @@ export function SignInTemplate({
         />
         <div className="signin-row">
           <Checkbox id="signin-remember" label="Remember me" checked={remember} onChange={setRemember} />
-          <a className="signin-link" href="#forgot">Forgot password?</a>
+          <Link tone="muted" href="#forgot" className="signin-small">Forgot password?</Link>
         </div>
         <Button type="submit" variant="primary" size="lg">Sign in</Button>
         <Divider label="or" />
@@ -199,13 +200,13 @@ export function SignInTemplate({
         </Button>
         <div className="signin-row signin-row-center">
           <span className="signin-muted">Didn't get it?</span>
-          <Button variant="ghost" size="sm" onClick={() => { setResent(true); setCode(''); setCodeError(null); }}>
+          <Link className="signin-small" onClick={() => { setResent(true); setCode(''); setCodeError(null); }}>
             Resend code
-          </Button>
+          </Link>
         </div>
-        <Button variant="ghost" size="sm" onClick={() => setStep('credentials')}>
+        <Link tone="muted" className="signin-small signin-center" onClick={() => setStep('credentials')}>
           Use a different account
-        </Button>
+        </Link>
       </div>
     );
   } else {
@@ -230,14 +231,16 @@ export function SignInTemplate({
   return (
     <div className={`signin-template ${className}`.trim()} data-signin-step={step}>
       <main className="signin-main">
-        <HeroPanel ornament="mark" maxWidth={440} title={title} description={description} actions={body} />
+        <HeroPanel ornament="mark" maxWidth={440} title={title} description={description} titleSize="h1">
+          {body}
+        </HeroPanel>
       </main>
       {footerLinks.length > 0 && (
         <footer className="signin-footer">
           <nav aria-label="Legal">
             <ul>
               {footerLinks.map(l => (
-                <li key={l.href}><a className="signin-link" href={l.href}>{l.label}</a></li>
+                <li key={l.href}><Link tone="muted" href={l.href} className="signin-small">{l.label}</Link></li>
               ))}
             </ul>
           </nav>
