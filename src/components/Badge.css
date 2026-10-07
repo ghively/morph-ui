@@ -18,26 +18,30 @@
   padding: var(--s1) var(--s2);
 }
 
+/* Tone inks are mixed 65/35 toward the badge ink. The raw semantic colours
+   drop under 4.5:1 once the tinted pill sits on a lighter surface (warn was
+   4.23:1 on a DataTable stripe over --app-panel); the mix keeps every tone at
+   4.69:1 or better on --app-bg, --app-panel, --app-elev, glass and stripes. */
 [data-badge][data-tone='info'] {
   background: color-mix(in srgb, var(--app-blue) 14%, transparent);
-  color: var(--morph-info);
+  color: color-mix(in srgb, var(--morph-info) 65%, var(--morph-badge-fg));
   border-color: color-mix(in srgb, var(--app-blue) 35%, transparent);
 }
 
 [data-badge][data-tone='success'] {
   background: color-mix(in srgb, var(--color-success) 14%, transparent);
-  color: var(--morph-success);
+  color: color-mix(in srgb, var(--morph-success) 65%, var(--morph-badge-fg));
   border-color: color-mix(in srgb, var(--color-success) 35%, transparent);
 }
 
 [data-badge][data-tone='warn'] {
   background: color-mix(in srgb, var(--color-warning) 15%, transparent);
-  color: var(--morph-warn);
+  color: color-mix(in srgb, var(--morph-warn) 65%, var(--morph-badge-fg));
   border-color: color-mix(in srgb, var(--color-warning) 40%, transparent);
 }
 
 [data-badge][data-tone='danger'] {
   background: color-mix(in srgb, var(--color-error) 13%, transparent);
-  color: var(--morph-danger);
+  color: color-mix(in srgb, var(--morph-danger) 65%, var(--morph-badge-fg));
   border-color: color-mix(in srgb, var(--color-error) 40%, transparent);
 }
