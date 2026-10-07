@@ -2,8 +2,9 @@ import './Pagination.css';
 import { pageWindow } from "./layout.shared";
 import type { PaginationProps } from './layout.shared';
 
-export function Pagination({ page, totalPages, onPageChange, siblingCount = 1, label = 'Pages', className = '' }: PaginationProps) {
-  if (totalPages <= 1) return null;
+export function Pagination({ page, totalPages: rawTotal, onPageChange, siblingCount = 1, label = 'Pages', className = '', showSinglePage = false }: PaginationProps) {
+  if (rawTotal <= 1 && !showSinglePage) return null;
+  const totalPages = Math.max(1, rawTotal);
   const clamped = Math.min(totalPages, Math.max(1, page));
   const items = pageWindow(clamped, totalPages, siblingCount);
   const go = (next: number) => { if (next >= 1 && next <= totalPages && next !== clamped) onPageChange(next); };
