@@ -47,4 +47,15 @@ describe('ApprovalGate', () => {
     expect(screen.queryByText('Approve')).toBeNull();
     expect(screen.queryByText('Deny')).toBeNull();
   });
+
+  it('makes a long command strip keyboard-focusable with an accessible name', () => {
+    const long = 'kubectl rollout restart deployment/api-gateway --namespace production-eu-west-1 --context arn:aws:eks:eu-west-1:123456789012:cluster/prod';
+    const { container } = render(<ApprovalGate {...defaultProps} actionSummary={long} onResolve={() => {}} />);
+    const cmd = screen.getByRole('group', { name: 'Command' });
+    expect(cmd).toBe(container.querySelector('[data-approval-gate-summary]'));
+    expect(cmd.getAttribute('tabindex')).toBe('0');
+    expect(cmd.textContent).toContain(long);
+    cmd.focus();
+    expect(document.activeElement).toBe(cmd);
+  });
 });

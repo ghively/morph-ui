@@ -12,7 +12,8 @@ export function ApprovalGate(props: ApprovalGateProps) {
         <div className="approval-gate-badge" data-approval-gate-badge="">{RISK_LABEL[riskLevel]}</div>
       </div>
       <p className="approval-gate-desc" data-approval-gate-desc="">{description}</p>
-      <div className="approval-gate-cmd" data-approval-gate-summary=""><span aria-hidden="true">$</span><code>{actionSummary}</code></div>
+      {/* Long commands scroll sideways (wrapping breaks flags apart), so the strip takes focus for keyboard scrolling. */}
+      <div className="approval-gate-cmd" data-approval-gate-summary="" tabIndex={0} role="group" aria-label="Command"><span aria-hidden="true">$</span><code>{actionSummary}</code></div>
       {g.resolved ? (
         <div className="approval-gate-done" role="status"><b>{g.decision === 'approved' ? '✓ Approved' : '✕ Denied'}</b>{g.comment.trim() && <span>{'“' + g.comment.trim() + '”'}</span>}</div>
       ) : (

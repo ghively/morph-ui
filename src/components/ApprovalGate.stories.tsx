@@ -69,3 +69,22 @@ export const LowRisk = () => {
     </div>
   );
 };
+
+export const LongCommand = () => {
+  const [outcome, setOutcome] = useState<string | null>(null);
+
+  return (
+    <div style={frame}>
+      <ApprovalGate
+        title="Restart the EU API gateway"
+        description="The command is wider than the card, so the strip scrolls sideways. Tab to it and use the arrow keys to read the rest."
+        riskLevel="medium"
+        actionSummary="kubectl rollout restart deployment/api-gateway --namespace production-eu-west-1 --context arn:aws:eks:eu-west-1:123456789012:cluster/prod"
+        onResolve={(approved, comment) =>
+          setOutcome(`${approved ? 'Approved' : 'Denied'}${comment ? ` — "${comment}"` : ''}`)
+        }
+      />
+      <p style={outcomeStyle}>{outcome ?? 'Awaiting a decision…'}</p>
+    </div>
+  );
+};
