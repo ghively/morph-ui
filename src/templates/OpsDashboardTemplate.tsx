@@ -348,24 +348,24 @@ export function OpsDashboardTemplate({
           }}
         />
 
-        <section className="ops-dash-section" aria-labelledby="ops-dash-kpis">
+        <section className="ops-dash-section" aria-labelledby="ops-dash-kpis" aria-busy={loading || undefined}>
           <h2 id="ops-dash-kpis" className="ops-dash-sr">Key metrics</h2>
-          <SkeletonWrapper isLoading={loading}>
-            <div className="ops-dash-kpis">
-              {kpis.map((k) => (
-                <KpiCard
-                  key={k.id}
-                  label={k.label}
-                  value={loading ? '—' : k.value}
-                  delta={loading ? undefined : k.delta}
-                  deltaDirection={k.deltaDirection}
-                  deltaTone={k.deltaTone}
-                  hint={loading ? undefined : k.hint}
-                  spark={loading ? undefined : k.spark}
-                />
-              ))}
-            </div>
-          </SkeletonWrapper>
+          {/* No SkeletonWrapper here: its sweep mask dims the real KPI labels below
+              contrast. The values already render as "—" placeholders. */}
+          <div className="ops-dash-kpis">
+            {kpis.map((k) => (
+              <KpiCard
+                key={k.id}
+                label={k.label}
+                value={loading ? '—' : k.value}
+                delta={loading ? undefined : k.delta}
+                deltaDirection={k.deltaDirection}
+                deltaTone={k.deltaTone}
+                hint={loading ? undefined : k.hint}
+                spark={loading ? undefined : k.spark}
+              />
+            ))}
+          </div>
         </section>
 
         <section className="ops-dash-section ops-dash-charts" aria-labelledby="ops-dash-trends">
@@ -380,12 +380,12 @@ export function OpsDashboardTemplate({
                 height={150}
                 formatValue={(v) => `${v.toFixed(2)}%`}
               />
-              <div className="ops-dash-axis" aria-hidden="true">
-                <span>{errorRate.labels[0]}</span>
-                <span>{errorRate.labels[Math.floor(errorRate.labels.length / 2)]}</span>
-                <span>{errorRate.labels[errorRate.labels.length - 1]}</span>
-              </div>
             </SkeletonWrapper>
+            <div className="ops-dash-axis" aria-hidden="true">
+              <span>{errorRate.labels[0]}</span>
+              <span>{errorRate.labels[Math.floor(errorRate.labels.length / 2)]}</span>
+              <span>{errorRate.labels[errorRate.labels.length - 1]}</span>
+            </div>
           </Card>
           <Card title="Error budget" subtitle="October SLO · 99.9%" className="ops-dash-chart-side">
             <SkeletonWrapper isLoading={loading}>
@@ -397,8 +397,8 @@ export function OpsDashboardTemplate({
                   zones={loading ? undefined : BUDGET_ZONES}
                 />
               </div>
-              <p className="ops-dash-note">{budgetNote}</p>
             </SkeletonWrapper>
+            <p className="ops-dash-note">{budgetNote}</p>
           </Card>
         </section>
 
@@ -457,13 +457,11 @@ export function OpsDashboardTemplate({
           <aside className="ops-dash-rail" aria-label="Service health and audit trail">
             {latency.length > 0 && (
               <Card title="Golden signals" subtitle="Last 6 hours">
-                <SkeletonWrapper isLoading={loading}>
-                  <div className="ops-dash-sparks">
-                    {latency.map((m) => (
-                      <MetricSparkline key={m.label} label={m.label} value={loading ? '—' : m.value} series={loading ? [] : m.series} invert period="6h" />
-                    ))}
-                  </div>
-                </SkeletonWrapper>
+                <div className="ops-dash-sparks" aria-busy={loading || undefined}>
+                  {latency.map((m) => (
+                    <MetricSparkline key={m.label} label={m.label} value={loading ? '—' : m.value} series={loading ? [] : m.series} invert period="6h" />
+                  ))}
+                </div>
               </Card>
             )}
             <Card title="Service health" subtitle={`${services.length} tracked services`}>
