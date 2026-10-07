@@ -50,3 +50,26 @@ export const Empty = () => (
     emptyText="No sources match this filter."
   />
 );
+
+/**
+ * Plain and sortable headers share one type style; sortable ones only add the
+ * sort control. `captionHidden` keeps the caption as the accessible name when a
+ * surrounding heading already labels the table.
+ */
+export const MixedColumnsHiddenCaption = () => (
+  <section aria-labelledby="dt-mixed-title">
+    <h3 id="dt-mixed-title" style={{ margin: '0 0 8px' }}>Connected sources</h3>
+    <DataTable<SourceRow>
+      caption="Connected sources"
+      captionHidden
+      columns={[
+        { key: 'source', header: 'Source', sortable: true },
+        { key: 'department', header: 'Department' },
+        { key: 'chunks', header: 'Chunks', align: 'right', sortable: true },
+        { key: 'freshness', header: 'Freshness' },
+      ]}
+      rows={ROWS}
+      rowKey={(row) => row.source}
+    />
+  </section>
+);

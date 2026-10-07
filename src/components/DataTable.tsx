@@ -20,6 +20,11 @@ export interface DataTableProps<TRow = Record<string, unknown>> {
   rows: TRow[];
   rowKey: (row: TRow, index: number) => string;
   caption?: string;
+  /**
+   * Visually hide the caption while keeping it as the table's accessible name.
+   * Use when a surrounding heading (a Card title, say) already labels the table on screen.
+   */
+  captionHidden?: boolean;
   emptyText?: string;
   defaultSortKey?: string;
   defaultSortDir?: SortDirection;
@@ -44,6 +49,7 @@ export function DataTable<TRow extends Record<string, unknown>>({
   rows,
   rowKey,
   caption,
+  captionHidden = false,
   emptyText = 'No rows to show.',
   defaultSortKey,
   defaultSortDir = 'asc',
@@ -78,7 +84,7 @@ export function DataTable<TRow extends Record<string, unknown>>({
   return (
     <div className={className} data-tablewrap="">
       <table data-table="">
-        {caption && <caption>{caption}</caption>}
+        {caption && <caption data-captionhidden={captionHidden ? '' : undefined}>{caption}</caption>}
         <thead>
           <tr>
             {columns.map((col) => {
