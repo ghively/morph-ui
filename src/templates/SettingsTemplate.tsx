@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import './SettingsTemplate.css';
 import { Breadcrumbs, type Crumb } from '../components/Breadcrumbs';
 import { Button } from '../components/Button';
@@ -158,6 +158,18 @@ export function SettingsTemplate({
   data = demoSettings, initialSection = 'profile', initialEdits, saving = false, onSave, className = '',
 }: SettingsTemplateProps) {
   const [section, setSection] = useState<SettingsSection>(initialSection);
+  // The section nav is a vertical list beside the panel, and a horizontal strip
+  // once the template itself is narrower than 640px (same breakpoint as the CSS
+  // container query), so the arrow-key axis always matches the layout.
+  const rootRef = useRef<HTMLElement>(null);
+  const [narrow, setNarrow] = useState(false);
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver(([entry]) => setNarrow((entry?.contentRect.width ?? Infinity) < 640));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
   const [saved, setSaved] = useState<SettingsValues>(data.values);
   const [draft, setDraft] = useState<SettingsValues>(() => ({
     ...data.values,
@@ -259,7 +271,7 @@ export function SettingsTemplate({
   }
 
   return (
-    <main className={('settings-tpl ' + className).trim()} data-settings-template="" aria-labelledby="settings-tpl-title">
+    <main ref={rootRef} className={('settings-tpl ' + className).trim()} data-settings-template="" aria-labelledby="settings-tpl-title">
       <header className="settings-tpl__header">
         <div className="settings-tpl__heading">
           <Breadcrumbs trail={[...data.trail, { label: 'Settings' }]} />
@@ -280,7 +292,7 @@ export function SettingsTemplate({
         </AlertBanner>
       )}
 
-      <Tabs className="settings-tpl__tabs" label="Settings sections" activeId={section}
+      <Tabs className="settings-tpl__tabs" label="Settings sections" activeId={section} orientation={narrow ? 'horizontal' : 'vertical'}
         onTabChange={id => setSection(id as SettingsSection)}
         tabs={SECTIONS.map(s => ({ id: s.id, label: s.label }))}>
         <section className="settings-tpl__section" aria-labelledby="settings-tpl-section-title">

@@ -224,7 +224,6 @@ const COLUMNS: DataColumn<OpsIncident>[] = [
   {
     key: 'title',
     header: 'Summary',
-    sortable: true,
     render: (r) => (
       <span className="ops-dash-stack">
         <span className="ops-dash-summary-title">{r.title}</span>
@@ -394,7 +393,7 @@ export function OpsDashboardTemplate({
                   label="Error budget remaining"
                   value={loading ? 0 : budgetRemaining}
                   centerLabel={loading ? '—' : `${budgetRemaining}% left`}
-                  zones={loading ? undefined : BUDGET_ZONES}
+                  zones={BUDGET_ZONES}
                 />
               </div>
             </SkeletonWrapper>
@@ -434,6 +433,7 @@ export function OpsDashboardTemplate({
               <>
                 <DataTable<OpsIncident>
                   caption="Recent incidents"
+                  captionHidden
                   columns={COLUMNS}
                   rows={pageRows}
                   rowKey={(r) => r.id}
