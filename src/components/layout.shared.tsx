@@ -231,7 +231,15 @@ export function useBrandWordmark(name: string) {
 }
 
 /* ── Pagination ──────────────────────────────────────────────────────────── */
-export interface PaginationProps { page: number; totalPages: number; onPageChange: (page: number) => void; siblingCount?: number; label?: string; className?: string; }
+export interface PaginationProps {
+  page: number; totalPages: number; onPageChange: (page: number) => void; siblingCount?: number; label?: string; className?: string;
+  /**
+   * Render the nav even when there is only one page (or none), with Previous / Next disabled and
+   * page 1 marked current, so a pager row keeps its layout as results shrink. Default `false`:
+   * a single page renders nothing.
+   */
+  showSinglePage?: boolean;
+}
 export function pageWindow(page: number, totalPages: number, siblingCount: number): (number | 'gap')[] {
   const pages = new Set<number>([1, totalPages]);
   for (let p = page - siblingCount; p <= page + siblingCount; p++) if (p >= 1 && p <= totalPages) pages.add(p);
@@ -285,22 +293,41 @@ export interface SkeletonWrapperProps { children: ReactNode; isLoading?: boolean
 
 /* ── Tabs ────────────────────────────────────────────────────────────────── */
 export interface TabItem { id: string; label: ReactNode; badge?: ReactNode; disabled?: boolean; }
-export interface TabsProps { tabs: TabItem[]; activeId: string; onTabChange: (id: string) => void; children?: ReactNode; label?: string; className?: string; }
-export function useTabs(tabs: TabItem[], onTabChange: (id: string) => void) {
+export type TabsOrientation = 'horizontal' | 'vertical';
+export interface TabsProps {
+  tabs: TabItem[]; activeId: string; onTabChange: (id: string) => void; children?: ReactNode; label?: string; className?: string;
+  /**
+   * Layout and keyboard axis. `horizontal` (default) is a row with the active indicator underneath and
+   * Left / Right arrows; `vertical` is a column beside the panel with the indicator on the inline-start
+   * edge and Up / Down arrows. Home / End work in both. Sets `aria-orientation` on the tablist.
+   */
+  orientation?: TabsOrientation;
+}
+/**
+ * Roving tab keyboard model. With `orientation` given, only that axis's arrows move
+ * (Left/Right or Up/Down); omitted, both axes move (legacy behaviour). Home/End jump to the
+ * first/last enabled tab. Every move selects and focuses the target tab.
+ */
+export function useTabs(tabs: TabItem[], onTabChange: (id: string) => void, orientation?: TabsOrientation) {
   const listRef = useRef<HTMLDivElement>(null);
   const enabledIds = useMemo(() => tabs.filter((t) => !t.disabled).map((t) => t.id), [tabs]);
-  const move = (fromId: string, delta: 1 | -1) => {
-    const idx = enabledIds.indexOf(fromId);
-    if (idx === -1) return;
-    const next = enabledIds[(idx + delta + enabledIds.length) % enabledIds.length]!;
+  const select = (next: string | undefined) => {
+    if (!next) return;
     onTabChange(next);
     listRef.current?.querySelector<HTMLElement>(`[data-tabid="${CSS.escape(next)}"]`)?.focus();
   };
+  const move = (fromId: string, delta: 1 | -1) => {
+    const idx = enabledIds.indexOf(fromId);
+    if (idx === -1) return;
+    select(enabledIds[(idx + delta + enabledIds.length) % enabledIds.length]);
+  };
+  const nextKeys = orientation === 'horizontal' ? ['ArrowRight'] : orientation === 'vertical' ? ['ArrowDown'] : ['ArrowRight', 'ArrowDown'];
+  const prevKeys = orientation === 'horizontal' ? ['ArrowLeft'] : orientation === 'vertical' ? ['ArrowUp'] : ['ArrowLeft', 'ArrowUp'];
   const onKeyDown = (e: React.KeyboardEvent, id: string) => {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); move(id, 1); }
-    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); move(id, -1); }
-    else if (e.key === 'Home') { e.preventDefault(); if (enabledIds[0]) onTabChange(enabledIds[0]); }
-    else if (e.key === 'End') { e.preventDefault(); const last = enabledIds[enabledIds.length - 1]; if (last) onTabChange(last); }
+    if (nextKeys.includes(e.key)) { e.preventDefault(); move(id, 1); }
+    else if (prevKeys.includes(e.key)) { e.preventDefault(); move(id, -1); }
+    else if (e.key === 'Home') { e.preventDefault(); select(enabledIds[0]); }
+    else if (e.key === 'End') { e.preventDefault(); select(enabledIds[enabledIds.length - 1]); }
   };
   return { listRef, onKeyDown };
 }

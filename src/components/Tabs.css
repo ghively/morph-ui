@@ -73,3 +73,43 @@
   outline-offset: 2px;
   border-radius: var(--r-xs);
 }
+
+/* ── Vertical orientation: a side list beside the panel. :where() keeps these
+   at base specificity so hosts can restyle the list without !important. ── */
+[data-tabs]:where([data-orientation='vertical']) {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: start;
+  gap: var(--s5);
+}
+
+:where([data-tabs][data-orientation='vertical']) > [data-tablist] {
+  flex-direction: column;
+  border-bottom: none;
+  border-inline-start: 1px solid var(--morph-border);
+  overflow: visible;
+}
+
+:where([data-tabs][data-orientation='vertical']) > [data-tablist] [role='tab'] {
+  justify-content: flex-start;
+  text-align: start;
+  padding: var(--s2) var(--s4);
+  border-bottom: none;
+  margin-bottom: 0;
+  border-inline-start: 2px solid transparent;
+  margin-inline-start: -1px;
+}
+
+:where([data-tabs][data-orientation='vertical']) > [data-tablist] [role='tab'][data-selected] {
+  border-inline-start-color: var(--morph-accent);
+}
+
+:where([data-tabs][data-orientation='vertical']) > [data-tabpanel] {
+  padding-top: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-tablist] [role='tab'] {
+    transition: none;
+  }
+}
