@@ -1,5 +1,8 @@
 import type { StoryDefault, Story } from '@ladle/react';
 import { HeroPanel } from './HeroPanel';
+import { TextField } from './TextField';
+import { Button } from './Button';
+import { Link } from './Link';
 
 export default {
   title: 'HeroPanel',
@@ -65,5 +68,23 @@ export const ActionTile: Story = () => (
         </>
       }
     />
+  </div>
+);
+
+export const WithBody: Story = () => (
+  <div style={{ height: '100vh', background: 'var(--app-bg)' }}>
+    <HeroPanel
+      title="Get early access"
+      description="We'll email you an invite when your workspace is ready."
+      ornament="mark"
+      titleSize="h1"
+      maxWidth={440}
+      actions={<Link tone="muted" href="#sign-in">Already have an account? Sign in</Link>}
+    >
+      <form aria-label="Request access" onSubmit={e => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--s4)' }}>
+        <TextField label="Work email" type="email" name="email" autoComplete="email" placeholder="you@company.com" />
+        <Button type="submit" variant="primary" size="lg">Request invite</Button>
+      </form>
+    </HeroPanel>
   </div>
 );

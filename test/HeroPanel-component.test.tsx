@@ -127,4 +127,40 @@ describe('HeroPanel', () => {
     const css = readFileSync('src/tokens.css', 'utf8');
     expect(css).not.toMatch(/--mark:\s*none/);
   });
+  it('renders children in a [data-herobody] column between chips and actions', () => {
+    const { container } = render(
+      <HeroPanel
+        title="Sign in"
+        groups={[{ id: 'g', label: 'Recent', chips: [{ id: 'c', label: 'Chip', onSelect: () => {} }] }]}
+        actions={<button>Act</button>}
+      >
+        <form aria-label="Sign in form"><input aria-label="Email" /></form>
+      </HeroPanel>
+    );
+    const body = container.querySelector('[data-herobody]')!;
+    expect(body).toBeTruthy();
+    expect(body.querySelector('form')).toBeTruthy();
+    const content = container.querySelector('.hero-panel-content')!;
+    const kids = Array.from(content.children);
+    const groups = container.querySelector('[data-herogroups]')!;
+    const actions = container.querySelector('.hero-actions')!;
+    expect(kids.indexOf(groups)).toBeLessThan(kids.indexOf(body));
+    expect(kids.indexOf(body)).toBeLessThan(kids.indexOf(actions));
+    expect(actions.contains(body)).toBe(false);
+  });
+
+  it('omits [data-herobody] without children', () => {
+    const { container } = render(<HeroPanel title="Plain" actions={<button>Act</button>} />);
+    expect(container.querySelector('[data-herobody]')).toBeNull();
+  });
+
+  it('titleSize sets data-titlesize on the h1 (default hero)', () => {
+    const { container, rerender } = render(<HeroPanel title="T" />);
+    const h1 = () => container.querySelector('h1.hero-title-mark')!;
+    expect(h1().getAttribute('data-titlesize')).toBe('hero');
+    rerender(<HeroPanel title="T" titleSize="h1" />);
+    expect(h1().getAttribute('data-titlesize')).toBe('h1');
+    rerender(<HeroPanel title="T" titleSize="h2" ornament="none" />);
+    expect(h1().getAttribute('data-titlesize')).toBe('h2');
+  });
 });
