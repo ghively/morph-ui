@@ -70,23 +70,27 @@ Last verified 2026-10-02: all 174 `*.stories.tsx` modules load, and every story 
 
 - [x] **Brand marks painted solid squares (2026-10-07).** `tokens.css` shipped `--mark: none`, and `mask: none` disables masking. So every `[data-mark]` (HeroPanel, NavigationRail, AppFrame, PaneHeader) drew a `currentColor` block unless the host set `--mark`. The default is now an empty SVG mask. HeroPanel takes a `mark` prop.
 
-### Found while composing templates (2026-10-07), open
+### Found while composing templates (2026-10-07), fixed the same day
 
-The four `src/templates/` compositions work around these in template code. Each is a small component fix:
+Each was fixed in its own component, and the templates in `src/templates/` dropped their workarounds.
 
-- [ ] **MessageTimeline** doesn't pass `renderBody` through, so tool calls and streamed answers can't sit in its log. It also calls `Date.now()` in render (`buildTimelineRows`) to build day labels.
-- [ ] **DateRangePicker** derives its default presets from the current date during render. It's deterministic only when `presets` is passed.
-- [ ] **Badge** `tone="warn"` measures 4.23:1 on DataTable's striped rows, which axe rates serious.
-- [ ] **ContextMeter** `.context-meter-pct` fails contrast on any panel lighter than `--app-bg`.
-- [ ] **ApprovalGate** `.approval-gate-cmd` scrolls horizontally when the command is long but can't be focused (axe `scrollable-region-focusable`).
-- [ ] **DataTable**:
-  - `caption` renders as a visible heading.
-  - Sortable and plain column headers are styled differently (plain ones are uppercase).
-- [ ] **Pagination** renders nothing for a single page. **GaugeChart** draws its end dot at `value={0}`.
-- [ ] **HeroPanel** has no body slot, so forms go into `actions`, which is a centred row. Its 36px title can only be resized through an internal class.
-- [ ] **Tabs** has no vertical orientation.
-- [ ] **No link primitive.** Link-style actions use ghost Buttons or plain anchors.
-- [ ] **ConversationList** doesn't filter; the host does.
+- [x] **MessageTimeline**:
+  - It now takes an optional `renderBody` (passed to every MessageTile) and `renderMessage(message, defaultTile)` to wrap or replace a row.
+  - With an optional `now`, the clock isn't read. Without it, the clock is read once on mount instead of on every render.
+  - The scroll region is keyboard-focusable.
+- [x] **ConversationList**: the controlled `filter` now narrows the rows (name or alias). `filterLocally={false}` leaves filtering to the host.
+- [x] **DateRangePicker**: optional `today` anchor. Without it, today is captured once on mount instead of on every render.
+- [x] **Badge** tone inks are at least 4.69:1 on every common surface, including table stripes. A test recomputes the ratios from the tokens.
+- [x] **ContextMeter** percentage ink is at least 5.56:1 on bg, panel, elev and glass.
+- [x] **ApprovalGate**: the command strip is a named group you can focus with the keyboard, with a focus ring.
+- [x] **DataTable**:
+  - Sortable and plain headers now share the same type style. The primitives layer's duplicate text arrow is gone.
+  - New optional `captionHidden`.
+- [x] **Pagination**: opt-in `showSinglePage`. **GaugeChart** no longer draws a value arc or end dot when the value is at or below 0.
+- [x] **HeroPanel**: `children` body slot (`[data-herobody]`) and `titleSize` (`hero | h1 | h2`), plus a `--hero-title-size` knob.
+- [x] **Tabs**: `orientation="vertical"`. Horizontal tabs now move with Left/Right only, following the ARIA tabs pattern.
+- [x] **Link** primitive added.
+- [~] **AgentWorkspaceTemplate** still renders its own log rather than `MessageTimeline renderMessage`. That migration is optional; the hook now exists.
 
 ## P2 — Theme contract
 

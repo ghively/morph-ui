@@ -176,6 +176,24 @@ Templates (`src/templates/`, not exported): SignIn, Settings, AgentWorkspace and
 
 Fixed along the way: `--mark` shipped as `none`, which made every `[data-mark]` paint a solid square. It's now an empty mask, and HeroPanel gains a `mark` prop.
 
+## Template-driven fixes (2026-10-07)
+
+These are the component gaps the templates exposed (see `docs/CODE_ISSUES.md`). Every new prop is optional, and all existing hooks are kept.
+
+| Component | Change |
+|---|---|
+| MessageTimeline | + `renderBody`, `renderMessage`, `now`; the scroll region can take keyboard focus |
+| ConversationList | the `filter` now narrows rows; + `filterLocally` |
+| DateRangePicker | + `today` |
+| DataTable | + `captionHidden`; sortable and plain headers match; one sort arrow |
+| Tabs | + `orientation` (`vertical`). Horizontal moves with Left/Right only |
+| Pagination | + `showSinglePage` |
+| HeroPanel | + `children` body slot, `titleSize`, `--hero-title-size` knob |
+| Badge / ContextMeter | text colours reach at least 4.5:1 on every common surface |
+| ApprovalGate | command strip can take keyboard focus; new `LongCommand` story |
+| GaugeChart | no value arc or end dot at 0 |
+| Link (new) | inline link, or a button styled as one; accent or muted tone; `external` |
+
 ## Accessibility pass (axe, 2026-10-04)
 
 `pnpm test:a11y` runs axe (WCAG 2.1 A/AA + best-practice) on every story; serious and critical violations fail. The first run failed 114 of 397 stories. All of them now pass.
