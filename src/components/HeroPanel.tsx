@@ -33,6 +33,18 @@ export interface HeroPanelProps {
   groups?: HeroChipGroup[];
   /** Buttons rendered at the bottom, unwrapped. */
   actions?: ReactNode;
+  /**
+   * Body content (a form, a code input, a confirmation) rendered as a full-width,
+   * start-aligned column between the description/chips and `actions`.
+   * Wrapped in `[data-herobody]`.
+   */
+  children?: ReactNode;
+  /**
+   * Size of the `<h1>` title (ornament 'mark' / 'none'): 'hero' = 36px (default),
+   * 'h1' = `--t-h1`, 'h2' = `--t-h2`. Hosts can still resize responsively by
+   * setting `--hero-title-size` on an ancestor.
+   */
+  titleSize?: 'hero' | 'h1' | 'h2';
   /** Max width of the inner column. Default 740 ('mark') / 440 (Login) — caller-set. */
   maxWidth?: number;
   className?: string;
@@ -46,6 +58,8 @@ export function HeroPanel({
   busy,
   groups,
   actions,
+  children,
+  titleSize = 'hero',
   maxWidth = 740,
   className = ''
 }: HeroPanelProps) {
@@ -73,7 +87,7 @@ export function HeroPanel({
 
           {/* Title */}
           {ornament === 'mark' || ornament === 'none' ? (
-            <h1 className="hero-title-mark">{title}</h1>
+            <h1 className="hero-title-mark" data-titlesize={titleSize}>{title}</h1>
           ) : (
             <div data-heroeyebrow="">{title}</div>
           )}
@@ -87,7 +101,7 @@ export function HeroPanel({
 
         {/* Chip Groups */}
         {groups && groups.length > 0 && (
-          <div>
+          <div data-herogroups="">
             {groups.map((g, index) => (
               <div key={g.id}>
                 <div 
@@ -120,6 +134,11 @@ export function HeroPanel({
               </div>
             ))}
           </div>
+        )}
+
+        {/* Body */}
+        {children != null && children !== false && (
+          <div data-herobody="">{children}</div>
         )}
 
         {/* Actions */}

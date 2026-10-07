@@ -95,11 +95,19 @@
 }
 
 .hero-title-mark {
-  font-size: var(--t-hero);
+  font-size: var(--hero-title-size, var(--t-hero));
   font-weight: 700;
   letter-spacing: var(--tk-display);
   text-align: center;
   margin: 0;
+}
+
+.hero-title-mark[data-titlesize='h1'] {
+  font-size: var(--hero-title-size, var(--t-h1));
+}
+
+.hero-title-mark[data-titlesize='h2'] {
+  font-size: var(--hero-title-size, var(--t-h2));
 }
 
 .hero-panel [data-heroeyebrow] {
@@ -164,6 +172,24 @@
   border-radius: var(--r-xs);
   font-size: var(--t-num);
   font-weight: 600;
+}
+
+/* Body slot: a full-width, start-aligned column (forms, inputs, confirmations). */
+.hero-panel [data-herobody] {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--s4);
+  width: 100%;
+  text-align: start;
+}
+
+.hero-panel [data-herogroups] + [data-herobody] {
+  margin-top: var(--s6);
+}
+
+.hero-panel [data-herobody] + .hero-actions {
+  margin-top: var(--s4);
 }
 
 .hero-actions {
