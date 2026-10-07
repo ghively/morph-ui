@@ -30,16 +30,20 @@ export function GaugeChart({ value, zones, label = 'Gauge', centerLabel, classNa
     <figure className={className} data-gauge="">
       <svg viewBox="0 0 200 118" role="img" aria-label={`${label}: ${centerLabel ?? `${Math.round(clamped)} of 100`}`} data-gaugesvg="">
         <path d="M20,100 A80,80 0 0 1 180,100" fill="none" data-gaugetrack="" strokeWidth="16" strokeLinecap="round" />
-        <path
-          d="M20,100 A80,80 0 0 1 180,100"
-          fill="none"
-          stroke={color}
-          strokeWidth="16"
-          strokeLinecap="round"
-          strokeDasharray={`${((clamped / 100) * ARC).toFixed(1)} ${ARC.toFixed(1)}`}
-        >
-          <title>{`${Math.round(clamped)} of 100`}</title>
-        </path>
+        {/* A zero-length dash with a round cap still paints a dot, so an empty gauge draws no value arc. */}
+        {clamped > 0 && (
+          <path
+            d="M20,100 A80,80 0 0 1 180,100"
+            fill="none"
+            stroke={color}
+            strokeWidth="16"
+            strokeLinecap="round"
+            strokeDasharray={`${((clamped / 100) * ARC).toFixed(1)} ${ARC.toFixed(1)}`}
+            data-gaugevalue=""
+          >
+            <title>{`${Math.round(clamped)} of 100`}</title>
+          </path>
+        )}
         <text x="100" y="92" textAnchor="middle" data-gaugecenter="">
           {centerLabel ?? `${Math.round(clamped)}%`}
         </text>
