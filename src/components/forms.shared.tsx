@@ -161,12 +161,19 @@ export interface DateRangePickerProps {
   activePresetId?: string;
   onPresetChange?: (id: string | null) => void;
   label?: string;
+  /** Upper bound for both date inputs (ISO `yyyy-mm-dd`). Defaults to `today`. */
   max?: string;
+  /**
+   * Anchor day (ISO `yyyy-mm-dd`) for the default presets and the default `max`.
+   * When omitted, the local today is captured once on mount, so render never re-reads the clock.
+   */
+  today?: string;
   className?: string;
 }
 export const defaultPresets = (today = isoDay(0)): DateRangePreset[] => [7, 30, 90].map(n => ({ id: n + 'd', label: n + 'd', range: { from: shiftDay(today, n), to: today } }));
-export function useDateRange({ value, onChange, presets, onPresetChange, max }: DateRangePickerProps) {
-  const today = isoDay(0);
+export function useDateRange({ value, onChange, presets, onPresetChange, max, today: anchor }: DateRangePickerProps) {
+  const [mountDay] = useState(() => isoDay(0));
+  const today = anchor ?? mountDay;
   const list = useMemo(() => presets ?? defaultPresets(today), [presets, today]);
   const invalid = value.from && value.to ? value.from > value.to : false;
   const days = value.from && value.to && !invalid ? dayN(value.to) - dayN(value.from) + 1 : undefined;

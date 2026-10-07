@@ -19,3 +19,14 @@ export const Default = () => {
     </div>
   );
 };
+
+/** `today` anchors the default presets and the input cap, so the presets never depend on the clock. */
+export const AnchoredToday = () => {
+  const [range, setRange] = useState<DateRange>({ from: '2026-03-05', to: '2026-03-12' });
+  const [preset, setPreset] = useState<string | null>('7d');
+  return (
+    <div style={{ maxWidth: 340 }}>
+      <DateRangePicker id="rag-range-anchored" today="2026-03-12" value={range} onChange={setRange} activePresetId={preset ?? undefined} onPresetChange={setPreset} />
+    </div>
+  );
+};
