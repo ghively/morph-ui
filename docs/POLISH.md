@@ -161,6 +161,21 @@ This was the one index group with no polish pass. The fixes centre on identity: 
 
 Shared: `initials()`, `identityHue()` and `cssUrl()` live in `agentOps.shared`, and `mediaLibrary.shared` re-exports the same `initials`. Initials text is `--on-accent`; every gradient stop keeps at least 4.7:1 against it. Tests: `test/identity-polish.test.tsx`.
 
+## New component types and templates (2026-10-07)
+
+New components (each has tests and stories, is exported from `src/index.ts`, and records its provenance in a JSDoc as an original morph-ui design):
+
+| Component | Group | What it is |
+|---|---|---|
+| OtpInput | Primitives | One-time code / PIN entry. Each cell is labelled, focus advances as you type, Backspace steps back, paste fills every cell, `onComplete` fires when full. Numeric or alphanumeric, optional mask. |
+| NumberInput | Primitives | A `role="spinbutton"` field with − / + buttons. Arrow, Shift+Arrow, PageUp/Down and Home/End step the value. Typed text is parsed, clamped and rounded on blur or Enter. Supports `precision` and a `unit` suffix. |
+| KeyValueList | Primitives | A real `dl` in inline, stacked or grid layout, with per-row tone, mono values and an optional copy button. |
+| Popover | Forms + overlays | Anchored non-modal dialog. Focus moves in on open, and Escape returns it to the trigger. Dismisses on an outside click (can be turned off). Four placements, glass surface. |
+
+Templates (`src/templates/`, not exported): SignIn, Settings, AgentWorkspace and OpsDashboard. See the README "Templates" table. Composing them surfaced component quirks, which are logged in `docs/CODE_ISSUES.md` under "Found while composing templates".
+
+Fixed along the way: `--mark` shipped as `none`, which made every `[data-mark]` paint a solid square. It's now an empty mask, and HeroPanel gains a `mark` prop.
+
 ## Accessibility pass (axe, 2026-10-04)
 
 `pnpm test:a11y` runs axe (WCAG 2.1 A/AA + best-practice) on every story; serious and critical violations fail. The first run failed 114 of 397 stories. All of them now pass.
