@@ -1,10 +1,12 @@
 import './ConversationList.css';
-import { CountBadge, Ico, I, type ConversationListProps } from './chatmsg.shared';
+import { useMemo } from 'react';
+import { CountBadge, Ico, I, filterConversationGroups, type ConversationListProps } from './chatmsg.shared';
 
 export function ConversationList({
-  groups, invites = [], activeId, filter, onFilterChange, onSelect, onAcceptInvite, onDeclineInvite, onBrowse, onCreate, fade,
-  filterPlaceholder = 'Filter conversations', className = '',
+  groups: allGroups, invites = [], activeId, filter, onFilterChange, onSelect, onAcceptInvite, onDeclineInvite, onBrowse, onCreate, fade,
+  filterPlaceholder = 'Filter conversations', filterLocally = true, className = '',
 }: ConversationListProps) {
+  const groups = useMemo(() => (filterLocally ? filterConversationGroups(allGroups, filter) : allGroups), [allGroups, filter, filterLocally]);
   const f = fade ? { 'data-fade': '' } : {};
   const empty = !invites.length && groups.every(g => !g.conversations.length);
   return (

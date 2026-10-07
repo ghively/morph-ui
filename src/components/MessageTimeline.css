@@ -1,3 +1,4 @@
+.timeline:focus-visible { outline: 2px solid var(--morph-accent); outline-offset: -2px; }
 .timeline { flex: 1; overflow: auto; padding: var(--s7) var(--s7) var(--s6); scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--app-text) 18%, transparent) transparent; overscroll-behavior: contain; }
 .timeline-list { display: flex; flex-direction: column; gap: var(--s4); max-width: 780px; margin: 0 auto; }
 .timeline-head { display: flex; justify-content: center; min-height: 28px; }

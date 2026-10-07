@@ -1,12 +1,15 @@
 import './MessageTimeline.css';
+import { Fragment, type ReactNode } from 'react';
 import { MessageTile } from './MessageTile';
-import { useTimeline, type MessageTimelineProps } from './chatmsg.shared';
+import { useTimeline, type MessageTimelineProps, type TimelineMessage } from './chatmsg.shared';
 
 export function MessageTimeline(props: MessageTimelineProps) {
   const t = useTimeline(props);
-  const { label, highlightId, inThread = false, actions, className = '' } = props;
+  const { label, highlightId, inThread = false, actions, renderBody, renderMessage, className = '' } = props;
+  const row = (key: string, m: TimelineMessage, tile: ReactNode) =>
+    renderMessage ? <Fragment key={key}>{renderMessage(m, tile)}</Fragment> : tile;
   return (
-    <div ref={t.scroller} className={'timeline ' + className} data-scroller="" onScroll={t.onScroll}>
+    <div ref={t.scroller} className={'timeline ' + className} data-scroller="" onScroll={t.onScroll} tabIndex={0}>
       <div className="timeline-list" data-turnlist="" role="log" aria-label={label} aria-live="off">
         <div className="timeline-head">
           {t.done
@@ -19,10 +22,10 @@ export function MessageTimeline(props: MessageTimelineProps) {
           ) : r.type === 'fold' ? (
             <details key={r.key} className="timeline-fold" data-stategroup="">
               <summary data-meta="">{r.run.length} group changes</summary>
-              {r.run.map(e => <MessageTile key={e.id ?? e.localId} message={e} accent={t.accent(e.senderId)} actions={actions} />)}
+              {r.run.map(e => { const k = (e.id ?? e.localId)!; return row(k, e, <MessageTile key={k} message={e} accent={t.accent(e.senderId)} actions={actions} renderBody={renderBody} />); })}
             </details>
           ) : (
-            <MessageTile key={r.key} message={r.message} continuation={r.continuation} inThread={inThread} highlighted={highlightId === (r.message.id ?? r.message.localId)} actions={actions} accent={t.accent(r.message.senderId)} />
+            row(r.key, r.message, <MessageTile key={r.key} message={r.message} continuation={r.continuation} inThread={inThread} highlighted={highlightId === (r.message.id ?? r.message.localId)} actions={actions} accent={t.accent(r.message.senderId)} renderBody={renderBody} />)
           ),
         )}
       </div>

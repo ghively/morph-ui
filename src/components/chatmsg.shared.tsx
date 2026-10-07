@@ -172,7 +172,21 @@ export interface ConversationListProps {
   /** Applies `[data-fade]` to every fadeable element (the rail-embedded variant). */
   fade?: boolean;
   filterPlaceholder?: string;         // default 'Filter conversations'
+  /**
+   * When true (default), the list itself narrows to conversations whose name or alias contains `filter`
+   * (case-insensitive, trimmed); groups keep their order and groups left empty by the filter are hidden.
+   * Set false when the host filters `groups` itself (e.g. server-side or fuzzy search).
+   */
+  filterLocally?: boolean;
   className?: string;
+}
+
+/** Case-insensitive name/alias match used by ConversationList's local filter. Empty query keeps every group as-is. */
+export function filterConversationGroups(groups: ConversationGroup[], query: string): ConversationGroup[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return groups;
+  const hit = (c: ConversationSummary) => c.name.toLowerCase().includes(q) || !!c.alias?.toLowerCase().includes(q);
+  return groups.map(g => ({ ...g, conversations: g.conversations.filter(hit) })).filter(g => g.conversations.length > 0);
 }
 
 /* ── 2 · MentionAutocomplete ─────────────────────────────────────────────── */
@@ -474,6 +488,18 @@ export interface MessageTimelineProps {
   actions?: MessageTileActions;
   groupWindowMs?: number;
   foldStateRunsAt?: number;
+  /**
+   * Reference time (ms) for day labels ("Today" / "Yesterday"). When omitted, the clock is read once on mount
+   * rather than on every render, so re-renders stay pure and deterministic.
+   */
+  now?: number;
+  /** Passed through to every MessageTile; same contract as `MessageTile.renderBody` (return null/undefined for the default body). */
+  renderBody?: (message: TimelineMessage) => ReactNode;
+  /**
+   * Escape hatch for a whole row: receives the message and the MessageTile the timeline would render, and returns what
+   * goes in the log instead (wrap it, replace it with a tool-call card or streamed answer, or return `defaultTile`).
+   */
+  renderMessage?: (message: TimelineMessage, defaultTile: ReactNode) => ReactNode;
   className?: string;
 }
 export type TimelineRow =
@@ -502,6 +528,8 @@ export function buildTimelineRows(messages: TimelineMessage[], windowMs: number,
 }
 export function useTimeline(p: MessageTimelineProps) {
   const { messages, highlightId, onLoadOlder, exhausted = false, version, groupWindowMs = 300000, foldStateRunsAt = 3 } = p;
+  const [mountedAt] = useState(() => p.now ?? Date.now());
+  const now = p.now ?? mountedAt;
   const scroller = useRef<HTMLDivElement>(null);
   const atBottom = useRef(true);
   const prevHeight = useRef<number | null>(null);
@@ -540,7 +568,7 @@ export function useTimeline(p: MessageTimelineProps) {
     if (el.scrollTop < 120) void loadOlder();
   };
   const accents = useMemo(() => assignAccents(messages.map(m => m.senderId)), [messages]);
-  const rows = useMemo(() => buildTimelineRows(messages, groupWindowMs, foldStateRunsAt), [messages, groupWindowMs, foldStateRunsAt]);
+  const rows = useMemo(() => buildTimelineRows(messages, groupWindowMs, foldStateRunsAt, now), [messages, groupWindowMs, foldStateRunsAt, now]);
   return { scroller, onScroll, loading, done, loadOlder, rows, accent: (s: string) => accents.get(s) ?? accentForSender(s) };
 }
 
