@@ -6,7 +6,10 @@
 .context-meter { display: grid; gap: var(--s2); width: 100%; font-family: var(--font-sans); color: var(--app-text); }
 .context-meter-head { display: flex; align-items: baseline; gap: var(--s2); font-size: var(--t-ctl); }
 .context-meter-head [data-context-meter-label] { color: var(--app-dim); flex: 1; min-width: 0; }
-.context-meter-pct { font-size: var(--t-input); font-weight: 600; color: var(--c); font-variant-numeric: tabular-nums; text-shadow: 0 0 10px color-mix(in srgb, var(--c) 50%, transparent); transition: color var(--d3); }
+/* The percentage ink is the level accent mixed 65/35 toward --app-text: the raw ok accent (--state-live) is
+   3.95:1 on --app-elev and 3.73:1 on --app-elev over --app-panel; the mix holds >= 5.56:1 on --app-bg, --app-panel,
+   --app-elev and glass for all three levels while keeping the accent hue. The glow stays on the raw accent. */
+.context-meter-pct { font-size: var(--t-input); font-weight: 600; color: color-mix(in srgb, var(--c) 65%, var(--app-text)); font-variant-numeric: tabular-nums; text-shadow: 0 0 10px color-mix(in srgb, var(--c) 35%, transparent); transition: color var(--d3); }
 .context-meter-val { font-family: var(--app-mono); font-size: var(--t-meta); color: var(--app-faint); font-variant-numeric: tabular-nums; }
 .context-meter-track { position: relative; height: 8px; border-radius: var(--r-pill); background: color-mix(in srgb, var(--app-text) 7%, transparent); box-shadow: inset 0 1px 2px rgba(0,0,0,.35); }
 .context-meter-fill { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: linear-gradient(90deg, color-mix(in srgb, var(--c) 45%, transparent), var(--c)); box-shadow: 0 0 12px -1px var(--c); transition: width var(--d3) var(--ease-emph), background var(--d3); }
