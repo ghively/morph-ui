@@ -165,6 +165,7 @@ export * from "./components/RadioGroup";
 export * from "./components/Badge";
 export * from "./components/Card";
 export * from "./components/Divider";
+export * from "./components/Link";
 export * from "./components/KeyValueList";
 export * from "./components/Tabs";
 export * from "./components/Tooltip";
