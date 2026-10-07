@@ -18,6 +18,19 @@
   font-size: var(--t-lead);
 }
 
+/* Visually hidden, still the table's accessible name (captionHidden). */
+[data-table] caption[data-captionhidden] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 [data-table] th,
 [data-table] td {
   padding: var(--s3) var(--s4h);
@@ -57,8 +70,13 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Buttons reset text-transform and letter-spacing in the UA stylesheet, so a
+   sortable header lost the uppercase eyebrow style that plain headers have.
+   Inherit them so both header kinds share one type style. */
 [data-sortbtn] {
   font: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
   display: inline-flex;
   align-items: center;
   gap: var(--s1h);
@@ -72,6 +90,12 @@
     color var(--d2) var(--ease-fx),
     box-shadow var(--d2) var(--ease-fx),
     opacity var(--d2) var(--ease-fx);
+}
+
+/* The frame primitives add a text arrow (::after) to any th[aria-sort] button.
+   The sort control already draws its own chevron, so drop the duplicate. */
+[data-table] th[aria-sort] [data-sortbtn]::after {
+  content: none;
 }
 
 [data-sortbtn]:focus-visible {
