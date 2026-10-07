@@ -16,6 +16,7 @@
 .approval-gate-badge { font-size: var(--t-eyebrow); font-weight: 600; letter-spacing: .04em; padding: var(--s0) var(--s2); border-radius: var(--r-pill); color: var(--c); background: color-mix(in srgb, var(--c) 13%, transparent); white-space: nowrap; }
 .approval-gate-desc { margin: 0; font-size: var(--t-body); line-height: 1.55; color: var(--app-dim); text-wrap: pretty; }
 .approval-gate-cmd { display: flex; gap: var(--s2); padding: var(--s2) var(--s3); border-radius: var(--r-sm); font-family: var(--app-mono); font-size: var(--t-small); background: color-mix(in srgb, var(--app-bg) 60%, transparent); border: 1px solid var(--app-line); overflow-x: auto; }
+.approval-gate-cmd:focus-visible { outline: 2px solid color-mix(in srgb, var(--c) 70%, transparent); outline-offset: 2px; }
 .approval-gate-cmd span { color: var(--app-faint); } .approval-gate-cmd code { white-space: nowrap; color: var(--app-text); }
 .approval-gate-comment input { all: unset; box-sizing: border-box; width: 100%; padding: var(--s2) var(--s3); border-radius: var(--r-sm); font-size: var(--t-body); border: 1px solid var(--app-line); background: color-mix(in srgb, var(--app-text) 4%, transparent); transition: border-color var(--d2); }
 .approval-gate-comment input:focus { border-color: color-mix(in srgb, var(--c) 55%, transparent); }
