@@ -30,4 +30,11 @@ describe('ContextMeter', () => {
     const meter = container.querySelector('[data-context-meter]');
     expect(meter?.getAttribute('data-level')).toBe('danger');
   });
+
+  it('mixes the percentage ink toward --app-text so it holds contrast on lighter panels', async () => {
+    const { readFileSync } = await import('node:fs');
+    const css = readFileSync('src/components/ContextMeter.css', 'utf8');
+    const rule = css.match(/\.context-meter-pct\s*{([^}]+)}/)![1]!;
+    expect(rule).toMatch(/color:\s*color-mix\(in srgb, var\(--c\) \d+%, var\(--app-text\)\)/);
+  });
 });
