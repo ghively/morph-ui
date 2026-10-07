@@ -31,3 +31,12 @@ export const WithoutPanel = () => {
   const [activeId, setActiveId] = useState('sources');
   return <Tabs tabs={TABS} activeId={activeId} onTabChange={setActiveId} />;
 };
+
+export const Vertical = () => {
+  const [activeId, setActiveId] = useState('overview');
+  return (
+    <Tabs tabs={TABS} activeId={activeId} onTabChange={setActiveId} label="Dashboard sections" orientation="vertical">
+      <p style={{ margin: 0 }}>{PANELS[activeId]}</p>
+    </Tabs>
+  );
+};
