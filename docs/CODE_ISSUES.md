@@ -68,6 +68,26 @@ Last verified 2026-10-02: all 174 `*.stories.tsx` modules load, and every story 
   - `docs/extraction-source/` is excluded from ESLint because it's a reference-only snapshot.
 - [ ] **Remaining React Compiler rules are off:** `refs` (160 findings in 21 files, mostly the latest-value ref pattern), `set-state-in-effect` (32 in 24 files) and `preserve-manual-memoization` (2). To list them, enable the rules in `eslint.config.js`.
 
+- [x] **Brand marks painted solid squares (2026-10-07).** `tokens.css` shipped `--mark: none`, and `mask: none` disables masking. So every `[data-mark]` (HeroPanel, NavigationRail, AppFrame, PaneHeader) drew a `currentColor` block unless the host set `--mark`. The default is now an empty SVG mask. HeroPanel takes a `mark` prop.
+
+### Found while composing templates (2026-10-07), open
+
+The four `src/templates/` compositions work around these in template code. Each is a small component fix:
+
+- [ ] **MessageTimeline** doesn't pass `renderBody` through, so tool calls and streamed answers can't sit in its log. It also calls `Date.now()` in render (`buildTimelineRows`) to build day labels.
+- [ ] **DateRangePicker** derives its default presets from the current date during render. It's deterministic only when `presets` is passed.
+- [ ] **Badge** `tone="warn"` measures 4.23:1 on DataTable's striped rows, which axe rates serious.
+- [ ] **ContextMeter** `.context-meter-pct` fails contrast on any panel lighter than `--app-bg`.
+- [ ] **ApprovalGate** `.approval-gate-cmd` scrolls horizontally when the command is long but can't be focused (axe `scrollable-region-focusable`).
+- [ ] **DataTable**:
+  - `caption` renders as a visible heading.
+  - Sortable and plain column headers are styled differently (plain ones are uppercase).
+- [ ] **Pagination** renders nothing for a single page. **GaugeChart** draws its end dot at `value={0}`.
+- [ ] **HeroPanel** has no body slot, so forms go into `actions`, which is a centred row. Its 36px title can only be resized through an internal class.
+- [ ] **Tabs** has no vertical orientation.
+- [ ] **No link primitive.** Link-style actions use ghost Buttons or plain anchors.
+- [ ] **ConversationList** doesn't filter; the host does.
+
 ## P2 — Theme contract
 
 - [x] **Hard-coded colors moved to tokens** (new "component-scoped tokens" block in `tokens.css`):
