@@ -1,0 +1,1 @@
+import type {StoryDefault,Story} from '@ladle/react'; import { ChatMessage } from './ChatMessage'; export default {title:'AI Artifacts / ChatMessage'} satisfies StoryDefault; export const Default:Story=()=> <ChatMessage role="assistant" content="Here is an answer."/>; export const Empty:Story=()=> <ChatMessage role="assistant" content="Here is an answer."/>;

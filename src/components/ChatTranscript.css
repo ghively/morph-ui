@@ -1,0 +1,1 @@
+.chattranscript{position:relative;height:100%}.chattranscript-scroll{height:100%;overflow:auto;scrollbar-width:thin;padding:0 var(--s4)}.chattranscript>button{position:absolute;right:var(--s4);bottom:var(--s3);border:1px solid var(--app-line);border-radius:var(--r-pill);background:var(--app-panel);color:var(--app-text);padding:var(--s2) var(--s3)}

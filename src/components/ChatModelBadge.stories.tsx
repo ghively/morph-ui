@@ -1,0 +1,1 @@
+import type {StoryDefault,Story} from '@ladle/react'; import { ChatModelBadge } from './ChatModelBadge'; export default {title:'AI Artifacts / ChatModelBadge'} satisfies StoryDefault; export const Default:Story=()=> <ChatModelBadge model="Aurora" capabilities={["vision","tools"]}/>; export const Empty:Story=()=> <ChatModelBadge model="Aurora" capabilities={["vision","tools"]}/>;
