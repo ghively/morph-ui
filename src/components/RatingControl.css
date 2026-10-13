@@ -1,0 +1,9 @@
+
+:where([data-ratingcontrol]){display:grid;gap:var(--s2);color:var(--app-text);font-size:var(--t-body)}
+:where([data-ratingcontrol]) label,:where([data-ratingcontrol]) [data-ratingcontrollabel]{font-weight:600;font-size:var(--t-small)}
+:where([data-ratingcontrol]) input,:where([data-ratingcontrol]) textarea,:where([data-ratingcontrol]) [contenteditable]{min-height:var(--s10);border:1px solid var(--app-line);border-radius:var(--r-ctl);background:var(--morph-input-bg);color:var(--app-text);padding:var(--s2) var(--s3);font:inherit}
+:where([data-ratingcontrol]) input:focus-visible,:where([data-ratingcontrol]) button:focus-visible,:where([data-ratingcontrol]) [contenteditable]:focus-visible{outline:2px solid var(--app-blue);outline-offset:2px}
+:where([data-ratingcontrol][data-invalid]) input,:where([data-ratingcontrol][data-invalid]) [contenteditable]{border-color:var(--color-error)}
+:where([data-ratingcontrol]) [data-error]{color:var(--color-error-text);font-size:var(--t-small)}
+:where([data-ratingcontrol]) [data-hint],:where([data-ratingcontrol]) [data-fieldhint]{color:var(--app-dim);font-size:var(--t-small)}
+:where([data-ratingitems]){display:flex;gap:var(--s1)} :where([data-ratingitem]){font-size:var(--t-h2);border:0;background:transparent;color:var(--app-dim);padding:var(--s1)} :where([data-ratingitem][data-on]){color:var(--app-gold-ink)}

@@ -1,0 +1,1 @@
+import {RatingControl} from './RatingControl'; import {useState} from 'react'; export default {title:'Forms/RatingControl'}; export const Stars=()=>{const [v,setV]=useState(3);return <RatingControl label='Satisfaction' value={v} onChange={setV}/>}; export const Readonly=()=> <RatingControl label='Score' value={4} readOnly variant='pips'/>;

@@ -1,0 +1,1 @@
+import {Numpad} from './Numpad'; import {useState} from 'react'; export default {title:'Forms/Numpad'}; export const Default=()=>{const [v,setV]=useState('');return <Numpad value={v} onChange={setV} allowDecimal onSubmit={()=>{}}/>}; export const Constrained=()=> <Numpad value='12' onChange={()=>{}} maxLength={4} tone='click'/>;

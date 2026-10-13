@@ -1,0 +1,1 @@
+import {ColorField} from './ColorField'; import {useState} from 'react'; export default {title:'Forms/ColorField'}; export const Default=()=>{const [v,setV]=useState('#a2d66e');return <ColorField label='Accent' value={v} onChange={setV}/>}; export const Error=()=> <ColorField label='Brand' value='#bad' onChange={()=>{}} error='Use a six digit hex color.'/>;

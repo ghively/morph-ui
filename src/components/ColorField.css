@@ -1,0 +1,9 @@
+
+:where([data-colorfield]){display:grid;gap:var(--s2);color:var(--app-text);font-size:var(--t-body)}
+:where([data-colorfield]) label,:where([data-colorfield]) [data-colorfieldlabel]{font-weight:600;font-size:var(--t-small)}
+:where([data-colorfield]) input,:where([data-colorfield]) textarea,:where([data-colorfield]) [contenteditable]{min-height:var(--s10);border:1px solid var(--app-line);border-radius:var(--r-ctl);background:var(--morph-input-bg);color:var(--app-text);padding:var(--s2) var(--s3);font:inherit}
+:where([data-colorfield]) input:focus-visible,:where([data-colorfield]) button:focus-visible,:where([data-colorfield]) [contenteditable]:focus-visible{outline:2px solid var(--app-blue);outline-offset:2px}
+:where([data-colorfield][data-invalid]) input,:where([data-colorfield][data-invalid]) [contenteditable]{border-color:var(--color-error)}
+:where([data-colorfield]) [data-error]{color:var(--color-error-text);font-size:var(--t-small)}
+:where([data-colorfield]) [data-hint],:where([data-colorfield]) [data-fieldhint]{color:var(--app-dim);font-size:var(--t-small)}
+:where([data-colorrow]){display:flex;gap:var(--s2);align-items:center} :where([data-colorswatch]){width:var(--s10);height:var(--s10);border-radius:var(--r-sm);border:1px solid var(--app-line)} :where([data-colorrow]) input[type=color]{width:var(--s10);height:var(--s10);padding:0}

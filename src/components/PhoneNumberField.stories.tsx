@@ -1,0 +1,1 @@
+import {PhoneNumberField} from './PhoneNumberField'; import {useState} from 'react'; export default {title:'Forms/PhoneNumberField'}; export const Default=()=>{const [v,setV]=useState('');return <PhoneNumberField label='Phone' value={v} onChange={setV}/>}; export const Filled=()=> <PhoneNumberField label='Support' value='5551234567' onChange={()=>{}}/>;

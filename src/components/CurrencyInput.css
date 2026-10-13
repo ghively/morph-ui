@@ -1,0 +1,9 @@
+
+:where([data-currencyinput]){display:grid;gap:var(--s2);color:var(--app-text);font-size:var(--t-body)}
+:where([data-currencyinput]) label,:where([data-currencyinput]) [data-currencyinputlabel]{font-weight:600;font-size:var(--t-small)}
+:where([data-currencyinput]) input,:where([data-currencyinput]) textarea,:where([data-currencyinput]) [contenteditable]{min-height:var(--s10);border:1px solid var(--app-line);border-radius:var(--r-ctl);background:var(--morph-input-bg);color:var(--app-text);padding:var(--s2) var(--s3);font:inherit}
+:where([data-currencyinput]) input:focus-visible,:where([data-currencyinput]) button:focus-visible,:where([data-currencyinput]) [contenteditable]:focus-visible{outline:2px solid var(--app-blue);outline-offset:2px}
+:where([data-currencyinput][data-invalid]) input,:where([data-currencyinput][data-invalid]) [contenteditable]{border-color:var(--color-error)}
+:where([data-currencyinput]) [data-error]{color:var(--color-error-text);font-size:var(--t-small)}
+:where([data-currencyinput]) [data-hint],:where([data-currencyinput]) [data-fieldhint]{color:var(--app-dim);font-size:var(--t-small)}
+:where([data-currencycontrol]){display:flex;align-items:center;gap:var(--s1)} :where([data-currencycontrol]) input{flex:1;font-variant-numeric:tabular-nums}

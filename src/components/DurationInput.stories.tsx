@@ -1,0 +1,1 @@
+import {DurationInput} from './DurationInput'; import {useState} from 'react'; export default {title:'Forms/DurationInput'}; export const Default=()=>{const [v,setV]=useState(3661);return <DurationInput value={v} onChange={setV}/>}; export const Empty=()=> <DurationInput value={0} onChange={()=>{}}/>;

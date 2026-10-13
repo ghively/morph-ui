@@ -1,0 +1,1 @@
+import {TagInput} from './TagInput'; import {useState} from 'react'; export default {title:'Forms/TagInput'}; export const Default=()=>{const [v,setV]=useState(['React']);return <TagInput label='Tags' value={v} onChange={setV} suggestions={['TypeScript','Design','Forms']}/>}; export const Empty=()=> <TagInput label='Keywords' value={[]} onChange={()=>{}}/>;

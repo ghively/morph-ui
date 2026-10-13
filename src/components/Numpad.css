@@ -1,0 +1,9 @@
+
+:where([data-numpad]){display:grid;gap:var(--s2);color:var(--app-text);font-size:var(--t-body)}
+:where([data-numpad]) label,:where([data-numpad]) [data-numpadlabel]{font-weight:600;font-size:var(--t-small)}
+:where([data-numpad]) input,:where([data-numpad]) textarea,:where([data-numpad]) [contenteditable]{min-height:var(--s10);border:1px solid var(--app-line);border-radius:var(--r-ctl);background:var(--morph-input-bg);color:var(--app-text);padding:var(--s2) var(--s3);font:inherit}
+:where([data-numpad]) input:focus-visible,:where([data-numpad]) button:focus-visible,:where([data-numpad]) [contenteditable]:focus-visible{outline:2px solid var(--app-blue);outline-offset:2px}
+:where([data-numpad][data-invalid]) input,:where([data-numpad][data-invalid]) [contenteditable]{border-color:var(--color-error)}
+:where([data-numpad]) [data-error]{color:var(--color-error-text);font-size:var(--t-small)}
+:where([data-numpad]) [data-hint],:where([data-numpad]) [data-fieldhint]{color:var(--app-dim);font-size:var(--t-small)}
+:where([data-numpad]){max-width:calc(var(--s11) * 3);gap:var(--s2)} :where([data-numpadvalue]){display:block;text-align:end;border:1px solid var(--app-line);padding:var(--s3);font-variant-numeric:tabular-nums} :where([data-numpadkeys]){display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s1)} :where([data-numpadkeys]) button{min-height:var(--s10);border:1px solid var(--app-line);border-radius:var(--r-sm);background:var(--morph-btn-bg);color:var(--app-text)}
