@@ -1,0 +1,2 @@
+import { render, screen } from '@testing-library/react'; import { describe,it,expect } from 'vitest'; import { TraceWaterfall } from '../src/components/TraceWaterfall';
+describe('TraceWaterfall',()=>it('renders spans',()=>{render(<TraceWaterfall spans={[{id:'1',name:'Root',startMs:0,durationMs:12}]}/>);expect(screen.getByText('Root')).toBeTruthy();expect(screen.getByText('12ms total')).toBeTruthy();}));

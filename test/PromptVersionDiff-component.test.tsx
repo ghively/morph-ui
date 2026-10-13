@@ -1,0 +1,2 @@
+import { render, screen } from '@testing-library/react'; import { describe,it,expect } from 'vitest'; import { PromptVersionDiff } from '../src/components/PromptVersionDiff';
+describe('PromptVersionDiff',()=>it('renders both versions',()=>{render(<PromptVersionDiff before={{id:'1',label:'Old',lines:['one']}} after={{id:'2',label:'New',lines:['two']}}/>);expect(screen.getByText('Old')).toBeTruthy();expect(screen.getByText('New')).toBeTruthy();}));

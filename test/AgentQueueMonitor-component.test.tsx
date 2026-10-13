@@ -1,0 +1,2 @@
+import { render, screen } from '@testing-library/react'; import { describe,it,expect } from 'vitest'; import { AgentQueueMonitor } from '../src/components/AgentQueueMonitor';
+describe('AgentQueueMonitor',()=>it('renders lanes',()=>{render(<AgentQueueMonitor agents={[{id:'1',label:'Agent',lane:'running'}]}/>);expect(screen.getByText('Agent')).toBeTruthy();expect(screen.getByText('running')).toBeTruthy();}));

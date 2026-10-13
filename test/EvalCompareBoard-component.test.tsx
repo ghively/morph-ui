@@ -1,0 +1,2 @@
+import { render, screen } from '@testing-library/react'; import { describe,it,expect } from 'vitest'; import { EvalCompareBoard } from '../src/components/EvalCompareBoard';
+describe('EvalCompareBoard',()=>it('highlights winner',()=>{render(<EvalCompareBoard cards={[{id:'a',label:'A',model:'m',score:90,dimensions:[]},{id:'b',label:'B',model:'m',score:80,dimensions:[]}]}/>);expect(screen.getByText('WINNER')).toBeTruthy();}));

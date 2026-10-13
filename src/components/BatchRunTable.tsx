@@ -1,0 +1,8 @@
+import './BatchRunTable.css';
+export type BatchStatus = 'queued' | 'running' | 'succeeded' | 'failed' | 'cancelled';
+export interface BatchJob { id: string; label: string; status: BatchStatus; progress: number; duration?: number; resultHref?: string }
+export interface BatchRunTableProps { jobs: BatchJob[]; onCancel?: (id: string) => void; className?: string }
+const labels: Record<BatchStatus,string> = { queued:'Queued', running:'Running', succeeded:'Complete', failed:'Failed', cancelled:'Cancelled' };
+const duration = (n?: number) => n == null ? '—' : n < 1000 ? n + 'ms' : (n / 1000).toFixed(1) + 's';
+export function BatchRunTable({ jobs, onCancel, className = '' }: BatchRunTableProps) { return <div className={'batch-run-table ' + className} data-batch-runs=""><table><caption>Batch runs</caption><thead><tr><th>Job</th><th>Status</th><th>Progress</th><th>Duration</th><th>Result</th><th><span className="visually-hidden">Actions</span></th></tr></thead><tbody>{jobs.map(j => <tr key={j.id} data-status={j.status}><th scope="row"><strong>{j.label}</strong><small>{j.id}</small></th><td><span className="br-status">{labels[j.status]}</span></td><td><div className="br-progress" role="progressbar" aria-valuenow={j.progress} aria-valuemin={0} aria-valuemax={100}><i style={{width: Math.max(0, Math.min(100, j.progress)) + '%'}}/></div><small>{j.progress}%</small></td><td className="br-num">{duration(j.duration)}</td><td>{j.resultHref ? <a href={j.resultHref}>View result</a> : '—'}</td><td>{(j.status === 'queued' || j.status === 'running') && <button type="button" onClick={() => onCancel?.(j.id)}>Cancel</button>}</td></tr>)}</tbody></table></div> }
+export type { BatchRunTableProps as BatchTableProps };

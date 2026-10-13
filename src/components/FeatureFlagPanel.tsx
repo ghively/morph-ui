@@ -1,0 +1,5 @@
+import './FeatureFlagPanel.css';
+export type FlagState = 'on' | 'off' | 'partial';
+export interface FeatureFlag { id: string; label: string; state: FlagState; audience: number; modified: string }
+export interface FeatureFlagPanelProps { flags: FeatureFlag[]; onToggle?: (id: string) => void; className?: string }
+export function FeatureFlagPanel({ flags, onToggle, className = '' }: FeatureFlagPanelProps) { return <section className={'feature-flag-panel ' + className} data-feature-flags=""><header><div><span className="ff-kicker">RELEASE CONTROL</span><h2>Feature flags</h2></div><span className="ff-count">{flags.filter(f => f.state === 'on').length} active</span></header><div className="ff-list">{flags.map(f => <div className="ff-row" data-state={f.state} key={f.id}><button type="button" className="ff-switch" aria-label={'Toggle ' + f.label} aria-pressed={f.state === 'on'} onClick={() => onToggle?.(f.id)}><i/></button><div className="ff-name"><strong>{f.label}</strong><small>{f.id}</small></div><span className="ff-state">{f.state}</span><span className="ff-audience">{f.audience}% <small>audience</small></span><time>{f.modified}</time></div>)}</div></section> }

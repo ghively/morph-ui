@@ -1,0 +1,2 @@
+import { render, screen } from '@testing-library/react'; import { describe,it,expect } from 'vitest'; import { DatasetPreviewTable } from '../src/components/DatasetPreviewTable';
+describe('DatasetPreviewTable',()=>it('renders schema and rows',()=>{render(<DatasetPreviewTable rows={[{id:'1',values:{x:'value'}}]} schema={['x']}/>);expect(screen.getAllByText('x').length).toBeGreaterThan(0);expect(screen.getByText('value')).toBeTruthy();}));

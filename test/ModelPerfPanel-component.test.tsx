@@ -1,0 +1,2 @@
+import { render, screen } from '@testing-library/react'; import { describe,it,expect } from 'vitest'; import { ModelPerfPanel } from '../src/components/ModelPerfPanel';
+describe('ModelPerfPanel',()=>it('renders metrics',()=>{render(<ModelPerfPanel models={[{id:'m',model:'Model',latencyMs:10,tokensPerSec:20,cost:.1}]}/>);expect(screen.getAllByText('Model').length).toBeGreaterThan(0);expect(screen.getByText('10ms')).toBeTruthy();}));
