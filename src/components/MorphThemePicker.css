@@ -1,0 +1,21 @@
+.morph-theme-picker {
+  display: grid;
+  gap: var(--s2);
+  color: var(--app-dim);
+  font-size: var(--t-small);
+}
+
+.morph-theme-picker select {
+  min-height: 36px;
+  padding: var(--s2) var(--s3);
+  color: var(--app-text);
+  background: var(--app-panel);
+  border: 1px solid var(--app-line);
+  border-radius: var(--r-sm);
+  font: inherit;
+}
+
+.morph-theme-picker select:focus-visible {
+  outline: 2px solid var(--sec);
+  outline-offset: 2px;
+}

@@ -10,8 +10,10 @@
 // The published styles.css previously carried component rules but no token
 // DECLARATIONS, so a consumer got components referencing variables that did
 // not exist. Tokens and the opt-in frame layer now ship with the bundle;
-// frame.css is inert until something carries the `morph-frame` class.
+// frame.css is inert until something carries `.morph-frame`. The default frame
+// is lively-sage; built-in alternatives are selected with MorphRoot's `theme` prop.
 import "./tokens.css";
+import "./themes.css";
 import "./frame.css";
 // primitives.css: the [data-btn]/[data-chip]/[data-tile]… attribute layer the
 // components emit (previously only in ChatUIMorph app.css). Also frame-scoped.
@@ -19,6 +21,7 @@ import "./primitives.css";
 
 // Shared semantic vocabulary
 export * from "./tone";
+export * from "./themes";
 
 // Agent + data (original extraction set)
 export * from "./components/AgentPresence";
@@ -147,6 +150,7 @@ export * from "./components/AlertBanner";
 export * from "./components/HeroPanel";
 export * from "./components/StatusRowList";
 export * from "./components/MorphRoot";
+export * from "./components/MorphThemePicker";
 export * from "./components/AppFrame";
 export * from "./components/NavigationRail";
 export * from "./components/SidePanel";
