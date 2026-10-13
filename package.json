@@ -21,6 +21,7 @@
     "dist"
   ],
   "scripts": {
+    "prepare": "pnpm build",
     "build": "tsc --noEmit && vite build && tsc -p tsconfig.build.json",
     "test": "vitest run",
     "lint": "eslint . && pnpm lint:css",
