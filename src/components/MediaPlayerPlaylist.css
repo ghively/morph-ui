@@ -1,0 +1,4 @@
+/* host primitive reset */
+:where(.ml) [data-status], :where(.ml) [data-state], :where(.ml) [data-empty] { all: revert; }
+:where(.ml) p, :where(.ml) li { font: inherit; }
+.mpl{--c:var(--morph-accent);display:grid;gap:var(--s2);padding:var(--s3);background:var(--glass-bg);border:1px solid var(--app-line);border-radius:var(--r-lg)}.mpl-row{all:unset;box-sizing:border-box;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:var(--s3);padding:var(--s3);border-radius:var(--r-md);cursor:pointer}.mpl-row:hover,.mpl-row[data-active]{background:color-mix(in srgb,var(--c) 12%,transparent)}.mpl-row[data-active]{color:var(--c)}.mpl-row:focus-visible{outline:2px solid var(--c)}.mpl time{font-variant-numeric:tabular-nums;color:var(--app-dim);font-size:var(--t-small)}
