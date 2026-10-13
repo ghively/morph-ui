@@ -1,0 +1,7 @@
+import './Omnibar.css';
+import { useState } from 'react';
+import type { ReactNode } from 'react';
+export interface OmnibarSuggestion { id:string; label:ReactNode; description?:ReactNode; icon?:ReactNode; href?:string; onSelect?:()=>void; }
+export interface OmnibarProvider { id:string; label:string; icon?:ReactNode; }
+export interface OmnibarProps { value?:string; onChange?:(value:string)=>void; onSubmit?:(value:string)=>void; suggestions?:OmnibarSuggestion[]; providers?:OmnibarProvider[]; placeholder?:string; className?:string; }
+export function Omnibar({value,onChange,onSubmit,suggestions=[],providers=[],placeholder='Search or enter a URL',className=''}:OmnibarProps){const [open,setOpen]=useState(false);return <div className={className} data-omnibar=""><span data-omnibar-provider="" aria-hidden="true">{providers[0]?.icon??'⌕'}</span><input role="combobox" aria-expanded={open} aria-autocomplete="list" value={value} placeholder={placeholder} onFocus={()=>setOpen(true)} onChange={e=>{onChange?.(e.target.value);setOpen(true)}} onKeyDown={e=>{if(e.key==='Enter'){onSubmit?.(e.currentTarget.value);setOpen(false)}if(e.key==='Escape')setOpen(false)}}/>{open&&suggestions.length>0&&<ul role="listbox" data-omnibar-suggestions="">{suggestions.map(s=><li key={s.id}><a role="option" href={s.href??'#'} onClick={e=>{if(!s.href)e.preventDefault();s.onSelect?.();setOpen(false)}}>{s.icon}<span>{s.label}{s.description&&<small>{s.description}</small>}</span></a></li>)}</ul>}</div>}

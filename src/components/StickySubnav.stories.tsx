@@ -1,0 +1,1 @@
+import { StickySubnav } from './StickySubnav'; export default {title:'StickySubnav'}; export const Default=()=> <><StickySubnav title="Workspace" tabs={<span>Overview&nbsp;&nbsp; Activity</span>}/><div style={{height:800,paddingTop:100}}>Scroll to reveal the condensed subnav.</div></>;
