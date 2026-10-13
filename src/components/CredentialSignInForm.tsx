@@ -80,12 +80,12 @@ export function CredentialSignInForm(props: CredentialSignInFormProps) {
   };
 
   return (
-    <div className={className} style={{ maxWidth: 440 }}>
+    <div className={['csf-root', className].filter(Boolean).join(' ')} style={{ maxWidth: 440 }}>
       <HeroPanel title={title} description={description} maxWidth={440} />
       <form
         data-card=""
         data-pad="roomy"
-        style={{ display: "flex", flexDirection: "column", gap: "var(--s5)" }}
+        className="csf-form"
         aria-label="Sign in"
         onSubmit={handleSubmit}
       >
@@ -144,7 +144,7 @@ export function CredentialSignInForm(props: CredentialSignInFormProps) {
               data-busy={String(busy)}
               aria-busy={busy}
               disabled={busy}
-              style={{ position: "relative" }}
+              className="csf-submit"
             >
               {c.submitLabel}
               <i data-spin="" aria-hidden="true" />
@@ -159,7 +159,7 @@ export function CredentialSignInForm(props: CredentialSignInFormProps) {
         ) : null}
 
         {ssoProviders && ssoProviders.length > 0 && resolvedServer ? (
-          <div style={{ display: "flex", flexDirection: "column", gap: "var(--s2)" }}>
+          <div className="csf-sso">
             <div data-eyebrow="">{c.ssoEyebrow}</div>
             {ssoProviders.map(p => (
               <button

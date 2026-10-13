@@ -97,7 +97,7 @@ export function DirectoryBrowser(props: DirectoryBrowserProps) {
 
   return (
     <ModalSurface label="Browse rooms" title="Browse rooms" placement="center" width={640} height={620} onClose={onClose} className={className}>
-      <div style={{ flex: "none", padding: "0 var(--s6) var(--s4)", display: "flex", alignItems: "center", gap: "var(--s4)", flexWrap: "wrap" }}>
+      <div className="db-toolbar">
         <SegmentedControl<DirectoryTab>
           label="Room source"
           value={tab}
@@ -109,7 +109,7 @@ export function DirectoryBrowser(props: DirectoryBrowserProps) {
           ]}
         />
         {tab === "collections" && path.length > 0 ? (
-          <label style={{ display: "flex", alignItems: "center", gap: "var(--s2)", marginLeft: "auto", fontSize: "var(--t-meta)", color: "var(--app-dim)" }}>
+          <label className="db-suggested">
             Suggested only
             <ToggleSwitch
               on={suggestedOnly}
@@ -125,8 +125,8 @@ export function DirectoryBrowser(props: DirectoryBrowserProps) {
       ) : null}
 
       {tab === "directory" ? (
-        <div style={{ flex: "none", padding: "0 var(--s6) var(--s4)" }}>
-          <div data-searchcap="" style={{ maxWidth: "none" }}>
+        <div className="db-searchwrap">
+          <div data-searchcap="" className="db-searchcap" style={{ maxWidth: "none" }}>
             <GlyphIcon name="search" size={14} />
             <input
               value={query}
@@ -139,7 +139,7 @@ export function DirectoryBrowser(props: DirectoryBrowserProps) {
         </div>
       ) : null}
 
-      <div style={{ flex: 1, minHeight: 0, overflow: "auto", padding: "0 var(--s6) var(--s6)" }}>
+      <div className="db-list">
         {tab === "address" && address ? (
           <JoinByAddressForm address={address} />
         ) : (
@@ -202,7 +202,7 @@ function SpaceBar({ collections, path, onPathChange, collectionName }: { collect
   const root = path[0] ?? null;
   const trail = path.slice(1);
   return (
-    <div style={{ flex: "none", padding: "0 var(--s6) var(--s4)", display: "flex", alignItems: "center", gap: "var(--s2)", flexWrap: "wrap" }}>
+    <div className="db-spacebar" style={{ flex: "none", padding: "0 var(--s6) var(--s4)", display: "flex", alignItems: "center", gap: "var(--s2)", flexWrap: "wrap" }}>
       {collections.map((s) => (
         <button
           key={s.id}
@@ -216,7 +216,7 @@ function SpaceBar({ collections, path, onPathChange, collectionName }: { collect
         </button>
       ))}
       {trail.map((id: string, i: number) => (
-        <span key={id} style={{ display: "inline-flex", alignItems: "center", gap: "var(--s2)" }}>
+        <span key={id} className="db-crumb" style={{ display: "inline-flex", alignItems: "center", gap: "var(--s2)" }}>
           <span data-meta="" aria-hidden="true">
             /
           </span>
@@ -235,15 +235,22 @@ function SpaceBar({ collections, path, onPathChange, collectionName }: { collect
   );
 }
 
+function initials(name: string): string {
+  const parts = name.trim().split(/[\s_-]+/).filter(Boolean);
+  if (parts.length === 0) return '#';
+  if (parts.length === 1) return parts[0]!.slice(0, 2).toUpperCase();
+  return (parts[0]![0]! + parts[1]![0]!).toUpperCase();
+}
+
 function EntryRow({ entry, busy, error, onAct }: { entry: DirectoryEntry; busy: boolean; error?: string; onAct: (e: DirectoryEntry, kind: DirectoryEntryAction['kind'] | 'open') => void }) {
   const { action, name, isCollection, suggested, state, alias, memberLabel, description } = entry;
   const meta = [alias, memberLabel].filter(Boolean).join(" · ");
   
   return (
-    <div data-row="" role="listitem" data-size="lg" style={{ alignItems: "flex-start" }}>
-      <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'var(--app-line)', flex: 'none' }} />
+    <div data-row="" role="listitem" data-size="lg" className="db-row" style={{ alignItems: "flex-start" }}>
+      <div className="db-avatar" data-collection={isCollection ? '' : undefined} aria-hidden="true">{initials(name)}</div>
       <div style={{ minWidth: 0, flex: 1 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "var(--s2)", minWidth: 0 }}>
+        <div className="db-rowhead" style={{ display: "flex", alignItems: "center", gap: "var(--s2)", minWidth: 0 }}>
           <span data-strong="" data-ell="" style={{ minWidth: 0 }}>
             {name}
           </span>
@@ -254,7 +261,7 @@ function EntryRow({ entry, busy, error, onAct }: { entry: DirectoryEntry; busy: 
           {action.kind === "request" && state === "none" ? <span data-tag="">Ask to join</span> : null}
         </div>
         {meta ? (
-          <div data-meta="" data-ell="">
+          <div data-meta="" data-ell="" className="db-meta">
             {meta}
           </div>
         ) : null}
@@ -297,7 +304,7 @@ function JoinByAddressForm({ address }: { address: DirectoryAddressFormProps }) 
     onSubmit();
   };
   return (
-    <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: "var(--s4)" }}>
+    <form onSubmit={submit} className="db-address">
       <div data-formfield="">
         <label htmlFor="br-address">{label || 'Room address'}</label>
         <input
@@ -310,13 +317,13 @@ function JoinByAddressForm({ address }: { address: DirectoryAddressFormProps }) 
           spellCheck={false}
         />
       </div>
-      <div data-meta="">{hint || 'An alias (#room:server), a room ID (!id:server), or a matrix.to link. Private rooms still need an invite — you\'ll be told if this one does.'}</div>
+      <div data-meta="" className="db-addresshint">{hint || 'An alias (#room:server), a room ID (!id:server), or a matrix.to link. Private rooms still need an invite — you\'ll be told if this one does.'}</div>
       {error ? (
         <AlertBanner tone="danger" role="alert">
           <div>{error}</div>
         </AlertBanner>
       ) : null}
-      <button type="submit" data-btn="fill" data-state="" data-busy={String(busy)} disabled={busy || !value.trim()} style={{ position: "relative", alignSelf: "flex-start" }}>
+      <button type="submit" data-btn="fill" data-state="" data-busy={String(busy)} disabled={busy || !value.trim()} className="db-addressjoin" style={{ position: "relative", alignSelf: "flex-start" }}>
         {submitLabel || 'Join room'}
         <i data-spin="" aria-hidden="true" />
       </button>

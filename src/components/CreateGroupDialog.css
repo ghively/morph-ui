@@ -1,3 +1,46 @@
-/* CreateGroupDialog is built from the host primitive layer ([data-btn], [data-card], [data-spin] …),
-   which frame.css already holds to reduced motion under .morph-frame. Nothing here
-   animates, so this sheet deliberately declares no global rules. */
+/* CreateGroupDialog — visual polish (2026-10-14). Still on the host primitives; this
+   sheet gives the form its rhythm: --s4 gap, setrows as quiet inset tiles with a hairline
+   and focus-within edge-light, a mono invite input, and a glowing submit. */
+.cgd-form { --c: var(--app-blue); }
+
+/* host-primitive reset */
+:where(.cgd-form) [data-status], :where(.cgd-form)[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where(.cgd-form) [data-state], :where(.cgd-form)[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where(.cgd-form) [data-state]::before, :where(.cgd-form)[data-state]::before { content: none; }
+:where(.cgd-form) [data-empty], :where(.cgd-form)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+:where(.cgd-form) p { margin: 0; }
+
+.cgd-form {
+  padding: 0 var(--s6) var(--s6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--app-text) 20%, transparent) transparent;
+}
+
+.cgd-setrow {
+  border: 1px solid var(--app-line);
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--app-text) 3%, transparent);
+  padding: var(--s3) var(--s4);
+  transition: border-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx);
+}
+.cgd-setrow:focus-within {
+  border-color: color-mix(in srgb, var(--c) 35%, var(--app-line));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 0 18px -10px var(--c);
+}
+
+.cgd-submit { position: relative; align-self: flex-end; }
+.cgd-submit:not(:disabled):hover {
+  box-shadow: 0 0 24px -8px var(--c);
+}
+.cgd-submit:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--c) 75%, transparent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cgd-setrow, .cgd-submit { transition: none; }
+}

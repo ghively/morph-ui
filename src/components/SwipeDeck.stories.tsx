@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { SwipeDeck } from "./SwipeDeck";
 
 function swipeCard(title: string, body: string, accent: string) {
@@ -35,3 +36,15 @@ export const Default = () => (
     <SwipeDeck cards={cards} onSwipe={() => {}} />
   </div>
 );
+
+export const Empties = () => {
+  const [deck, setDeck] = useState(cards);
+  return (
+    <div style={{ padding: "3rem", display: "flex", justifyContent: "center" }}>
+      <SwipeDeck cards={deck} onSwipe={(_dir, i) => {
+        // drop the swiped card so the deck can reach its empty state
+        setDeck((prev) => prev.filter((_, idx) => idx !== i));
+      }} />
+    </div>
+  );
+};

@@ -249,3 +249,29 @@ There were about 60 component-level fixes. They are grouped below; see the commi
   - StatusRowList link titles render as links.
   - New optional props: MorphWizard `validationMessage`, PricingTierCard `toggleLabel`, and MarkdownNoteEditor `listEmptyTitle` / `listEmptyHint`.
 - **Stories.** Stories that showed nothing, or contradicted themselves, now demonstrate their component: MentionAutocomplete, MessageTimeline, SkeletonWrapper, Button loading, Select error, NavigationRail, RunTimeline and CodeDiffViewer.
+
+## Visual polish pass (2026-10-14)
+
+Twelve weak components restyled on branch `polish/visual-pass`. Every existing prop,
+`data-*` hook and class hook is unchanged (tests pass untouched); all colour derives from
+tokens via a local `--c` + `color-mix()`, sizes come from the `--s`/`--t`/`--r` scales,
+hover states carry an edge-light + accent glow, focus-visible rings use the accent, and
+every motion rule honours `prefers-reduced-motion`. Named skins (keyboards, laptop
+hardware) keep their literal palettes per the stylelint SKINS exemption, with color-mix
+derivation for secondary surfaces. Visual baselines drift by design — refresh with
+`pnpm test:visual -- --update-snapshots` at merge.
+
+| Component | Changes |
+|---|---|
+| SasVerificationPanel | Glyph tiles are now stepped chips (top sheen, inset shadow) with staggered spring reveal, hover lift + accent edge-glow, `:where(.root)` host-primitive reset, refined meta type. Stories: + incoming-request, waiting/done states. |
+| TactileKeyboardBoard | Deeper chassis bevel (two-layer inset + drop), per-colorway accent `--c` drives hover edge-light and actuation glow, tabular-nums legends, `:focus-visible` outline, press transition on `--ease-fx`, reduced-motion flattens key travel. Story: + retro and minimal pair. |
+| TactileKeyboardShowcase | Keycap side walls derive from the keycap colour via `color-mix` instead of flat black, accent caps get a matched ink + `--tk-glow` per colorway, hover edge-light on keycaps, focus ring follows the glow colour, pressed state gains a faint glow, deeper case drop shadow, tabular legends. Story: + cyber colorway. |
+| SplitFlapDisplay | Tile bodies get an inner ring + lower shading, flap faces carry a subtle top-light sheen (brighter mid-fold), glyph drop shadow, hinge shadow line, housing hairline ring, `tabular-nums` on the whole display. Fold motion unchanged. Story: counter is now interactive (advance button). |
+| DragIntroOrb | Orb rebuilt from token `color-mix` (no raw rgba blues), background gains a soft radial wash, dashed halo ring appears as the drag affordance and brightens while dragging, drag glow intensifies, `:focus-visible` ring on the orb (it is role=button), skip button is a 44px target with focus ring. |
+| LaptopFrame | Lid is machined aluminum (two-stop gradient + top edge-light), bezel has an inner ring and a glass sheen overlay, camera dot gets a rim light, base carries a highlight crest + hinge shadow, deeper foot blur shadow. |
+| KeyboardShowcase | Keys are sculpted per finish (top-lit gradient + `--kb-key-low`/`--kb-key-edge` derived via color-mix), hover edge-light + glow from `--kb-glow`, focus-visible ring, caps LED glow softened to a bloom, press travel on `--ease-fx`, tabular legends. |
+| CredentialSignInForm | Layout moved from inline styles to classes; card gets `--glass-edge` + raised elevation, `data-num` server names render mono tabular, submit hover glow + focus ring, SSO block separated by a hairline with eyebrow rhythm. Host-primitive reset added. Stories: + resolved, SSO-only, error states. |
+| CreateGroupDialog | Form rhythm from the `--s` scale with thin scrollbars, setrows become quiet inset tiles with `:focus-within` accent edge-light + glow, submit right-aligned with hover glow and focus ring. Stories: + collection mode, invites+error state. |
+| DirectoryBrowser | Entry rows are ruled (hairline separators + hover accent edge-light), plain grey avatar circle replaced by an initials tile tinted from the accent (collections use the cyan ramp, squarer radius), member counts/meta mono tabular, toolbar + search + scroll area get proper spacing rhythm and dark scrollbars, join-by-address form classes with glowing primary. Stories: + spaces (breadcrumbs), by-address, degraded error. |
+| VariablePromptInput | Label row carries an accent gradient rule, slot rows get a focus-within accent hairline on the left edge, filled marks underline in the accent with 1.5px thickness, run button glow tightened + inset sheen, mono/numeric text tabular. |
+| SwipeDeck | Card shells rebuilt from tokens: `color-mix` surface, top edge-light inset, layered drop shadows, top card hover invites the drag with accent border + glow, shadow transitions on `--ease-fx`. Swipe motion + reduced-motion fade unchanged. Story: + empty-state demo. |

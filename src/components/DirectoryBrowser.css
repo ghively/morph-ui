@@ -1,3 +1,99 @@
-/* DirectoryBrowser is built from the host primitive layer ([data-btn], [data-card], [data-spin] …),
-   which frame.css already holds to reduced motion under .morph-frame. Nothing here
-   animates, so this sheet deliberately declares no global rules. */
+/* DirectoryBrowser — visual polish (2026-10-14). Explore surface: dense, glanceable, no
+   marketing. Built on the host primitives; this sheet adds the craft layer: toolbar
+   rhythm, initials avatar tiles with a deterministic accent tint, ruled entry rows with
+   hover edge-light + accent glow, tabular member counts, dark scrollbars. */
+.db-root { --c: var(--app-blue); }
+
+/* host-primitive reset */
+:where(.db-root) [data-status], :where(.db-root)[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where(.db-root) [data-state], :where(.db-root)[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where(.db-root) [data-state]::before, :where(.db-root)[data-state]::before { content: none; }
+:where(.db-root) [data-empty], :where(.db-root)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+
+/* Toolbar: segmented source switch + suggested-only filter on one ruled band. */
+.db-toolbar {
+  flex: none;
+  padding: 0 var(--s6) var(--s4);
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  flex-wrap: wrap;
+}
+.db-suggested {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  margin-left: auto;
+  font-size: var(--t-meta);
+  color: var(--app-dim);
+  cursor: pointer;
+}
+
+.db-spacebar { margin-top: calc(-1 * var(--s2)); }
+.db-crumb [data-meta] { color: var(--app-faint); }
+
+.db-searchwrap { flex: none; padding: 0 var(--s6) var(--s4); }
+.db-searchcap { display: flex; align-items: center; gap: var(--s2); }
+
+.db-list { flex: 1; min-height: 0; overflow: auto; padding: 0 var(--s6) var(--s6); scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--app-text) 20%, transparent) transparent; }
+
+/* Entry rows: hairline separators, hover edge-light from the accent. */
+.db-row {
+  position: relative;
+  transition: background-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx);
+}
+.db-row + .db-row { border-top: 1px solid color-mix(in srgb, var(--app-line) 60%, transparent); }
+.db-row::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--s3);
+  right: var(--s3);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--app-blue) 55%, transparent), transparent);
+  opacity: 0;
+  transition: opacity var(--d2) var(--ease-fx);
+  pointer-events: none;
+}
+.db-row:hover { background: color-mix(in srgb, var(--app-text) 3%, transparent); }
+.db-row:hover::before { opacity: 1; }
+
+/* Avatar tile: initials on a tinted chip, collections get the cyan side of the ramp. */
+.db-avatar {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--t-ctl);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--app-blue) 75%, var(--app-text));
+  background: color-mix(in srgb, var(--app-blue) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--app-blue) 26%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.db-avatar[data-collection] {
+  color: color-mix(in srgb, var(--app-cyan-ink) 80%, var(--app-text));
+  background: color-mix(in srgb, var(--app-cyan-ink) 12%, transparent);
+  border-color: color-mix(in srgb, var(--app-cyan-ink) 26%, transparent);
+  border-radius: var(--r-xs);
+}
+
+.db-meta {
+  font-variant-numeric: tabular-nums;
+  font-family: var(--app-mono);
+  font-size: var(--t-meta);
+}
+
+/* Join-by-address: quiet form, mono hint, glowing primary. */
+.db-address { display: flex; flex-direction: column; gap: var(--s4); padding-top: var(--s2); }
+.db-addresshint { max-width: 60ch; line-height: 1.5; color: var(--app-faint); }
+.db-addressjoin:not(:disabled):hover { box-shadow: 0 0 24px -8px var(--app-blue); }
+
+@media (prefers-reduced-motion: reduce) {
+  .db-row, .db-row::before { transition: none; }
+}

@@ -17,3 +17,10 @@ export const Neon = () => (
     <TactileKeyboardBoard colorway="neon" onKeyPress={() => {}} />
   </div>
 );
+
+export const RetroAndMinimal = () => (
+  <div style={{ padding: "2rem", display: "flex", flexWrap: "wrap", gap: 32 }}>
+    <TactileKeyboardBoard colorway="retro" onKeyPress={() => {}} />
+    <TactileKeyboardBoard colorway="minimal" onKeyPress={() => {}} />
+  </div>
+);

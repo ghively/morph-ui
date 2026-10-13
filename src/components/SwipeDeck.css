@@ -1,4 +1,9 @@
+/* SwipeDeck — visual polish (2026-10-14). Card shells now use tokens + color-mix
+   instead of a flat black scrim shadow: local accent --c = --app-blue, hover edge-light
+   and glow on the top card, eased stack depth. Swipe motion and reduced-motion
+   behaviour unchanged. */
 [data-swipe-deck] {
+  --c: var(--app-blue);
   position: relative;
   width: 100%;
   height: 100%;
@@ -26,16 +31,19 @@
   min-width: var(--swipe-card-min-w, 240px);
   min-height: var(--swipe-card-min-h, 240px);
   overflow: hidden;
-  background: var(--app-bg);
+  background: color-mix(in srgb, var(--app-elev) 88%, transparent);
   border: 1px solid var(--app-line);
   border-radius: var(--r-md, 12px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    0 16px 32px -12px rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
   align-items: center;
   user-select: none;
   touch-action: none;
-  transition: transform var(--d3, 300ms) var(--ease-spring);
+  transition: transform var(--d3, 300ms) var(--ease-spring), box-shadow var(--d3, 300ms) var(--ease-fx);
   transform-origin: 50% 100%;
 }
 
@@ -47,6 +55,16 @@
 
 .swipe-pos-0:active {
   cursor: grabbing;
+}
+
+/* Top card hover: edge-light + accent glow invite the drag. */
+.swipe-pos-0:hover {
+  border-color: color-mix(in srgb, var(--c) 30%, var(--app-line));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    0 20px 40px -12px rgba(0, 0, 0, 0.45),
+    0 0 28px -12px var(--c);
 }
 
 .swipe-pos-1 {
