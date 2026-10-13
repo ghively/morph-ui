@@ -249,3 +249,22 @@ There were about 60 component-level fixes. They are grouped below; see the commi
   - StatusRowList link titles render as links.
   - New optional props: MorphWizard `validationMessage`, PricingTierCard `toggleLabel`, and MarkdownNoteEditor `listEmptyTitle` / `listEmptyHint`.
 - **Stories.** Stories that showed nothing, or contradicted themselves, now demonstrate their component: MentionAutocomplete, MessageTimeline, SkeletonWrapper, Button loading, Select error, NavigationRail, RunTimeline and CodeDiffViewer.
+
+## DATA_SHELL (shipped, 2026-10-13, branch feat/data-shell)
+
+Ten new data/app-shell components (original morph-ui designs). Shared helpers live in `src/components/dataShell.shared.tsx` (not exported): `cv`, `fixedOrigin`, pointer-drag/keyboard conventions, UTC-safe date math (`dayFloor`, `addDays`, `addMonthsSafe`, `dowShift`, `monthLabel`). Every stylesheet opens with the `:where()` host-primitive reset, sets local accent `--c` from `--state-*`/`--series-*` tokens, honours reduced motion, and uses thin dark scrollbars + `tabular-nums` on numeric text.
+
+| Component | What it is | Notable API |
+|---|---|---|
+| TreeTable | Hierarchical rows with expand/collapse carets and column sort (siblings sort within each level) | `defaultExpandedIds`, `defaultSortKey/Dir`, `onSortChange`, `onExpandedChange`, `rowMeta`, `data-treetable-*` hooks |
+| KanbanBoard | Columns + draggable cards; pointer-capture drag with fixed-position ghost (FluidWorkspaceBoard pattern), keyboard ←/→ moves cards | `defaultPlacements`/`controlledPlacements`, `onPlacementsChange`, `wipLimit` per column (flags `data-over`), tone rails per card |
+| GanttTimeline | Task bars with dependency arrows (pure SVG elbows), progress fill, today rule, zoom day/week/month | `zoom`/`onZoomChange`, `now` (deterministic), `span`, `dependsOn`, `progress`, `onTaskActivate` |
+| CalendarBoard | Month grid with event chips, prev/next/today nav, optional pointer-drag to move chips between days | `month`/`onMonthChange`, `weekStartsOn`, `now`, `draggable`, `onEventMove`, `data-cal-*` hooks |
+| TimelineStream | Vertical activity feed: marker rail with connectors, tone nodes, live pulse on active | `showTimes`, `newestFirst`, `onItemActivate`, `data-tstream-*` hooks |
+| VirtualizedList | Windowed rows over a scroll container (fixed row height, spacer divs, overscan) | `rowHeight` (required), `overscan`, `height`, `onVisibleRangeChange`, `data-vlist-*` hooks |
+| SortableList | Reorder via drag handles (pointer capture) or Ctrl/⌘+↑/↓ | `defaultOrder`/`controlledOrder`, `onReorder`, `handles`, `data-slist-*` hooks |
+| InboxTriage | Decision queue: accept/snooze/decline per row with exit animation and header counts | `onAccept`/`onSnooze`/`onDecline`, `snoozeOptions`, `showCounts`, `data-triage-*` hooks |
+| SplitPane | Resizable two-pane with draggable divider (pointer capture), keyboard steps, dbl-click reset | `orientation`, `defaultSize`, `size` (controlled), `minSize`, `onResize` (persistence hook), `data-split-*` hooks |
+| DashboardGrid | 12-col grid container with editable tile layout: add from palette, remove, Ctrl/⌘+arrows reorder | `editable`, `addableTiles`, `onAdd`/`onRemove`, `onOrderChange`, `colSpan`/`rowSpan` per tile, `data-dash-*` hooks |
+
+Files shipped: `src/components/dataShell.shared.tsx`, `src/components/{TreeTable,KanbanBoard,GanttTimeline,CalendarBoard,TimelineStream,VirtualizedList,SortableList,InboxTriage,SplitPane,DashboardGrid}.{tsx,css,stories.tsx}`, `test/{TreeTable,KanbanBoard,GanttTimeline,CalendarBoard,TimelineStream,VirtualizedList,SortableList,InboxTriage,SplitPane,DashboardGrid}-component.test.tsx`, plus export lines in `src/index.ts`.

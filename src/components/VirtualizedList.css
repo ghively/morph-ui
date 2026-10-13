@@ -1,0 +1,46 @@
+/* VirtualizedList — DATA_SHELL batch (2026-10). Scroll container with windowed
+   rows. Dense, quiet; only the rows carry ink. Original morph-ui design. */
+
+/* host-primitive reset */
+:where([data-vlist]) [data-status], :where([data-vlist])[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where([data-vlist]) [data-state], :where([data-vlist])[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where([data-vlist]) [data-state]::before, :where([data-vlist])[data-state]::before { content: none; }
+:where([data-vlist]) [data-empty], :where([data-vlist])[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+
+[data-vlist] {
+  color: var(--app-text);
+  font: inherit;
+  overflow-y: auto;
+  border: 1px solid var(--app-line);
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--app-elev) 45%, transparent);
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--app-text) 20%, transparent) transparent;
+  outline: none;
+}
+
+[data-vlist]:focus-visible {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--app-blue) 45%, transparent);
+}
+
+[data-vlist-viewport] { position: relative; }
+
+[data-vlist-window] {
+  display: grid;
+  grid-template-rows: repeat(auto-fill, 1fr);
+  will-change: transform;
+}
+
+[data-vlist-row] {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  min-width: 0;
+  padding: 0 var(--s4);
+  border-bottom: 1px solid var(--app-line-soft);
+  font-size: var(--t-body);
+  overflow: hidden;
+}
+
+[data-vlist-row]:last-child { border-bottom: none; }
+[data-vlist-row]:hover { background: var(--app-hover); }
