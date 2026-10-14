@@ -1,0 +1,108 @@
+/* SyncStatusIndicator: idle/syncing/offline/conflict pill with animated icon. */
+:where([data-sync]) [data-status], :where([data-sync])[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where([data-sync]) [data-state], :where([data-sync])[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where([data-sync]) [data-state]::before, :where([data-sync])[data-state]::before { content: none; }
+:where([data-sync]) [data-empty], :where([data-sync])[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+:where([data-sync]) :is(p, li) { font-size: inherit; line-height: inherit; }
+
+[data-sync] {
+  --c: var(--state-ok);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: var(--s1) var(--s3);
+  border-radius: var(--r-pill);
+  font: inherit;
+  font-size: var(--t-small);
+  font-weight: 600;
+  color: var(--morph-fg);
+  background: color-mix(in srgb, var(--c) 9%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 26%, transparent);
+  max-width: 100%;
+}
+
+[data-sync][data-status='syncing'] { --c: var(--state-live); }
+[data-sync][data-status='offline'] { --c: var(--state-idle); }
+[data-sync][data-status='conflict'] { --c: var(--state-warn); }
+
+[data-syncicon] {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 14px;
+  height: 14px;
+  color: var(--c);
+}
+
+[data-syncicon] svg { display: block; }
+
+.sync-ghost {
+  opacity: 0.45;
+}
+
+/* syncing: orbit ring + moon that chases itself */
+[data-sync][data-status='syncing'] [data-syncicon] svg {
+  animation: sync-spin 1.3s var(--ease-cycle) infinite;
+}
+
+[data-syncorbit] {
+  stroke: color-mix(in srgb, var(--c) 35%, transparent);
+}
+
+[data-syncmoon] {
+  fill: var(--c);
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--c) 60%, transparent));
+}
+
+@keyframes sync-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* offline: gentle breathing to say "alive but cut off" */
+[data-sync][data-status='offline'] [data-syncicon] {
+  animation: sync-breathe 2.4s var(--ease-swell) infinite;
+}
+
+@keyframes sync-breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+/* conflict: single shake on mount */
+[data-sync][data-status='conflict'] [data-syncicon] {
+  animation: sync-nudge 0.5s var(--ease-spring) 1;
+}
+
+@keyframes sync-nudge {
+  0%, 100% { transform: translateX(0); }
+  30% { transform: translateX(-1.5px); }
+  60% { transform: translateX(1.5px); }
+}
+
+[data-synclabel] {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+[data-syncmeta] {
+  font-weight: 400;
+  font-size: var(--t-num);
+  color: var(--app-dim);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: var(--s1);
+  border-left: 1px solid color-mix(in srgb, var(--c) 30%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-sync][data-status='syncing'] [data-syncicon] svg,
+  [data-sync][data-status='offline'] [data-syncicon],
+  [data-sync][data-status='conflict'] [data-syncicon] {
+    animation: none;
+  }
+}

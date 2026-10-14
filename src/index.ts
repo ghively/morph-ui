@@ -231,6 +231,7 @@ export * from "./components/GaugeChart";
 export * from "./components/FunnelChart";
 export * from "./components/ShortcutHelp";
 export * from "./components/TabbedListScreen";
+<<<<<<< HEAD
 // Data + app-shell expansion (data-shell batch)
 export * from "./components/TreeTable";
 export * from "./components/KanbanBoard";
@@ -255,6 +256,19 @@ export * from "./components/CanvasStatusBar";
 export * from "./components/SectionOutline";
 export * from "./components/LiveCursors";
 
+=======
+// Feedback + status batch
+export * from "./components/ProgressRing";
+export * from "./components/MultiStepProgress";
+export * from "./components/OnboardingSpotlight";
+export * from "./components/TourOverlay";
+export * from "./components/ErrorState";
+export * from "./components/SyncStatusIndicator";
+export * from "./components/QuotaMeter";
+export * from "./components/RateLimitNotice";
+export * from "./components/HealthCheckPanel";
+export * from "./components/MaintenanceMode";
+>>>>>>> feat/feedback
 
 // Media library
 export {

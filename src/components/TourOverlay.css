@@ -1,0 +1,78 @@
+/* TourOverlay: sequence chrome drawn inside the OnboardingSpotlight coach tooltip. */
+:where([data-tour]) [data-status], :where([data-tour])[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where([data-tour]) [data-state], :where([data-tour])[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where([data-tour]) [data-state]::before, :where([data-tour])[data-state]::before { content: none; }
+:where([data-tour]) [data-empty], :where([data-tour])[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+:where([data-tour]) :is(p, li) { font-size: inherit; line-height: inherit; }
+
+[data-tour] {
+  font: inherit;
+  color: var(--morph-fg);
+}
+
+[data-tourdots] {
+  display: flex;
+  gap: var(--s2);
+  align-items: center;
+  margin-top: var(--s2);
+}
+
+[data-tourdot] {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border-radius: var(--r-pill);
+  border: none;
+  cursor: pointer;
+  background: color-mix(in srgb, var(--app-text) 22%, transparent);
+  transition: background-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx), transform var(--d2) var(--ease-emph);
+}
+
+[data-tourdot]:hover { background: color-mix(in srgb, var(--app-text) 40%, transparent); }
+
+[data-tourdot][data-done] { background: color-mix(in srgb, var(--c, var(--morph-accent)) 55%, transparent); }
+
+[data-tourdot][data-on] {
+  background: var(--c, var(--morph-accent));
+  box-shadow: 0 0 8px -1px var(--c, var(--morph-accent));
+  transform: scale(1.25);
+}
+
+[data-tourdot]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c, var(--morph-accent)) 30%, transparent);
+}
+
+[data-tournav] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  margin-top: var(--s1);
+}
+
+[data-tourback] {
+  font: inherit;
+  font-size: var(--t-num);
+  font-weight: 600;
+  color: var(--app-dim);
+  background: none;
+  border: none;
+  padding: 0;
+  min-height: 24px;
+  cursor: pointer;
+}
+
+[data-tourback]:hover { color: var(--morph-fg); }
+
+[data-tourback]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c, var(--morph-accent)) 30%, transparent);
+  border-radius: var(--r-2xs);
+}
+
+[data-tourhint] {
+  font-size: var(--t-num);
+  color: var(--app-faint);
+  margin-left: auto;
+}

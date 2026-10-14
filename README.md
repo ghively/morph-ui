@@ -4,7 +4,7 @@ Component library extracted from [ChatUIMorph](https://github.com/ghively/ChatUI
 
 Philosophy: **available, not forced.** Components exist because they're good designs, not because a surface currently needs them. Every component ships with tests + provenance; nothing depends on ChatUIMorph app code.
 
-## Components (205)
+## Components (215)
 
 Grouped as in `src/index.ts`. Every component has `X.tsx`, `X.css` and `X.stories.tsx` in `src/components/`.
 
@@ -18,6 +18,7 @@ Grouped as in `src/index.ts`. Every component has `X.tsx`, `X.css` and `X.storie
 | Primitives | Button, TextField, TextArea, NumberInput, OtpInput, Select, Checkbox, RadioGroup, ToggleSwitch, SegmentedControl, FormField, Badge, Card, Divider, KeyValueList, Link, Tabs, Tooltip, Accordion, ProgressBar, Spinner, Pagination, InitialsAvatar, AvatarStack, GlyphIcon, Stepper, Breadcrumbs |
 | Forms + overlays | Combobox, MultiSelect, DropdownMenu, Drawer, Slider, ConfirmDialog, TreeView, FileDropzone, Popover, SearchField, FilterBar, DateRangePicker |
 | Charts + dashboard | DataTable, KpiCard, BarChart, LineChart, DonutChart, GaugeChart, FunnelChart |
+| Feedback + status | ProgressRing, MultiStepProgress, OnboardingSpotlight, TourOverlay, ErrorState, SyncStatusIndicator, QuotaMeter, RateLimitNotice, HealthCheckPanel, MaintenanceMode |
 | Motion + effects | AmbientState, AgentTopologyView, AnimatedMediaTabs, AuroraGlowCard, ScrollPinnedSequence, BeforeAfterCompare, CanvasText, PulseOrb, ColorArchiveScroll, ConfettiCannon, BloomSheet, CoverFlowCarousel, DeviceFrame, DragIntroOrb, ExpandingCardGrid, FanHoverStack, FloatingDock, FollowCursorLabel, GlassEnvelopeCard, GlobeCard, InfiniteMarquee, InteractiveGlobe, LaptopFrame, LiquidNavMenu, LiquidRippleImage, MagneticButton, MorphWizard, MorphingBlobBackground, OrbitalCarousel, ParticleImage, PerspectiveMarquee, RefractionGlassPanel, ScrollStackCards, ScrubRevealMedia, SearchMorphInput, TerminalEmulator, TactileKeyboardShowcase, FeatureChipHopper, GradientBlindBackdrop, DimensionalBookCover, KeyboardShowcase, CardDeckReveal, PricingTierCard, PrismOrb, SkeletonWrapper, SplitFlapDisplay, SwipeDeck, TactileKeyboardBoard |
 | Text effects | LineFillText, TextPath, TextRipple, TextScribble, TextShimmer, TextSpectrum, TextWordFlip, TextBlurReveal, TextCharSlide, TextChromaReveal, TextCycle, TextFlip, TextGlitch, TextHighlight, TextMorphing, TextMotion |
 | Media library | MediaArtwork, PosterCard, MediaShelf, MediaHero, EpisodeList, CastStrip, MediaInfoBadges, LibraryGrid, PlayerScrubber, TrackPicker, NowPlayingBar, AlbumTrackList, CollectionTile, ActiveSessions, LibraryScanStatus, ArtworkPicker, IdentifyMatch, ProfilePicker, RequestCard, LiveTvGuide, ArrItemStatus, DownloadQueue, ReleaseCalendar, IndexerHealth |

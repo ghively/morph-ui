@@ -1,0 +1,163 @@
+/* ErrorState: friendly failure panel with retry action and a details code block. */
+:where([data-errorstate]) [data-status], :where([data-errorstate])[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where([data-errorstate]) [data-state], :where([data-errorstate])[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where([data-errorstate]) [data-state]::before, :where([data-errorstate])[data-state]::before { content: none; }
+:where([data-errorstate]) [data-empty], :where([data-errorstate])[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+:where([data-errorstate]) :is(p, li) { font-size: inherit; line-height: inherit; }
+
+[data-errorstate] {
+  --c: var(--morph-danger);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+  padding: var(--s6);
+  border-radius: var(--r-lg);
+  border: 1px solid color-mix(in srgb, var(--c) 26%, var(--app-line));
+  background: color-mix(in srgb, var(--c) 5%, var(--app-panel));
+  font: inherit;
+  color: var(--morph-fg);
+  max-width: 480px;
+}
+
+[data-errhead] {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+  min-width: 0;
+}
+
+[data-errmark] {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-sm);
+  color: var(--c);
+  background: color-mix(in srgb, var(--c) 12%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 24%, transparent);
+}
+
+[data-errtitles] {
+  flex: 1;
+  min-width: 0;
+}
+
+[data-errtitle] {
+  margin: 0;
+  font-size: var(--t-h4);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+[data-errbody] {
+  margin: var(--s1) 0 0;
+  font-size: var(--t-small);
+  line-height: 1.45;
+  color: var(--app-dim);
+}
+
+[data-errcode] {
+  flex: none;
+  font-family: var(--app-mono);
+  font-size: var(--t-num);
+  font-weight: 700;
+  color: var(--c);
+  padding: var(--s1) var(--s2);
+  border-radius: var(--r-2xs);
+  background: color-mix(in srgb, var(--c) 10%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 22%, transparent);
+  font-variant-numeric: tabular-nums;
+}
+
+[data-erractions] {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  flex-wrap: wrap;
+}
+
+[data-erractions] > :first-child {
+  font: inherit;
+  font-size: var(--t-small);
+  font-weight: 600;
+  min-height: 34px;
+  padding: 0 var(--s5);
+  border-radius: var(--r-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  color: var(--on-accent);
+  background: var(--c);
+  transition: background-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx);
+}
+
+[data-erractions] > :first-child:hover {
+  background: color-mix(in srgb, var(--c) 82%, white 18%);
+  box-shadow: 0 0 12px -2px color-mix(in srgb, var(--c) 60%, transparent);
+}
+
+[data-erractions] > :first-child:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 30%, transparent);
+}
+
+[data-erractions] > :not(:first-child) {
+  font: inherit;
+  font-size: var(--t-small);
+  color: var(--app-dim);
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+}
+
+[data-errdetails] {
+  border-radius: var(--r-sm);
+  border: 1px solid var(--app-line);
+  background: var(--app-code);
+}
+
+[data-errdetails] summary {
+  cursor: pointer;
+  list-style: none;
+  padding: var(--s2) var(--s3);
+  font-size: var(--t-num);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--app-faint);
+  user-select: none;
+}
+
+[data-errdetails] summary::-webkit-details-marker { display: none; }
+
+[data-errdetails] summary::before {
+  content: '▸';
+  display: inline-block;
+  margin-right: var(--s2);
+  transition: transform var(--d2) var(--ease-fx);
+}
+
+[data-errdetails][open] summary::before { transform: rotate(90deg); }
+
+[data-errdetails] summary:hover { color: var(--app-dim); }
+
+[data-errdetails] summary:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--app-text) 24%, transparent);
+  border-radius: var(--r-sm);
+}
+
+[data-errpre] {
+  margin: 0;
+  padding: var(--s2) var(--s3) var(--s3);
+  font-family: var(--app-mono);
+  font-size: var(--t-num);
+  line-height: 1.5;
+  color: var(--code-ink);
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--app-text) 20%, transparent) transparent;
+  white-space: pre;
+}
+
+[data-errpre] code { font: inherit; }
