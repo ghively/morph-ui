@@ -270,6 +270,18 @@ export * from "./components/HealthCheckPanel";
 export * from "./components/MaintenanceMode";
 >>>>>>> feat/feedback
 
+// Navigation + layout
+export * from "./components/MegaMenu";
+export * from "./components/TabBar";
+export * from "./components/SectionNav";
+export * from "./components/CommandBar";
+export * from "./components/Omnibar";
+export * from "./components/PageHeader";
+export * from "./components/StickySubnav";
+export * from "./components/PanelGrid";
+export * from "./components/ContentMaxWidth";
+export * from "./components/KeyKbd";
+
 // Media library
 export {
   type MediaItem,
