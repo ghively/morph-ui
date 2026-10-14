@@ -1,1 +1,2 @@
-.citation-inline{color:var(--sec-ink,var(--app-blue));text-decoration:none}.citation-inline sup{font-size:var(--t-xs)}
+.citation-inline { color: var(--app-text); text-decoration: none; }
+.citation-inline sup { font-size: var(--t-xs); }

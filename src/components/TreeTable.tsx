@@ -184,7 +184,7 @@ export function TreeTable<TRow extends Record<string, unknown>>({
                           data-kids={hasChildren ? '' : undefined}
                           data-open={isOpen || undefined}
                           aria-expanded={hasChildren ? isOpen : undefined}
-                          aria-label={hasChildren ? `${isOpen ? 'Collapse' : 'Expand'} ${String(node.data[col.key] ?? node.id)}` : undefined}
+                          aria-label={hasChildren ? `${isOpen ? 'Collapse' : 'Expand'} ${String(node.data[col.key] ?? node.id)}` : `No children for ${String(node.data[col.key] ?? node.id)}`}
                           disabled={!hasChildren}
                           onClick={() => hasChildren && toggle(node.id)}
                         >

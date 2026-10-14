@@ -50,11 +50,11 @@ export function TimelineStream({
   const ordered = newestFirst ? [...items].reverse() : items;
 
   return (
-    <ol className={className} data-tstream="" aria-label={label}>
+    <div className={className} data-tstream="" aria-label={label}>
       {ordered.map((item, i) => {
         const last = i === ordered.length - 1;
         const interactive = !!onItemActivate;
-        const Row = interactive ? 'li' : 'li';
+        const Row = 'div';
         return (
           <Row
             key={item.id}
@@ -93,7 +93,7 @@ export function TimelineStream({
           </Row>
         );
       })}
-      {items.length === 0 && <li data-tstream-empty="">No activity yet.</li>}
-    </ol>
-  );
+      {items.length === 0 && <div data-tstream-empty="">No activity yet.</div>}
+    </div>
+    );
 }

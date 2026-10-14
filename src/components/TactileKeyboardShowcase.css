@@ -188,3 +188,14 @@
     transform: none;
   }
 }
+
+/* Keep each named keycap palette's ink above the 4.5:1 text threshold. */
+.colorway-classic .modifier .keycap-label,
+.colorway-retro .modifier .keycap-label { color: #1b1c1f; }
+.colorway-classic .key-esc .keycap-label,
+.colorway-classic .key-enter .keycap-label,
+.colorway-retro .key-esc .keycap-label,
+.colorway-retro .key-enter .keycap-label,
+.colorway-cyber .modifier .keycap-label { color: #fff; }
+.colorway-cyber .key-esc .keycap-label,
+.colorway-cyber .key-enter .keycap-label { color: #111; }

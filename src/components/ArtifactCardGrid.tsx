@@ -88,7 +88,6 @@ export function ArtifactCardGrid({ artifacts, selectedId, onSelect, onOpen, now,
             data-selected={selected ? 'true' : 'false'}
             role="option"
             aria-selected={selected}
-            tabIndex={0}
             ref={(el) => { cardRefs.current[a.id] = el; }}
             onClick={() => { onSelect?.(a.id); }}
             onDoubleClick={() => onOpen?.(a.id)}
@@ -111,14 +110,13 @@ export function ArtifactCardGrid({ artifacts, selectedId, onSelect, onOpen, now,
               <span className="cv-artifact-kind">{a.meta ?? ARTIFACT_KIND_LABEL[kind]}</span>
               {a.updatedAt && <time dateTime={a.updatedAt}>{fmtRel(a.updatedAt, now)}</time>}
             </span>
-            <button
-              type="button"
+            <span
               className="cv-artifact-open"
               data-artifact-open={a.id}
               onClick={(e) => { e.stopPropagation(); onOpen?.(a.id); }}
             >
               Open
-            </button>
+            </span>
           </div>
         );
       })}

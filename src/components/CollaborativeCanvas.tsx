@@ -88,7 +88,7 @@ export function CollaborativeCanvas({
       onKeyDown={onKeyDown}
       tabIndex={-1}
     >
-      <div className="cv-canvas-viewport" data-canvas-viewport="">
+      <div className="cv-canvas-viewport" data-canvas-viewport="" role="region" tabIndex={0} aria-label="Canvas viewport">
         <div
           className="cv-canvas-content"
           data-canvas-content=""

@@ -115,7 +115,6 @@ export function KanbanBoard({
   const cardProps = (card: KanbanCard) => ({
     'data-kanban-card': '',
     'data-card-id': card.id,
-    role: 'listitem' as const,
     tabIndex: 0,
     'aria-label': `${card.title}${card.meta ? ', ' + card.meta : ''}`,
     onKeyDown: (e: KeyboardEvent<HTMLDivElement>) => onCardKeyDown(e, card),
@@ -166,7 +165,7 @@ export function KanbanBoard({
 
   return (
     <div ref={boardRef} className={className} data-kanban-board="" aria-label={label}>
-      <div data-kanban-columns="" role="list">
+      <div data-kanban-columns="">
         {columns.map((col) => {
           const colCards = byColumn.get(col.id) ?? [];
           const over = colCards.length > (col.wipLimit ?? Infinity);
@@ -176,7 +175,7 @@ export function KanbanBoard({
                 <h3>{col.title}</h3>
                 <span data-kanban-count="">{`${colCards.length}${col.wipLimit != null ? `/${col.wipLimit}` : ''}`}</span>
               </header>
-              <div data-kanban-cards="" role="list">
+              <div data-kanban-cards="">
                 {colCards.map((card) => (
                   <div
                     key={card.id}

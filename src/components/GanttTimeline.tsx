@@ -155,7 +155,7 @@ export function GanttTimeline({
         </div>
 
         <div data-gantt-chart="">
-          <div data-gantt-ticks="" role="row">
+          <div data-gantt-ticks="">
             {ticks.map((tick, i) => (
               <span key={i} data-gantt-tick="" style={{ left: `${(i / span) * 100}%`, width: `${100 / span}%` }}>
                 {tick.label}

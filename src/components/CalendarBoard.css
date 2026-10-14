@@ -96,7 +96,7 @@
 }
 
 [data-cal-cell]:first-child { border-left: none; }
-[data-cal-cell]:not([data-inmonth]) { opacity: 0.45; }
+[data-cal-cell]:not([data-inmonth]) { opacity: 1; }
 [data-cal-cell]:hover { background: var(--app-hover); }
 [data-cal-cell][data-dropping] {
   background: color-mix(in srgb, var(--app-blue) 10%, transparent);
@@ -105,7 +105,7 @@
 
 [data-cal-daynum] {
   font-size: var(--t-small);
-  color: var(--app-dim);
+  color: var(--app-text);
   font-variant-numeric: tabular-nums;
 }
 
