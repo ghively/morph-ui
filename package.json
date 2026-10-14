@@ -1,6 +1,6 @@
 {
   "name": "@ghively/morph-ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Morph UI \u2014 component library extracted from ChatUIMorph. Concept-reference components, not app code.",
   "type": "module",
   "license": "MIT",
@@ -62,5 +62,12 @@
       "esbuild",
       "msw"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/ghively/morph-ui.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   }
 }
