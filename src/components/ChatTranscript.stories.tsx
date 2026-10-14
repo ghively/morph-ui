@@ -1,0 +1,1 @@
+import type {StoryDefault,Story} from '@ladle/react'; import { ChatTranscript } from './ChatTranscript'; export default {title:'AI Artifacts / ChatTranscript'} satisfies StoryDefault; export const Default:Story=()=> <ChatTranscript children={<p>Messages appear here.</p>}/>; export const Empty:Story=()=> <ChatTranscript children={<p>Messages appear here.</p>}/>;

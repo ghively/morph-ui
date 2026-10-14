@@ -1,0 +1,1 @@
+import type {StoryDefault,Story} from '@ladle/react'; import { AttachmentsRow } from './AttachmentsRow'; export default {title:'AI Artifacts / AttachmentsRow'} satisfies StoryDefault; export const Default:Story=()=> <AttachmentsRow attachments={[{id:"1",name:"report.pdf",type:"application/pdf",progress:68}]}/>; export const Empty:Story=()=> <AttachmentsRow attachments={[]}/>;

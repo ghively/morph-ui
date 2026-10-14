@@ -1,0 +1,1 @@
+import type {StoryDefault,Story} from '@ladle/react'; import { ChatFeedbackBar } from './ChatFeedbackBar'; export default {title:'AI Artifacts / ChatFeedbackBar'} satisfies StoryDefault; export const Default:Story=()=> <ChatFeedbackBar value="up"/>; export const Empty:Story=()=> <ChatFeedbackBar value="up"/>;

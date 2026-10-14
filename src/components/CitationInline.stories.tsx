@@ -1,0 +1,1 @@
+import type {StoryDefault,Story} from '@ladle/react'; import { CitationInline } from './CitationInline'; export default {title:'AI Artifacts / CitationInline'} satisfies StoryDefault; export const Default:Story=()=> <CitationInline sourceId="a"/>; export const Empty:Story=()=> <CitationInline sourceId="a"/>;

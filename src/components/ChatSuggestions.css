@@ -1,0 +1,1 @@
+.chatsuggestions{display:flex;flex-wrap:wrap;gap:var(--s2)}.chatsuggestions button,.chatmodelbadge{border:1px solid var(--app-line);border-radius:var(--r-pill);background:var(--app-panel);color:var(--app-text);padding:var(--s2) var(--s3);cursor:pointer}

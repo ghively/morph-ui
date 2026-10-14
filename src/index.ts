@@ -125,6 +125,16 @@ export * from "./components/FormField";
 export * from "./components/GlyphIcon";
 
 // Chat
+export * from "./components/ChatMessage";
+export * from "./components/ChatTranscript";
+export * from "./components/ChatSuggestions";
+export * from "./components/ChatModelBadge";
+export * from "./components/ThinkingProcess";
+export * from "./components/SourceGrounding";
+export * from "./components/CitationInline";
+export * from "./components/UsageFooter";
+export * from "./components/ChatFeedbackBar";
+export * from "./components/AttachmentsRow";
 export * from "./components/MessageTimeline";
 export * from "./components/ReactionBar";
 export * from "./components/MessageContent";

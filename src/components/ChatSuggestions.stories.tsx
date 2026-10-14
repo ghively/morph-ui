@@ -1,0 +1,1 @@
+import type {StoryDefault,Story} from '@ladle/react'; import { ChatSuggestions } from './ChatSuggestions'; export default {title:'AI Artifacts / ChatSuggestions'} satisfies StoryDefault; export const Default:Story=()=> <ChatSuggestions suggestions={["Summarize this","Draft a plan"]}/>; export const Empty:Story=()=> <ChatSuggestions suggestions={[]}/>;
