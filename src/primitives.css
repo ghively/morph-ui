@@ -377,8 +377,8 @@
 @media (prefers-reduced-transparency: reduce) {
 :where(.morph-frame, [data-morph-frame]) [data-frame] {
     --blur: 0px;
-    --app-panel: #171f4d;
-    --app-elev: #202a63;
+    --app-panel: color-mix(in srgb, var(--app-bg) 82%, var(--app-blue) 18%);
+    --app-elev: color-mix(in srgb, var(--app-bg) 72%, var(--app-blue) 28%);
   }
 :where(.morph-frame, [data-morph-frame]) [data-theme="light"][data-frame] {
     --app-panel: #cdddf6;
@@ -393,7 +393,7 @@
   }
 }
 :where(.morph-frame, [data-morph-frame]) [data-glass="layers"] {
-  --app-bg: #0a0f33;
+  --app-bg: color-mix(in srgb, var(--app-panel) 92%, var(--app-blue) 8%);
 }
 :where(.morph-frame, [data-morph-frame]) [data-frame][data-theme="light"] {
   --cpi-blue-500: var(--sec-ink);
@@ -412,8 +412,8 @@
 :where(.morph-frame, [data-morph-frame]) [data-glass="full"],
 :where(.morph-frame, [data-morph-frame]) [data-glass="layers"] {
   --blur: 16px;
-  --app-panel: rgba(27, 37, 92, 0.55);
-  --app-elev: rgba(34, 46, 112, 0.72);
+  --app-panel: color-mix(in srgb, var(--app-bg) 80%, var(--app-blue) 20%);
+  --app-elev: color-mix(in srgb, var(--app-bg) 70%, var(--app-blue) 30%);
 }
 :where(.morph-frame, [data-morph-frame]) [data-theme="light"][data-glass="full"],
 :where(.morph-frame, [data-morph-frame]) [data-theme="light"][data-glass="layers"] {
@@ -422,8 +422,8 @@
 }
 :where(.morph-frame, [data-morph-frame]) [data-glass="off"] {
   --blur: 0px;
-  --app-panel: #171f4d;
-  --app-elev: #202a63;
+  --app-panel: color-mix(in srgb, var(--app-bg) 82%, var(--app-blue) 18%);
+  --app-elev: color-mix(in srgb, var(--app-bg) 72%, var(--app-blue) 28%);
 }
 :where(.morph-frame, [data-morph-frame]) [data-theme="light"][data-glass="off"] {
   --app-panel: #cdddf6;

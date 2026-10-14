@@ -1,5 +1,13 @@
 # MorphUI polish log
 
+## Theme completion: lively-sage full coverage (2026-10-14)
+
+- Added `scripts/theme-audit.mjs`, which derives color-valued tokens from `src/tokens.css`, scans component/primitives/frame CSS consumption, reports missing theme overrides, and flags legacy navy literals.
+- Completed consumed-color coverage for `lively-sage`, `jade-citrus`, and `genehively-terminal` (153 overrides per theme block); translucent surfaces derive from each theme's accent/line tokens, while inks, scrims, glass, tooltip, rail, code, and elevation aliases resolve through the active palette.
+- Added `test/theme-completeness.test.tsx`; it independently recomputes the token/consumption audit and fails with each missing token grouped by theme.
+- Replaced remaining legacy navy glass/elevation literals in `src/primitives.css` with `color-mix()` derivations.
+
+
 ## FEEDBACK + STATUS batch (2026-10-13)
 
 Ten new components (original morph-ui designs), each `tsx/css/stories` + exported from the index under a "Feedback + status batch" comment. Tests: `test/feedback-status.test.tsx` (36 tests). All four gates green; visual baselines captured for every new story.
