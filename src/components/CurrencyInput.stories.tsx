@@ -1,0 +1,1 @@
+import {CurrencyInput} from './CurrencyInput'; import {useState} from 'react'; export default {title:'Forms/CurrencyInput'}; export const Default=()=>{const [v,setV]=useState<number|null>(1250);return <CurrencyInput label='Budget' value={v} onChange={setV} min={0} max={100000}/>}; export const Empty=()=> <CurrencyInput label='Amount' value={null} onChange={()=>{}}/>;

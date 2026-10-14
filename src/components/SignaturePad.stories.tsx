@@ -1,0 +1,1 @@
+import {SignaturePad} from './SignaturePad'; import {useState} from 'react'; export default {title:'Forms/SignaturePad'}; export const Default=()=>{const [v,setV]=useState('');return <SignaturePad value={v} onChange={setV}/>}; export const Disabled=()=> <SignaturePad value='' onChange={()=>{}} disabled/>;

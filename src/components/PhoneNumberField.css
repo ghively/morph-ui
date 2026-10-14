@@ -1,0 +1,9 @@
+
+:where([data-phonenumberfield]){display:grid;gap:var(--s2);color:var(--app-text);font-size:var(--t-body)}
+:where([data-phonenumberfield]) label,:where([data-phonenumberfield]) [data-phonenumberfieldlabel]{font-weight:600;font-size:var(--t-small)}
+:where([data-phonenumberfield]) input,:where([data-phonenumberfield]) textarea,:where([data-phonenumberfield]) [contenteditable]{min-height:var(--s10);border:1px solid var(--app-line);border-radius:var(--r-ctl);background:var(--morph-input-bg);color:var(--app-text);padding:var(--s2) var(--s3);font:inherit}
+:where([data-phonenumberfield]) input:focus-visible,:where([data-phonenumberfield]) button:focus-visible,:where([data-phonenumberfield]) [contenteditable]:focus-visible{outline:2px solid var(--app-blue);outline-offset:2px}
+:where([data-phonenumberfield][data-invalid]) input,:where([data-phonenumberfield][data-invalid]) [contenteditable]{border-color:var(--color-error)}
+:where([data-phonenumberfield]) [data-error]{color:var(--color-error-text);font-size:var(--t-small)}
+:where([data-phonenumberfield]) [data-hint],:where([data-phonenumberfield]) [data-fieldhint]{color:var(--app-dim);font-size:var(--t-small)}
+:where([data-phonecontrol]){display:grid;grid-template-columns:auto 1fr;position:relative;align-items:center} :where([data-phonecountry]){padding:var(--s2);color:var(--app-dim)} :where([data-phonecontrol]) input{grid-column:2} :where([data-phonemask]){grid-column:2;color:var(--app-dim);pointer-events:none;position:absolute;inset-inline-start:var(--s3);opacity:.7}

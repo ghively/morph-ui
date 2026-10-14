@@ -1,0 +1,9 @@
+
+:where([data-richtexteditor]){display:grid;gap:var(--s2);color:var(--app-text);font-size:var(--t-body)}
+:where([data-richtexteditor]) label,:where([data-richtexteditor]) [data-richtexteditorlabel]{font-weight:600;font-size:var(--t-small)}
+:where([data-richtexteditor]) input,:where([data-richtexteditor]) textarea,:where([data-richtexteditor]) [contenteditable]{min-height:var(--s10);border:1px solid var(--app-line);border-radius:var(--r-ctl);background:var(--morph-input-bg);color:var(--app-text);padding:var(--s2) var(--s3);font:inherit}
+:where([data-richtexteditor]) input:focus-visible,:where([data-richtexteditor]) button:focus-visible,:where([data-richtexteditor]) [contenteditable]:focus-visible{outline:2px solid var(--app-blue);outline-offset:2px}
+:where([data-richtexteditor][data-invalid]) input,:where([data-richtexteditor][data-invalid]) [contenteditable]{border-color:var(--color-error)}
+:where([data-richtexteditor]) [data-error]{color:var(--color-error-text);font-size:var(--t-small)}
+:where([data-richtexteditor]) [data-hint],:where([data-richtexteditor]) [data-fieldhint]{color:var(--app-dim);font-size:var(--t-small)}
+:where([data-richtexteditor]) [data-richtoolbar]{display:flex;gap:var(--s1)} :where([data-richtexteditor]) [data-richtoolbar] button,:where([data-richtexteditor]) button{min-width:var(--s10);min-height:var(--s10);border:1px solid var(--app-line);border-radius:var(--r-sm);background:var(--morph-btn-bg);color:var(--app-text)} :where([data-richtexteditor]) [data-richcontent]{min-height:var(--s11)}
