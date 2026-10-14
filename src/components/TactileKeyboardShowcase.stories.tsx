@@ -6,6 +6,12 @@ export const Default = () => (
   </div>
 );
 
+export const Cyber = () => (
+  <div style={{ padding: "2rem" }}>
+    <TactileKeyboardShowcase colorway="cyber" />
+  </div>
+);
+
 export const RetroWithSound = () => (
   <div style={{ padding: "2rem" }}>
     <TactileKeyboardShowcase colorway="retro" enableSound />

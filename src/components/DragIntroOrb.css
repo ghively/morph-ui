@@ -1,3 +1,8 @@
+/* DragIntroOrb — visual polish (2026-10-14). Orb built from token color-mix instead of
+   raw rgba blues: accent --c = --app-blue, glow derived. Adds a halo that brightens while
+   dragging (drag hint), a focus-visible ring on the orb (it is role=button), and an
+   underlined skip affordance with a 44px hit target. Float + transitions respect
+   reduced motion. */
 .drag-intro-container {
   position: relative;
   display: flex;
@@ -7,7 +12,9 @@
   width: 100%;
   height: 100vh; /* Usually intro takes full screen */
   overflow: hidden;
-  background: var(--app-bg);
+  background:
+    radial-gradient(60% 50% at 50% 42%, color-mix(in srgb, var(--app-blue) 10%, transparent), transparent 70%),
+    var(--app-bg);
   transition: opacity var(--d5) var(--ease-morph);
 }
 
@@ -19,26 +26,65 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), var(--app-blue) 40%, var(--app-bg) 120%);
-  box-shadow: 
-    0 10px 30px rgba(0,0,0,0.5),
-    inset 0 0 20px rgba(255,255,255,0.2),
-    inset 0 0 40px var(--app-blue);
+  background: radial-gradient(
+    circle at 30% 30%,
+    color-mix(in srgb, #fff 40%, transparent),
+    var(--app-blue) 40%,
+    color-mix(in srgb, var(--app-bg) 60%, var(--app-blue)) 120%
+  );
+  box-shadow:
+    0 16px 40px -12px rgba(0, 0, 0, 0.6),
+    0 0 44px -12px color-mix(in srgb, var(--app-blue) 70%, transparent),
+    inset 0 0 20px rgba(255, 255, 255, 0.2),
+    inset 0 0 40px color-mix(in srgb, var(--app-blue) 45%, transparent);
   cursor: grab;
   touch-action: none;
-  transition: transform var(--d2) var(--ease-spring), width var(--d3) var(--ease-morph), height var(--d3) var(--ease-morph);
+  transition: transform var(--d2) var(--ease-spring), width var(--d3) var(--ease-morph), height var(--d3) var(--ease-morph), box-shadow var(--d2) var(--ease-fx);
   position: relative;
   overflow: hidden;
-  animation: float-orb 6s ease-in-out infinite;
+  animation: float-orb 6s var(--ease-swell) infinite;
 }
 
 .drag-orb:active {
   cursor: grabbing;
 }
 
+/* Halo: faint ring that reads as the drag affordance; brightens while dragging. */
+.drag-orb::after {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1px dashed color-mix(in srgb, var(--app-blue) 40%, transparent);
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity var(--d3) var(--ease-fx), transform var(--d3) var(--ease-morph);
+  pointer-events: none;
+}
+
+.drag-intro-container:not(.entered) .drag-orb::after {
+  opacity: 0.5;
+  transform: scale(1);
+}
+
 .drag-orb.dragging {
   transition: none; /* Instant follow */
   animation: none;
+  box-shadow:
+    0 8px 24px -8px rgba(0, 0, 0, 0.55),
+    0 0 64px -8px color-mix(in srgb, var(--app-blue) 85%, transparent),
+    inset 0 0 20px rgba(255, 255, 255, 0.24),
+    inset 0 0 40px color-mix(in srgb, var(--app-blue) 55%, transparent);
+}
+
+.drag-orb.dragging::after {
+  opacity: 0.9;
+  border-color: color-mix(in srgb, var(--app-blue) 70%, transparent);
+}
+
+.drag-orb:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--app-blue) 80%, transparent);
+  outline-offset: 16px;
 }
 
 .entered .drag-orb {
@@ -55,13 +101,15 @@
   width: 30%;
   height: 30%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
   transform: rotate(-45deg);
 }
 
 .drag-intro-skip {
   position: absolute;
   bottom: 2rem;
+  min-height: 44px;
+  padding: 0 var(--s4);
   background: none;
   border: none;
   color: var(--app-dim);
@@ -77,6 +125,12 @@
   color: var(--app-text);
 }
 
+.drag-intro-skip:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--app-blue) 75%, transparent);
+  outline-offset: 4px;
+  border-radius: var(--r-xs);
+}
+
 @keyframes float-orb {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-20px); }
@@ -86,5 +140,11 @@
 @media (prefers-reduced-motion: reduce) {
   .drag-orb {
     animation: none;
+  }
+  .drag-orb::after {
+    transition: none;
+  }
+  .entered .drag-orb {
+    transition: opacity var(--d2) var(--ease-fx);
   }
 }

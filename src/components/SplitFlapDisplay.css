@@ -1,4 +1,9 @@
+/* SplitFlapDisplay — visual polish (2026-10-14). Split-flap modules: deeper tile body,
+   luminous flap faces, hairline hinge, tabular numerals. Local accent --c tints the
+   housing; glyphs stay the frame ink for legibility. Motion unchanged (fold halves),
+   still disabled under reduced motion. */
 [data-split-flap-display] {
+  --c: var(--app-blue);
   display: inline-flex;
   gap: var(--s1, 4px);
   background-color: var(--app-bg);
@@ -7,7 +12,9 @@
   font-family: var(--app-mono);
   font-weight: bold;
   font-size: 1.5rem;
+  font-variant-numeric: tabular-nums;
   color: var(--app-text);
+  box-shadow: inset 0 0 0 1px var(--app-line);
 }
 
 .flap-character {
@@ -17,7 +24,10 @@
   background-color: var(--cpi-gray-700);
   border-radius: var(--r-xs);
   perspective: 400px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px color-mix(in srgb, var(--app-text) 7%, transparent),
+    inset 0 -6px 12px -8px rgba(0, 0, 0, 0.7);
 }
 
 .flap-top,
@@ -37,6 +47,16 @@
   box-shadow: inset 0 0 0 1px var(--cpi-gray-600);
 }
 
+/* Faces read slightly lit from above; folds start brighter mid-flip. */
+.flap-top,
+.flap-bottom {
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 60%);
+}
+.flap-top-fold,
+.flap-bottom-fold {
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+}
+
 /* One full-tile-height glyph, centred; each half shows its own slice of it. */
 .flap-glyph {
   position: absolute;
@@ -47,6 +67,7 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
 }
 
 .flap-top, .flap-top-fold {
@@ -83,6 +104,7 @@
   height: 1px;
   transform: translateY(-50%);
   background-color: var(--app-bg);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
   z-index: 3;
   pointer-events: none;
 }

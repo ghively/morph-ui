@@ -24,3 +24,59 @@ export const Default: Story = () => {
       />
     );
 };
+
+export const ServerResolved: Story = () => {
+    const [username, setUsername] = useState('gregory');
+    const [password, setPassword] = useState('••••••••');
+    return (
+      <CredentialSignInForm
+        title="Sign in"
+        description="Your gateway"
+        server="example.org"
+        onServerChange={() => {}}
+        probe="ok"
+        resolvedServer="https://matrix.example.org"
+        username={username}
+        onUsernameChange={setUsername}
+        password={password}
+        onPasswordChange={setPassword}
+        onSubmit={() => {}}
+      />
+    );
+};
+
+export const SsoOnly: Story = () => (
+  <CredentialSignInForm
+    title="Sign in"
+    description="Your gateway"
+    server="corp.example.org"
+    onServerChange={() => {}}
+    probe="ok"
+    resolvedServer="https://corp.example.org"
+    passwordEnabled={false}
+    username=""
+    onUsernameChange={() => {}}
+    password=""
+    onPasswordChange={() => {}}
+    ssoProviders={[{ id: 'google', name: 'Google' }, { id: 'github', name: 'GitHub' }]}
+    onSso={() => {}}
+    onSubmit={() => {}}
+  />
+);
+
+export const ErrorState: Story = () => (
+  <CredentialSignInForm
+    title="Sign in"
+    description="Your gateway"
+    server="example.org"
+    onServerChange={() => {}}
+    probe="ok"
+    resolvedServer="https://matrix.example.org"
+    username="gregory"
+    onUsernameChange={() => {}}
+    password="hunter2"
+    onPasswordChange={() => {}}
+    onSubmit={() => {}}
+    error="Wrong password. 3 attempts left."
+  />
+);

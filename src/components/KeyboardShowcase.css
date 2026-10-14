@@ -1,3 +1,7 @@
+/* KeyboardShowcase — visual polish (2026-10-14). Named skin: finishes are the variant,
+   literals allowed (stylelint SKINS). This pass: sculpted keycaps (top-lit gradient +
+   bottom shading derived from each finish's palette via color-mix), hover edge-light,
+   visible focus ring on keys, subtler caps LED with glow, smoother press travel. */
 .keyboard-showcase {
   display: flex;
   justify-content: center;
@@ -12,10 +16,11 @@
   background: var(--kb-chassis-bg, #e3e4e6);
   border-radius: var(--r-md);
   padding: calc(var(--s2) * 1.5) var(--s2);
-  box-shadow: 
-    0 10px 30px rgba(0,0,0,0.1),
-    inset 0 1px 1px rgba(255,255,255,0.8),
-    inset 0 -1px 2px rgba(0,0,0,0.1);
+  box-shadow:
+    0 12px 36px -8px rgba(0, 0, 0, 0.28),
+    0 24px 56px -20px rgba(0, 0, 0, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.1);
   border: 1px solid var(--kb-chassis-border, #d1d1d1);
 }
 
@@ -24,21 +29,30 @@
   --kb-chassis-bg: linear-gradient(180deg, #e3e4e6 0%, #d5d6d8 100%);
   --kb-chassis-border: #b3b3b3;
   --kb-key-bg: #ffffff;
+  --kb-key-low: #dcdedd;
+  --kb-key-edge: #c6c7c9;
   --kb-key-text: #333333;
+  --kb-glow: #4a7dca;
 }
 
 .finish-space-gray {
   --kb-chassis-bg: linear-gradient(180deg, #6c6d70 0%, #5b5c5f 100%);
   --kb-chassis-border: #4a4a4a;
   --kb-key-bg: #2a2a2a;
+  --kb-key-low: #202020;
+  --kb-key-edge: #3d3d3f;
   --kb-key-text: #e0e0e0;
+  --kb-glow: #4a7dca;
 }
 
 .finish-dark {
   --kb-chassis-bg: linear-gradient(180deg, #2c2c2e 0%, #1c1c1e 100%);
   --kb-chassis-border: #111111;
   --kb-key-bg: #1c1c1e;
+  --kb-key-low: #131315;
+  --kb-key-edge: #333336;
   --kb-key-text: #ffffff;
+  --kb-glow: #4a7dca;
 }
 
 .keyboard-keys-container {
@@ -55,12 +69,13 @@
 
 .keyboard-key {
   position: relative;
-  background: var(--kb-key-bg);
+  background: linear-gradient(180deg, var(--kb-key-bg) 0%, var(--kb-key-low) 100%);
   color: var(--kb-key-text);
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid var(--kb-key-edge, rgba(0, 0, 0, 0.05));
   border-radius: var(--r-xs);
   font-family: var(--font-sans);
   font-size: var(--t-xs);
+  font-variant-numeric: tabular-nums;
   padding: var(--s1);
   display: flex;
   align-items: flex-end;
@@ -69,11 +84,27 @@
   height: 40px;
   cursor: pointer;
   user-select: none;
-  box-shadow: 
-    0 1px 1px rgba(0,0,0,0.1),
-    inset 0 1px 0 rgba(255,255,255,0.2);
-  transition: transform 50ms ease, box-shadow 50ms ease;
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.1),
+    0 2px 3px -1px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: transform 60ms var(--ease-fx), box-shadow 60ms var(--ease-fx), border-color var(--d2) var(--ease-fx);
   will-change: transform;
+}
+
+/* Hover: keytop picks up a faint edge-light. */
+.keyboard-key:hover:not(.pressed) {
+  border-color: color-mix(in srgb, var(--kb-glow) 40%, var(--kb-key-edge, transparent));
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.1),
+    0 3px 8px -3px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 12px -5px var(--kb-glow);
+}
+
+.keyboard-key:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--kb-glow) 80%, transparent);
+  outline-offset: 1px;
 }
 
 .keyboard-row:first-child .keyboard-key {
@@ -114,7 +145,7 @@
 
 .keyboard-key.pressed {
   transform: translateY(1px);
-  box-shadow: 0 0 0 rgba(0,0,0,0);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
 
 .caps-led {
@@ -124,12 +155,13 @@
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
+  transition: background var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx);
 }
 
 .caps-led.on {
   background: #34c759;
-  box-shadow: 0 0 4px #34c759;
+  box-shadow: 0 0 5px rgba(52, 199, 89, 0.9), 0 0 1px #34c759;
 }
 
 .keyboard-key-group {

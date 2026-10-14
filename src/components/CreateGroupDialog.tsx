@@ -108,8 +108,7 @@ export function CreateGroupDialog(props: CreateGroupDialogProps) {
     <ModalSurface label={title} title={title} placement="center" width={520} onClose={onClose}>
       <form
         onSubmit={handleSubmit}
-        style={{ padding: "0 var(--s6) var(--s6)", display: "flex", flexDirection: "column", gap: "var(--s4)", overflow: "auto" }}
-        className={className}
+        className={['cgd-form', className].filter(Boolean).join(' ')}
       >
         <div data-formfield="">
           <label htmlFor="cg-name">{c.nameLabel}</label>
@@ -133,7 +132,7 @@ export function CreateGroupDialog(props: CreateGroupDialogProps) {
             maxLength={300}
           />
         </div>
-        <div data-setrow="">
+        <div data-setrow="" className="cgd-setrow">
           <div>
             <h4>{c.collectionToggleHeading}</h4>
             <p>{c.collectionToggleHelp}</p>
@@ -162,7 +161,7 @@ export function CreateGroupDialog(props: CreateGroupDialogProps) {
             </select>
           </div>
         ) : null}
-        <div data-setrow="">
+        <div data-setrow="" className="cgd-setrow">
           <div>
             <h4>{c.publicHeading}</h4>
             <p>{c.publicHelp}</p>
@@ -174,7 +173,7 @@ export function CreateGroupDialog(props: CreateGroupDialogProps) {
           />
         </div>
         {!isCollection ? (
-          <div data-setrow="">
+          <div data-setrow="" className="cgd-setrow">
             <div>
               <h4>{c.encryptionHeading}</h4>
               <p>{encrypted ? c.encryptionOnHelp : c.encryptionOffHelp}</p>
@@ -207,7 +206,7 @@ export function CreateGroupDialog(props: CreateGroupDialogProps) {
           data-state=""
           data-busy={String(busy)}
           disabled={busy || !name.trim()}
-          style={{ position: "relative" }}
+          className="cgd-submit"
         >
           {c.submitLabel}
           <i data-spin="" aria-hidden="true" />
