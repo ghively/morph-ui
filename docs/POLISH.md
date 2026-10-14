@@ -22,6 +22,21 @@ Complement map (no duplication): ProgressBar = linear bar / ProgressRing = circu
 Files: `src/components/{ProgressRing,MultiStepProgress,OnboardingSpotlight,TourOverlay,ErrorState,SyncStatusIndicator,QuotaMeter,RateLimitNotice,HealthCheckPanel,MaintenanceMode}.{tsx,css,stories.tsx}`, `test/feedback-status.test.tsx`, `src/index.ts`, `e2e/__screenshots__/` baselines.
 
 # AGENT_DATA polish log
+## Media viewer batch (feat/media-2)
+
+| Component | Change |
+|---|---|
+| ImageViewer | Zoom/pan image surface with wheel, drag, fit/100% controls and keyboard zoom |
+| Lightbox | Full-screen image overlay with navigation, counter, caption and Escape close |
+| GalleryGrid | Responsive thumbnail grid wired to Lightbox |
+| AudioPlayerCard | Native audio card with play, seek, time and playback speed |
+| WaveformPlayer | Canvas waveform with click-to-seek and progress controls |
+| VideoPlayerCard | Styled native video surface with poster, play and seek controls |
+| QRCodeCard | Tokenized pure-SVG renderer accepting a matrix prop |
+| FilePreviewTile | Generic file metadata tile with typed icon and actions |
+| MediaPlayerPlaylist | Keyboard-friendly active track list with durations |
+| CropGuideOverlay | Rule-of-thirds crop overlay; used instead of duplicating existing BeforeAfterCompare |
+
 
 Shared rules extracted so far (in `src/tokens.css`, "agent state + glass surface layer"):
 
