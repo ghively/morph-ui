@@ -1,0 +1,36 @@
+/* host-primitive reset */
+:where(.cv-minimap) [data-status], :where(.cv-minimap)[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where(.cv-minimap) [data-state], :where(.cv-minimap)[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where(.cv-minimap) [data-state]::before, :where(.cv-minimap) [data-state]::before { content: none; }
+:where(.cv-minimap) [data-empty], :where(.cv-minimap)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+:where(.cv-minimap) p, :where(.cv-minimap) li { font-size: inherit; }
+
+.cv-minimap {
+  --c: var(--app-blue);
+  position: relative;
+  max-width: 100%;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--app-line);
+  background:
+    radial-gradient(color-mix(in srgb, var(--app-text) 9%, transparent) 1px, transparent 1.2px) 0 0 / var(--s1h) var(--s1h),
+    var(--app-panel);
+  cursor: crosshair;
+  touch-action: none;
+  user-select: none;
+  font-family: var(--font-sans);
+}
+
+.cv-minimap:focus-visible {
+  outline: none;
+  border-color: color-mix(in srgb, var(--c) 55%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--c) 40%, transparent);
+}
+
+.cv-minimap-viewport {
+  position: absolute;
+  border-radius: var(--r-2xs);
+  border: 1.5px solid color-mix(in srgb, var(--c) 85%, var(--app-text));
+  background: color-mix(in srgb, var(--c) 14%, transparent);
+  box-shadow: 0 0 10px -2px color-mix(in srgb, var(--c) 70%, transparent), inset 0 0 0 1px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}

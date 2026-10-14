@@ -222,6 +222,19 @@ export * from "./components/FunnelChart";
 export * from "./components/ShortcutHelp";
 export * from "./components/TabbedListScreen";
 
+// Canvas / artifact surfaces (collaborative document + artifact batch)
+export * from "./components/CollaborativeCanvas";
+export * from "./components/CanvasToolbar";
+export * from "./components/CanvasVersionRail";
+export * from "./components/InlineCommentThread";
+export * from "./components/ArtifactCardGrid";
+export * from "./components/CanvasMiniMap";
+export * from "./components/PresenceAvatarCluster";
+export * from "./components/CanvasStatusBar";
+export * from "./components/SectionOutline";
+export * from "./components/LiveCursors";
+
+
 // Media library
 export {
   type MediaItem,

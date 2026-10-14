@@ -1,0 +1,146 @@
+/* host-primitive reset */
+:where(.cv-presence) [data-status], :where(.cv-presence)[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where(.cv-presence) [data-state], :where(.cv-presence)[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where(.cv-presence) [data-state]::before, :where(.cv-presence)[data-state]::before { content: none; }
+:where(.cv-presence) [data-empty], :where(.cv-presence)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+:where(.cv-presence) p, :where(.cv-presence) li { font-size: inherit; }
+
+.cv-presence {
+  --cc: var(--series-1);
+  --avatar: 30px;
+  --overlap: 9px;
+  position: relative;
+  display: inline-flex;
+  font-family: var(--font-sans);
+}
+
+.cv-presence-trigger {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--s1h);
+  padding-left: var(--s2);
+  border-radius: var(--r-pill);
+  border: 1px solid var(--app-line);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-edge), var(--glass-shadow);
+  cursor: pointer;
+  transition: border-color var(--d1) var(--ease-fx), box-shadow var(--d1) var(--ease-fx);
+}
+
+.cv-presence-trigger:hover,
+.cv-presence-trigger:focus-visible,
+.cv-presence.is-open .cv-presence-trigger {
+  border-color: color-mix(in srgb, var(--app-text) 24%, var(--app-line));
+}
+
+.cv-presence-trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--glass-edge), var(--glass-shadow), 0 0 0 2px color-mix(in srgb, var(--app-blue) 50%, transparent);
+}
+
+.cv-presence-avatar {
+  --cc: var(--series-1);
+  width: var(--avatar);
+  height: var(--avatar);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  margin-left: calc(-1 * var(--overlap));
+  font-size: var(--t-2xs);
+  font-weight: 700;
+  color: var(--on-accent);
+  background: var(--cc);
+  box-shadow: 0 0 0 2px var(--app-bg), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: transform var(--d2) var(--ease-spring);
+}
+
+.cv-presence-trigger .cv-presence-avatar:first-child { margin-left: 0; }
+
+.cv-presence-avatar[data-hue='1'] { --cc: var(--series-1); }
+.cv-presence-avatar[data-hue='2'] { --cc: var(--series-2); }
+.cv-presence-avatar[data-hue='3'] { --cc: var(--series-3); }
+.cv-presence-avatar[data-hue='4'] { --cc: var(--series-4); }
+.cv-presence-avatar[data-hue='5'] { --cc: var(--series-5); }
+.cv-presence-avatar[data-hue='6'] { --cc: var(--series-6); }
+
+.cv-presence:not(.is-open) .cv-presence-trigger:hover .cv-presence-avatar { transform: translateY(-2px); }
+
+.cv-presence-more {
+  width: var(--avatar);
+  height: var(--avatar);
+  display: grid;
+  place-items: center;
+  margin-left: calc(-1 * var(--overlap));
+  border-radius: 50%;
+  font-size: var(--t-2xs);
+  font-weight: 700;
+  color: var(--app-dim);
+  background: color-mix(in srgb, var(--app-text) 14%, transparent);
+  box-shadow: 0 0 0 2px var(--app-bg);
+}
+
+.cv-presence-roster {
+  position: absolute;
+  top: calc(100% + var(--s2));
+  left: 0;
+  z-index: 6;
+  list-style: none;
+  margin: 0;
+  padding: var(--s1h);
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s0);
+  border-radius: var(--r-md);
+  border: 1px solid var(--app-line);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-edge), var(--glass-shadow);
+  animation: cv-presence-in var(--d2) var(--ease-spring);
+}
+
+.cv-presence-roster li {
+  display: flex;
+  align-items: center;
+  gap: var(--s1h);
+  padding: var(--s1h);
+  border-radius: var(--r-sm);
+  font-size: var(--t-small);
+  color: var(--app-text);
+  font-size: inherit;
+}
+
+.cv-presence-roster .cv-presence-avatar {
+  --avatar: var(--s4h);
+  margin-left: 0;
+  box-shadow: none;
+}
+
+.cv-presence-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cv-presence-live {
+  flex: none;
+  width: var(--s2);
+  height: var(--s2);
+  border-radius: 50%;
+  background: var(--state-ok);
+  box-shadow: 0 0 6px -1px var(--state-ok);
+}
+
+@keyframes cv-presence-in {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cv-presence-avatar, .cv-presence-trigger { transition: none; }
+  .cv-presence-roster { animation: none; }
+}

@@ -1,0 +1,61 @@
+/* host-primitive reset */
+:where(.cv-toolbar) [data-status], :where(.cv-toolbar)[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where(.cv-toolbar) [data-state], :where(.cv-toolbar)[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where(.cv-toolbar) [data-state]::before, :where(.cv-toolbar)[data-state]::before { content: none; }
+:where(.cv-toolbar) [data-empty], :where(.cv-toolbar)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+:where(.cv-toolbar) p, :where(.cv-toolbar) li { font-size: inherit; }
+
+.cv-toolbar {
+  --c: var(--app-blue);
+  display: inline-flex;
+  gap: var(--s1h);
+  padding: var(--s1h);
+  border-radius: var(--r-md);
+  border: 1px solid var(--app-line);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-edge), var(--glass-shadow);
+  font-family: var(--font-sans);
+}
+
+.cv-toolbar-left,
+.cv-toolbar-right {
+  flex-direction: column;
+}
+
+.cv-tool-btn {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--app-dim);
+  cursor: pointer;
+  transition: background var(--d1) var(--ease-fx), color var(--d1) var(--ease-fx), box-shadow var(--d1) var(--ease-fx), border-color var(--d1) var(--ease-fx);
+}
+
+.cv-tool-btn:hover {
+  color: var(--app-text);
+  background: color-mix(in srgb, var(--app-text) 8%, transparent);
+}
+
+.cv-tool-btn:focus-visible {
+  outline: none;
+  border-color: color-mix(in srgb, var(--c) 60%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--c) 55%, transparent);
+}
+
+.cv-tool-btn[data-active='true'] {
+  color: var(--on-accent);
+  background: var(--c);
+  border-color: color-mix(in srgb, var(--c) 70%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0 14px -4px var(--c);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cv-tool-btn { transition: none; }
+}

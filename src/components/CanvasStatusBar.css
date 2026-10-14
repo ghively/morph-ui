@@ -1,0 +1,64 @@
+/* host-primitive reset */
+:where(.cv-statusbar) [data-status], :where(.cv-statusbar)[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where(.cv-statusbar) [data-state], :where(.cv-statusbar)[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where(.cv-statusbar) [data-state]::before, :where(.cv-statusbar) [data-state]::before { content: none; }
+:where(.cv-statusbar) [data-empty], :where(.cv-statusbar)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+:where(.cv-statusbar) p, :where(.cv-statusbar) li { font-size: inherit; }
+
+.cv-statusbar {
+  --conn: var(--state-ok);
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  min-height: 32px;
+  padding: 0 var(--s4);
+  border-top: 1px solid var(--app-line);
+  background: color-mix(in srgb, var(--app-bg) 45%, transparent);
+  font-family: var(--font-sans);
+  color: var(--app-dim);
+  font-size: var(--t-meta);
+}
+
+.cv-status-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--s1h);
+  white-space: nowrap;
+}
+
+.cv-status-k {
+  font-size: var(--t-2xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--app-faint);
+}
+
+.cv-status-v {
+  color: var(--app-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.cv-status-spacer { flex: 1; }
+
+.cv-status-conn .cv-status-v { color: color-mix(in srgb, var(--conn) 70%, var(--app-text)); }
+
+.cv-status-conn-dot {
+  width: var(--s2);
+  height: var(--s2);
+  border-radius: 50%;
+  background: var(--conn);
+  box-shadow: 0 0 6px -1px var(--conn);
+}
+
+.cv-statusbar[data-connection='syncing'] .cv-status-conn-dot {
+  animation: cv-status-pulse 1.2s var(--ease-fx) infinite;
+}
+
+@keyframes cv-status-pulse {
+  50% { opacity: 0.45; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cv-statusbar[data-connection='syncing'] .cv-status-conn-dot { animation: none; }
+}

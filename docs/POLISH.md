@@ -249,3 +249,28 @@ There were about 60 component-level fixes. They are grouped below; see the commi
   - StatusRowList link titles render as links.
   - New optional props: MorphWizard `validationMessage`, PricingTierCard `toggleLabel`, and MarkdownNoteEditor `listEmptyTitle` / `listEmptyHint`.
 - **Stories.** Stories that showed nothing, or contradicted themselves, now demonstrate their component: MentionAutocomplete, MessageTimeline, SkeletonWrapper, Button loading, Select error, NavigationRail, RunTimeline and CodeDiffViewer.
+
+## CANVAS_SURFACES (2026-10-13) — collaborative canvas/artifact batch
+
+Shared logic in `src/components/canvas.shared.tsx` (not exported from the index): the identity
+pair `initials()`/`identityHue()` (same person → same `--series-N` hue, matching agentOps),
+`fmtRel`/`fmtClock`, controlled/uncontrolled `useZoom`, and the `Collaborator`/`ArtifactKind`
+models. All ten components follow the polished-group rules: `:where(.root)` host-primitive
+reset, `--c` local accent with color-mix tints, tokens-only colours, scale-snapped sizes,
+44px hit targets, `prefers-reduced-motion` guards, and a `grid-template-rows: 0fr → 1fr`
+collapse (SectionOutline).
+
+| Component | Archetype | Notes |
+|---|---|---|
+| CollaborativeCanvas | Operate | Layered content (content → overlays → LiveCursors → selection outline), zoom controls (Ctrl/Cmd ±/0), collaborator roster with hue dots. Controlled or uncontrolled `zoom`. |
+| CanvasToolbar | Operate | Glass toolbar, dock left/right (vertical) or center (horizontal); `role="toolbar"` with roving tabindex + arrow keys; restricted tool lists. |
+| CanvasVersionRail | Explore | Vertical dot-spine history, newest last; relative timestamps via `now`; Restore on non-current versions. |
+| InlineCommentThread | Operate | Root comment + reply list + composer (Enter or send); resolve/reopen; composer disabled while resolved; subject quote with clamp. |
+| ArtifactCardGrid | Explore | Auto-fill grid of type-icon cards; hover lift with edge-light + accent glow; listbox semantics, arrow-key roving measured off rendered columns; Open action stops propagation. |
+| CanvasMiniMap | Operate | Scaled viewport rect; pointer-drag navigation (pointer capture) + arrow-key stepping; `role="application"`. |
+| PresenceAvatarCluster | Operate | Overlapped `--series-N` avatars, +N fold chip, hover/focus roster popover via `aria-expanded` trigger. |
+| CanvasStatusBar | Operate | Zoom %, cursor coords, tool, connection state (live/syncing/offline via `--state-*`); tabular-nums throughout. |
+| SectionOutline | Explore | Collapsible TOC (0fr→1fr), per-level indent, active-section highlight bar + `aria-current`. |
+| LiveCursors | Operate | Standalone aria-hidden cursor layer; percentage-positioned labeled cursors from `--series-N` hues. |
+
+Files: `src/components/canvas.shared.tsx` + `{CollaborativeCanvas,CanvasToolbar,CanvasVersionRail,InlineCommentThread,ArtifactCardGrid,CanvasMiniMap,PresenceAvatarCluster,CanvasStatusBar,SectionOutline,LiveCursors}.{tsx,css,stories.tsx}`, `test/canvas-surfaces.test.tsx`, `src/index.ts`.

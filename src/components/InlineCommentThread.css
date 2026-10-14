@@ -1,0 +1,220 @@
+/* host-primitive reset */
+:where(.cv-comment) [data-status], :where(.cv-comment)[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where(.cv-comment) [data-state], :where(.cv-comment)[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where(.cv-comment) [data-state]::before, :where(.cv-comment) [data-state]::before { content: none; }
+:where(.cv-comment) [data-empty], :where(.cv-comment)[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+:where(.cv-comment) p, :where(.cv-comment) li { font-size: inherit; }
+
+.cv-comment {
+  --c: var(--app-blue);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding: var(--s3);
+  border-radius: var(--r-md);
+  border: 1px solid var(--app-line);
+  background: var(--app-panel);
+  font-family: var(--font-sans);
+  color: var(--app-text);
+  max-width: 360px;
+}
+
+.cv-comment[data-resolved='true'] {
+  border-color: color-mix(in srgb, var(--state-ok) 28%, var(--app-line));
+  background: color-mix(in srgb, var(--state-ok) 5%, var(--app-panel));
+}
+
+.cv-comment-subject {
+  margin: 0;
+  padding: var(--s1h) var(--s2);
+  border-left: 2px solid color-mix(in srgb, var(--c) 55%, transparent);
+  border-radius: 0 var(--r-2xs) var(--r-2xs) 0;
+  font-size: var(--t-small);
+  color: var(--app-dim);
+  font-style: italic;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* ── people: stable identity hue ─────────────────────────────────────────── */
+.cv-comment-avatar {
+  --cc: var(--series-1);
+  flex: none;
+  width: var(--s6);
+  height: var(--s6);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: var(--t-2xs);
+  font-weight: 700;
+  color: var(--on-accent);
+  background: var(--cc);
+  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--app-bg) 60%, transparent);
+}
+
+.cv-comment-avatar[data-hue='1'] { --cc: var(--series-1); }
+.cv-comment-avatar[data-hue='2'] { --cc: var(--series-2); }
+.cv-comment-avatar[data-hue='3'] { --cc: var(--series-3); }
+.cv-comment-avatar[data-hue='4'] { --cc: var(--series-4); }
+.cv-comment-avatar[data-hue='5'] { --cc: var(--series-5); }
+.cv-comment-avatar[data-hue='6'] { --cc: var(--series-6); }
+
+.cv-comment-root,
+.cv-comment-replies li {
+  display: grid;
+  grid-template-columns: var(--s6) minmax(0, 1fr);
+  gap: var(--s2);
+}
+
+.cv-comment-replies {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.cv-comment-replies li { opacity: 0.92; }
+
+.cv-comment-replies .cv-comment-avatar { width: var(--s4h); height: var(--s4h); font-size: var(--t-2xs); }
+
+.cv-comment-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s1h);
+}
+
+.cv-comment-author { font-size: var(--t-small); font-weight: 600; }
+
+.cv-comment-time { font-size: var(--t-2xs); color: var(--app-faint); font-variant-numeric: tabular-nums; }
+
+.cv-comment-body {
+  margin: var(--s0) 0 0;
+  font-size: var(--t-small);
+  line-height: 1.5;
+  color: var(--app-dim);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.cv-comment[data-resolved='true'] .cv-comment-body { color: var(--app-faint); }
+
+/* ── composer ────────────────────────────────────────────────────────────── */
+.cv-comment-composer {
+  display: flex;
+  gap: var(--s1h);
+  align-items: center;
+  padding-top: var(--s1h);
+  border-top: 1px solid var(--app-line);
+}
+
+.cv-comment-composer input {
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  padding: 0 var(--s2);
+  border-radius: var(--r-sm);
+  border: 1px solid var(--app-line);
+  background: color-mix(in srgb, var(--app-text) 5%, transparent);
+  color: var(--app-text);
+  font-size: var(--t-small);
+  font-family: inherit;
+}
+
+.cv-comment-composer input::placeholder { color: var(--app-faint); }
+
+.cv-comment-composer input:focus-visible {
+  outline: none;
+  border-color: color-mix(in srgb, var(--c) 55%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--c) 30%, transparent);
+}
+
+.cv-comment-composer input:disabled { opacity: 0.5; }
+
+.cv-comment-composer button {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: var(--r-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--app-faint);
+  cursor: pointer;
+  transition: color var(--d1) var(--ease-fx), background var(--d1) var(--ease-fx);
+}
+
+.cv-comment-composer button:hover:not(:disabled) {
+  color: var(--c);
+  background: color-mix(in srgb, var(--c) 12%, transparent);
+}
+
+.cv-comment-composer button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--c) 55%, transparent);
+}
+
+.cv-comment-composer button:disabled { opacity: 0.4; cursor: default; }
+
+/* ── footer ──────────────────────────────────────────────────────────────── */
+.cv-comment-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+}
+
+.cv-comment-resolve {
+  min-height: 28px;
+  padding: var(--s0) var(--s3);
+  border-radius: var(--r-pill);
+  border: 1px solid var(--app-line);
+  background: transparent;
+  color: var(--app-dim);
+  font-size: var(--t-2xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color var(--d1) var(--ease-fx), border-color var(--d1) var(--ease-fx), background var(--d1) var(--ease-fx);
+}
+
+.cv-comment-resolve[data-resolved-state='false']:hover {
+  color: color-mix(in srgb, var(--state-ok) 70%, var(--app-text));
+  border-color: color-mix(in srgb, var(--state-ok) 40%, transparent);
+  background: color-mix(in srgb, var(--state-ok) 10%, transparent);
+}
+
+.cv-comment-resolve[data-resolved-state='true'] {
+  color: color-mix(in srgb, var(--state-ok) 70%, var(--app-text));
+  border-color: color-mix(in srgb, var(--state-ok) 35%, transparent);
+}
+
+.cv-comment-resolve:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--c) 55%, transparent);
+}
+
+.cv-comment-count { font-size: var(--t-2xs); color: var(--app-faint); font-variant-numeric: tabular-nums; }
+
+.cv-comment-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cv-comment-composer button, .cv-comment-resolve { transition: none; }
+}
