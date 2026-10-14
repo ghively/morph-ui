@@ -1,0 +1,155 @@
+/* TreeTable — DATA_SHELL batch (2026-10). Dense monitor surface: grid lines,
+   depth-stepped first cell, one accent family. Original morph-ui design. */
+
+/* host-primitive reset */
+:where([data-treetable]) [data-status], :where([data-treetable])[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where([data-treetable]) [data-state], :where([data-treetable])[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where([data-treetable]) [data-state]::before, :where([data-treetable])[data-state]::before { content: none; }
+:where([data-treetable]) [data-empty], :where([data-treetable])[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+
+[data-treetable] {
+  --c: var(--app-blue);
+  overflow-x: auto;
+  border: 1px solid var(--app-line);
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--app-elev) 60%, transparent);
+  font: inherit;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--app-text) 20%, transparent) transparent;
+}
+
+[data-treetable-table] {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--t-body);
+}
+
+[data-treetable-table] caption {
+  text-align: left;
+  padding: var(--s4) var(--s4h);
+  font-weight: 650;
+  font-size: var(--t-lead);
+  color: var(--app-text);
+}
+
+[data-treetable-table] th,
+[data-treetable-table] td {
+  padding: var(--s2) var(--s4);
+  border-top: 1px solid var(--app-line-soft);
+  text-align: left;
+  vertical-align: middle;
+}
+
+[data-treetable-table] thead th {
+  border-top: none;
+  background: var(--morph-thead-bg);
+  font-size: var(--t-small);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--app-dim);
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+[data-treetable-table] [data-align='right'] { text-align: right; font-variant-numeric: tabular-nums; }
+[data-treetable-table] [data-align='center'] { text-align: center; }
+
+[data-treetable-sort] {
+  font: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s1h);
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+[data-treetable-sort]:hover { color: var(--app-text); }
+[data-treetable-sort]:focus-visible {
+  outline: 2px solid var(--app-blue);
+  outline-offset: var(--s1);
+  border-radius: var(--r-2xs);
+}
+
+[data-treetable-caret] {
+  display: inline-flex;
+  font-size: var(--t-xs);
+  opacity: 0.45;
+  transition: transform var(--d2) var(--ease-morph), opacity var(--d1) var(--ease-fx), color var(--d1) var(--ease-fx);
+}
+
+[data-treetable-sort]:hover [data-treetable-caret] { opacity: 0.8; }
+[data-treetable-caret][data-dir='asc'] { opacity: 1; transform: rotate(180deg); color: var(--app-blue); }
+[data-treetable-caret][data-dir='desc'] { opacity: 1; color: var(--app-blue); }
+
+[data-treetable-row] { transition: background-color var(--d1) var(--ease-fx); }
+[data-treetable-row]:hover { background: var(--app-hover); }
+[data-treetable-row][data-depth] td:first-child {
+  --indent: calc(var(--tt-depth, 0) * var(--s6));
+}
+
+/* The expand control: a quiet square that grows its hit area to 44px via
+   negative margin, keeping the row dense. */
+[data-treetable-toggle] {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: var(--s5);
+  height: var(--s5);
+  margin: calc(-1 * var(--s2)) calc(-1 * var(--s1));
+  padding: 0;
+  margin-left: var(--indent, 0);
+  border: none;
+  border-radius: var(--r-2xs);
+  background: transparent;
+  color: var(--app-faint);
+  font-size: var(--t-xs);
+  cursor: pointer;
+  vertical-align: middle;
+  transition: color var(--d1) var(--ease-fx), background-color var(--d1) var(--ease-fx);
+}
+
+[data-treetable-toggle][data-kids] { color: var(--app-dim); }
+[data-treetable-toggle][data-kids]:hover {
+  color: var(--app-text);
+  background: color-mix(in srgb, var(--app-blue) 16%, transparent);
+}
+[data-treetable-toggle][data-kids]:focus-visible {
+  outline: 2px solid var(--app-blue);
+  outline-offset: var(--s0);
+}
+[data-treetable-toggle]:disabled { cursor: default; }
+
+[data-treetable-toggle] > span {
+  display: inline-block;
+  transition: transform var(--d2) var(--ease-morph);
+}
+
+[data-treetable-cell] { min-width: 0; }
+[data-treetable-row=''] { color: inherit; }
+
+[data-treetable-meta] {
+  margin-left: var(--s2);
+  font-size: var(--t-meta);
+  color: var(--app-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+[data-treetable-empty] {
+  text-align: center;
+  padding: var(--s7) var(--s4h);
+  color: var(--app-faint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-treetable-toggle] > span,
+  [data-treetable-caret] { transition: none; }
+  [data-treetable-row] { transition: none; }
+}

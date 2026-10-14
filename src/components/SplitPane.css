@@ -1,0 +1,100 @@
+/* SplitPane — DATA_SHELL batch (2026-10). Two panes, hairline divider with a
+   grip, accent edge while dragging. Original morph-ui design. */
+
+/* host-primitive reset */
+:where([data-split]) [data-status], :where([data-split])[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where([data-split]) [data-state], :where([data-split])[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where([data-split]) [data-state]::before, :where([data-split])[data-state]::before { content: none; }
+:where([data-split]) [data-empty], :where([data-split])[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+
+[data-split] {
+  display: flex;
+  color: var(--app-text);
+  font: inherit;
+  min-width: 0;
+  min-height: 0;
+}
+
+[data-split][data-orientation='column'] { flex-direction: column; }
+[data-split][data-orientation='row'] { flex-direction: row; }
+
+[data-split-pane] {
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--app-text) 20%, transparent) transparent;
+}
+
+[data-split][data-orientation='row'] [data-split-start] { flex: none; }
+[data-split][data-orientation='column'] [data-split-start] { flex: none; }
+[data-split][data-orientation='row'] [data-split-end] { flex: 1; }
+[data-split][data-orientation='column'] [data-split-end] { flex: 1; }
+
+[data-split-divider] {
+  flex: none;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--app-text) 4%, transparent);
+  border: 1px solid var(--app-line);
+  border-radius: var(--r-2xs);
+  outline: none;
+  touch-action: none;
+  user-select: none;
+  cursor: col-resize;
+  transition: background-color var(--d1) var(--ease-fx), box-shadow var(--d1) var(--ease-fx);
+}
+
+[data-split][data-orientation='row'] [data-split-divider] {
+  width: var(--s1h);
+  margin: 0 calc(-1 * var(--s0));
+  height: 100%;
+}
+
+[data-split][data-orientation='column'] [data-split-divider] {
+  height: var(--s1h);
+  margin: calc(-1 * var(--s0)) 0;
+  width: 100%;
+  cursor: row-resize;
+}
+
+[data-split-divider]:hover,
+[data-split-divider]:focus-visible {
+  background: color-mix(in srgb, var(--app-blue) 20%, transparent);
+  box-shadow: 0 0 12px -4px var(--app-blue);
+}
+
+[data-split-divider]:focus-visible {
+  outline: 2px solid var(--app-blue);
+  outline-offset: var(--s0);
+}
+
+[data-split][data-dragging] [data-split-divider] {
+  background: color-mix(in srgb, var(--app-blue) 30%, transparent);
+  box-shadow: 0 0 16px -4px var(--app-blue);
+}
+
+[data-split-grip] {
+  border-radius: var(--r-pill);
+  background: var(--app-faint);
+  opacity: 0.5;
+  transition: opacity var(--d1) var(--ease-fx);
+}
+
+[data-split-divider]:hover [data-split-grip],
+[data-split-divider]:focus-visible [data-split-grip],
+[data-split][data-dragging] [data-split-grip] { opacity: 1; }
+
+[data-split][data-orientation='row'] [data-split-grip] {
+  width: var(--s0);
+  height: var(--s7);
+}
+
+[data-split][data-orientation='column'] [data-split-grip] {
+  width: var(--s7);
+  height: var(--s0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-split-divider] { transition: none; }
+}

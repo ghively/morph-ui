@@ -221,6 +221,17 @@ export * from "./components/GaugeChart";
 export * from "./components/FunnelChart";
 export * from "./components/ShortcutHelp";
 export * from "./components/TabbedListScreen";
+// Data + app-shell expansion (data-shell batch)
+export * from "./components/TreeTable";
+export * from "./components/KanbanBoard";
+export * from "./components/GanttTimeline";
+export * from "./components/CalendarBoard";
+export * from "./components/TimelineStream";
+export * from "./components/VirtualizedList";
+export * from "./components/SortableList";
+export * from "./components/InboxTriage";
+export * from "./components/SplitPane";
+export * from "./components/DashboardGrid";
 
 // Canvas / artifact surfaces (collaborative document + artifact batch)
 export * from "./components/CollaborativeCanvas";
