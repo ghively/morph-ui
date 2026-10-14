@@ -1,0 +1,67 @@
+[data-treemap] {
+  margin: 0;
+  font: inherit;
+  min-width: 0;
+}
+
+:where([data-treemap]) :where([data-status], [data-state], [data-empty]) {
+  all: unset;
+}
+
+[data-treemaparea] {
+  border-bottom: 1px solid var(--morph-border);
+  padding-bottom: var(--s1);
+}
+
+[data-treemapplot] {
+  position: relative;
+  height: 100%;
+}
+
+[data-treemaparea] svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+[data-treemapcell]:hover rect {
+  stroke: var(--morph-border-strong);
+}
+
+[data-treemapname] {
+  fill: var(--morph-fg);
+  font-size: var(--t-meta);
+  font-weight: 700;
+}
+
+[data-treemapname][data-depth='1'] {
+  font-weight: 500;
+}
+
+[data-treemapvalue] {
+  fill: var(--morph-fg);
+  font-size: var(--t-num);
+  opacity: 0.75;
+  font-variant-numeric: tabular-nums;
+}
+
+[data-treemapempty] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: var(--t-body);
+  opacity: 0.7;
+}
+
+[data-treemap] [data-sronly] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

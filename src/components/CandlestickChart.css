@@ -1,0 +1,67 @@
+[data-candles] {
+  margin: 0;
+  font: inherit;
+  min-width: 0;
+}
+
+:where([data-candles]) :where([data-status], [data-state], [data-empty]) {
+  all: unset;
+}
+
+[data-candlesarea] {
+  border-bottom: 1px solid var(--morph-border);
+  padding-bottom: var(--s1);
+}
+
+[data-candlesplot] {
+  position: relative;
+  height: 100%;
+}
+
+[data-candlesarea] svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+[data-candle]:hover [data-candlebody] {
+  filter: brightness(1.25);
+}
+
+[data-candlestickaxis] {
+  display: flex;
+  gap: var(--s1);
+  padding-top: var(--s1);
+}
+
+[data-candlesticktick] {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  font-size: var(--t-meta);
+  opacity: 0.78;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+[data-candlesempty] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: var(--t-body);
+  opacity: 0.7;
+}
+
+[data-candles] [data-sronly] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

@@ -1,0 +1,89 @@
+[data-heatmap] {
+  margin: 0;
+  font: inherit;
+  min-width: 0;
+}
+
+:where([data-heatmap]) :where([data-status], [data-state], [data-empty]) {
+  all: unset;
+}
+
+[data-heatmaptable] {
+  border-collapse: separate;
+  border-spacing: var(--s0);
+  width: 100%;
+  table-layout: fixed;
+}
+
+[data-heatmapcol] {
+  font-size: var(--t-meta);
+  font-weight: 600;
+  opacity: 0.78;
+  padding: var(--s1) var(--s1);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+[data-heatmaprowhead] {
+  font-size: var(--t-meta);
+  font-weight: 600;
+  opacity: 0.78;
+  padding: var(--s1) var(--s3) var(--s1) 0;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+[data-heatmapcorner] {
+  width: var(--s10);
+  padding: 0;
+}
+
+[data-heatmapcell] {
+  padding: var(--s0);
+  text-align: center;
+}
+
+[data-heatcell] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--s8);
+  border-radius: var(--r-2xs);
+  font-size: var(--t-num);
+  font-variant-numeric: tabular-nums;
+  /* Intensity is a mix of the row's series color against the card surface;
+     --heat (0–1) and --heat-c are set inline per cell. */
+  background: color-mix(in oklab, var(--heat-c, var(--series-1)) calc(var(--heat, 0) * 88%), var(--morph-card-bg));
+  color: color-mix(in oklab, var(--morph-fg) calc((1 - var(--heat, 0)) * 100%), #fff);
+}
+
+[data-heatmiss] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--s8);
+  border-radius: var(--r-2xs);
+  opacity: 0.35;
+  font-size: var(--t-num);
+}
+
+[data-heatmapempty] {
+  font-size: var(--t-body);
+  opacity: 0.7;
+}
+
+[data-heatmap] [data-sronly] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

@@ -249,6 +249,17 @@ export * from "./components/Stepper";
 export * from "./components/AvatarStack";
 export * from "./components/GaugeChart";
 export * from "./components/FunnelChart";
+// Advanced charts (charts batch 2)
+export * from "./components/AreaChart";
+export * from "./components/ScatterPlot";
+export * from "./components/CandlestickChart";
+export * from "./components/TreemapChart";
+export * from "./components/SankeyDiagram";
+export * from "./components/RadarChart";
+export * from "./components/HeatmapGrid";
+export * from "./components/WaterfallChart";
+export * from "./components/StackedBarChart";
+export * from "./components/GaugeCluster";
 export * from "./components/ShortcutHelp";
 export * from "./components/TabbedListScreen";
 // Data + app-shell expansion (data-shell batch)

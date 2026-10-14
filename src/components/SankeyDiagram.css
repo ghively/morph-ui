@@ -1,0 +1,71 @@
+[data-sankey] {
+  margin: 0;
+  font: inherit;
+  min-width: 0;
+}
+
+:where([data-sankey]) :where([data-status], [data-state], [data-empty]) {
+  all: unset;
+}
+
+[data-sankeyarea] {
+  border-bottom: 1px solid var(--morph-border);
+  padding-bottom: var(--s1);
+}
+
+[data-sankeyplot] {
+  position: relative;
+  height: 100%;
+}
+
+[data-sankeyarea] svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+[data-sankeyflow] {
+  opacity: 0.3;
+  transition: opacity var(--ease-out, ease) 0.15s;
+}
+
+[data-sankeyflow]:hover {
+  opacity: 0.62;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-sankeyflow] {
+    transition: none;
+  }
+}
+
+[data-sankeybar] {
+  opacity: 0.95;
+}
+
+[data-sankeyname] {
+  fill: var(--morph-fg);
+  font-size: var(--t-meta);
+  opacity: 0.85;
+}
+
+[data-sankeyempty] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: var(--t-body);
+  opacity: 0.7;
+}
+
+[data-sankey] [data-sronly] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
