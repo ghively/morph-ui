@@ -1,0 +1,35 @@
+name: Package smoke test
+
+on:
+  workflow_dispatch:
+  registry_package: ~
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+      - name: Install published package in a scratch app
+        run: |
+          mkdir /tmp/smoke && cd /tmp/smoke
+          echo '{"name":"smoke","private":true}' > package.json
+          pnpm add @ghively/morph-ui react react-dom
+          node -e "
+            const css = require('fs').readFileSync(require.resolve('@ghively/morph-ui/dist/morph-ui.css'),'utf8');
+            if (!css.includes('lively-sage')) { throw new Error('published css missing lively-sage theme'); }
+            if (css.includes('rgba(150, 175, 255')) { throw new Error('published css still contains navy literals'); }
+            console.log('smoke OK: themes present, no navy literals');
+          "
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
