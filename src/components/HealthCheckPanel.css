@@ -1,0 +1,180 @@
+/* HealthCheckPanel: dense service rows with status dot + latency sparkline. */
+:where([data-hcp]) [data-status], :where([data-hcp])[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where([data-hcp]) [data-state], :where([data-hcp])[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where([data-hcp]) [data-state]::before, :where([data-hcp]) [data-state]::before { content: none; }
+:where([data-hcp]) [data-empty], :where([data-hcp])[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+:where([data-hcp]) :is(p, li) { font-size: inherit; line-height: inherit; }
+
+[data-hcp] {
+  display: grid;
+  gap: var(--s2);
+  padding: var(--s4) var(--s5);
+  border-radius: var(--r-md);
+  border: 1px solid var(--app-line);
+  background: var(--app-panel);
+  font: inherit;
+  color: var(--morph-fg);
+  min-width: 0;
+}
+
+[data-hcphead] {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s3);
+  padding-bottom: var(--s2);
+  border-bottom: 1px solid var(--app-line);
+}
+
+[data-hcptitle] {
+  margin: 0;
+  font-size: var(--t-body);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+[data-hcpsum] {
+  font-size: var(--t-num);
+  color: var(--app-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+[data-hcpbad] {
+  color: var(--state-warn);
+  font-weight: 700;
+}
+
+[data-hcplist] {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+[data-hcprow] {
+  --k: var(--state-ok);
+  display: grid;
+  grid-template-columns: auto minmax(72px, 1fr) minmax(64px, 96px) auto auto;
+  align-items: center;
+  column-gap: var(--s3);
+  padding: var(--s1) 0;
+  border-bottom: 1px solid var(--app-line-soft, var(--app-line));
+  font-size: var(--t-small);
+  min-height: 32px;
+}
+
+[data-hcprow]:last-child { border-bottom: none; }
+
+[data-hcprow][data-status='degraded'] { --k: var(--state-warn); }
+[data-hcprow][data-status='down'] { --k: var(--state-error); }
+
+[data-hcpdot] {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--k);
+  box-shadow: 0 0 6px -1px var(--k);
+}
+
+[data-hcprow][data-status='ok'] [data-hcpdot] {
+  animation: hcp-breathe 3.2s var(--ease-swell) infinite;
+}
+
+[data-hcprow][data-status='down'] [data-hcpdot] {
+  animation: hcp-alarm 1.2s var(--ease-swell) infinite;
+}
+
+@keyframes hcp-breathe {
+  0%, 100% { box-shadow: 0 0 6px -1px var(--k); }
+  50% { box-shadow: 0 0 4px -2px var(--k); }
+}
+
+@keyframes hcp-alarm {
+  0%, 100% { box-shadow: 0 0 8px -1px var(--k); transform: scale(1); }
+  50% { box-shadow: 0 0 12px 0 var(--k); transform: scale(0.82); }
+}
+
+[data-hcpname] {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+[data-hcpspark] {
+  display: block;
+  height: 22px;
+  min-width: 0;
+}
+
+[data-hcpspark][data-none]::after {
+  content: '—';
+  display: block;
+  text-align: center;
+  line-height: 22px;
+  color: var(--app-faint);
+}
+
+.hcp-spark {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hcp-line {
+  stroke: var(--k);
+}
+
+.hcp-area {
+  fill: color-mix(in srgb, var(--k) 12%, transparent);
+  stroke: none;
+}
+
+.hcp-last {
+  fill: var(--k);
+}
+
+[data-hcplat] {
+  font-size: var(--t-num);
+  color: var(--app-dim);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+[data-hcprow][data-status='down'] [data-hcplat] { color: var(--state-error); font-weight: 700; }
+
+[data-hcpup] {
+  font-size: var(--t-num);
+  color: var(--app-faint);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+  min-width: 44px;
+}
+
+[data-hcpnote] {
+  grid-column: 2 / -1;
+  font-size: var(--t-num);
+  color: var(--k);
+  padding-bottom: var(--s1);
+}
+
+[data-hcp] [data-sronly] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-hcprow] [data-hcpdot] {
+    animation: none;
+  }
+}

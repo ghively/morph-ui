@@ -1,3 +1,26 @@
+# MorphUI polish log
+
+## FEEDBACK + STATUS batch (2026-10-13)
+
+Ten new components (original morph-ui designs), each `tsx/css/stories` + exported from the index under a "Feedback + status batch" comment. Tests: `test/feedback-status.test.tsx` (36 tests). All four gates green; visual baselines captured for every new story.
+
+| Component | What it is | Notable API |
+|---|---|---|
+| ProgressRing | Determinate/indeterminate SVG ring with center label; `sm/md/lg/xl` scale; ring counterpart of ProgressBar | `value?` (omit = indeterminate), `label`, `sublabel`, `size`, `tone` |
+| MultiStepProgress | Read-only labeled stage track; numbered nodes + progress rails; explicit `error` state per step | `steps: {id,label,state?,hint?}[]`, `current` index (states derived when omitted) |
+| OnboardingSpotlight | Single-step highlight: scrim, pulsing frame on the measured target, glass coach tooltip, next/skip, Escape skips | `target: ref | selector`, `step`/`of`, re-measures on resize/scroll |
+| TourOverlay | Multi-step spotlight sequence; step dots (tablist), Back/Next, ←/→ + Escape keyboard nav, final Next = Finish | `steps: TourStep[]`, controlled `step`, `onStepChange`, `onFinish`, `onSkip`, `skippable` |
+| ErrorState | Friendly failure panel: icon + title + guidance, mono `code` tag, retry + secondary action, `<details>` code block | `details` (verbatim string), `detailsLabel`, `code`, `role` default `alert` |
+| SyncStatusIndicator | idle/syncing/offline/conflict pill with per-status animated icon (orbit, breathing, shake) | `status`, `label?`, `meta?`; `role="status"` |
+| QuotaMeter | Usage-vs-limit bar with warn threshold tick and overage hatch + "N over limit" alert | `used`, `limit`, `warnAt=0.8`, `unit`, `variant='full'|'compact'`, `role="meter"` |
+| RateLimitNotice | Compact countdown banner: mono timer, retry-after sentence, reset time, Retry disabled until window clears | `retryAfter` (s), `remaining?` (controlled), `resetAt`, `onRetry` |
+| HealthCheckPanel | Dense Operate rows: status dot (labelled img), pure-SVG latency sparkline + area, current latency, uptime, notes | `services: HealthService[]`, summary "N of M need attention" |
+| MaintenanceMode | Full-surface notice: breathing icon, hero countdown, notify-me form, Back action appears at zero | `untilSeconds`, `remaining?`, `onSubscribe(email)`, `onBack`, `fullscreen=true` |
+
+Complement map (no duplication): ProgressBar = linear bar / ProgressRing = circular; Stepper = clickable wizard nav / MultiStepProgress = read-only pipeline report; EmptyState = nothing yet / ErrorState = broke; AlertBanner = inline transient notice / RateLimitNotice = live countdown; IndexerHealth = media fleet / HealthCheckPanel = generic service board.
+
+Files: `src/components/{ProgressRing,MultiStepProgress,OnboardingSpotlight,TourOverlay,ErrorState,SyncStatusIndicator,QuotaMeter,RateLimitNotice,HealthCheckPanel,MaintenanceMode}.{tsx,css,stories.tsx}`, `test/feedback-status.test.tsx`, `src/index.ts`, `e2e/__screenshots__/` baselines.
+
 # AGENT_DATA polish log
 
 Shared rules extracted so far (in `src/tokens.css`, "agent state + glass surface layer"):

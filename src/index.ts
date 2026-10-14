@@ -221,6 +221,17 @@ export * from "./components/GaugeChart";
 export * from "./components/FunnelChart";
 export * from "./components/ShortcutHelp";
 export * from "./components/TabbedListScreen";
+// Feedback + status batch
+export * from "./components/ProgressRing";
+export * from "./components/MultiStepProgress";
+export * from "./components/OnboardingSpotlight";
+export * from "./components/TourOverlay";
+export * from "./components/ErrorState";
+export * from "./components/SyncStatusIndicator";
+export * from "./components/QuotaMeter";
+export * from "./components/RateLimitNotice";
+export * from "./components/HealthCheckPanel";
+export * from "./components/MaintenanceMode";
 
 // Media library
 export {

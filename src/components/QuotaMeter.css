@@ -1,0 +1,134 @@
+/* QuotaMeter: usage vs limit bar with warn + overage states. */
+:where([data-quota]) [data-status], :where([data-quota])[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where([data-quota]) [data-state], :where([data-quota])[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where([data-quota]) [data-state]::before, :where([data-quota])[data-state]::before { content: none; }
+:where([data-quota]) [data-empty], :where([data-quota])[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+:where([data-quota]) :is(p, li) { font-size: inherit; line-height: inherit; }
+
+[data-quota] {
+  --c: var(--morph-accent);
+  display: grid;
+  gap: var(--s2);
+  font: inherit;
+  color: var(--morph-fg);
+  min-width: 0;
+}
+
+[data-quota][data-level='warn'] { --c: var(--state-warn); }
+[data-quota][data-level='over'] { --c: var(--state-error); }
+
+[data-quota][data-variant='full'] {
+  padding: var(--s4) var(--s5);
+  border-radius: var(--r-md);
+  border: 1px solid var(--app-line);
+  background: var(--app-panel);
+}
+
+[data-quotarow] {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s3);
+  min-width: 0;
+}
+
+[data-quotaname] {
+  font-size: var(--t-small);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+[data-quotapct] {
+  font-size: var(--t-body);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--c);
+}
+
+[data-quotabar] {
+  position: relative;
+  height: 8px;
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--app-text) 10%, transparent);
+  overflow: hidden;
+}
+
+[data-quotafill] {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: inherit;
+  background: var(--c);
+  box-shadow: 0 0 8px -2px var(--c);
+  transition: width var(--d3) var(--ease-emph);
+}
+
+/* the slice past 100% of the track: darker hatch of the same hue */
+[data-quotaover] {
+  position: absolute;
+  inset: 0 auto 0 100%;
+  border-radius: 0 var(--r-pill) var(--r-pill) 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--c) 80%, transparent) 0 4px,
+    color-mix(in srgb, var(--c) 40%, transparent) 4px 8px
+  );
+  transition: width var(--d3) var(--ease-emph);
+}
+
+[data-quotamark] {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 1px;
+  background: color-mix(in srgb, var(--app-text) 34%, transparent);
+}
+
+[data-quotafeet] {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s3);
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+[data-quotavalues] {
+  font-size: var(--t-small);
+  color: var(--app-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+[data-quotavalues] b {
+  color: var(--morph-fg);
+  font-weight: 700;
+}
+
+[data-quotahint] {
+  font-size: var(--t-num);
+  color: var(--app-faint);
+}
+
+[data-quotaalert] {
+  font-size: var(--t-small);
+  font-weight: 600;
+  color: var(--c);
+  padding: var(--s0) var(--s2);
+  border-radius: var(--r-2xs);
+  background: color-mix(in srgb, var(--c) 12%, transparent);
+  font-variant-numeric: tabular-nums;
+}
+
+[data-quota][data-variant='compact'] [data-quotaname],
+[data-quota][data-variant='compact'] [data-quotahint] {
+  display: none;
+}
+
+[data-quota][data-variant='compact'] [data-quotapct] { font-size: var(--t-small); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-quotafill],
+  [data-quotaover] {
+    transition: none;
+  }
+}

@@ -1,0 +1,142 @@
+/* OnboardingSpotlight: dimmed surface + framed target + coach tooltip. */
+:where([data-spotlight]) [data-status], :where([data-spotlight])[data-status] { display: revert; align-items: normal; gap: normal; flex-wrap: nowrap; font-size: inherit; font-weight: inherit; letter-spacing: inherit; color: inherit; }
+:where([data-spotlight]) [data-state], :where([data-spotlight])[data-state] { position: revert; isolation: auto; overflow: visible; }
+:where([data-spotlight]) [data-state]::before, :where([data-spotlight])[data-state]::before { content: none; }
+:where([data-spotlight]) [data-empty], :where([data-spotlight])[data-empty] { display: revert; flex-direction: initial; align-items: normal; justify-content: normal; text-align: inherit; gap: normal; padding: 0; color: inherit; font-size: inherit; }
+:where([data-spotlight]) :is(p, li) { font-size: inherit; line-height: inherit; }
+
+[data-spotlight] {
+  --c: var(--morph-accent);
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  font: inherit;
+  color: var(--morph-fg);
+}
+
+[data-spotscrim] {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+[data-spothole] {
+  position: absolute;
+  border-radius: var(--r-md);
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.55), 0 0 0 1px color-mix(in srgb, var(--c) 55%, transparent), 0 0 24px -4px color-mix(in srgb, var(--c) 60%, transparent);
+  animation: spot-pulse 1.8s var(--ease-swell) infinite;
+  pointer-events: none;
+}
+
+[data-spotscrim] { opacity: 0; animation: spot-fade var(--d3) var(--ease-fx) forwards; }
+
+@keyframes spot-fade {
+  to { opacity: 1; }
+}
+
+@keyframes spot-pulse {
+  0%, 100% { box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.55), 0 0 0 1px color-mix(in srgb, var(--c) 55%, transparent), 0 0 18px -6px color-mix(in srgb, var(--c) 55%, transparent); }
+  50% { box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.55), 0 0 0 2px color-mix(in srgb, var(--c) 90%, transparent), 0 0 30px -4px color-mix(in srgb, var(--c) 80%, transparent); }
+}
+
+[data-spotip] {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 240px;
+  max-width: 320px;
+  padding: var(--s4) var(--s5);
+  border-radius: var(--r-md);
+  border: 1px solid var(--glass-edge, var(--app-line));
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  font-size: var(--t-small);
+  animation: spot-rise var(--d3) var(--ease-spring) both;
+}
+
+@keyframes spot-rise {
+  from { opacity: 0; transform: translateX(-50%) translateY(6px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+[data-spotip]:focus-visible {
+  outline: none;
+  border-color: var(--c);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 25%, transparent), var(--glass-shadow);
+}
+
+[data-spotstep] {
+  font-size: var(--t-num);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c);
+  font-variant-numeric: tabular-nums;
+}
+
+[data-spottitle] {
+  font-size: var(--t-h4);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+[data-spotbody] {
+  color: var(--app-dim);
+  line-height: 1.45;
+}
+
+[data-spotactions] {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--s2);
+  margin-top: var(--s1);
+}
+
+[data-spotactions] button {
+  font: inherit;
+  font-size: var(--t-small);
+  font-weight: 600;
+  min-height: 32px;
+  padding: 0 var(--s4);
+  border-radius: var(--r-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color var(--d2) var(--ease-fx), border-color var(--d2) var(--ease-fx), box-shadow var(--d2) var(--ease-fx);
+}
+
+[data-spotskip] {
+  background: transparent;
+  color: var(--app-dim);
+  border-color: var(--app-line);
+}
+
+[data-spotskip]:hover { color: var(--morph-fg); border-color: var(--morph-border-strong); }
+
+[data-spotnext] {
+  color: var(--on-accent);
+  background: var(--c);
+}
+
+[data-spotnext]:hover {
+  background: color-mix(in srgb, var(--c) 85%, white 15%);
+  box-shadow: 0 0 12px -2px color-mix(in srgb, var(--c) 60%, transparent);
+}
+
+[data-spotactions] button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 30%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-spothole],
+  [data-spotscrim],
+  [data-spotip] {
+    animation: none;
+    opacity: 1;
+  }
+}
