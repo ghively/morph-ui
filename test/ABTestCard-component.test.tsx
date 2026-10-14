@@ -1,0 +1,2 @@
+import { render, screen } from '@testing-library/react'; import { describe,it,expect } from 'vitest'; import { ABTestCard } from '../src/components/ABTestCard';
+describe('ABTestCard',()=>it('renders variants',()=>{render(<ABTestCard name="Test" variants={[{id:'a',label:'A',conversions:10,visitors:100},{id:'b',label:'B',conversions:20,visitors:100}]}/>);expect(screen.getByText('A')).toBeTruthy();expect(screen.getByText('B')).toBeTruthy();}));

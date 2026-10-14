@@ -1,0 +1,2 @@
+import { render, screen } from '@testing-library/react'; import { describe,it,expect } from 'vitest'; import { FeatureFlagPanel } from '../src/components/FeatureFlagPanel';
+describe('FeatureFlagPanel',()=>it('renders flag state',()=>{render(<FeatureFlagPanel flags={[{id:'f',label:'Flag',state:'partial',audience:20,modified:'today'}]}/>);expect(screen.getByText('partial')).toBeTruthy();expect(screen.getByText('20%')).toBeTruthy();}));

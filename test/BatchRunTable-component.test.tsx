@@ -1,0 +1,2 @@
+import { render, screen } from '@testing-library/react'; import { describe,it,expect } from 'vitest'; import { BatchRunTable } from '../src/components/BatchRunTable';
+describe('BatchRunTable',()=>it('renders status and progress',()=>{render(<BatchRunTable jobs={[{id:'1',label:'Job',status:'running',progress:50}]}/>);expect(screen.getAllByText('Job').length).toBeGreaterThan(0);expect(screen.getByText('50%')).toBeTruthy();}));

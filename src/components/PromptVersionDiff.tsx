@@ -1,0 +1,5 @@
+import './PromptVersionDiff.css';
+export type PromptLineKind = 'unchanged' | 'added' | 'removed';
+export interface PromptVersion { id: string; label: string; lines: string[] }
+export interface PromptVersionDiffProps { before: PromptVersion; after: PromptVersion; className?: string }
+export function PromptVersionDiff({ before, after, className = '' }: PromptVersionDiffProps) { const max = Math.max(before.lines.length, after.lines.length); return <section className={'prompt-version-diff ' + className} data-prompt-diff=""><header><div><span className="pd-kicker">PROMPT HISTORY</span><h2>Version diff</h2></div><span className="pd-meta">{before.id} → {after.id}</span></header><div className="pd-head"><b>{before.label}</b><b>{after.label}</b></div><div className="pd-grid">{Array.from({length:max}, (_, i) => { const l = before.lines[i], r = after.lines[i]; const kind: PromptLineKind = l === r ? 'unchanged' : l == null ? 'added' : r == null ? 'removed' : 'added'; return <div className="pd-row" data-kind={kind} key={i}><code>{l ?? ''}</code><code>{r ?? ''}</code></div> })}</div></section> }
