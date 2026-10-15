@@ -56,9 +56,10 @@
   font-size: var(--t-num);
   font-variant-numeric: tabular-nums;
   /* Intensity is a mix of the row's series color against the card surface;
-     --heat (0–1) and --heat-c are set inline per cell. */
-  background: color-mix(in oklab, var(--heat-c, var(--series-1)) calc(var(--heat, 0) * 88%), var(--morph-card-bg));
-  color: color-mix(in oklab, var(--morph-fg) calc((1 - var(--heat, 0)) * 100%), #fff);
+     --heat (0–1) and --heat-c are set inline per cell. Capped at 50% so that
+     --morph-fg text keeps WCAG AA contrast (≥ 4.5:1) at all intensities. */
+  background: color-mix(in oklab, var(--heat-c, var(--series-1)) calc(var(--heat, 0) * 50%), var(--morph-card-bg));
+  color: var(--morph-fg);
 }
 
 [data-heatmiss] {

@@ -51,7 +51,7 @@
   min-height: 2px;
   font-size: var(--t-meta);
   font-weight: 700;
-  color: #fff;
+  color: var(--on-accent);
   font-variant-numeric: tabular-nums;
 }
 
@@ -89,7 +89,7 @@
   min-width: 2px;
   font-size: var(--t-meta);
   font-weight: 700;
-  color: #fff;
+  color: var(--on-accent);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
