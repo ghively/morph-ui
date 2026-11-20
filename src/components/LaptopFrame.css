@@ -16,7 +16,7 @@
   margin: 0 auto;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0) 18%),
-    linear-gradient(180deg, var(--cpi-gray-600), var(--cpi-gray-700));
+    linear-gradient(180deg, var(--morph-gray-600), var(--morph-gray-700));
   border-radius: var(--r-md) var(--r-md) 0 0;
   padding: var(--s2);
   padding-bottom: var(--s1h);
@@ -88,7 +88,7 @@
   height: calc(var(--s2) * 2);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 42%),
-    linear-gradient(to bottom, var(--cpi-gray-300), var(--cpi-gray-400));
+    linear-gradient(to bottom, var(--morph-gray-300), var(--morph-gray-400));
   border-radius: 0 0 calc(var(--r-md) * 2) calc(var(--r-md) * 2);
   box-shadow:
     0 2px 4px rgba(0, 0, 0, 0.45),

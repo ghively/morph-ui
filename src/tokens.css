@@ -44,16 +44,16 @@
   --app-surface-raised: var(--color-surface-raised);
 
   /* CPI gray ramp (dark-frame remaps: 400/500/600 alias app ink levels) */
-  --cpi-gray-50: #f8f8f8;
-  --cpi-gray-100: #f0f0f0;
-  --cpi-gray-200: #d4d4d4;
-  --cpi-gray-300: #b4b4b4;
-  --cpi-gray-400: var(--app-faint);
-  --cpi-gray-500: var(--app-dim);
-  --cpi-gray-600: var(--app-text);
-  --cpi-gray-700: #2e2e2e;
-  --cpi-navy-800: #0b0544;
-  --cpi-blue-500: #1f6fe6;
+  --morph-gray-50: #f8f8f8;
+  --morph-gray-100: #f0f0f0;
+  --morph-gray-200: #d4d4d4;
+  --morph-gray-300: #b4b4b4;
+  --morph-gray-400: var(--app-faint);
+  --morph-gray-500: var(--app-dim);
+  --morph-gray-600: var(--app-text);
+  --morph-gray-700: #2e2e2e;
+  --morph-navy-800: #0b0544;
+  --morph-blue-500: #1f6fe6;
 
   /* typography */
   --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -399,9 +399,9 @@
 
 :where(.morph-frame, [data-morph-frame]) {
   --app-surface-raised: var(--color-surface-raised);
-  --cpi-gray-400: var(--app-faint);
-  --cpi-gray-500: var(--app-dim);
-  --cpi-gray-600: var(--app-text);
+  --morph-gray-400: var(--app-faint);
+  --morph-gray-500: var(--app-dim);
+  --morph-gray-600: var(--app-text);
   --app-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, var(--font-mono, "Courier New"), monospace;
   --d1: calc(130ms * var(--d-scale));
   --d2: calc(220ms * var(--d-scale));

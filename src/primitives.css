@@ -396,7 +396,7 @@
   --app-bg: color-mix(in srgb, var(--app-panel) 92%, var(--app-blue) 8%);
 }
 :where(.morph-frame, [data-morph-frame]) [data-frame][data-theme="light"] {
-  --cpi-blue-500: var(--sec-ink);
+  --morph-blue-500: var(--sec-ink);
 }
 :where(.morph-frame, [data-morph-frame]) [data-frame][data-theme="light"] {
   --sec: #004ba1;
@@ -638,7 +638,7 @@
   --on-sec: var(--frame);
 }
 :where(.morph-frame, [data-morph-frame]) [data-frame] {
-  --cpi-blue-500: var(--sec);
+  --morph-blue-500: var(--sec);
   --color-surface-white: var(--app-panel);
   --color-text-primary: var(--app-text);
   --color-text-secondary: var(--app-dim);
@@ -651,9 +651,9 @@
   --color-border-strong: transparent;
 }
 :where(.morph-frame, [data-morph-frame]) [data-frame] {
-  --cpi-gray-500: var(--app-dim);
-  --cpi-gray-400: var(--app-faint);
-  --cpi-gray-600: var(--app-text);
+  --morph-gray-500: var(--app-dim);
+  --morph-gray-400: var(--app-faint);
+  --morph-gray-600: var(--app-text);
   --color-error: var(--danger);
   --color-success: var(--ok);
   --color-warning: var(--warn);
@@ -664,11 +664,11 @@
   --series-3: var(--app-green);
   --series-4: var(--app-gold);
   --series-5: var(--ai);
-  --cpi-accent-blue: var(--series-1);
-  --cpi-accent-cyan: var(--series-2);
-  --cpi-accent-green: var(--series-3);
-  --cpi-accent-gold: var(--series-4);
-  --cpi-accent-navy: var(--series-5);
+  --morph-accent-blue: var(--series-1);
+  --morph-accent-cyan: var(--series-2);
+  --morph-accent-green: var(--series-3);
+  --morph-accent-gold: var(--series-4);
+  --morph-accent-navy: var(--series-5);
 }
 :where(.morph-frame, [data-morph-frame]) [data-frame] {
   position: relative;
@@ -1011,7 +1011,7 @@
      or a chart's axis keeps the canvas's ink (ADR-0050, ADR-0051) */
   --color-text-primary: #ffffff;
   --color-text-secondary: rgba(255, 255, 255, 0.88);
-  --cpi-blue-500: #ffffff;
+  --morph-blue-500: #ffffff;
   /* the ramp resolves where it is declared, so the sheet states it again or a
      chart in the artifact rail keeps the canvas's series (ADR-0050, T-640) */
   --series-1: var(--app-blue);
@@ -1019,11 +1019,11 @@
   --series-3: var(--app-green);
   --series-4: var(--app-gold);
   --series-5: var(--ai);
-  --cpi-accent-blue: var(--series-1);
-  --cpi-accent-cyan: var(--series-2);
-  --cpi-accent-green: var(--series-3);
-  --cpi-accent-gold: var(--series-4);
-  --cpi-accent-navy: var(--series-5);
+  --morph-accent-blue: var(--series-1);
+  --morph-accent-cyan: var(--series-2);
+  --morph-accent-green: var(--series-3);
+  --morph-accent-gold: var(--series-4);
+  --morph-accent-navy: var(--series-5);
   /* a zebra table alternates surface-white and surface-sunken, so both have
      to be wells on the sheet — one of them stayed #fff and took a whole row
      of a table with it (ADR-0051) */

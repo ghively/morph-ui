@@ -21,7 +21,7 @@
   position: relative;
   width: 1.5em;
   height: 2em;
-  background-color: var(--cpi-gray-700);
+  background-color: var(--morph-gray-700);
   border-radius: var(--r-xs);
   perspective: 400px;
   box-shadow:
@@ -39,12 +39,12 @@
   height: 50%;
   left: 0;
   overflow: hidden;
-  background-color: var(--cpi-gray-700);
+  background-color: var(--morph-gray-700);
   border-radius: var(--r-xs);
   backface-visibility: hidden;
   /* Inset ring instead of a border so both halves share one coordinate box
      and the glyph halves line up exactly at the split. */
-  box-shadow: inset 0 0 0 1px var(--cpi-gray-600);
+  box-shadow: inset 0 0 0 1px var(--morph-gray-600);
 }
 
 /* Faces read slightly lit from above; folds start brighter mid-flip. */

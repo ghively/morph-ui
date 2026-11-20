@@ -103,7 +103,7 @@ Each was fixed in its own component, and the templates in `src/templates/` dropp
 - [x] **White-on-accent text** (unreadable whenever the accent is light): MagneticButton, MorphWizard, MultimodalComposer send and retry buttons now use `var(--on-accent)`. FollowCursorLabel uses `var(--app-text)`.
 - [~] **Intentionally literal**: named skins stay as they are, because the colors *are* the variant. That covers the TactileKeyboardBoard, TactileKeyboardShowcase and KeyboardShowcase colorways and finishes, the TextChromaReveal RGB layers, the TextGlitch channels, the LaptopFrame bezel and the ColorArchiveScroll media backdrop. This is documented in `docs/extraction.md`.
 - [x] **Monospace font**: AuditLogViewer, CodeDiffViewer, ShortcutHelp and VariablePromptInput now use `var(--app-mono)`.
-- [x] **Derived tokens didn't re-theme on a wrapper.** A new "alias re-resolution" block at the end of `tokens.css` redeclares all 53 `var()` aliases on `:where(.morph-frame, [data-morph-frame])`. Theming a frame now flows through `--morph-*`, `--cpi-gray-*`, `--bloom`, `--el*` and the rest.
+- [x] **Derived tokens didn't re-theme on a wrapper.** A new "alias re-resolution" block at the end of `tokens.css` redeclares all 53 `var()` aliases on `:where(.morph-frame, [data-morph-frame])`. Theming a frame now flows through `--morph-*`, `--morph-gray-*`, `--bloom`, `--el*` and the rest.
 
 - [x] **Sizes and colours bypassed the token scales (2026-10-04).**
   - Component CSS used 0 spacing tokens against 857 literal paddings/gaps, 27 distinct px font sizes, 21 radii and ~100 `var(--token, #hex)` fallbacks that silently ignored theming.
