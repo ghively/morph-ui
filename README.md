@@ -1,10 +1,10 @@
 # Morph UI
 
-Component library extracted from [ChatUIMorph](https://github.com/ghively/ChatUIMorph) — the component half of the repo, promoted to a standalone library usable by any project.
+Component library extracted from ChatUIMorph — the component half of that project, promoted to a standalone library usable by any project.
 
 Philosophy: **available, not forced.** Components exist because they're good designs, not because a surface currently needs them. Every component ships with tests + provenance; nothing depends on ChatUIMorph app code.
 
-## Components (215)
+## Components (300+)
 
 Grouped as in `src/index.ts`. Every component has `X.tsx`, `X.css` and `X.stories.tsx` in `src/components/`.
 
