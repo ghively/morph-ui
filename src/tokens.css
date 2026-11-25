@@ -43,7 +43,7 @@
   --color-surface-raised: rgba(4, 18, 58, 0.16);
   --app-surface-raised: var(--color-surface-raised);
 
-  /* CPI gray ramp (dark-frame remaps: 400/500/600 alias app ink levels) */
+  /* Gray ramp (dark-frame remaps: 400/500/600 alias app ink levels) */
   --morph-gray-50: #f8f8f8;
   --morph-gray-100: #f0f0f0;
   --morph-gray-200: #d4d4d4;
